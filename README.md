@@ -35,4 +35,4 @@ ESTRUCTURA DE DIRECTORIOS
 
 ```
 
-Hola mundo
+Hola
