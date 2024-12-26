@@ -1,8 +1,9 @@
 <?php
 namespace app\controllers;
-
+use Yii;
 use yii\web\Controller;
 use app\models\Patrocinadores;
+use app\models\PatrocinadoresForm;
 
 
 class PatrocinioController extends Controller {
@@ -33,7 +34,7 @@ class PatrocinioController extends Controller {
             return $this->redirect(['index']); // Redirige a la página principal
         }
 
-        return $this->render('form', [
+        return $this->render('formulario', [
             'title' => $title,
             'model' => $model
         ]);
@@ -60,7 +61,7 @@ class PatrocinioController extends Controller {
             return $this->redirect(['index']); // Redirige a la página principal
         }
 
-        return $this->render('form', [
+        return $this->render('formulario', [
             'title' => "Editar Patrocinador " . $id,
             'model' => $model,
             'patrocinador' => $patrocinador

@@ -60,6 +60,6 @@ class Patrocinadores extends ActiveRecord{
         return $update;
     }//modificar
   
-}
+}//Patrocinadores
 ?>
 
