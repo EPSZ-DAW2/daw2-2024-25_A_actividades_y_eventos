@@ -6,7 +6,7 @@ use app\models\Patrocinadores;
 
 
 class PatrocinioController extends Controller {
-    public $layout = "//layouts/plantilla";
+    
     
         
     public function actionIndex()
