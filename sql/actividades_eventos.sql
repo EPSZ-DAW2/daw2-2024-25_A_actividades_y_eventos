@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-12-2024 a las 19:35:06
+-- Tiempo de generación: 27-12-2024 a las 20:05:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -40,7 +40,7 @@ CREATE TABLE `actividad` (
   `notas` text DEFAULT NULL,
   `imagen_principal` blob DEFAULT NULL,
   `edad_recomendada` varchar(500) DEFAULT NULL,
-  `etiquetas` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`etiquetas`)),
+  `etiquetas` bigint(20) DEFAULT NULL,
   `estado_actividad` varchar(500) DEFAULT NULL,
   `patrocinios_actividad` bigint(20) DEFAULT NULL,
   `seguimientos` int(11) DEFAULT NULL,
@@ -342,11 +342,12 @@ CREATE TABLE `usuario` (
 --
 ALTER TABLE `actividad`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_4` (`clasificacion`),
-  ADD KEY `index_5` (`imagenes_adicionales`),
-  ADD KEY `index_6` (`patrocinios_actividad`),
-  ADD KEY `index_7` (`comentarios`),
-  ADD KEY `index_8` (`registro_usuario`);
+  ADD KEY `index_5` (`clasificacion`),
+  ADD KEY `index_6` (`imagenes_adicionales`),
+  ADD KEY `index_7` (`patrocinios_actividad`),
+  ADD KEY `index_8` (`comentarios`),
+  ADD KEY `index_9` (`registro_usuario`),
+  ADD KEY `index_10` (`etiquetas`);
 
 --
 -- Indices de la tabla `anuncio`
@@ -359,14 +360,14 @@ ALTER TABLE `anuncio`
 --
 ALTER TABLE `clasificacion`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_14` (`icono`);
+  ADD KEY `index_1` (`icono`);
 
 --
 -- Indices de la tabla `clasificacion_actividad`
 --
 ALTER TABLE `clasificacion_actividad`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_12` (`clasificacion`);
+  ADD KEY `index_17` (`clasificacion`);
 
 --
 -- Indices de la tabla `comentario`
@@ -379,8 +380,8 @@ ALTER TABLE `comentario`
 --
 ALTER TABLE `comentarios`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_15` (`comentario`),
-  ADD KEY `index_16` (`actividad`);
+  ADD KEY `index_18` (`comentario`),
+  ADD KEY `index_19` (`actividad`);
 
 --
 -- Indices de la tabla `etiquetas`
@@ -393,14 +394,14 @@ ALTER TABLE `etiquetas`
 --
 ALTER TABLE `etiquetas_actividad`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_13` (`etiqueta`);
+  ADD KEY `index_4` (`etiqueta`);
 
 --
 -- Indices de la tabla `etiquetas_anuncio`
 --
 ALTER TABLE `etiquetas_anuncio`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_22` (`anuncio`);
+  ADD KEY `index_12` (`anuncio`);
 
 --
 -- Indices de la tabla `imagen`
@@ -413,32 +414,32 @@ ALTER TABLE `imagen`
 --
 ALTER TABLE `imagenes_actividad`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_21` (`imagen`);
+  ADD KEY `index_14` (`imagen`);
 
 --
 -- Indices de la tabla `notificaciones`
 --
 ALTER TABLE `notificaciones`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_17` (`usuario_origen`),
-  ADD KEY `index_18` (`usuario_destino`),
-  ADD KEY `index_19` (`actividad`),
-  ADD KEY `index_20` (`comentario`);
+  ADD KEY `index_20` (`usuario_origen`),
+  ADD KEY `index_21` (`usuario_destino`),
+  ADD KEY `index_22` (`actividad`),
+  ADD KEY `index_23` (`comentario`);
 
 --
 -- Indices de la tabla `participante`
 --
 ALTER TABLE `participante`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_3` (`actividad`);
+  ADD KEY `index_11` (`actividad`);
 
 --
 -- Indices de la tabla `patrocinios_actividad`
 --
 ALTER TABLE `patrocinios_actividad`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_1` (`anuncio`),
-  ADD KEY `index_2` (`actividad`);
+  ADD KEY `index_15` (`anuncio`),
+  ADD KEY `index_16` (`actividad`);
 
 --
 -- Indices de la tabla `registro_acciones`
@@ -457,15 +458,15 @@ ALTER TABLE `registro_usuario`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_9` (`nombre_usuario`);
+  ADD KEY `index_13` (`nombre_usuario`);
 
 --
 -- Indices de la tabla `seguimientos`
 --
 ALTER TABLE `seguimientos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `index_10` (`actividad`),
-  ADD KEY `index_11` (`usuario_seguidor`);
+  ADD KEY `index_2` (`actividad`),
+  ADD KEY `index_3` (`usuario_seguidor`);
 
 --
 -- Indices de la tabla `ubicacion`
@@ -614,6 +615,7 @@ ALTER TABLE `usuario`
 ALTER TABLE `actividad`
   ADD CONSTRAINT `actividad_clasificacion_fk` FOREIGN KEY (`clasificacion`) REFERENCES `clasificacion_actividad` (`id`),
   ADD CONSTRAINT `actividad_comentarios_fk` FOREIGN KEY (`comentarios`) REFERENCES `comentarios` (`id`),
+  ADD CONSTRAINT `actividad_etiquetas_fk` FOREIGN KEY (`etiquetas`) REFERENCES `etiquetas_actividad` (`id`),
   ADD CONSTRAINT `actividad_imagenes_adicionales_fk` FOREIGN KEY (`imagenes_adicionales`) REFERENCES `imagenes_actividad` (`id`),
   ADD CONSTRAINT `actividad_patrocinios_actividad_fk` FOREIGN KEY (`patrocinios_actividad`) REFERENCES `patrocinios_actividad` (`id`),
   ADD CONSTRAINT `actividad_registro_usuario_fk` FOREIGN KEY (`registro_usuario`) REFERENCES `registro_usuario` (`id`);
