@@ -12,14 +12,23 @@ $this->title = 'Formulario de Patrocinadores';
 <div class="form">
     <?php $form = ActiveForm::begin([
         'id' => 'patrocinadores-form',
+        'options' => ['class' => 'needs-validation', 'novalidate' => true],
         'enableClientValidation' => true,
         'validateOnSubmit' => true,
     ]); ?>
 
-    <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'apellido')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'email')->input('email') ?>
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+    <div class="mb-3">
+        <?= $form->field($model, 'nombre')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+    </div>
+    <div class="mb-3">
+        <?= $form->field($model, 'apellido')->textInput(['maxlength' => true, 'class' => 'form-control']) ?>
+    </div>
+    <div class="mb-3">
+        <?= $form->field($model, 'email')->input('email', ['class' => 'form-control']) ?>
+    </div>
+    <div class="mb-3">
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'class' => 'form-control']) ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

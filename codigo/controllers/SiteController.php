@@ -125,4 +125,26 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+    
+    // Nueva acción para la página privada
+    public function actionPrivada()
+    {
+        return $this->render('privada');
+    }// actionPrivada
+
+    // Nueva acción para la página de política de privacidad
+    public function actionPoliticaprivacidad()
+    {
+        return $this->render('politicaprivacidad');
+    }// actionPoliticaprivacidad
+
+    public function actionLegal()
+    {
+        return $this->render('legal');
+    }
+
+    public function actionCookies()
+    {
+        return $this->render('cookies');
+    }
 }
