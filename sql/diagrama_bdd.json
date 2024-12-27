@@ -1,15 +1,15 @@
 {
   "id": "0",
   "name": "DAW2",
-  "createdAt": "2024-12-27T18:34:18.786Z",
-  "updatedAt": "2024-12-27T18:34:18.786Z",
+  "createdAt": "2024-12-27T18:55:09.609Z",
+  "updatedAt": "2024-12-27T18:55:09.609Z",
   "databaseType": "mysql",
   "tables": [
     {
       "id": "1",
-      "name": "patrocinios_actividad",
-      "x": 1374.4950929351699,
-      "y": -410.5662916544501,
+      "name": "clasificacion",
+      "x": 345.8526882176082,
+      "y": -341.6790664083238,
       "fields": [
         {
           "id": "2",
@@ -18,2308 +18,2328 @@
             "id": "bigint",
             "name": "bigint"
           },
+          "primaryKey": true,
           "unique": true,
           "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047359883
+          "createdAt": 1735047185339
         },
         {
           "id": "3",
-          "name": "actividad",
+          "name": "nombre_clasificacion",
           "type": {
-            "name": "bigint",
-            "id": "bigint"
+            "id": "varchar",
+            "name": "varchar"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047373213
+          "createdAt": 1735047200534
         },
         {
           "id": "4",
-          "name": "anuncio",
+          "name": "descripcion_clasificacion",
           "type": {
-            "name": "bigint",
-            "id": "bigint"
+            "id": "text",
+            "name": "text"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047383689
-        }
-      ],
-      "indexes": [
+          "createdAt": 1735047220547
+        },
         {
           "id": "5",
-          "name": "index_1",
-          "fieldIds": [
-            "4"
-          ],
+          "name": "clasificacion_raiz",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
           "unique": false,
-          "createdAt": 1735314527988
+          "nullable": true,
+          "createdAt": 1735047269781
         },
         {
           "id": "6",
-          "name": "index_2",
-          "fieldIds": [
-            "3"
-          ],
-          "unique": false,
-          "createdAt": 1735315808680
-        }
-      ],
-      "color": "#4dee8a",
-      "createdAt": 1735047359883,
-      "isView": false,
-      "order": 10,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "7",
-      "name": "participante",
-      "x": 136.0000348113171,
-      "y": -16.32425363010644,
-      "fields": [
-        {
-          "id": "8",
-          "name": "id",
+          "name": "icono",
           "type": {
             "id": "bigint",
             "name": "bigint"
           },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047590787
-        },
-        {
-          "id": "9",
-          "name": "actividad",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047603013
-        },
-        {
-          "id": "10",
-          "name": "usuario",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047610282
-        },
-        {
-          "id": "11",
-          "name": "fecha_registro",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047618117
-        },
-        {
-          "id": "12",
-          "name": "cancelado",
-          "type": {
-            "name": "boolean",
-            "id": "boolean"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047638323
-        },
-        {
-          "id": "13",
-          "name": "fecha_cancelacion",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047646904
-        },
-        {
-          "id": "14",
-          "name": "motivo_cancelacion",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047659225
-        },
-        {
-          "id": "15",
-          "name": "notas",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047668661
+          "createdAt": 1735314317956
         }
       ],
       "indexes": [
         {
-          "id": "16",
+          "id": "7",
           "name": "index_1",
-          "fieldIds": [
-            "9"
-          ],
           "unique": false,
-          "createdAt": 1735314667964
+          "fieldIds": [
+            "6"
+          ],
+          "createdAt": 1735314333839
         }
       ],
-      "color": "#ff6363",
-      "createdAt": 1735047590787,
+      "color": "#ff9f74",
       "isView": false,
-      "order": 15,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735047185339,
+      "order": 7,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
-      "id": "17",
-      "name": "actividad",
-      "x": 921.831136341678,
-      "y": -572.6154990786497,
-      "fields": [
-        {
-          "id": "18",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735046244139
-        },
-        {
-          "id": "19",
-          "name": "titulo",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046424435
-        },
-        {
-          "id": "20",
-          "name": "descripcion",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046449470
-        },
-        {
-          "id": "21",
-          "name": "fecha_celebracion",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046472595
-        },
-        {
-          "id": "22",
-          "name": "duracion_estimada",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046488323
-        },
-        {
-          "id": "23",
-          "name": "lugar_celebracion",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046506531
-        },
-        {
-          "id": "24",
-          "name": "detalles",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046519213
-        },
-        {
-          "id": "25",
-          "name": "notas",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046537861
-        },
-        {
-          "id": "26",
-          "name": "imagen_principal",
-          "type": {
-            "name": "blob",
-            "id": "blob"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046558892
-        },
-        {
-          "id": "27",
-          "name": "edad_recomendada",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046603408
-        },
-        {
-          "id": "28",
-          "name": "etiquetas",
-          "type": {
-            "name": "json",
-            "id": "json"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046615873
-        },
-        {
-          "id": "29",
-          "name": "estado_actividad",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046623989
-        },
-        {
-          "id": "30",
-          "name": "patrocinios_actividad",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046641926
-        },
-        {
-          "id": "31",
-          "name": "seguimientos",
-          "type": {
-            "name": "int",
-            "id": "int"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046652431
-        },
-        {
-          "id": "32",
-          "name": "participacion",
-          "type": {
-            "name": "int",
-            "id": "int"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046676510
-        },
-        {
-          "id": "33",
-          "name": "valoracion",
-          "type": {
-            "name": "float",
-            "id": "float"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046688335
-        },
-        {
-          "id": "34",
-          "name": "comentarios",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046716012
-        },
-        {
-          "id": "35",
-          "name": "clasificacion",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735222426685
-        },
-        {
-          "id": "36",
-          "name": "imagenes_adicionales",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735222466170
-        },
-        {
-          "id": "37",
-          "name": "votosOK",
-          "type": {
-            "name": "int",
-            "id": "int"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320039051
-        },
-        {
-          "id": "38",
-          "name": "votosKO",
-          "type": {
-            "name": "int",
-            "id": "int"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320058042
-        },
-        {
-          "id": "39",
-          "name": "registro_usuario",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320232743
-        }
-      ],
-      "indexes": [
-        {
-          "id": "40",
-          "name": "index_1",
-          "fieldIds": [
-            "35"
-          ],
-          "unique": false,
-          "createdAt": 1735222681705
-        },
-        {
-          "id": "41",
-          "name": "index_3",
-          "fieldIds": [
-            "36"
-          ],
-          "unique": false,
-          "createdAt": 1735222926105
-        },
-        {
-          "id": "42",
-          "name": "index_3",
-          "fieldIds": [
-            "30"
-          ],
-          "unique": false,
-          "createdAt": 1735222938578
-        },
-        {
-          "id": "43",
-          "name": "index_4",
-          "fieldIds": [
-            "34"
-          ],
-          "unique": false,
-          "createdAt": 1735314113610
-        },
-        {
-          "id": "44",
-          "name": "index_5",
-          "fieldIds": [
-            "39"
-          ],
-          "unique": false,
-          "createdAt": 1735320243707
-        }
-      ],
-      "color": "#8a61f5",
-      "createdAt": 1735046244139,
-      "isView": false,
-      "order": 0,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "45",
-      "name": "usuario",
-      "x": 1925.871326202443,
-      "y": -1723.6809855287238,
-      "fields": [
-        {
-          "id": "46",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735320668503
-        },
-        {
-          "id": "47",
-          "name": "nick",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320687503
-        },
-        {
-          "id": "48",
-          "name": "password",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320694651
-        },
-        {
-          "id": "49",
-          "name": "email",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320706189
-        },
-        {
-          "id": "50",
-          "name": "nombre",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320718567
-        },
-        {
-          "id": "51",
-          "name": "apellidos",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320725590
-        },
-        {
-          "id": "52",
-          "name": "fecha_nacimiento",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320739095
-        },
-        {
-          "id": "53",
-          "name": "ubicacion",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320765555
-        },
-        {
-          "id": "54",
-          "name": "activo",
-          "type": {
-            "name": "boolean",
-            "id": "boolean"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320828309
-        },
-        {
-          "id": "55",
-          "name": "fecha_registro",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320836817
-        },
-        {
-          "id": "56",
-          "name": "registro_confirmado",
-          "type": {
-            "name": "boolean",
-            "id": "boolean"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320861597
-        },
-        {
-          "id": "57",
-          "name": "revisado",
-          "type": {
-            "name": "boolean",
-            "id": "boolean"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320874082
-        },
-        {
-          "id": "58",
-          "name": "ultimo_acceso",
-          "type": {
-            "name": "datetime",
-            "id": "datetime"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320884963
-        },
-        {
-          "id": "59",
-          "name": "intentos_acceso",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320905353
-        },
-        {
-          "id": "60",
-          "name": "bloqueado",
-          "type": {
-            "name": "boolean",
-            "id": "boolean"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320921699
-        },
-        {
-          "id": "61",
-          "name": "fecha_bloqueo",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320930862
-        },
-        {
-          "id": "62",
-          "name": "motivo_bloqueo",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320943529
-        },
-        {
-          "id": "63",
-          "name": "notas",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320963407
-        }
-      ],
-      "indexes": [],
-      "color": "#ff6b8a",
-      "createdAt": 1735320668503,
-      "isView": false,
-      "order": 19,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "64",
-      "name": "registro_usuario",
-      "x": 1390.9253433199415,
-      "y": -682.4420604647537,
-      "fields": [
-        {
-          "id": "65",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735320252255
-        },
-        {
-          "id": "66",
-          "name": "fecha_creacion",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320273437
-        },
-        {
-          "id": "67",
-          "name": "usuario_creador",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320300817
-        },
-        {
-          "id": "68",
-          "name": "fecha_mod",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320328563
-        },
-        {
-          "id": "69",
-          "name": "usuario_mod",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320337375
-        }
-      ],
-      "indexes": [],
-      "color": "#8eb7ff",
-      "createdAt": 1735320252255,
-      "isView": false,
-      "order": 17,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "70",
-      "name": "registro_acciones",
-      "x": 1935.2672913303754,
-      "y": -874.7552089401713,
-      "fields": [
-        {
-          "id": "71",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735321445322
-        },
-        {
-          "id": "72",
-          "name": "usuario_accion",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735321466048
-        },
-        {
-          "id": "73",
-          "name": "fecha_accion",
-          "type": {
-            "name": "datetime",
-            "id": "datetime"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735321480409
-        },
-        {
-          "id": "74",
-          "name": "accion",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735321660493
-        }
-      ],
-      "indexes": [],
-      "color": "#8a61f5",
-      "createdAt": 1735321445322,
-      "isView": false,
-      "order": 21,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "75",
-      "name": "etiquetas",
-      "x": 1002.8336386886731,
-      "y": 261.7914996822407,
-      "fields": [
-        {
-          "id": "76",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047103193
-        },
-        {
-          "id": "77",
-          "name": "nombre_etiqueta",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047113277
-        },
-        {
-          "id": "78",
-          "name": "descripcion",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047128109
-        }
-      ],
-      "indexes": [],
-      "color": "#ff6363",
-      "createdAt": 1735047103193,
-      "isView": false,
-      "order": 5,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "79",
-      "name": "roles",
-      "x": 2321.440809533766,
-      "y": -1672.5191535714298,
-      "fields": [
-        {
-          "id": "80",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735321042643
-        },
-        {
-          "id": "81",
-          "name": "nombre_usuario",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735321057743
-        },
-        {
-          "id": "82",
-          "name": "rol",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735321063026
-        }
-      ],
-      "indexes": [
-        {
-          "id": "83",
-          "name": "index_1",
-          "fieldIds": [
-            "81"
-          ],
-          "unique": false,
-          "createdAt": 1735321194525
-        }
-      ],
-      "color": "#8a61f5",
-      "createdAt": 1735321042643,
-      "isView": false,
-      "order": 20,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "84",
+      "id": "8",
       "name": "seguimientos",
       "x": 548.5286654665586,
       "y": -1275.58660121096,
       "fields": [
         {
-          "id": "85",
+          "id": "9",
           "name": "id",
           "type": {
             "id": "bigint",
             "name": "bigint"
           },
+          "primaryKey": true,
           "unique": true,
           "nullable": false,
-          "primaryKey": true,
           "createdAt": 1735047515435
         },
         {
-          "id": "86",
+          "id": "10",
           "name": "fecha_seguimiento",
           "type": {
-            "name": "date",
-            "id": "date"
+            "id": "date",
+            "name": "date"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735047525280
         },
         {
-          "id": "87",
+          "id": "11",
           "name": "actividad",
           "type": {
-            "name": "bigint",
-            "id": "bigint"
+            "id": "bigint",
+            "name": "bigint"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735047538466
         },
         {
-          "id": "88",
+          "id": "12",
           "name": "usuario_seguidor",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047552724
+        }
+      ],
+      "indexes": [
+        {
+          "id": "13",
+          "name": "index_1",
+          "unique": false,
+          "fieldIds": [
+            "11"
+          ],
+          "createdAt": 1735322323950
+        },
+        {
+          "id": "14",
+          "name": "index_2",
+          "unique": false,
+          "fieldIds": [
+            "12"
+          ],
+          "createdAt": 1735322329249
+        }
+      ],
+      "color": "#9ef07a",
+      "isView": false,
+      "createdAt": 1735047515435,
+      "order": 13,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "15",
+      "name": "etiquetas_actividad",
+      "x": 632.4882982648776,
+      "y": 238.3819340676805,
+      "fields": [
+        {
+          "id": "16",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735047146343
+        },
+        {
+          "id": "17",
+          "name": "etiqueta",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047160735
+        },
+        {
+          "id": "18",
+          "name": "actividad",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047170571
+        }
+      ],
+      "indexes": [
+        {
+          "id": "19",
+          "name": "index_1",
+          "unique": false,
+          "fieldIds": [
+            "17"
+          ],
+          "createdAt": 1735223231748
+        }
+      ],
+      "color": "#b067e9",
+      "isView": false,
+      "createdAt": 1735047146343,
+      "order": 6,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "20",
+      "name": "etiquetas",
+      "x": 1002.8336386886731,
+      "y": 261.7914996822407,
+      "fields": [
+        {
+          "id": "21",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735047103193
+        },
+        {
+          "id": "22",
+          "name": "nombre_etiqueta",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047113277
+        },
+        {
+          "id": "23",
+          "name": "descripcion",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047128109
+        }
+      ],
+      "indexes": [],
+      "color": "#ff6363",
+      "isView": false,
+      "createdAt": 1735047103193,
+      "order": 5,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "24",
+      "name": "actividad",
+      "x": 921.831136341678,
+      "y": -572.6154990786497,
+      "fields": [
+        {
+          "id": "25",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735046244139
+        },
+        {
+          "id": "26",
+          "name": "titulo",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046424435
+        },
+        {
+          "id": "27",
+          "name": "descripcion",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046449470
+        },
+        {
+          "id": "28",
+          "name": "fecha_celebracion",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046472595
+        },
+        {
+          "id": "29",
+          "name": "duracion_estimada",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046488323
+        },
+        {
+          "id": "30",
+          "name": "lugar_celebracion",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046506531
+        },
+        {
+          "id": "31",
+          "name": "detalles",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046519213
+        },
+        {
+          "id": "32",
+          "name": "notas",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046537861
+        },
+        {
+          "id": "33",
+          "name": "imagen_principal",
+          "type": {
+            "id": "blob",
+            "name": "blob"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046558892
+        },
+        {
+          "id": "34",
+          "name": "edad_recomendada",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046603408
+        },
+        {
+          "id": "35",
+          "name": "etiquetas",
           "type": {
             "name": "bigint",
             "id": "bigint"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
+          "createdAt": 1735046615873
+        },
+        {
+          "id": "36",
+          "name": "estado_actividad",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
           "primaryKey": false,
-          "createdAt": 1735047552724
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046623989
+        },
+        {
+          "id": "37",
+          "name": "patrocinios_actividad",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046641926
+        },
+        {
+          "id": "38",
+          "name": "seguimientos",
+          "type": {
+            "id": "int",
+            "name": "int"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046652431
+        },
+        {
+          "id": "39",
+          "name": "participacion",
+          "type": {
+            "id": "int",
+            "name": "int"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046676510
+        },
+        {
+          "id": "40",
+          "name": "valoracion",
+          "type": {
+            "id": "float",
+            "name": "float"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046688335
+        },
+        {
+          "id": "41",
+          "name": "comentarios",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046716012
+        },
+        {
+          "id": "42",
+          "name": "clasificacion",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735222426685
+        },
+        {
+          "id": "43",
+          "name": "imagenes_adicionales",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735222466170
+        },
+        {
+          "id": "44",
+          "name": "votosOK",
+          "type": {
+            "id": "int",
+            "name": "int"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320039051
+        },
+        {
+          "id": "45",
+          "name": "votosKO",
+          "type": {
+            "id": "int",
+            "name": "int"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320058042
+        },
+        {
+          "id": "46",
+          "name": "registro_usuario",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320232743
+        }
+      ],
+      "indexes": [
+        {
+          "id": "47",
+          "name": "index_1",
+          "unique": false,
+          "fieldIds": [
+            "42"
+          ],
+          "createdAt": 1735222681705
+        },
+        {
+          "id": "48",
+          "name": "index_3",
+          "unique": false,
+          "fieldIds": [
+            "43"
+          ],
+          "createdAt": 1735222926105
+        },
+        {
+          "id": "49",
+          "name": "index_3",
+          "unique": false,
+          "fieldIds": [
+            "37"
+          ],
+          "createdAt": 1735222938578
+        },
+        {
+          "id": "50",
+          "name": "index_4",
+          "unique": false,
+          "fieldIds": [
+            "41"
+          ],
+          "createdAt": 1735314113610
+        },
+        {
+          "id": "51",
+          "name": "index_5",
+          "unique": false,
+          "fieldIds": [
+            "46"
+          ],
+          "createdAt": 1735320243707
+        },
+        {
+          "id": "52",
+          "name": "index_6",
+          "fieldIds": [
+            "35"
+          ],
+          "unique": false,
+          "createdAt": 1735325623821
+        }
+      ],
+      "color": "#8a61f5",
+      "isView": false,
+      "createdAt": 1735046244139,
+      "order": 0,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "53",
+      "name": "registro_usuario",
+      "x": 1390.9253433199415,
+      "y": -682.4420604647537,
+      "fields": [
+        {
+          "id": "54",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735320252255
+        },
+        {
+          "id": "55",
+          "name": "fecha_creacion",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320273437
+        },
+        {
+          "id": "56",
+          "name": "usuario_creador",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320300817
+        },
+        {
+          "id": "57",
+          "name": "fecha_mod",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320328563
+        },
+        {
+          "id": "58",
+          "name": "usuario_mod",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320337375
+        }
+      ],
+      "indexes": [],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1735320252255,
+      "order": 17,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "59",
+      "name": "participante",
+      "x": 136.0000348113171,
+      "y": -16.32425363010644,
+      "fields": [
+        {
+          "id": "60",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735047590787
+        },
+        {
+          "id": "61",
+          "name": "actividad",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047603013
+        },
+        {
+          "id": "62",
+          "name": "usuario",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047610282
+        },
+        {
+          "id": "63",
+          "name": "fecha_registro",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047618117
+        },
+        {
+          "id": "64",
+          "name": "cancelado",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047638323
+        },
+        {
+          "id": "65",
+          "name": "fecha_cancelacion",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047646904
+        },
+        {
+          "id": "66",
+          "name": "motivo_cancelacion",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047659225
+        },
+        {
+          "id": "67",
+          "name": "notas",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047668661
+        }
+      ],
+      "indexes": [
+        {
+          "id": "68",
+          "name": "index_1",
+          "unique": false,
+          "fieldIds": [
+            "61"
+          ],
+          "createdAt": 1735314667964
+        }
+      ],
+      "color": "#ff6363",
+      "isView": false,
+      "createdAt": 1735047590787,
+      "order": 15,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "69",
+      "name": "comentario",
+      "x": 1558.57125955543,
+      "y": -135.14311401878842,
+      "fields": [
+        {
+          "id": "70",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735047739190
+        },
+        {
+          "id": "71",
+          "name": "registro_usuario",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047753187
+        },
+        {
+          "id": "72",
+          "name": "texto",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047762204
+        },
+        {
+          "id": "73",
+          "name": "comentario_relacionado",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047773213
+        },
+        {
+          "id": "74",
+          "name": "cerrado_comentar",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047786903
+        },
+        {
+          "id": "75",
+          "name": "numero_denuncias",
+          "type": {
+            "id": "int",
+            "name": "int"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047802025
+        },
+        {
+          "id": "76",
+          "name": "fecha_denuncia",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047816506
+        },
+        {
+          "id": "77",
+          "name": "bloqueado",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047827846
+        },
+        {
+          "id": "78",
+          "name": "fecha_bloqueo",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047840792
+        },
+        {
+          "id": "79",
+          "name": "motivo_bloqueo",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047854529
+        }
+      ],
+      "indexes": [],
+      "color": "#7175fa",
+      "isView": false,
+      "createdAt": 1735047739190,
+      "order": 18,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "80",
+      "name": "etiquetas_anuncio",
+      "x": 1998.9313864949822,
+      "y": -492.02593564487887,
+      "fields": [
+        {
+          "id": "81",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735047476181
+        },
+        {
+          "id": "82",
+          "name": "etiqueta",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047490164
+        },
+        {
+          "id": "83",
+          "name": "anuncio",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047499507
+        }
+      ],
+      "indexes": [
+        {
+          "id": "84",
+          "name": "index_1",
+          "unique": false,
+          "fieldIds": [
+            "83"
+          ],
+          "createdAt": 1735223165427
+        }
+      ],
+      "color": "#8eb7ff",
+      "isView": false,
+      "createdAt": 1735047476181,
+      "order": 12,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "85",
+      "name": "roles",
+      "x": 2321.440809533766,
+      "y": -1672.5191535714298,
+      "fields": [
+        {
+          "id": "86",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735321042643
+        },
+        {
+          "id": "87",
+          "name": "nombre_usuario",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735321057743
+        },
+        {
+          "id": "88",
+          "name": "rol",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735321063026
         }
       ],
       "indexes": [
         {
           "id": "89",
           "name": "index_1",
+          "unique": false,
           "fieldIds": [
             "87"
           ],
-          "unique": false,
-          "createdAt": 1735322323950
-        },
-        {
-          "id": "90",
-          "name": "index_2",
-          "fieldIds": [
-            "88"
-          ],
-          "unique": false,
-          "createdAt": 1735322329249
+          "createdAt": 1735321194525
         }
       ],
-      "color": "#9ef07a",
-      "createdAt": 1735047515435,
+      "color": "#8a61f5",
       "isView": false,
-      "order": 13,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735321042643,
+      "order": 20,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
-      "id": "91",
-      "name": "anuncio",
-      "x": 1731.9900955478352,
-      "y": -498.18655424783054,
-      "fields": [
-        {
-          "id": "92",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047398041
-        },
-        {
-          "id": "93",
-          "name": "titulo",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047415153
-        },
-        {
-          "id": "94",
-          "name": "texto",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047422015
-        },
-        {
-          "id": "95",
-          "name": "imagen",
-          "type": {
-            "name": "blob",
-            "id": "blob"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047431644
-        },
-        {
-          "id": "96",
-          "name": "registro_usuario",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047441550
-        },
-        {
-          "id": "97",
-          "name": "notas",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047454279
-        }
-      ],
-      "indexes": [],
-      "color": "#b067e9",
-      "createdAt": 1735047398041,
-      "isView": false,
-      "order": 11,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "98",
-      "name": "clasificacion_actividad",
-      "x": 653.9264292541949,
-      "y": -179.39438171889697,
-      "fields": [
-        {
-          "id": "99",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047295361
-        },
-        {
-          "id": "100",
-          "name": "clasificacion",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047306211
-        },
-        {
-          "id": "101",
-          "name": "actividad",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047314623
-        }
-      ],
-      "indexes": [
-        {
-          "id": "102",
-          "name": "index_1",
-          "fieldIds": [
-            "100"
-          ],
-          "unique": false,
-          "createdAt": 1735314378402
-        }
-      ],
-      "color": "#9ef07a",
-      "createdAt": 1735047295361,
-      "isView": false,
-      "order": 8,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "103",
-      "name": "etiquetas_actividad",
-      "x": 691.9877562827911,
-      "y": 250.2818256712632,
-      "fields": [
-        {
-          "id": "104",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047146343
-        },
-        {
-          "id": "105",
-          "name": "etiqueta",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047160735
-        },
-        {
-          "id": "106",
-          "name": "actividad",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047170571
-        }
-      ],
-      "indexes": [
-        {
-          "id": "107",
-          "name": "index_1",
-          "fieldIds": [
-            "105"
-          ],
-          "unique": false,
-          "createdAt": 1735223231748
-        }
-      ],
-      "color": "#b067e9",
-      "createdAt": 1735047146343,
-      "isView": false,
-      "order": 6,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "108",
-      "name": "clasificacion",
-      "x": 345.8526882176082,
-      "y": -341.6790664083238,
-      "fields": [
-        {
-          "id": "109",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047185339
-        },
-        {
-          "id": "110",
-          "name": "nombre_clasificacion",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047200534
-        },
-        {
-          "id": "111",
-          "name": "descripcion_clasificacion",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047220547
-        },
-        {
-          "id": "112",
-          "name": "clasificacion_raiz",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047269781
-        },
-        {
-          "id": "113",
-          "name": "icono",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735314317956
-        }
-      ],
-      "indexes": [
-        {
-          "id": "114",
-          "name": "index_1",
-          "fieldIds": [
-            "113"
-          ],
-          "unique": false,
-          "createdAt": 1735314333839
-        }
-      ],
-      "color": "#ff9f74",
-      "createdAt": 1735047185339,
-      "isView": false,
-      "order": 7,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "115",
-      "name": "comentarios",
-      "x": 1293.6163973008327,
-      "y": -96.3546611265261,
-      "fields": [
-        {
-          "id": "116",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047698591
-        },
-        {
-          "id": "117",
-          "name": "actividad",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047711538
-        },
-        {
-          "id": "118",
-          "name": "comentario",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047721205
-        }
-      ],
-      "indexes": [
-        {
-          "id": "119",
-          "name": "index_1",
-          "fieldIds": [
-            "118"
-          ],
-          "unique": false,
-          "createdAt": 1735223132952
-        },
-        {
-          "id": "120",
-          "name": "index_2",
-          "fieldIds": [
-            "117"
-          ],
-          "unique": false,
-          "createdAt": 1735314738077
-        }
-      ],
-      "color": "#b067e9",
-      "createdAt": 1735047698591,
-      "isView": false,
-      "order": 17,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "121",
-      "name": "notificaciones",
-      "x": 1518.6410059470008,
-      "y": -1522.450154293019,
-      "fields": [
-        {
-          "id": "122",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735320409527
-        },
-        {
-          "id": "123",
-          "name": "fecha",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320429422
-        },
-        {
-          "id": "124",
-          "name": "cod_clase",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320430589
-        },
-        {
-          "id": "125",
-          "name": "texto",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320430790
-        },
-        {
-          "id": "126",
-          "name": "usuario_origen",
-          "type": {
-            "name": "bigint",
-            "id": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320430949
-        },
-        {
-          "id": "127",
-          "name": "usuario_destino",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320431109
-        },
-        {
-          "id": "128",
-          "name": "actividad",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320431297
-        },
-        {
-          "id": "129",
-          "name": "comentario",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320431453
-        },
-        {
-          "id": "130",
-          "name": "fecha_lectura",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320547809
-        },
-        {
-          "id": "131",
-          "name": "fecha_borrado",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320547954
-        },
-        {
-          "id": "132",
-          "name": "fecha_aceptacion",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735320579353
-        }
-      ],
-      "indexes": [
-        {
-          "id": "133",
-          "name": "index_1",
-          "fieldIds": [
-            "126"
-          ],
-          "unique": false,
-          "createdAt": 1735320601622
-        },
-        {
-          "id": "134",
-          "name": "index_2",
-          "fieldIds": [
-            "127"
-          ],
-          "unique": false,
-          "createdAt": 1735320610305
-        },
-        {
-          "id": "135",
-          "name": "index_3",
-          "fieldIds": [
-            "128"
-          ],
-          "unique": false,
-          "createdAt": 1735320620357
-        },
-        {
-          "id": "136",
-          "name": "index_4",
-          "fieldIds": [
-            "129"
-          ],
-          "unique": false,
-          "createdAt": 1735320626787
-        }
-      ],
-      "color": "#ff9f74",
-      "createdAt": 1735320409527,
-      "isView": false,
-      "order": 18,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "137",
-      "name": "imagen",
-      "x": 565.6851623881305,
-      "y": -888.6443058815205,
-      "fields": [
-        {
-          "id": "138",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735046967655
-        },
-        {
-          "id": "139",
-          "name": "titulo",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046975259
-        },
-        {
-          "id": "140",
-          "name": "descripcion",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046984159
-        },
-        {
-          "id": "141",
-          "name": "nombre_archivo",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735046999937
-        },
-        {
-          "id": "142",
-          "name": "extension",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047010164
-        },
-        {
-          "id": "143",
-          "name": "ruta",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047025238
-        },
-        {
-          "id": "144",
-          "name": "notas",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047036527
-        }
-      ],
-      "indexes": [],
-      "color": "#ff6b8a",
-      "createdAt": 1735046967655,
-      "isView": false,
-      "order": 3,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "145",
-      "name": "comentario",
-      "x": 1558.57125955543,
-      "y": -135.14311401878842,
-      "fields": [
-        {
-          "id": "146",
-          "name": "id",
-          "type": {
-            "id": "bigint",
-            "name": "bigint"
-          },
-          "unique": true,
-          "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047739190
-        },
-        {
-          "id": "147",
-          "name": "registro_usuario",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047753187
-        },
-        {
-          "id": "148",
-          "name": "texto",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047762204
-        },
-        {
-          "id": "149",
-          "name": "comentario_relacionado",
-          "type": {
-            "name": "varchar",
-            "id": "varchar"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047773213
-        },
-        {
-          "id": "150",
-          "name": "cerrado_comentar",
-          "type": {
-            "name": "boolean",
-            "id": "boolean"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047786903
-        },
-        {
-          "id": "151",
-          "name": "numero_denuncias",
-          "type": {
-            "name": "int",
-            "id": "int"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047802025
-        },
-        {
-          "id": "152",
-          "name": "fecha_denuncia",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047816506
-        },
-        {
-          "id": "153",
-          "name": "bloqueado",
-          "type": {
-            "name": "boolean",
-            "id": "boolean"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047827846
-        },
-        {
-          "id": "154",
-          "name": "fecha_bloqueo",
-          "type": {
-            "name": "date",
-            "id": "date"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047840792
-        },
-        {
-          "id": "155",
-          "name": "motivo_bloqueo",
-          "type": {
-            "name": "text",
-            "id": "text"
-          },
-          "unique": false,
-          "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047854529
-        }
-      ],
-      "indexes": [],
-      "color": "#7175fa",
-      "createdAt": 1735047739190,
-      "isView": false,
-      "order": 18,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "156",
+      "id": "90",
       "name": "imagenes_actividad",
       "x": 863.4446735628768,
       "y": -825.6587830098982,
       "fields": [
         {
-          "id": "157",
+          "id": "91",
           "name": "id",
           "type": {
             "id": "bigint",
             "name": "bigint"
           },
+          "primaryKey": true,
           "unique": true,
           "nullable": false,
-          "primaryKey": true,
           "createdAt": 1735047047435
         },
         {
-          "id": "158",
+          "id": "92",
           "name": "imagen",
           "type": {
-            "name": "bigint",
-            "id": "bigint"
+            "id": "bigint",
+            "name": "bigint"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735047061939
         },
         {
-          "id": "159",
+          "id": "93",
           "name": "actividad",
           "type": {
-            "name": "varchar",
-            "id": "varchar"
+            "id": "varchar",
+            "name": "varchar"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735047071775
         },
         {
-          "id": "160",
+          "id": "94",
           "name": "orden",
           "type": {
-            "name": "int",
-            "id": "int"
+            "id": "int",
+            "name": "int"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735047083745
         }
       ],
       "indexes": [
         {
-          "id": "161",
+          "id": "95",
           "name": "index_1",
-          "fieldIds": [
-            "158"
-          ],
           "unique": false,
+          "fieldIds": [
+            "92"
+          ],
           "createdAt": 1735223022292
         }
       ],
       "color": "#ff6b8a",
-      "createdAt": 1735047047435,
       "isView": false,
+      "createdAt": 1735047047435,
       "order": 4,
-      "diagramId": "0lv1pt5x1k3r"
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
-      "id": "162",
+      "id": "96",
+      "name": "registro_acciones",
+      "x": 1935.2672913303754,
+      "y": -874.7552089401713,
+      "fields": [
+        {
+          "id": "97",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735321445322
+        },
+        {
+          "id": "98",
+          "name": "usuario_accion",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735321466048
+        },
+        {
+          "id": "99",
+          "name": "fecha_accion",
+          "type": {
+            "id": "datetime",
+            "name": "datetime"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735321480409
+        },
+        {
+          "id": "100",
+          "name": "accion",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735321660493
+        }
+      ],
+      "indexes": [],
+      "color": "#8a61f5",
+      "isView": false,
+      "createdAt": 1735321445322,
+      "order": 21,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "101",
       "name": "ubicacion",
       "x": 2329.8036563595983,
       "y": -1984.2138510621319,
       "fields": [
         {
-          "id": "163",
+          "id": "102",
           "name": "id",
           "type": {
             "id": "bigint",
             "name": "bigint"
           },
+          "primaryKey": true,
           "unique": true,
           "nullable": false,
-          "primaryKey": true,
           "createdAt": 1735046796613
         },
         {
-          "id": "164",
+          "id": "103",
           "name": "clase_ubicacion",
           "type": {
-            "name": "int",
-            "id": "int"
+            "id": "int",
+            "name": "int"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735046810188
         },
         {
-          "id": "165",
+          "id": "104",
           "name": "nombre_ubicacion",
           "type": {
-            "name": "varchar",
-            "id": "varchar"
+            "id": "varchar",
+            "name": "varchar"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735046829543
         },
         {
-          "id": "166",
+          "id": "105",
           "name": "ubicacion_raiz",
           "type": {
-            "name": "varchar",
-            "id": "varchar"
+            "id": "varchar",
+            "name": "varchar"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735046843559
         },
         {
-          "id": "167",
+          "id": "106",
           "name": "notas",
           "type": {
-            "name": "text",
-            "id": "text"
+            "id": "text",
+            "name": "text"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
           "createdAt": 1735046876057
         }
       ],
       "indexes": [],
       "color": "#ff9f74",
-      "createdAt": 1735046796613,
       "isView": false,
+      "createdAt": 1735046796613,
       "order": 2,
-      "diagramId": "0lv1pt5x1k3r"
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
-      "id": "168",
-      "name": "etiquetas_anuncio",
-      "x": 1998.9313864949822,
-      "y": -492.02593564487887,
+      "id": "107",
+      "name": "patrocinios_actividad",
+      "x": 1374.4950929351699,
+      "y": -410.5662916544501,
       "fields": [
         {
-          "id": "169",
+          "id": "108",
           "name": "id",
           "type": {
             "id": "bigint",
             "name": "bigint"
           },
+          "primaryKey": true,
           "unique": true,
           "nullable": false,
-          "primaryKey": true,
-          "createdAt": 1735047476181
+          "createdAt": 1735047359883
         },
         {
-          "id": "170",
-          "name": "etiqueta",
+          "id": "109",
+          "name": "actividad",
           "type": {
-            "name": "varchar",
-            "id": "varchar"
+            "id": "bigint",
+            "name": "bigint"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047490164
+          "createdAt": 1735047373213
         },
         {
-          "id": "171",
+          "id": "110",
           "name": "anuncio",
           "type": {
-            "name": "bigint",
-            "id": "bigint"
+            "id": "bigint",
+            "name": "bigint"
           },
+          "primaryKey": false,
           "unique": false,
           "nullable": true,
-          "primaryKey": false,
-          "createdAt": 1735047499507
+          "createdAt": 1735047383689
         }
       ],
       "indexes": [
         {
-          "id": "172",
+          "id": "111",
           "name": "index_1",
-          "fieldIds": [
-            "171"
-          ],
           "unique": false,
-          "createdAt": 1735223165427
+          "fieldIds": [
+            "110"
+          ],
+          "createdAt": 1735314527988
+        },
+        {
+          "id": "112",
+          "name": "index_2",
+          "unique": false,
+          "fieldIds": [
+            "109"
+          ],
+          "createdAt": 1735315808680
         }
       ],
-      "color": "#8eb7ff",
-      "createdAt": 1735047476181,
+      "color": "#4dee8a",
       "isView": false,
-      "order": 12,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735047359883,
+      "order": 10,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "113",
+      "name": "clasificacion_actividad",
+      "x": 653.9264292541949,
+      "y": -179.39438171889697,
+      "fields": [
+        {
+          "id": "114",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735047295361
+        },
+        {
+          "id": "115",
+          "name": "clasificacion",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047306211
+        },
+        {
+          "id": "116",
+          "name": "actividad",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047314623
+        }
+      ],
+      "indexes": [
+        {
+          "id": "117",
+          "name": "index_1",
+          "unique": false,
+          "fieldIds": [
+            "115"
+          ],
+          "createdAt": 1735314378402
+        }
+      ],
+      "color": "#9ef07a",
+      "isView": false,
+      "createdAt": 1735047295361,
+      "order": 8,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "118",
+      "name": "comentarios",
+      "x": 1293.6163973008327,
+      "y": -96.3546611265261,
+      "fields": [
+        {
+          "id": "119",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735047698591
+        },
+        {
+          "id": "120",
+          "name": "actividad",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047711538
+        },
+        {
+          "id": "121",
+          "name": "comentario",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047721205
+        }
+      ],
+      "indexes": [
+        {
+          "id": "122",
+          "name": "index_1",
+          "unique": false,
+          "fieldIds": [
+            "121"
+          ],
+          "createdAt": 1735223132952
+        },
+        {
+          "id": "123",
+          "name": "index_2",
+          "unique": false,
+          "fieldIds": [
+            "120"
+          ],
+          "createdAt": 1735314738077
+        }
+      ],
+      "color": "#b067e9",
+      "isView": false,
+      "createdAt": 1735047698591,
+      "order": 17,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "124",
+      "name": "notificaciones",
+      "x": 1518.6410059470008,
+      "y": -1522.450154293019,
+      "fields": [
+        {
+          "id": "125",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735320409527
+        },
+        {
+          "id": "126",
+          "name": "fecha",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320429422
+        },
+        {
+          "id": "127",
+          "name": "cod_clase",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320430589
+        },
+        {
+          "id": "128",
+          "name": "texto",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320430790
+        },
+        {
+          "id": "129",
+          "name": "usuario_origen",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320430949
+        },
+        {
+          "id": "130",
+          "name": "usuario_destino",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320431109
+        },
+        {
+          "id": "131",
+          "name": "actividad",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320431297
+        },
+        {
+          "id": "132",
+          "name": "comentario",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320431453
+        },
+        {
+          "id": "133",
+          "name": "fecha_lectura",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320547809
+        },
+        {
+          "id": "134",
+          "name": "fecha_borrado",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320547954
+        },
+        {
+          "id": "135",
+          "name": "fecha_aceptacion",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320579353
+        }
+      ],
+      "indexes": [
+        {
+          "id": "136",
+          "name": "index_1",
+          "unique": false,
+          "fieldIds": [
+            "129"
+          ],
+          "createdAt": 1735320601622
+        },
+        {
+          "id": "137",
+          "name": "index_2",
+          "unique": false,
+          "fieldIds": [
+            "130"
+          ],
+          "createdAt": 1735320610305
+        },
+        {
+          "id": "138",
+          "name": "index_3",
+          "unique": false,
+          "fieldIds": [
+            "131"
+          ],
+          "createdAt": 1735320620357
+        },
+        {
+          "id": "139",
+          "name": "index_4",
+          "unique": false,
+          "fieldIds": [
+            "132"
+          ],
+          "createdAt": 1735320626787
+        }
+      ],
+      "color": "#ff9f74",
+      "isView": false,
+      "createdAt": 1735320409527,
+      "order": 18,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "140",
+      "name": "imagen",
+      "x": 565.6851623881305,
+      "y": -888.6443058815205,
+      "fields": [
+        {
+          "id": "141",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735046967655
+        },
+        {
+          "id": "142",
+          "name": "titulo",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046975259
+        },
+        {
+          "id": "143",
+          "name": "descripcion",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046984159
+        },
+        {
+          "id": "144",
+          "name": "nombre_archivo",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735046999937
+        },
+        {
+          "id": "145",
+          "name": "extension",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047010164
+        },
+        {
+          "id": "146",
+          "name": "ruta",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047025238
+        },
+        {
+          "id": "147",
+          "name": "notas",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047036527
+        }
+      ],
+      "indexes": [],
+      "color": "#ff6b8a",
+      "isView": false,
+      "createdAt": 1735046967655,
+      "order": 3,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "148",
+      "name": "usuario",
+      "x": 1925.871326202443,
+      "y": -1723.6809855287238,
+      "fields": [
+        {
+          "id": "149",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735320668503
+        },
+        {
+          "id": "150",
+          "name": "nick",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320687503
+        },
+        {
+          "id": "151",
+          "name": "password",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320694651
+        },
+        {
+          "id": "152",
+          "name": "email",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320706189
+        },
+        {
+          "id": "153",
+          "name": "nombre",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320718567
+        },
+        {
+          "id": "154",
+          "name": "apellidos",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320725590
+        },
+        {
+          "id": "155",
+          "name": "fecha_nacimiento",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320739095
+        },
+        {
+          "id": "156",
+          "name": "ubicacion",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320765555
+        },
+        {
+          "id": "157",
+          "name": "activo",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320828309
+        },
+        {
+          "id": "158",
+          "name": "fecha_registro",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320836817
+        },
+        {
+          "id": "159",
+          "name": "registro_confirmado",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320861597
+        },
+        {
+          "id": "160",
+          "name": "revisado",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320874082
+        },
+        {
+          "id": "161",
+          "name": "ultimo_acceso",
+          "type": {
+            "id": "datetime",
+            "name": "datetime"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320884963
+        },
+        {
+          "id": "162",
+          "name": "intentos_acceso",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320905353
+        },
+        {
+          "id": "163",
+          "name": "bloqueado",
+          "type": {
+            "id": "boolean",
+            "name": "boolean"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320921699
+        },
+        {
+          "id": "164",
+          "name": "fecha_bloqueo",
+          "type": {
+            "id": "date",
+            "name": "date"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320930862
+        },
+        {
+          "id": "165",
+          "name": "motivo_bloqueo",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320943529
+        },
+        {
+          "id": "166",
+          "name": "notas",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735320963407
+        }
+      ],
+      "indexes": [],
+      "color": "#ff6b8a",
+      "isView": false,
+      "createdAt": 1735320668503,
+      "order": 19,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "167",
+      "name": "anuncio",
+      "x": 1731.9900955478352,
+      "y": -498.18655424783054,
+      "fields": [
+        {
+          "id": "168",
+          "name": "id",
+          "type": {
+            "id": "bigint",
+            "name": "bigint"
+          },
+          "primaryKey": true,
+          "unique": true,
+          "nullable": false,
+          "createdAt": 1735047398041
+        },
+        {
+          "id": "169",
+          "name": "titulo",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047415153
+        },
+        {
+          "id": "170",
+          "name": "texto",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047422015
+        },
+        {
+          "id": "171",
+          "name": "imagen",
+          "type": {
+            "id": "blob",
+            "name": "blob"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047431644
+        },
+        {
+          "id": "172",
+          "name": "registro_usuario",
+          "type": {
+            "id": "varchar",
+            "name": "varchar"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047441550
+        },
+        {
+          "id": "173",
+          "name": "notas",
+          "type": {
+            "id": "text",
+            "name": "text"
+          },
+          "primaryKey": false,
+          "unique": false,
+          "nullable": true,
+          "createdAt": 1735047454279
+        }
+      ],
+      "indexes": [],
+      "color": "#b067e9",
+      "isView": false,
+      "createdAt": 1735047398041,
+      "order": 11,
+      "diagramId": "0lv1pt5xa1yn"
     }
   ],
   "relationships": [
     {
-      "id": "173",
+      "id": "174",
       "name": "actividad_clasificacion_fk",
-      "sourceTableId": "17",
-      "targetTableId": "98",
-      "sourceFieldId": "35",
-      "targetFieldId": "99",
+      "sourceTableId": "24",
+      "targetTableId": "113",
+      "sourceFieldId": "42",
+      "targetFieldId": "114",
       "sourceCardinality": "one",
       "targetCardinality": "one",
       "createdAt": 1735314439940,
-      "diagramId": "0lv1pt5x1k3r"
-    },
-    {
-      "id": "174",
-      "name": "actividad_comentarios_fk",
-      "sourceTableId": "17",
-      "targetTableId": "115",
-      "sourceFieldId": "34",
-      "targetFieldId": "116",
-      "sourceCardinality": "one",
-      "targetCardinality": "one",
-      "createdAt": 1735314179324,
-      "diagramId": "0lv1pt5x1k3r"
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "175",
-      "name": "actividad_imagenes_adicionales_fk",
-      "sourceTableId": "17",
-      "targetTableId": "156",
-      "sourceFieldId": "36",
-      "targetFieldId": "157",
+      "name": "actividad_comentarios_fk",
+      "sourceTableId": "24",
+      "targetTableId": "118",
+      "sourceFieldId": "41",
+      "targetFieldId": "119",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735222860688,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735314179324,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "176",
-      "name": "actividad_patrocinios_actividad_fk",
-      "sourceTableId": "17",
-      "targetTableId": "1",
-      "sourceFieldId": "30",
-      "targetFieldId": "2",
+      "name": "actividad_imagenes_adicionales_fk",
+      "sourceTableId": "24",
+      "targetTableId": "90",
+      "sourceFieldId": "43",
+      "targetFieldId": "91",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735222952396,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735222860688,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "177",
-      "name": "actividad_registro_usuario_fk",
-      "sourceTableId": "17",
-      "targetTableId": "64",
-      "sourceFieldId": "39",
-      "targetFieldId": "65",
+      "name": "actividad_patrocinios_actividad_fk",
+      "sourceTableId": "24",
+      "targetTableId": "107",
+      "sourceFieldId": "37",
+      "targetFieldId": "108",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735320378669,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735222952396,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "178",
-      "name": "clasificacion_actividad_clasificacion_fk",
-      "sourceTableId": "98",
-      "targetTableId": "108",
-      "sourceFieldId": "100",
-      "targetFieldId": "109",
+      "name": "actividad_registro_usuario_fk",
+      "sourceTableId": "24",
+      "targetTableId": "53",
+      "sourceFieldId": "46",
+      "targetFieldId": "54",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735314387876,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735320378669,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "179",
-      "name": "clasificacion_icono_fk",
-      "sourceTableId": "108",
-      "targetTableId": "137",
-      "sourceFieldId": "113",
-      "targetFieldId": "138",
+      "name": "clasificacion_actividad_clasificacion_fk",
+      "sourceTableId": "113",
+      "targetTableId": "1",
+      "sourceFieldId": "115",
+      "targetFieldId": "2",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735314350054,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735314387876,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "180",
-      "name": "comentarios_actividad_fk",
-      "sourceTableId": "115",
-      "targetTableId": "17",
-      "sourceFieldId": "117",
-      "targetFieldId": "18",
+      "name": "clasificacion_icono_fk",
+      "sourceTableId": "1",
+      "targetTableId": "140",
+      "sourceFieldId": "6",
+      "targetFieldId": "141",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735314749422,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735314350054,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "181",
-      "name": "comentarios_comentario_fk",
-      "sourceTableId": "115",
-      "targetTableId": "145",
-      "sourceFieldId": "118",
-      "targetFieldId": "146",
+      "name": "comentarios_actividad_fk",
+      "sourceTableId": "118",
+      "targetTableId": "24",
+      "sourceFieldId": "120",
+      "targetFieldId": "25",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735223152088,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735314749422,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "182",
-      "name": "etiquetas_actividad_etiqueta_fk",
-      "sourceTableId": "103",
-      "targetTableId": "75",
-      "sourceFieldId": "105",
-      "targetFieldId": "76",
+      "name": "comentarios_comentario_fk",
+      "sourceTableId": "118",
+      "targetTableId": "69",
+      "sourceFieldId": "121",
+      "targetFieldId": "70",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735223247638,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735223152088,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "183",
-      "name": "etiquetas_anuncio_anuncio_fk",
-      "sourceTableId": "168",
-      "targetTableId": "91",
-      "sourceFieldId": "171",
-      "targetFieldId": "92",
+      "name": "etiquetas_actividad_etiqueta_fk",
+      "sourceTableId": "15",
+      "targetTableId": "20",
+      "sourceFieldId": "17",
+      "targetFieldId": "21",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735223179150,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735223247638,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "184",
-      "name": "imagenes_actividad_imagen_fk",
-      "sourceTableId": "156",
-      "targetTableId": "137",
-      "sourceFieldId": "158",
-      "targetFieldId": "138",
+      "name": "etiquetas_anuncio_anuncio_fk",
+      "sourceTableId": "80",
+      "targetTableId": "167",
+      "sourceFieldId": "83",
+      "targetFieldId": "168",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735223050485,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735223179150,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "185",
-      "name": "notificaciones_actividad_fk",
-      "sourceTableId": "121",
-      "targetTableId": "17",
-      "sourceFieldId": "128",
-      "targetFieldId": "18",
+      "name": "imagenes_actividad_imagen_fk",
+      "sourceTableId": "90",
+      "targetTableId": "140",
+      "sourceFieldId": "92",
+      "targetFieldId": "141",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735320643739,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735223050485,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "186",
-      "name": "notificaciones_comentario_fk",
-      "sourceTableId": "121",
-      "targetTableId": "145",
-      "sourceFieldId": "129",
-      "targetFieldId": "146",
+      "name": "notificaciones_actividad_fk",
+      "sourceTableId": "124",
+      "targetTableId": "24",
+      "sourceFieldId": "131",
+      "targetFieldId": "25",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735320656558,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735320643739,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "187",
-      "name": "notificaciones_usuario_destino_fk",
-      "sourceTableId": "121",
-      "targetTableId": "45",
-      "sourceFieldId": "127",
-      "targetFieldId": "46",
+      "name": "notificaciones_comentario_fk",
+      "sourceTableId": "124",
+      "targetTableId": "69",
+      "sourceFieldId": "132",
+      "targetFieldId": "70",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735320985701,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735320656558,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "188",
-      "name": "notificaciones_usuario_origen_fk",
-      "sourceTableId": "121",
-      "targetTableId": "45",
-      "sourceFieldId": "126",
-      "targetFieldId": "46",
+      "name": "notificaciones_usuario_destino_fk",
+      "sourceTableId": "124",
+      "targetTableId": "148",
+      "sourceFieldId": "130",
+      "targetFieldId": "149",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735320982199,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735320985701,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "189",
-      "name": "participante_actividad_fk",
-      "sourceTableId": "7",
-      "targetTableId": "17",
-      "sourceFieldId": "9",
-      "targetFieldId": "18",
+      "name": "notificaciones_usuario_origen_fk",
+      "sourceTableId": "124",
+      "targetTableId": "148",
+      "sourceFieldId": "129",
+      "targetFieldId": "149",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735314678200,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735320982199,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "190",
-      "name": "patrocinios_actividad_actividad_fk",
-      "sourceTableId": "1",
-      "targetTableId": "17",
-      "sourceFieldId": "3",
-      "targetFieldId": "18",
+      "name": "participante_actividad_fk",
+      "sourceTableId": "59",
+      "targetTableId": "24",
+      "sourceFieldId": "61",
+      "targetFieldId": "25",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735315827262,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735314678200,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "191",
-      "name": "patrocinios_actividad_anuncio_fk",
-      "sourceTableId": "1",
-      "targetTableId": "91",
-      "sourceFieldId": "4",
-      "targetFieldId": "92",
+      "name": "patrocinios_actividad_actividad_fk",
+      "sourceTableId": "107",
+      "targetTableId": "24",
+      "sourceFieldId": "109",
+      "targetFieldId": "25",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735314535227,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735315827262,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "192",
-      "name": "roles_nombre_usuario_fk",
-      "sourceTableId": "79",
-      "targetTableId": "45",
-      "sourceFieldId": "81",
-      "targetFieldId": "47",
+      "name": "patrocinios_actividad_anuncio_fk",
+      "sourceTableId": "107",
+      "targetTableId": "167",
+      "sourceFieldId": "110",
+      "targetFieldId": "168",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735321250099,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735314535227,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "193",
-      "name": "seguimientos_actividad_fk",
-      "sourceTableId": "84",
-      "targetTableId": "17",
+      "name": "roles_nombre_usuario_fk",
+      "sourceTableId": "85",
+      "targetTableId": "148",
       "sourceFieldId": "87",
-      "targetFieldId": "18",
+      "targetFieldId": "150",
       "sourceCardinality": "one",
       "targetCardinality": "one",
-      "createdAt": 1735322342547,
-      "diagramId": "0lv1pt5x1k3r"
+      "createdAt": 1735321250099,
+      "diagramId": "0lv1pt5xa1yn"
     },
     {
       "id": "194",
+      "name": "seguimientos_actividad_fk",
+      "sourceTableId": "8",
+      "targetTableId": "24",
+      "sourceFieldId": "11",
+      "targetFieldId": "25",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1735322342547,
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "195",
       "name": "seguimientos_usuario_seguidor_fk",
-      "sourceTableId": "84",
-      "targetTableId": "45",
-      "sourceFieldId": "88",
-      "targetFieldId": "46",
+      "sourceTableId": "8",
+      "targetTableId": "148",
+      "sourceFieldId": "12",
+      "targetFieldId": "149",
       "sourceCardinality": "one",
       "targetCardinality": "one",
       "createdAt": 1735322353047,
-      "diagramId": "0lv1pt5x1k3r"
+      "diagramId": "0lv1pt5xa1yn"
+    },
+    {
+      "id": "196",
+      "name": "actividad_etiquetas_fk",
+      "sourceTableId": "24",
+      "targetTableId": "15",
+      "sourceFieldId": "35",
+      "targetFieldId": "16",
+      "sourceCardinality": "one",
+      "targetCardinality": "one",
+      "createdAt": 1735325637040
     }
   ],
   "dependencies": []
