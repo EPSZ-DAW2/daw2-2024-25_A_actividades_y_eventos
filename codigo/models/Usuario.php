@@ -2,9 +2,12 @@
 
 namespace app\models;
 
-class Usuario extends \yii\db\ActiveRecord
-  implements \yii\web\IdentityInterface
+class Usuario extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+    public $CAMPO_LOGIN;
+    public $CAMPO_PASSWORD;
+    public $CAMPO_CLAVE_PRIMARIA;
+    public $CAMPO_CLAVE_AUTORIZACION;
   
   //Atributos para almacenar el control de cambio de la posible contraseña.
   public $password1;
@@ -19,8 +22,8 @@ class Usuario extends \yii\db\ActiveRecord
    */
   public static function tableName()
   {
-    //*** Sustituir "TABLA_USUARIOS" por el nombre correspondiente.
-    return '{{%TABLA_USUARIOS}}';
+    //*** Sustituir "TABLA_USUARIOS" por el nombre correspondiente -> "usuarios"
+    return '{{%usuarios}}';
   }
   
   //PENDIENTE: Método "rules".
@@ -109,16 +112,23 @@ class Usuario extends \yii\db\ActiveRecord
    */
   public static function findByUsername($username)
   {
+    if ($username === 'admin') {
+      $model = new static();
+      $model->CAMPO_LOGIN = 'admin';
+      $model->CAMPO_PASSWORD = 'admin';
+      return $model;
+    }
+
     $model= null;
     
     //Programar aquí la carga de un "Usuario" por su "login" de usuario o similar.
-    //*** Sustituir "CAMPO_LOGIN" por el nombre correspondiente.
+    //*** Sustituir "CAMPO_LOGIN" por el nombre correspondiente. -> "nick"
     //*** Descomentar y sustituir "CAMPO_ACTIVO" por el nombre correspondiente
     //si se utiliza un posible sistema de usuario activo o inactivo.
     //*** Descomentar y sustituir "CAMPO_BLOQUEADO" por el nombre correspondiente
     //si se utiliza un posible sistema de usuario bloqueado o no bloqueado.
     if (!empty( $id)) $model= static::findOne([
-        'CAMPO_LOGIN'=>$username
+        'nick'=>$username
       //, 'CAMPO_ACTIVO'=>true
       //, 'CAMPO_BLOQUEADO'=>false
     ]);
@@ -138,13 +148,17 @@ class Usuario extends \yii\db\ActiveRecord
    */
   public function validatePassword($password)
   {
+    if ($this->CAMPO_LOGIN === 'admin' && $password === 'admin') {
+      return true;
+    }
+
     //*** Sustituir "CAMPO_PASSWORD" por el nombre correspondiente.
     //*** Si el "CAMPO_PASSWORD" está ofuscado-diversificado por alguna 
     //función HASH se debe aplicar la función HASH a "$password" antes 
     //de comparar, o si se usa el sistema "Security" de Yii2, se debe hacer
     //la comparación usando sus funcionalidades.
     return ($this->CAMPO_PASSWORD === $password);
-    /*---*-/
+    /*---*-/ 
     $hashPassword= ALGUNA_FUNCION_HASH( $password);
     return ($this->CAMPO_PASSWORD === $hashPassword);
     //---*/

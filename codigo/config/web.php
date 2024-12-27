@@ -48,6 +48,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'actividades/recomendadas' => 'actividades/recomendadas',
             ],
         ],
         */
