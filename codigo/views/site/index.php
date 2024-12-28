@@ -2,53 +2,59 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+$this->title = 'Actividades y Eventos';
 ?>
+
+<link rel="stylesheet" href="<?= Yii::$app->request->baseUrl ?>/css/estiloInicio.css">
+
+<body>
+
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-        <h1 class="display-4">Congratulations!</h1>
+        <h1 class="display-4">ACTIVIDADES Y EVENTOS EPSZ</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-        <p><a class="btn btn-lg btn-primary" href="<?= Yii::$app->urlManager->createUrl(['site/privada']) ?>">Ir a Vista Privada</a></p>
+        <p class="lead">"Conecta con la cultura y el entretenimiento en Actividades y Eventos EPSZ, la plataforma que reúne la mayor oferta de eventos y actividades. Explora una amplia variedad de opciones, desde eventos locales hasta grandes espectáculos. Interactúa con otros usuarios, comparte tus experiencias y descubre recomendaciones personalizadas. Actividades y Eventos EPSZ es la comunidad donde la pasión por los eventos cobra vida."</p>
     </div>
 
     <div class="body-content">
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <h2>Explora Actividades Locales</h2>
+                <p>Descubre las mejores actividades locales en tu ciudad. Desde conciertos hasta exposiciones culturales, hay algo para todos. Únete a nosotros y encuentra eventos que te apasionen.</p>
+                <img src="<?= Yii::$app->request->baseUrl ?>/images/imagen3.jpg" alt="Imagen 1">
 
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
+            
+                <h2>Conoce Próximos Eventos</h2>
+                <p>Entérate de los eventos más esperados. Ya sea un festival, una conferencia o una reunión comunitaria, mantente informado sobre lo que está por venir y no te pierdas de nada.</p>
+                <img src="<?= Yii::$app->request->baseUrl ?>/images/imagen2.jpg" alt="Imagen 2">
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <h2>Conecta con la Comunidad</h2>
+                <p>Interactúa con otros usuarios, comparte experiencias y consejos, y sé parte de la comunidad que disfruta de actividades y eventos. La cultura y el entretenimiento te están esperando.</p>
+                <img src="<?= Yii::$app->request->baseUrl ?>/images/imagen1.jpg" alt="Imagen 3">
 
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
             </div>
         </div>
 
     </div>
 </div>
+
+<div class="divfinal text-center bg-transparent">
+        <h3 class="display-4">¿TODO LISTO?</h3>
+
+        <p class="under">
+            "¡<a href="<?= Yii::$app->urlManager->createUrl(['']) ?>">Inicia Sesión</a> o 
+            <a href="<?= Yii::$app->urlManager->createUrl(['']) ?>">Regístrate</a> en nuestro portal para continuar!"
+        </p>
+
+    </div>
+
+</body>
+
