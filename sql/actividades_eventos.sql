@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-12-2024 a las 20:05:55
+-- Tiempo de generación: 28-12-2024 a las 17:00:05
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -231,6 +231,30 @@ CREATE TABLE `participante` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `patrocinadores`
+--
+
+CREATE TABLE `patrocinadores` (
+  `ID` int(11) NOT NULL,
+  `NOMBRE` varchar(500) NOT NULL,
+  `TIPO` varchar(500) NOT NULL,
+  `EMAIL` varchar(500) DEFAULT NULL,
+  `TELEFONO` bigint(20) DEFAULT NULL,
+  `DIRECCION` varchar(500) NOT NULL,
+  `URL` varchar(500) DEFAULT NULL,
+  `PERFIL_RRSS` varchar(500) DEFAULT NULL,
+  `TIPO_PATROCINIO` varchar(500) NOT NULL,
+  `MONTO` float NOT NULL,
+  `INICIO_PATROCINIO` date NOT NULL,
+  `FIN_PATROCINIO` date NOT NULL,
+  `ACTIVIDAD_PATROCINADA` bigint(20) NOT NULL,
+  `ESTADO` tinyint(1) NOT NULL,
+  `PROPIETARIO` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `patrocinios_actividad`
 --
 
@@ -434,6 +458,13 @@ ALTER TABLE `participante`
   ADD KEY `index_11` (`actividad`);
 
 --
+-- Indices de la tabla `patrocinadores`
+--
+ALTER TABLE `patrocinadores`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `PROPIETARIO` (`PROPIETARIO`);
+
+--
 -- Indices de la tabla `patrocinios_actividad`
 --
 ALTER TABLE `patrocinios_actividad`
@@ -564,6 +595,12 @@ ALTER TABLE `participante`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `patrocinadores`
+--
+ALTER TABLE `patrocinadores`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `patrocinios_actividad`
 --
 ALTER TABLE `patrocinios_actividad`
@@ -671,6 +708,12 @@ ALTER TABLE `notificaciones`
 --
 ALTER TABLE `participante`
   ADD CONSTRAINT `participante_actividad_fk` FOREIGN KEY (`actividad`) REFERENCES `actividad` (`id`);
+
+--
+-- Filtros para la tabla `patrocinadores`
+--
+ALTER TABLE `patrocinadores`
+  ADD CONSTRAINT `patrocinadores_ibfk_1` FOREIGN KEY (`PROPIETARIO`) REFERENCES `roles` (`nombre_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `patrocinios_actividad`
