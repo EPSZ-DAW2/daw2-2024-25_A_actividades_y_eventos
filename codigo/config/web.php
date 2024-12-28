@@ -16,7 +16,6 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'EPSZ_DAW2_2024-25',
-            'baseUrl' => '/yii2/codigo/web', // Esto es importante si tu aplicación está en un subdirectorio
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -44,17 +43,15 @@ $config = [
             ],
         ],
         'db' => $db,
-
-        // Configuración de URL Manager
+        /*
         'urlManager' => [
-            'enablePrettyUrl' => true,  // Habilitar URLs amigables
-            'showScriptName' => false,  // Ocultar 'index.php' en las URLs
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
             'rules' => [
-                // Regla personalizada para acceder a index2.php
-                'index2' => 'site/index2',  // Esto mapea 'index2' a 'site/index2'
+                'actividades/recomendadas' => 'actividades/recomendadas',
             ],
         ],
-
+        */
     ],
     'params' => $params,
 ];
