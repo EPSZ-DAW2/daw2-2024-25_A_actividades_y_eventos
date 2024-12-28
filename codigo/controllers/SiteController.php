@@ -65,6 +65,16 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionIndex2()
+    {
+        return $this->render('index2');
+    }
+
+    /**
      * Login action.
      *
      * @return Response|string
