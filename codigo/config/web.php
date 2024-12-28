@@ -43,15 +43,16 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+        
+        // Configuración de URL Manager
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
+            'enablePrettyUrl' => true,  // Habilitar URLs amigables
+            'showScriptName' => false,  // Ocultar 'index.php' en las URLs
             'rules' => [
-                'actividades/recomendadas' => 'actividades/recomendadas',
+                // Regla personalizada para acceder a index2.php
+                'index2' => 'site/index2',  // Esto mapea 'index2' a 'site/index2'
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
