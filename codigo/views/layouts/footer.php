@@ -19,9 +19,9 @@ use yii\helpers\Url;
             <!-- Contacto -->
             <div class="col-md-3">
                 <h4>Contacto</h4>
-                <p>Dirección: Calle Ejemplo 123, Madrid, España</p>
-                <p>Teléfono: <?= Html::a('+34 123 456 789', 'tel:+34123456789') ?></p>
-                <p>Email: <?= Html::a('contacto@ejemplo.com', 'mailto:contacto@ejemplo.com') ?></p>
+                <p>Dirección: Av. de Requejo, 33, 49029 Zamora</p>
+                <p>Teléfono: <?= Html::a('+980 545 000') ?></p>
+                <p>Email: <?= Html::a('politecnicazamora.usal.es', 'mailto:contacto@ejemplo.com') ?></p>
                 <div class="map">
                     <?= Html::a('Ver ubicación', 'https://www.google.com/maps?hl=es&gl=es&um=1&ie=UTF-8&fb=1&sa=X&ftid=0xd391e26a194aa8b:0xc49cd8148e1acf64', ['target' => '_blank']) ?>
                 </div>
@@ -50,8 +50,8 @@ use yii\helpers\Url;
         </div>
         <!-- Derechos de Autor -->
         <div class="footer-bottom text-center">
-            <p>© <?= date('Y') ?> Grupo 1. Todos los derechos reservados.</p>
-            <p>Diseñado y desarrollado por <?= Html::a('Grupo 1', 'https://github.com/EPSZ-DAW2/daw2-2024-25_A_actividades_y_eventos', ['target' => '_blank']) ?></p>
+            <p>© <?= date('Y') ?> Equipo2425a_eventos. Todos los derechos reservados.</p>
+            <p>Diseñado y desarrollado por <?= Html::a('Equipo2425a_eventos', 'https://github.com/EPSZ-DAW2/daw2-2024-25_A_actividades_y_eventos', ['target' => '_blank']) ?></p>
         </div>
     </div>
 </footer>
