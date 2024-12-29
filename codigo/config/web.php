@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Actividades y eventos',
     'basePath' => dirname(__DIR__),
     'vendorPath' => implode( DIRECTORY_SEPARATOR, [ dirname( dirname( __DIR__)), 'librerias', 'vendor']),
     'bootstrap' => ['log'],
