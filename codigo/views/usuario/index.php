@@ -1,13 +1,13 @@
 <?php
 
-use app\models\Usuarios;
+use app\models\Usuario;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /** @var yii\web\View $this */
-/** @var app\models\UsuariosSearch $searchModel */
+/** @var app\models\UsuarioSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
 $this->title = Yii::t('app', 'Usuarios');
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Usuarios'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Crear usuario'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
@@ -32,15 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'nick',
-            'contraseña',
+            'password',
             'email:email',
-            'nombre',
+            'nombreCompleto',
             //'apellidos',
             //'fecha_nacimiento',
-            //'direccion',
             //'ubicacion',
             //'activo',
-            //'fecha_hora_registro',
+            //'fecha_registro',
             //'registro_confirmado',
             //'revisado',
             //'ultimo_acceso',
@@ -48,11 +47,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'bloqueado',
             //'fecha_hora_bloqueo',
             //'motivo_bloqueo:ntext',
-            //'valoracion_usuario',
             //'notas:ntext',
             [
                 'class' => ActionColumn::class,
-                'urlCreator' => function ($action, Usuarios $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Usuario $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                 }
             ],

@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nick')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'contraseña')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
@@ -24,13 +24,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'fecha_nacimiento')->textInput() ?>
 
-    <?= $form->field($model, 'direccion')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'ubicacion')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'activo')->textInput() ?>
 
-    <?= $form->field($model, 'fecha_hora_registro')->textInput() ?>
+    <?= $form->field($model, 'fecha_registro')->textInput() ?>
 
     <?= $form->field($model, 'registro_confirmado')->textInput() ?>
 
@@ -42,11 +40,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'bloqueado')->textInput() ?>
 
-    <?= $form->field($model, 'fecha_hora_bloqueo')->textInput() ?>
+    <?= $form->field($model, 'fecha_bloqueo')->textInput() ?>
 
     <?= $form->field($model, 'motivo_bloqueo')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'valoracion_usuario')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'notas')->textarea(['rows' => 6]) ?>
 

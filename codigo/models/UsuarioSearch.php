@@ -7,9 +7,9 @@ use yii\data\ActiveDataProvider;
 use app\models\Usuario;
 
 /**
- * UsuariosSearch represents the model behind the search form of `app\models\Usuario`.
+ * UsuarioSearch represents the model behind the search form of `app\models\Usuario`.
  */
-class UsuariosSearch extends Usuario
+class UsuarioSearch extends Usuario
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class UsuariosSearch extends Usuario
     {
         return [
             [['id', 'activo', 'registro_confirmado', 'revisado', 'intentos_acceso', 'bloqueado'], 'integer'],
-            [['nick', 'password', 'email', 'nombre', 'apellidos', 'fecha_nacimiento', 'direccion', 'ubicacion', 'ultimo_acceso', 'fecha_hora_bloqueo', 'motivo_bloqueo', 'notas'], 'safe'],
+            [['nick', 'password', 'email', 'nombre', 'apellidos', 'fecha_nacimiento', 'ubicacion', 'fecha_registro', 'ultimo_acceso', 'fecha_bloqueo', 'motivo_bloqueo', 'notas'], 'safe'],
         ];
     }
 
@@ -61,11 +61,13 @@ class UsuariosSearch extends Usuario
             'id' => $this->id,
             'fecha_nacimiento' => $this->fecha_nacimiento,
             'activo' => $this->activo,
+            'fecha_registro' => $this->fecha_registro,
             'registro_confirmado' => $this->registro_confirmado,
             'revisado' => $this->revisado,
             'ultimo_acceso' => $this->ultimo_acceso,
             'intentos_acceso' => $this->intentos_acceso,
             'bloqueado' => $this->bloqueado,
+            'fecha_bloqueo' => $this->fecha_bloqueo,
         ]);
 
         $query->andFilterWhere(['like', 'nick', $this->nick])
@@ -73,7 +75,6 @@ class UsuariosSearch extends Usuario
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'nombre', $this->nombre])
             ->andFilterWhere(['like', 'apellidos', $this->apellidos])
-            ->andFilterWhere(['like', 'direccion', $this->direccion])
             ->andFilterWhere(['like', 'ubicacion', $this->ubicacion])
             ->andFilterWhere(['like', 'motivo_bloqueo', $this->motivo_bloqueo])
             ->andFilterWhere(['like', 'notas', $this->notas]);

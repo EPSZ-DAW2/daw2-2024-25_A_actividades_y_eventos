@@ -46,7 +46,7 @@ $config = [
         
         // Configuración de URL Manager
         'urlManager' => [
-            'enablePrettyUrl' => true,  // Habilitar URLs amigables
+            'enablePrettyUrl' => false,  // Habilitar URLs amigables
             'showScriptName' => false,  // Ocultar 'index.php' en las URLs
             'rules' => [
                 // Regla personalizada para acceder a index2.php

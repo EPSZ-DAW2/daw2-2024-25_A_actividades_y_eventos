@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nick') ?>
 
-    <?= $form->field($model, 'contraseña') ?>
+    <?= $form->field($model, 'password') ?>
 
     <?= $form->field($model, 'email') ?>
 
@@ -38,7 +38,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'activo') ?>
 
-    <?php // echo $form->field($model, 'fecha_hora_registro') ?>
+    <?php // echo $form->field($model, 'fecha_registro') ?>
 
     <?php // echo $form->field($model, 'registro_confirmado') ?>
 
@@ -50,11 +50,10 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'bloqueado') ?>
 
-    <?php // echo $form->field($model, 'fecha_hora_bloqueo') ?>
+    <?php // echo $form->field($model, 'fecha_bloqueo') ?>
 
     <?php // echo $form->field($model, 'motivo_bloqueo') ?>
 
-    <?php // echo $form->field($model, 'valoracion_usuario') ?>
 
     <?php // echo $form->field($model, 'notas') ?>
 

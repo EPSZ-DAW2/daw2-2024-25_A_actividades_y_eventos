@@ -6,21 +6,21 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\Usuarios $model */
 
-$this->title = $model->id;
+$this->title = $model->nombreCompleto;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Usuarios'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="usuarios-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Html::encode($model->nombreCompleto) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Yii::t('app', 'Editar'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Eliminar'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'confirm' => Yii::t('app', 'Está seguro de querer eliminar este usuario?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'nick',
-            'contraseña',
+            'password',
             'email:email',
             'nombre',
             'apellidos',
@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'direccion',
             'ubicacion',
             'activo',
-            'fecha_hora_registro',
+            'fecha_registro',
             'registro_confirmado',
             'revisado',
             'ultimo_acceso',
@@ -47,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'bloqueado',
             'fecha_hora_bloqueo',
             'motivo_bloqueo:ntext',
-            'valoracion_usuario',
             'notas:ntext',
         ],
     ]) ?>

@@ -127,6 +127,14 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays a register page
+     * 
+     */
+    public function actionRegister(){
+        
+    }
+
+    /**
      * Displays about page.
      *
      * @return string

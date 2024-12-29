@@ -55,7 +55,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 echo Html::a('Iniciar sesión', ['site/login'], ['class' => 'btn btn-sm btn-light mx-2']);
                 echo '</li>';
                 echo '<li class="nav-item">';
-                echo Html::a('Registrarse', ['site/index2'], ['class' => 'btn btn-sm btn-primary mx-2']);
+                echo Html::a('Registrarse', ['site/register'], ['class' => 'btn btn-sm btn-primary mx-2']);
                 echo '</li>';
             } else {
                 echo '<li class="nav-item">';
