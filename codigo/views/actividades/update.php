@@ -12,9 +12,10 @@ $this->title = 'Actualizar Actividad';
 
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'imagen')->fileInput() ?>
-    <?= $form->field($model, 'fecha_inicio')->input('date') ?>
-    <?= $form->field($model, 'fecha_fin')->input('date') ?>
+    <?= $form->field($model, 'imagen_principal')->fileInput() ?>
+    <?= $form->field($model, 'fecha_celebracion')->input('date') ?>
+    <?= $form->field($model, 'duracion_estimada')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'lugar_celebracion')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Actualizar', ['class' => 'btn btn-primary']) ?>
