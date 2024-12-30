@@ -28,6 +28,18 @@ class UsuarioController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+                'access' => [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['editar-perfil', 'mi-perfil'],
+                'rules' => [
+                    // Permitir a los usuarios autenticados acceder a su perfil y editarlo
+                    [
+                        'actions' => ['mi-perfil', 'editar-perfil'],
+                        'allow' => true,
+                        'roles' => ['@'], // Solo usuarios autenticados
+                    ],
+                ],
+                ]
             ]
         );
     }
@@ -132,4 +144,39 @@ class UsuarioController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    public function actionMiPerfil()
+    {
+        $model = Yii::$app->user->identity;
+
+        if (!$model) {
+            throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
+        }
+
+        return $this->render('mi-perfil', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEditarPerfil()
+    {
+        // Obtener el modelo del usuario autenticado
+        $model = Yii::$app->user->identity;
+    
+        if (!$model) {
+            throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
+        }
+    
+        // Procesar el formulario
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
+            return $this->redirect(['mi-perfil']);
+        }
+    
+        return $this->render('editar-perfil', [
+            'model' => $model,
+        ]);
+    }
+    
+
 }

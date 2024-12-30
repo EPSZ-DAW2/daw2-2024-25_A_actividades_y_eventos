@@ -52,6 +52,8 @@ $config = [
             'rules' => [
                 // Regla personalizada para acceder a index2.php
                 'index2' => 'site/index2',  // Esto mapea 'index2' a 'site/index2'
+                // Regla personalizada para acceder a mi perfil
+                'mi-perfil' => 'usuario/mi-perfil',  // Esto mapea 'mi-perfil' a 'usuario/mi-perfil'
             ],
         ],
     ],
