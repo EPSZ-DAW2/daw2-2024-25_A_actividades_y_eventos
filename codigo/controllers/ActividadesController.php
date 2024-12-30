@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\Actividades;
+use app\models\Actividad;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -15,7 +15,7 @@ class ActividadesController extends Controller
     // Muestra las actividades recomendadas
     public function actionRecomendadas()
     {
-        $actividades = Actividades::find()->all();
+        $actividades = Actividad::find()->all();
         return $this->render('actividades_recomendadas', [
             'actividades' => $actividades
         ]);
@@ -24,7 +24,7 @@ class ActividadesController extends Controller
     // Crea una nueva actividad
     public function actionCreate()
     {
-        $model = new Actividades();
+        $model = new Actividad();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Actividad creada exitosamente.');
@@ -70,7 +70,7 @@ class ActividadesController extends Controller
     // Encuentra el modelo de la actividad por ID
     protected function findModel($id)
     {
-        if (($model = Actividades::findOne($id)) !== null) {
+        if (($model = Actividad::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('La actividad solicitada no existe.');
@@ -80,7 +80,7 @@ class ActividadesController extends Controller
     // Para manejar validación AJAX en el formulario de creación y actualización
     public function actionValidate()
     {
-        $model = new Actividades();
+        $model = new Actividad();
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
