@@ -14,7 +14,7 @@ use Yii;
  * @property Usuario $nombreUsuario
  * @property Patrocinadores[] $patrocinadores
  */
-class Rol extends \yii\db\ActiveRecord
+class Roles extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
