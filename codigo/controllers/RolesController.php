@@ -1,7 +1,8 @@
 <?php
 
-namespace app\models;
+namespace app\controllers;
 
+use Yii;
 use app\models\Roles;
 use app\models\RolesSearch;
 use yii\web\Controller;
