@@ -41,6 +41,10 @@ class Usuario extends ActiveRecord implements IdentityInterface
 
     public $confirmNewPassword;
 
+    public $newEmail;
+
+    public $confirmNewEmail;
+
     /**
      * {@inheritdoc}
      */
@@ -212,6 +216,32 @@ class Usuario extends ActiveRecord implements IdentityInterface
         }
 
         $this->addError('password', 'No se pudo actualizar la contraseña.');
+        return false;
+    }
+
+    public function changeEmail()
+    {
+        // Verificar que el nuevo correo electrónico y su confirmación coincidan
+        if ($this->newEmail !== $this->confirmNewEmail) {
+            $this->addError('confirmNewEmail', 'El nuevo correo electrónico y su confirmación no coinciden.');
+            return false;
+        }
+
+        // Aquí se pueden agregar validaciones adicionales para el nuevo correo electrónico si es necesario
+        if (!filter_var($this->newEmail, FILTER_VALIDATE_EMAIL)) { //validar el formato de correo electrónico
+            $this->addError('newEmail', 'El nuevo correo electrónico no es válido.');
+            return false;
+        }
+
+        // Cambiar el correo electrónico
+        $this->email = $this->newEmail;
+
+        // Guardar los cambios en la base de datos
+        if ($this->save(false, ['email'])) {
+            return true;
+        }
+
+        $this->addError('email', 'No se pudo actualizar el correo electrónico.');
         return false;
     }
 }

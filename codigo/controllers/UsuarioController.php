@@ -185,4 +185,27 @@ class UsuarioController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionCambiarEmail()
+    {
+        // Obtener el modelo del usuario autenticado
+        $model = Yii::$app->user->identity;
+    
+        if (!$model) {
+            throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
+        }
+    
+        // Escenario para cambiar el correo electrónico
+        $model->setScenario('changeEmail');
+    
+        // Procesar el formulario
+        if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
+            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
+            return $this->refresh();
+        }
+    
+        return $this->render('cambiar-email', [
+            'model' => $model,
+        ]);
+    }
 }
