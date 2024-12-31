@@ -153,6 +153,14 @@ class UsuarioController extends Controller
             throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
         }
 
+        // Escenario para cambiar contraseña
+        $model->setScenario('changePassword');
+
+        if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
+            Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
+            return $this->refresh();
+        }
+
         return $this->render('mi-perfil', [
             'model' => $model,
         ]);
@@ -177,6 +185,4 @@ class UsuarioController extends Controller
             'model' => $model,
         ]);
     }
-    
-
 }

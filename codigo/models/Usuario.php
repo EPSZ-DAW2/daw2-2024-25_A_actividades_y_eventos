@@ -35,6 +35,12 @@ use yii\web\IdentityInterface;
  */
 class Usuario extends ActiveRecord implements IdentityInterface
 {
+    public $currentPassword;
+
+    public $newPassword;
+
+    public $confirmNewPassword;
+
     /**
      * {@inheritdoc}
      */
@@ -55,6 +61,10 @@ class Usuario extends ActiveRecord implements IdentityInterface
             [['notas'], 'string'],
             [['nick', 'password', 'email', 'nombre', 'apellidos', 'ubicacion', 'motivo_bloqueo'], 'string', 'max' => 500],
             [['nick', 'email'], 'unique'],
+            [['currentPassword', 'newPassword', 'confirmNewPassword'], 'required', 'on' => 'changePassword'],
+            ['currentPassword', 'string'],
+            ['newPassword', 'string', 'min' => 8],
+            ['confirmNewPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => 'La confirmación debe coincidir con la nueva contraseña.'],
         ];
     }
 
@@ -166,5 +176,42 @@ class Usuario extends ActiveRecord implements IdentityInterface
     public function getSeguimientos()
     {
         return $this->hasMany(Seguimiento::class, ['usuario_seguidor' => 'id']);
+    }
+
+    /**
+     * Cambia la contraseña del usuario después de validar los datos proporcionados.
+     *
+     * @return bool Si la contraseña se cambió con éxito.
+     */
+    public function changePassword()
+    {
+        // Validar que la contraseña actual sea correcta
+        if (!$this->validatePassword($this->currentPassword)) {
+            $this->addError('currentPassword', 'La contraseña actual es incorrecta.');
+            return false;
+        }
+
+        // Verificar que la nueva contraseña y su confirmación coincidan
+        if ($this->newPassword !== $this->confirmNewPassword) {
+            $this->addError('confirmNewPassword', 'La nueva contraseña y su confirmación no coinciden.');
+            return false;
+        }
+
+        // Aquí puedes agregar validaciones adicionales para la nueva contraseña si es necesario
+        if (strlen($this->newPassword) < 8) { // Ejemplo: longitud mínima de 8 caracteres
+            $this->addError('newPassword', 'La nueva contraseña debe tener al menos 8 caracteres.');
+            return false;
+        }
+
+        // Cambiar la contraseña (asegúrate de usar un hash seguro)
+        $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->newPassword);
+
+        // Guardar los cambios en la base de datos
+        if ($this->save(false, ['password'])) {
+            return true;
+        }
+
+        $this->addError('password', 'No se pudo actualizar la contraseña.');
+        return false;
     }
 }
