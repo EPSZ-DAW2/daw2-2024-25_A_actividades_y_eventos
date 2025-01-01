@@ -4,15 +4,16 @@
 
 use yii\helpers\Html;
 
-$this->title = 'About';
+$this->title = 'Sobre nosotros';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        This is the About page. You may modify the following file to customize its content:
+        Bienvenido a nuestra web, donde organizamos una variedad de actividades y eventos para todas las edades y gustos. 
+        Nuestro objetivo es proporcionar experiencias inolvidables y fomentar la comunidad a través de eventos bien planificados
+        y emocionantes. 
+        <br>
+        ¡Únete a nosotros y descubre todo lo que tenemos para ofrecer!
     </p>
-
-    <code><?= __FILE__ ?></code>
 </div>

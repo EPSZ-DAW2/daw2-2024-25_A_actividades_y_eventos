@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Usuario;
 
 class SiteController extends Controller
 {
@@ -126,12 +127,24 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Displays a register page
-     * 
+        /**
+     * Register a new user.
      */
+
     public function actionRegister(){
-        
+        $model = new Usuario();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['site/register']);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('register', [
+            'model' => $model,
+        ]);
     }
 
     /**

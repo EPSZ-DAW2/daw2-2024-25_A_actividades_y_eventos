@@ -30,7 +30,7 @@ use yii\web\IdentityInterface;
  *
  * @property Notificacion[] $notificaciones
  * @property Notificacion[] $notificaciones0
- * @property Rol[] $roles
+ * @property Roles[] $roles
  * @property Seguimiento[] $seguimientos
  */
 class Usuario extends ActiveRecord implements IdentityInterface
@@ -155,7 +155,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
      */
     public function getRoles()
     {
-        return $this->hasMany(Rol::class, ['nombre_usuario' => 'nick']);
+        return $this->hasMany(Roles::class, ['nombre_usuario' => 'nick']);
     }
 
     /**

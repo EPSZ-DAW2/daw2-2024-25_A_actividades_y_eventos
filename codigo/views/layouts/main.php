@@ -39,10 +39,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'Test', 'url' => ['/test/index']]
+            ['label' => 'Sobre nosotros', 'url' => ['/site/about']],
+            ['label' => 'Contacto', 'url' => ['/site/contact']],
             ]
     ]);
     
@@ -58,6 +56,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 echo Html::a('Registrarse', ['site/register'], ['class' => 'btn btn-sm btn-primary mx-2']);
                 echo '</li>';
             } else {
+                echo '<li class="nav-item">';
+                echo Html::a('Mi perfil', ['usuario/mi-perfil'], [
+                    'class' => 'btn btn-sm btn-secondary mx-2',
+                    'data-method' => 'post'
+                ]);
+                echo '</li>';
                 echo '<li class="nav-item">';
                 echo Html::a('Cerrar Sesión', ['site/logout'], [
                     'class' => 'btn btn-sm btn-danger mx-2',

@@ -10,10 +10,9 @@ use yii\helpers\Url;
             <div class="col-md-3">
                 <h4>Mapa Web</h4>
                 <ul class="list-unstyled">
-                    <li><?= Html::a('Home', ['/site/index']) ?></li>
-                    <li><?= Html::a('About', ['/site/about']) ?></li>
-                    <li><?= Html::a('Contact', ['/site/contact']) ?></li>
-                    <li><?= Html::a('Test', ['/test/index']) ?></li>
+                    <li><?= Html::a('Inicio', ['/site/index']) ?></li>
+                    <li><?= Html::a('Sobre nosotros', ['/site/about']) ?></li>
+                    <li><?= Html::a('Contacto', ['/site/contact']) ?></li>
                 </ul>
             </div>
             <!-- Contacto -->
