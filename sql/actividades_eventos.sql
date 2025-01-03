@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-01-2025 a las 22:29:38
+-- Tiempo de generación: 04-01-2025 a las 00:48:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -116,10 +116,10 @@ INSERT INTO `ANUNCIO_ACTIVIDAD` (`ANUNCIOid`, `ACTIVIDADid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `CLASIFICACION`
+-- Estructura de tabla para la tabla `clasificacion`
 --
 
-CREATE TABLE `CLASIFICACION` (
+CREATE TABLE `clasificacion` (
   `id` bigint(19) NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
@@ -129,10 +129,10 @@ CREATE TABLE `CLASIFICACION` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `CLASIFICACION`
+-- Volcado de datos para la tabla `clasificacion`
 --
 
-INSERT INTO `CLASIFICACION` (`id`, `nombre`, `descripcion`, `icono`, `clasificacion_raiz`, `ACTIVIDADid`) VALUES
+INSERT INTO `clasificacion` (`id`, `nombre`, `descripcion`, `icono`, `clasificacion_raiz`, `ACTIVIDADid`) VALUES
 (1, 'Familiar', 'Apto para todo público', 'icon_familiar.png', 'Familiar', 1),
 (2, 'Competencia', 'Actividad competitiva', 'icon_competencia.png', 'Deporte', 2);
 
@@ -158,10 +158,10 @@ INSERT INTO `CLASIFICACION_ACTIVIDAD` (`CLASIFICACIONid`, `ACTIVIDADid`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `COMENTARIO`
+-- Estructura de tabla para la tabla `comentario`
 --
 
-CREATE TABLE `COMENTARIO` (
+CREATE TABLE `comentario` (
   `id` bigint(19) NOT NULL,
   `texto` varchar(255) DEFAULT NULL,
   `comentario_relacionado` varchar(255) DEFAULT NULL,
@@ -174,10 +174,10 @@ CREATE TABLE `COMENTARIO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `COMENTARIO`
+-- Volcado de datos para la tabla `comentario`
 --
 
-INSERT INTO `COMENTARIO` (`id`, `texto`, `comentario_relacionado`, `cerrado_comentario`, `numero_de_denuncias`, `fecha_bloque`, `motivos_bloqueo`, `USUARIOid`, `ACTIVIDADid`) VALUES
+INSERT INTO `comentario` (`id`, `texto`, `comentario_relacionado`, `cerrado_comentario`, `numero_de_denuncias`, `fecha_bloque`, `motivos_bloqueo`, `USUARIOid`, `ACTIVIDADid`) VALUES
 (1, '¡Qué evento tan increíble!', NULL, 0, 0, '2025-01-05', NULL, 1, 1),
 (2, 'No me gustó el cambio de lugar', NULL, 1, 0, '2025-01-06', 'Comentario bloqueado', 2, 2);
 
@@ -225,10 +225,10 @@ CREATE TABLE `CREA` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `ESTADO`
+-- Estructura de tabla para la tabla `estado`
 --
 
-CREATE TABLE `ESTADO` (
+CREATE TABLE `estado` (
   `id` bigint(19) NOT NULL,
   `terminada` int(10) DEFAULT NULL COMMENT '(0:No, 1:Realizada, 2:Suspendida, 3:Cancelada por inadecuada),  ',
   `fecha_terminacion` date DEFAULT NULL,
@@ -243,10 +243,10 @@ CREATE TABLE `ESTADO` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `ESTADO`
+-- Volcado de datos para la tabla `estado`
 --
 
-INSERT INTO `ESTADO` (`id`, `terminada`, `fecha_terminacion`, `motivo_terminacion`, `numero_denuncias`, `fecha_primera_denuncia`, `bloqueada`, `fecha_bloqueo`, `motivos_bloqueo`, `notas`, `ACTIVIDADid`) VALUES
+INSERT INTO `estado` (`id`, `terminada`, `fecha_terminacion`, `motivo_terminacion`, `numero_denuncias`, `fecha_primera_denuncia`, `bloqueada`, `fecha_bloqueo`, `motivos_bloqueo`, `notas`, `ACTIVIDADid`) VALUES
 (1, 0, NULL, NULL, 0, NULL, 0, NULL, NULL, 'Actividad en proceso', 1),
 (2, 3, '2025-03-01', 'Cancelada por lluvia', 2, '2025-02-28', 1, '2025-02-28', 'Condiciones climáticas adversas', 'Evento cancelado debido a la tormenta', 2);
 
@@ -341,8 +341,8 @@ CREATE TABLE `IMAGEN` (
 --
 
 INSERT INTO `IMAGEN` (`id`, `titulo`, `descripcion`, `nombre_Archivo`, `extension`, `notas`) VALUES
-(1, 'Paisaje', 'Vista panorámica del evento', 'concierto_parque', 'jpg', 'Imagen tomada desde el escenario principal.'),
-(2, 'Foto de equipo', 'Equipo de futbol jugando', 'torneo_futbol', 'png', 'Imagen durante la competencia del torneo.');
+(1, '1', 'Vista panorámica del evento', 'concierto_parque', 'jpg', 'Imagen tomada desde el escenario principal.'),
+(2, '2', 'Equipo de futbol jugando', 'torneo_futbol', 'png', 'Imagen durante la competencia del torneo.');
 
 -- --------------------------------------------------------
 
@@ -448,9 +448,9 @@ INSERT INTO `ROLES` (`id`, `nombre_rol`, `descripcion`) VALUES
 (7, 'invitado', 'Cualquier usuario que navega por las partes públicas del portal, sin necesidad de estar registrado o validado en la aplicación.'),
 (8, 'registrado', 'Pensado para los usuarios que quieren utilizar la web a la hora de buscar, consultar/visualizar las actividades de su interés, tanto públicas como privadas, gestionar su perfil, gestionar sus avisos, notificaciones y mensajes con moderadores o administradores, gestionar sus propias actividades, las actividades en seguimiento, las actividades como participante, y los comentarios asociados a las actividades.'),
 (9, 'moderador', 'Pensado para los usuarios que además deseen colaborar con la web a la hora de moderar las actividades y comentarios de una o varias áreas geográficas.'),
-(10, 'patrocinador', 'Pensado para los usuarios que sean patrocinadores y deseen acceder al portal para poder gestionar sus propios anuncios, y sus propias actividades patrocinadas y sus posibles participantes. Estos usuarios se registran de forma especial o son creados previamente por un administrador, dándoles un acceso diferente a la aplicación.'),
-(11, 'administrdor_portal', 'Pensado para aquellos usuarios que realizan las tareas de mantenimiento de los datos del sistema, pueden gestionar cualquier cosa de la parte privada como usuarios, actividades y datos asociados, categorías, áreas y ubicaciones, patrocinios, configuración, hacer copias de seguridad o restaurarlas'),
-(12, 'administrador_sistema', 'Pensado para los programadores de la aplicación y/o administradores generales del sistema donde se instale, tendrá acceso a todas las funciones de la aplicación sin restricciones, y opcionalmente deberá poder activar el rol que desee para trabajar como un usuario de ese tipo.');
+(10, 'patrocinador', ' Pensado para los usuarios que sean patrocinadores y deseen acceder al portal para poder gestionar sus propios anuncios, y sus propias actividades patrocinadas y sus posibles participantes. Estos usuarios se registran de forma especial o son creados previamente por un administrador, dándoles un acceso diferente a la aplicación.'),
+(11, 'administrador_portal', 'Pensado para aquellos usuarios que realizan las tareas de mantenimiento de los datos del sistema, pueden gestionar cualquier cosa de la parte privada como usuarios, actividades y datos asociados, categorías, áreas y ubicaciones, patrocinios, configuración, hacer copias de seguridad o restaurarlas.'),
+(12, 'administrador_sistema', 'Pensado para los programadores de la aplicación y/o administradores generales del sistema donde se instale, tendrá acceso a todas las funciones de la aplicación sin restricciones, y opcionalmente deberá poder activar el rol que desee para trabajar como un usuario de ese tipo.\r\n');
 
 -- --------------------------------------------------------
 
@@ -609,9 +609,9 @@ ALTER TABLE `ANUNCIO_ACTIVIDAD`
   ADD KEY `FKANUNCIO_AC683805` (`ACTIVIDADid`);
 
 --
--- Indices de la tabla `CLASIFICACION`
+-- Indices de la tabla `clasificacion`
 --
-ALTER TABLE `CLASIFICACION`
+ALTER TABLE `clasificacion`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ACTIVIDAD_CLASIFICACION` (`ACTIVIDADid`);
 
@@ -623,9 +623,9 @@ ALTER TABLE `CLASIFICACION_ACTIVIDAD`
   ADD KEY `FKCLASIFICAC873129` (`ACTIVIDADid`);
 
 --
--- Indices de la tabla `COMENTARIO`
+-- Indices de la tabla `comentario`
 --
-ALTER TABLE `COMENTARIO`
+ALTER TABLE `comentario`
   ADD PRIMARY KEY (`id`),
   ADD KEY `USUARIO_COMENTARIO` (`USUARIOid`),
   ADD KEY `ACTIVIDAD_COMENTARIO` (`ACTIVIDADid`);
@@ -652,9 +652,9 @@ ALTER TABLE `CREA`
   ADD KEY `FKCREA945987` (`NOTIFICACIONid`);
 
 --
--- Indices de la tabla `ESTADO`
+-- Indices de la tabla `estado`
 --
-ALTER TABLE `ESTADO`
+ALTER TABLE `estado`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ACTIVIDAD_ESTADO` (`ACTIVIDADid`);
 
@@ -795,21 +795,21 @@ ALTER TABLE `ANUNCIO`
   MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `CLASIFICACION`
+-- AUTO_INCREMENT de la tabla `clasificacion`
 --
-ALTER TABLE `CLASIFICACION`
+ALTER TABLE `clasificacion`
   MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `COMENTARIO`
+-- AUTO_INCREMENT de la tabla `comentario`
 --
-ALTER TABLE `COMENTARIO`
+ALTER TABLE `comentario`
   MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `ESTADO`
+-- AUTO_INCREMENT de la tabla `estado`
 --
-ALTER TABLE `ESTADO`
+ALTER TABLE `estado`
   MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -862,49 +862,49 @@ ALTER TABLE `USUARIO`
 -- Filtros para la tabla `ACTIVIDAD_UBICACION`
 --
 ALTER TABLE `ACTIVIDAD_UBICACION`
-  ADD CONSTRAINT `FKACTIVIDAD_215592` FOREIGN KEY (`UBICACIONid`) REFERENCES `UBICACION` (`id`),
-  ADD CONSTRAINT `FKACTIVIDAD_400498` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+  ADD CONSTRAINT `FKACTIVIDAD_215592` FOREIGN KEY (`UBICACIONid`) REFERENCES `UBICACION` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKACTIVIDAD_400498` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `ANUNCIO_ACTIVIDAD`
 --
 ALTER TABLE `ANUNCIO_ACTIVIDAD`
-  ADD CONSTRAINT `FKANUNCIO_AC440486` FOREIGN KEY (`ANUNCIOid`) REFERENCES `ANUNCIO` (`id`),
-  ADD CONSTRAINT `FKANUNCIO_AC683805` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+  ADD CONSTRAINT `FKANUNCIO_AC440486` FOREIGN KEY (`ANUNCIOid`) REFERENCES `ANUNCIO` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKANUNCIO_AC683805` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `CLASIFICACION`
+-- Filtros para la tabla `clasificacion`
 --
-ALTER TABLE `CLASIFICACION`
-  ADD CONSTRAINT `ACTIVIDAD_CLASIFICACION` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+ALTER TABLE `clasificacion`
+  ADD CONSTRAINT `ACTIVIDAD_CLASIFICACION` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `CLASIFICACION_ACTIVIDAD`
 --
 ALTER TABLE `CLASIFICACION_ACTIVIDAD`
-  ADD CONSTRAINT `FKCLASIFICAC462280` FOREIGN KEY (`CLASIFICACIONid`) REFERENCES `CLASIFICACION` (`id`),
-  ADD CONSTRAINT `FKCLASIFICAC873129` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+  ADD CONSTRAINT `FKCLASIFICAC462280` FOREIGN KEY (`CLASIFICACIONid`) REFERENCES `CLASIFICACION` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKCLASIFICAC873129` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
--- Filtros para la tabla `COMENTARIO`
+-- Filtros para la tabla `comentario`
 --
-ALTER TABLE `COMENTARIO`
-  ADD CONSTRAINT `ACTIVIDAD_COMENTARIO` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`),
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `ACTIVIDAD_COMENTARIO` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `USUARIO_COMENTARIO` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`);
 
 --
 -- Filtros para la tabla `COMENTARIO_ACTIVIDAD`
 --
 ALTER TABLE `COMENTARIO_ACTIVIDAD`
-  ADD CONSTRAINT `FKCOMENTARIO307859` FOREIGN KEY (`COMENTARIOid`) REFERENCES `COMENTARIO` (`id`),
-  ADD CONSTRAINT `FKCOMENTARIO875373` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+  ADD CONSTRAINT `FKCOMENTARIO307859` FOREIGN KEY (`COMENTARIOid`) REFERENCES `COMENTARIO` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKCOMENTARIO875373` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `COMENTARIO_USUARIO`
 --
 ALTER TABLE `COMENTARIO_USUARIO`
-  ADD CONSTRAINT `FKCOMENTARIO192790` FOREIGN KEY (`COMENTARIOid`) REFERENCES `COMENTARIO` (`id`),
-  ADD CONSTRAINT `FKCOMENTARIO530790` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`);
+  ADD CONSTRAINT `FKCOMENTARIO192790` FOREIGN KEY (`COMENTARIOid`) REFERENCES `COMENTARIO` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKCOMENTARIO530790` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `CREA`
@@ -914,31 +914,31 @@ ALTER TABLE `CREA`
   ADD CONSTRAINT `FKCREA945987` FOREIGN KEY (`NOTIFICACIONid`) REFERENCES `NOTIFICACION` (`id`);
 
 --
--- Filtros para la tabla `ESTADO`
+-- Filtros para la tabla `estado`
 --
-ALTER TABLE `ESTADO`
-  ADD CONSTRAINT `ACTIVIDAD_ESTADO` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+ALTER TABLE `estado`
+  ADD CONSTRAINT `ACTIVIDAD_ESTADO` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `ESTADO_ACTIVIDAD`
 --
 ALTER TABLE `ESTADO_ACTIVIDAD`
-  ADD CONSTRAINT `FKESTADO_ACT641725` FOREIGN KEY (`ESTADOid`) REFERENCES `ESTADO` (`id`),
-  ADD CONSTRAINT `FKESTADO_ACT755533` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+  ADD CONSTRAINT `FKESTADO_ACT641725` FOREIGN KEY (`ESTADOid`) REFERENCES `ESTADO` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKESTADO_ACT755533` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `ETIQUETAS_ACTIVIDAD`
 --
 ALTER TABLE `ETIQUETAS_ACTIVIDAD`
-  ADD CONSTRAINT `FKETIQUETAS_587850` FOREIGN KEY (`ETIQUETASid`) REFERENCES `ETIQUETAS` (`id`),
-  ADD CONSTRAINT `FKETIQUETAS_815077` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+  ADD CONSTRAINT `FKETIQUETAS_587850` FOREIGN KEY (`ETIQUETASid`) REFERENCES `ETIQUETAS` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKETIQUETAS_815077` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `IMAGEN_ACTIVIDAD`
 --
 ALTER TABLE `IMAGEN_ACTIVIDAD`
-  ADD CONSTRAINT `FKIMAGEN_ACT674560` FOREIGN KEY (`IMAGENid`) REFERENCES `IMAGEN` (`id`),
-  ADD CONSTRAINT `FKIMAGEN_ACT974500` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+  ADD CONSTRAINT `FKIMAGEN_ACT674560` FOREIGN KEY (`IMAGENid`) REFERENCES `IMAGEN` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKIMAGEN_ACT974500` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `NOTIFICACION`
@@ -950,8 +950,8 @@ ALTER TABLE `NOTIFICACION`
 -- Filtros para la tabla `PARTICIPA`
 --
 ALTER TABLE `PARTICIPA`
-  ADD CONSTRAINT `FKPARTICIPA262719` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`),
-  ADD CONSTRAINT `FKPARTICIPA722371` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`);
+  ADD CONSTRAINT `FKPARTICIPA262719` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKPARTICIPA722371` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `PATROCINA`
@@ -971,8 +971,8 @@ ALTER TABLE `RECIBE`
 -- Filtros para la tabla `SIGUE`
 --
 ALTER TABLE `SIGUE`
-  ADD CONSTRAINT `FKSIGUE658643` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`),
-  ADD CONSTRAINT `FKSIGUE881703` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`);
+  ADD CONSTRAINT `FKSIGUE658643` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKSIGUE881703` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `USUARIO_COMENTARIO`
@@ -999,8 +999,8 @@ ALTER TABLE `USUARIO_ROLES`
 -- Filtros para la tabla `USUARIO_UBICACION`
 --
 ALTER TABLE `USUARIO_UBICACION`
-  ADD CONSTRAINT `FKUSUARIO_UB349019` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`),
-  ADD CONSTRAINT `FKUSUARIO_UB925726` FOREIGN KEY (`UBICACIONid`) REFERENCES `UBICACION` (`id`);
+  ADD CONSTRAINT `FKUSUARIO_UB349019` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKUSUARIO_UB925726` FOREIGN KEY (`UBICACIONid`) REFERENCES `UBICACION` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
