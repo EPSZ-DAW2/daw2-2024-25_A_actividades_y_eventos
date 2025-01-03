@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\Usuario $model */
@@ -19,51 +20,21 @@ $this->title = 'Mi Perfil';
 <p>Registro confirmado: <?= Html::encode($model->registro_confirmado) ?></p>
 <p>Revisado: <?= Html::encode($model->revisado) ?></p>
 <p>Último acceso: <?= Html::encode($model->ultimo_acceso) ?></p>
-
 <h2>Cambiar Contraseña</h2>
-
-<?php $form = \yii\widgets\ActiveForm::begin([
-    'id' => 'change-password-form',
-    'options' => ['class' => 'form-horizontal'],
-    'fieldConfig' => [
-        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
-        'labelOptions' => ['class' => 'col-lg-12 control-label'],
-    ],
-]); ?>
-
+<?php $form = ActiveForm::begin(['id' => 'changePasswordForm']); ?>
 <?= $form->field($model, 'currentPassword')->passwordInput()->label('Contraseña Actual') ?>
 <?= $form->field($model, 'newPassword')->passwordInput()->label('Nueva Contraseña') ?>
 <?= $form->field($model, 'confirmNewPassword')->passwordInput()->label('Confirmar Nueva Contraseña') ?>
-</br>
 <div class="form-group">
-    <div class="col-lg-12">
-        <?= Html::submitButton('Cambiar Contraseña', ['class' => 'btn btn-primary']) ?>
-    </div>
+    <?= Html::submitButton('Cambiar Contraseña', ['class' => 'btn btn-primary']) ?>
 </div>
+<?php ActiveForm::end(); ?>
 
-<?php \yii\widgets\ActiveForm::end(); ?>
-
-</br>
-<h2> Cambiar correo electrónico </h2>
-<?php $form = \yii\widgets\ActiveForm::begin([
-    'id' => 'change-email-form',
-    'options' => ['class' => 'form-horizontal'],
-    'fieldConfig' => [
-        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
-        'labelOptions' => ['class' => 'col-lg-12 control-label'],
-    ],
-]); ?>
-
+<h2>Cambiar Correo Electrónico</h2>
+<?php $form = ActiveForm::begin(['id' => 'changeEmailForm']); ?>
 <?= $form->field($model, 'newEmail')->input('email')->label('Nuevo Correo Electrónico') ?>
 <?= $form->field($model, 'confirmNewEmail')->input('email')->label('Confirmar Nuevo Correo Electrónico') ?>
-</br>
 <div class="form-group">
-    <div class="col-lg-12">
-        <?= Html::submitButton('Cambiar Correo Electrónico', ['class' => 'btn btn-primary']) ?>
-    </div>
+    <?= Html::submitButton('Cambiar Correo Electrónico', ['class' => 'btn btn-primary']) ?>
 </div>
-
-<?php \yii\widgets\ActiveForm::end(); ?>
-
-
-
+<?php ActiveForm::end(); ?>

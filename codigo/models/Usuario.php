@@ -36,27 +36,16 @@ use yii\web\IdentityInterface;
 class Usuario extends ActiveRecord implements IdentityInterface
 {
     public $currentPassword;
-
     public $newPassword;
-
     public $confirmNewPassword;
-
     public $newEmail;
-
     public $confirmNewEmail;
 
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
-        // return '{{%usuario}}';
         return 'usuario';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function rules()
     {
         return [
@@ -66,9 +55,10 @@ class Usuario extends ActiveRecord implements IdentityInterface
             [['nick', 'password', 'email', 'nombre', 'apellidos', 'ubicacion', 'motivo_bloqueo'], 'string', 'max' => 500],
             [['nick', 'email'], 'unique'],
             [['currentPassword', 'newPassword', 'confirmNewPassword'], 'required', 'on' => 'changePassword'],
-            ['currentPassword', 'string'],
-            ['newPassword', 'string', 'min' => 8],
-            ['confirmNewPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => 'La confirmación debe coincidir con la nueva contraseña.'],
+            ['newPassword', 'compare', 'compareAttribute' => 'confirmNewPassword', 'on' => 'changePassword'],
+            [['newEmail', 'confirmNewEmail'], 'required', 'on' => 'changeEmail'],
+            ['newEmail', 'email', 'on' => 'changeEmail'],
+            ['newEmail', 'compare', 'compareAttribute' => 'confirmNewEmail', 'on' => 'changeEmail'],
         ];
     }
 
@@ -221,27 +211,49 @@ class Usuario extends ActiveRecord implements IdentityInterface
 
     public function changeEmail()
     {
-        // Verificar que el nuevo correo electrónico y su confirmación coincidan
-        if ($this->newEmail !== $this->confirmNewEmail) {
-            $this->addError('confirmNewEmail', 'El nuevo correo electrónico y su confirmación no coinciden.');
+        if (!$this->validate()) {
             return false;
         }
 
-        // Aquí se pueden agregar validaciones adicionales para el nuevo correo electrónico si es necesario
-        if (!filter_var($this->newEmail, FILTER_VALIDATE_EMAIL)) { //validar el formato de correo electrónico
-            $this->addError('newEmail', 'El nuevo correo electrónico no es válido.');
-            return false;
-        }
-
-        // Cambiar el correo electrónico
         $this->email = $this->newEmail;
-
-        // Guardar los cambios en la base de datos
-        if ($this->save(false, ['email'])) {
-            return true;
-        }
-
-        $this->addError('email', 'No se pudo actualizar el correo electrónico.');
-        return false;
+        return $this->save(false);
     }
+
+    // Métodos de IdentityInterface
+    public static function findIdentity($id)
+    {
+        return static::findOne(['id' => $id]);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        // Aquí se puede implementar lógica para buscar por token si estás usando tokens de acceso
+        return null; // Modificar según sea necesario
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+        // Si estás usando claves de autenticación, retorna la clave correspondiente
+        return null; // Modificar según sea necesario
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        // Valida la clave de autenticación
+        return false; // Modificar según sea necesario
+    }
+
+    public function scenarios()
+{
+    return array_merge(parent::scenarios(), [
+        'changePassword' => ['currentPassword', 'newPassword', 'confirmNewPassword'],
+        'changeEmail' => ['newEmail', 'confirmNewEmail'],
+    ]);
+}
+
 }

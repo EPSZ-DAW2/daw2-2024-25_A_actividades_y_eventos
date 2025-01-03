@@ -29,22 +29,22 @@ class UsuarioController extends Controller
                     ],
                 ],
                 'access' => [
-                'class' => \yii\filters\AccessControl::class,
-                'only' => ['editar-perfil', 'mi-perfil'],
-                'rules' => [
-                    // Permitir a los usuarios autenticados acceder a su perfil y editarlo
-                    [
-                        'actions' => ['mi-perfil', 'editar-perfil'],
-                        'allow' => true,
-                        'roles' => ['@'], // Solo usuarios autenticados
+                    'class' => \yii\filters\AccessControl::class,
+                    'only' => ['editar-perfil', 'mi-perfil'],
+                    'rules' => [
+                        // Permitir a los usuarios autenticados acceder a su perfil y editarlo
+                        [
+                            'actions' => ['mi-perfil', 'editar-perfil'],
+                            'allow' => true,
+                            'roles' => ['@'], // Solo usuarios autenticados
+                        ],
                     ],
                 ],
-                ]
             ]
         );
     }
 
-    /**
+        /**
      * Lists all Usuario models.
      *
      * @return string
@@ -144,6 +144,34 @@ class UsuarioController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+    
+    public function actionChangePassword()
+    {
+        $model = Yii::$app->user->identity;
+
+        $model->scenario = 'changePassword';
+
+        if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
+            Yii::$app->session->setFlash('success', 'La contraseña ha sido cambiada exitosamente.');
+            return $this->redirect(['perfil']); // Cambiar a la página deseada
+        }
+
+        return $this->render('changePassword', ['model' => $model]);
+    }
+
+    public function actionChangeEmail()
+    {
+        $model = Yii::$app->user->identity;
+
+        $model->scenario = 'changeEmail';
+
+        if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
+            Yii::$app->session->setFlash('success', 'El correo electrónico ha sido actualizado exitosamente.');
+            return $this->redirect(['perfil']); // Cambiar a la página deseada
+        }
+
+        return $this->render('changeEmail', ['model' => $model]);
+    }
 
     public function actionMiPerfil()
     {
@@ -153,12 +181,24 @@ class UsuarioController extends Controller
             throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
         }
 
-        // Escenario para cambiar contraseña
-        $model->setScenario('changePassword');
+        if (Yii::$app->request->post('ChangePasswordForm')) {
+            $model->scenario = 'changePassword';
+            if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
+                Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'No se pudo cambiar la contraseña.');
+            }
+        }
 
-        if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
-            Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
-            return $this->refresh();
+        if (Yii::$app->request->post('ChangeEmailForm')) {
+            $model->scenario = 'changeEmail';
+            if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
+                Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'No se pudo cambiar el correo electrónico.');
+            }
         }
 
         return $this->render('mi-perfil', [
@@ -168,43 +208,18 @@ class UsuarioController extends Controller
 
     public function actionEditarPerfil()
     {
-        // Obtener el modelo del usuario autenticado
         $model = Yii::$app->user->identity;
-    
+
         if (!$model) {
             throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
         }
-    
-        // Procesar el formulario
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
             return $this->redirect(['mi-perfil']);
         }
-    
-        return $this->render('editar-perfil', [
-            'model' => $model,
-        ]);
-    }
 
-    public function actionCambiarEmail()
-    {
-        // Obtener el modelo del usuario autenticado
-        $model = Yii::$app->user->identity;
-    
-        if (!$model) {
-            throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
-        }
-    
-        // Escenario para cambiar el correo electrónico
-        $model->setScenario('changeEmail');
-    
-        // Procesar el formulario
-        if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
-            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
-            return $this->refresh();
-        }
-    
-        return $this->render('cambiar-email', [
+        return $this->render('editar-perfil', [
             'model' => $model,
         ]);
     }
