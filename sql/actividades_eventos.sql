@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 03-01-2025 a las 20:52:32
+-- Tiempo de generación: 03-01-2025 a las 22:29:38
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -437,9 +437,20 @@ CREATE TABLE `RECIBE` (
 CREATE TABLE `ROLES` (
   `id` bigint(19) NOT NULL,
   `nombre_rol` varchar(255) DEFAULT NULL,
-  `descripcion` varchar(255) DEFAULT NULL,
-  `perfil` varchar(255) DEFAULT NULL
+  `descripcion` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ROLES`
+--
+
+INSERT INTO `ROLES` (`id`, `nombre_rol`, `descripcion`) VALUES
+(7, 'invitado', 'Cualquier usuario que navega por las partes públicas del portal, sin necesidad de estar registrado o validado en la aplicación.'),
+(8, 'registrado', 'Pensado para los usuarios que quieren utilizar la web a la hora de buscar, consultar/visualizar las actividades de su interés, tanto públicas como privadas, gestionar su perfil, gestionar sus avisos, notificaciones y mensajes con moderadores o administradores, gestionar sus propias actividades, las actividades en seguimiento, las actividades como participante, y los comentarios asociados a las actividades.'),
+(9, 'moderador', 'Pensado para los usuarios que además deseen colaborar con la web a la hora de moderar las actividades y comentarios de una o varias áreas geográficas.'),
+(10, 'patrocinador', 'Pensado para los usuarios que sean patrocinadores y deseen acceder al portal para poder gestionar sus propios anuncios, y sus propias actividades patrocinadas y sus posibles participantes. Estos usuarios se registran de forma especial o son creados previamente por un administrador, dándoles un acceso diferente a la aplicación.'),
+(11, 'administrdor_portal', 'Pensado para aquellos usuarios que realizan las tareas de mantenimiento de los datos del sistema, pueden gestionar cualquier cosa de la parte privada como usuarios, actividades y datos asociados, categorías, áreas y ubicaciones, patrocinios, configuración, hacer copias de seguridad o restaurarlas'),
+(12, 'administrador_sistema', 'Pensado para los programadores de la aplicación y/o administradores generales del sistema donde se instale, tendrá acceso a todas las funciones de la aplicación sin restricciones, y opcionalmente deberá poder activar el rol que desee para trabajar como un usuario de ese tipo.');
 
 -- --------------------------------------------------------
 
@@ -829,7 +840,7 @@ ALTER TABLE `NOTIFICACION`
 -- AUTO_INCREMENT de la tabla `ROLES`
 --
 ALTER TABLE `ROLES`
-  MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `UBICACION`
