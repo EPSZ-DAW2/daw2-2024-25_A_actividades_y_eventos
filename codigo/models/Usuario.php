@@ -197,8 +197,9 @@ class Usuario extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        // Cambiar la contraseña (asegúrate de usar un hash seguro)
-        $this->password = Yii::$app->getSecurity()->generatePasswordHash($this->newPassword);
+        // OJO-REVISAR - HACER HASH
+        // Cambiar la contraseña 
+        $this->password = $this->newPassword;
 
         // Guardar los cambios en la base de datos
         if ($this->save(false, ['password'])) {
