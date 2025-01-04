@@ -18,6 +18,7 @@ use Yii;
  * @property int|null $edad_recomendada
  * @property int|null $votosOK
  * @property int|null $votosKO
+ 
  */
 class Actividad extends \yii\db\ActiveRecord
 {
@@ -57,7 +58,7 @@ class Actividad extends \yii\db\ActiveRecord
             'notas' => 'Notas',
             'edad_recomendada' => 'Edad Recomendada',
             'votosOK' => 'Votos Ok',
-            'votosKO' => 'Votos Ko',
+            'votosKO' => 'Votos Ko'
         ];
     }
 }

@@ -5,7 +5,7 @@ use yii\widgets\LinkPager;
 
 ?>
 
-<p>
+<p></p>
     <?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success']) ?>
 </p>
 
@@ -42,7 +42,9 @@ use yii\widgets\LinkPager;
     </tbody>
 </table>
 
-<?= LinkPager::widget([
-    'pagination' => $pagination,
-]) ?>
+<?php if ($pagination): ?>
+    <?= LinkPager::widget([
+        'pagination' => $pagination,
+    ]) ?>
+<?php endif; ?>
 

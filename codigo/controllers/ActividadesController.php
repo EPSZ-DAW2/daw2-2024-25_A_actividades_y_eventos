@@ -24,20 +24,7 @@ class ActividadesController extends Controller
     }
 
 
-    // Crea una nueva actividad
-    public function actionCrear()
-    {
-        $model = new Actividad();
-    
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Actividad creada exitosamente.');
-            return $this->redirect(['recomendadas']); // Redirige a la lista de actividades
-        }
-    
-        return $this->render('create', [
-            'model' => $model, // Pasa el modelo a la vista
-        ]);
-    }    
+
 
     // Encuentra el modelo de la actividad por ID
     protected function findModel($id)
@@ -104,6 +91,21 @@ class ActividadesController extends Controller
             'model' => $model,
         ]);
     }
+        // Crea una nueva actividad
+        public function actionCrear()
+        {
+            $model = new Actividad();
+        
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', 'Actividad creada exitosamente.');
+                return $this->redirect(['ver_actividad', 'id' => $model->id]);
+
+            }
+        
+            return $this->render('crear_actividad', [
+                'model' => $model, // Pasa el modelo a la vista
+            ]);
+        }    
     
     // Elimina una actividad
     public function actionEliminar($id)
