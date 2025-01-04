@@ -2,7 +2,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Crear Actividad';
+Yii::$app->view->title = 'Crear Actividad'; 
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>

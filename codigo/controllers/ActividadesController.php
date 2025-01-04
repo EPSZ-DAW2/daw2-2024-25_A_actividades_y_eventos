@@ -28,24 +28,16 @@ class ActividadesController extends Controller
     public function actionCrear()
     {
         $model = new Actividad();
-
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Actividad creada exitosamente.');
-                return $this->redirect(['actividades/administrador']);
-            } else {
-                // Depurar errores de validación
-                var_dump($model->errors);
-                die();
-            }
+    
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Actividad creada exitosamente.');
+            return $this->redirect(['recomendadas']); // Redirige a la lista de actividades
         }
-
-        return $this->render('crear_actividad', [
-            'model' => $model,
+    
+        return $this->render('create', [
+            'model' => $model, // Pasa el modelo a la vista
         ]);
-    }
-
-
+    }    
 
     // Encuentra el modelo de la actividad por ID
     protected function findModel($id)
