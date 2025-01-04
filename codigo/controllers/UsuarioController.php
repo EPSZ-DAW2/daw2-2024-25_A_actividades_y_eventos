@@ -6,6 +6,7 @@ use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
 use yii\web\Controller;
+use app\models\Notificacion;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -208,5 +209,26 @@ class UsuarioController extends Controller
         return $this->render('cambiar-email', [
             'model' => $model,
         ]);
+    }
+
+    public function actionCrearNotificacion($codigo)
+    {
+        $notificacion = new Notificacion();
+        $notificacion->codigo_de_clase = $codigo;
+        $notificacion->fecha = date('Y-m-d H:i:s');
+        $notificacion->USUARIOid = Yii::$app->user->id;
+        // La notificación al administrador, que se puede suponer con ID 1
+        $notificacion->USUARIOid2 = 1;
+
+        // No establecer ACTIVIDADid si no es necesario
+        $notificacion->ACTIVIDADid = 1;
+
+        if ($notificacion->save()) {
+            Yii::$app->session->setFlash('success', 'Notificación creada exitosamente.');
+        } else {
+            Yii::$app->session->setFlash('error', 'Error al crear la notificación.');
+        }
+
+        return $this->redirect(['usuario/mi-perfil']);
     }
 }

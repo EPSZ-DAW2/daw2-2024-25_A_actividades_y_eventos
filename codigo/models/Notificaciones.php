@@ -9,10 +9,10 @@ use Yii;
  *
  * @property int $id
  * @property string|null $fecha
- * @property string|null $cod_clase
+ * @property string|null $codigo_de_clase
  * @property string|null $texto
- * @property int|null $usuario_origen
- * @property int|null $usuario_destino
+ * @property int|null $USUARIOid
+ * @property int|null $USUARIOid2
  * @property int|null $actividad
  * @property int|null $comentario
  * @property string|null $fecha_lectura
@@ -42,12 +42,12 @@ class Notificaciones extends \yii\db\ActiveRecord
         return [
             [['fecha', 'fecha_lectura', 'fecha_borrado', 'fecha_aceptacion'], 'safe'],
             [['texto'], 'string'],
-            [['usuario_origen', 'usuario_destino', 'actividad', 'comentario'], 'integer'],
-            [['cod_clase'], 'string', 'max' => 500],
-            [['actividad'], 'exist', 'skipOnError' => true, 'targetClass' => Actividad::class, 'targetAttribute' => ['actividad' => 'id']],
+            [['USUARIOid', 'USUARIOid2', 'ACTIVIDADid', 'comentario'], 'integer'],
+            [['codigo_de_clase'], 'string', 'max' => 500],
+            [['ACTIVIDADid'], 'exist', 'skipOnError' => true, 'targetClass' => Actividad::class, 'targetAttribute' => ['actividad' => 'id']],
             [['comentario'], 'exist', 'skipOnError' => true, 'targetClass' => Comentario::class, 'targetAttribute' => ['comentario' => 'id']],
-            [['usuario_destino'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::class, 'targetAttribute' => ['usuario_destino' => 'id']],
-            [['usuario_origen'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::class, 'targetAttribute' => ['usuario_origen' => 'id']],
+            [['USUARIOid2'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::class, 'targetAttribute' => ['USUARIOid2' => 'id']],
+            [['USUARIOid'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::class, 'targetAttribute' => ['USUARIOid' => 'id']],
         ];
     }
 
@@ -59,11 +59,11 @@ class Notificaciones extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'fecha' => 'Fecha',
-            'cod_clase' => 'Cod Clase',
+            'codigo_de_clase' => 'Cod Clase',
             'texto' => 'Texto',
-            'usuario_origen' => 'Usuario Origen',
-            'usuario_destino' => 'Usuario Destino',
-            'actividad' => 'Actividad',
+            'USUARIOid' => 'Usuario Origen',
+            'USUARIOid2' => 'Usuario Destino',
+            'ACTIVIDADid' => 'Actividad',
             'comentario' => 'Comentario',
             'fecha_lectura' => 'Fecha Lectura',
             'fecha_borrado' => 'Fecha Borrado',
@@ -78,7 +78,7 @@ class Notificaciones extends \yii\db\ActiveRecord
      */
     public function getActividad0()
     {
-        return $this->hasOne(Actividad::class, ['id' => 'actividad']);
+        return $this->hasOne(Actividad::class, ['id' => 'ACTIVIDADid']);
     }
 
     /**
@@ -98,7 +98,7 @@ class Notificaciones extends \yii\db\ActiveRecord
      */
     public function getUsuarioDestino()
     {
-        return $this->hasOne(Usuario::class, ['id' => 'usuario_destino']);
+        return $this->hasOne(Usuario::class, ['id' => 'USUARIOid2']);
     }
 
     /**
@@ -108,6 +108,6 @@ class Notificaciones extends \yii\db\ActiveRecord
      */
     public function getUsuarioOrigen()
     {
-        return $this->hasOne(Usuario::class, ['id' => 'usuario_origen']);
+        return $this->hasOne(Usuario::class, ['id' => 'USUARIOid']);
     }
 }

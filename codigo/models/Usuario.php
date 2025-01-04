@@ -139,7 +139,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
      */
     public function getNotificaciones()
     {
-        return $this->hasMany(Notificacion::class, ['usuario_destino' => 'id']);
+        return $this->hasMany(Notificacion::class, ['USUARIOid2' => 'id']);
     }
 
     /**
@@ -149,7 +149,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
      */
     public function getNotificaciones0()
     {
-        return $this->hasMany(Notificacion::class, ['usuario_origen' => 'id']);
+        return $this->hasMany(Notificacion::class, ['USUARIOid' => 'id']);
     }
 
     /**
