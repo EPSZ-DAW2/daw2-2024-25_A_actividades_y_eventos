@@ -219,35 +219,6 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return $this->save(false);
     }
 
-    // Métodos de IdentityInterface
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id]);
-    }
-
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        // Aquí se puede implementar lógica para buscar por token si estás usando tokens de acceso
-        return null; // Modificar según sea necesario
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getAuthKey()
-    {
-        // Si estás usando claves de autenticación, retorna la clave correspondiente
-        return null; // Modificar según sea necesario
-    }
-
-    public function validateAuthKey($authKey)
-    {
-        // Valida la clave de autenticación
-        return false; // Modificar según sea necesario
-    }
-
     public function scenarios()
 {
     return array_merge(parent::scenarios(), [
