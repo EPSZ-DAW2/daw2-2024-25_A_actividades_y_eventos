@@ -9,15 +9,38 @@ $this->title = 'Mi Perfil';
 ?>
 <h1><?= Html::encode($this->title) ?></h1>
 
-<p>Nombre de usuario: <?= Html::encode($model->nick) ?></p>
-<p>Email: <?= Html::encode($model->email) ?></p>
-<p>Nombre: <?= Html::encode($model->nombre) ?></p>
-<p>Apellidos: <?= Html::encode($model->apellidos) ?></p>
-<p>Fecha de nacimiento: <?= Html::encode($model->fecha_nacimiento) ?></p>
-
-<p>Activo: <?= Html::encode($model->activo) ?></p>
-
-<p>Registro confirmado: <?= Html::encode($model->registro_confirmado) ?></p>
+<table class="table table-striped table-bordered">
+    <tbody>
+        <tr>
+            <td>Nombre de usuario</td>
+            <td><?= Html::encode($model->nick) ?></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><?= Html::encode($model->email) ?></td>
+        </tr>
+        <tr>
+            <td>Nombre</td>
+            <td><?= Html::encode($model->nombre) ?></td>
+        </tr>
+        <tr>
+            <td>Apellidos</td>
+            <td><?= Html::encode($model->apellidos) ?></td>
+        </tr>
+        <tr>
+            <td>Fecha de nacimiento</td>
+            <td><?= Html::encode($model->fecha_nacimiento) ?></td>
+        </tr>
+        <tr>
+            <td>Activo</td>
+            <td><?= $model->activo ? '✔️' : '❌' ?></td>
+        </tr>
+        <tr>
+            <td>Registro confirmado</td>
+            <td><?= $model->registro_confirmado ? '✔️' : '❌' ?></td>
+        </tr>
+    </tbody>
+</table>
 
 
 <h2>Cambiar Contraseña</h2>
@@ -40,6 +63,19 @@ $this->title = 'Mi Perfil';
         <?= Html::submitButton('Cambiar Contraseña', ['class' => 'btn btn-primary']) ?>
     </div>
 </div>
+
+<h2>Cambiar Email</h2>
+
+
+<!-- Botones para crear notificaciones -->
+<div class="form-group">
+    <div class="col-lg-12">
+        <?= Html::a('Solicitud de Baja', ['usuario/crear-notificacion', 'codigo' => 'SOLICITUD_BAJA'], ['class' => 'btn btn-danger']) ?>
+        <?= Html::a('Solicitud de Contacto', ['usuario/crear-notificacion', 'codigo' => 'SOLICITUD_CONTACTO'], ['class' => 'btn btn-warning']) ?>
+    </div>
+</div>
+
+
 
 <?php \yii\widgets\ActiveForm::end(); ?>
 
