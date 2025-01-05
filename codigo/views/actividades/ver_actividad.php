@@ -86,5 +86,8 @@ $this->title = $model->titulo;
             <td><?= Html::encode($model->participantes) ?></td>
         </tr>
     </table>
+    <?= Html::a('Participantes de la actividad', ['ver_participantes_actividad', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+    <?= Html::a('Etiquetas de la actividad', ['ver_etiquetas_actividad', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+
 
 </div>

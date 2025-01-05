@@ -116,6 +116,32 @@ class ActividadesController extends Controller
         return $this->redirect(['actividades/administrador']);
     }
 
+    public function actionVer_participantes_actividad($id)
+    {
+        $db = Yii::$app->db;
+
+        $model = $db->createCommand('SELECT * FROM USUARIO u JOIN PARTICIPA au ON u.id = au.USUARIOid WHERE au.ACTIVIDADid = :id')
+            ->bindValue(':id', $id)
+            ->queryAll();
+
+         return $this->render('vista_participantes_actividad', [
+             'participantes' => $model,
+         ]);
+    }
+
+    public function actionVer_etiquetas_actividad($id)
+    {
+        $db = Yii::$app->db;
+
+        $model = $db->createCommand('SELECT * FROM ETIQUETAS e JOIN ETIQUETAS_ACTIVIDAD ea on e.id=ea.ETIQUETASid WHERE ea.ACTIVIDADid= :id  ')
+            ->bindValue(':id', $id)
+            ->queryAll();
+
+         return $this->render('vista_etiquetas_actividad', [
+             'etiquetas' => $model,
+         ]);
+    }
+
 
     
 }
