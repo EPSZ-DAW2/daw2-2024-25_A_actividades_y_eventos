@@ -18,7 +18,10 @@ use Yii;
  * @property int|null $edad_recomendada
  * @property int|null $votosOK
  * @property int|null $votosKO
- 
+ * @property int|null $maximo_participantes
+ * @property int|null $minimo_participantes
+ * @property int|null $reserva
+ * @property int|null $participantes
  */
 class Actividad extends \yii\db\ActiveRecord
 {
@@ -37,7 +40,7 @@ class Actividad extends \yii\db\ActiveRecord
     {
         return [
             [['fecha_celebracion'], 'safe'],
-            [['duracion_estimada', 'edad_recomendada', 'votosOK', 'votosKO'], 'integer'],
+            [['duracion_estimada', 'edad_recomendada', 'votosOK', 'votosKO', 'maximo_participantes', 'minimo_participantes', 'reserva', 'participantes'], 'integer'],
             [['titulo', 'descripcion', 'lugar_celebracion', 'detalles', 'notas'], 'string', 'max' => 255],
         ];
     }
@@ -58,7 +61,11 @@ class Actividad extends \yii\db\ActiveRecord
             'notas' => 'Notas',
             'edad_recomendada' => 'Edad Recomendada',
             'votosOK' => 'Votos Ok',
-            'votosKO' => 'Votos Ko'
+            'votosKO' => 'Votos Ko',
+            'maximo_participantes' => 'Máximo Participantes',
+            'minimo_participantes' => 'Mínimo Participantes',
+            'reserva' => 'Reserva',
+            'participantes' => 'Participantes'
         ];
     }
 }
