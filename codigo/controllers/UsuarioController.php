@@ -5,8 +5,8 @@ namespace app\controllers;
 use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
-use yii\web\Controller;
 use app\models\Notificacion;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -238,5 +238,17 @@ class UsuarioController extends Controller
         }
 
         return $this->redirect(['usuario/mi-perfil']);
+    }
+
+    public function actionMisNotificaciones()
+    {
+        $userId = Yii::$app->user->id;
+        $dataProvider = new \yii\data\ActiveDataProvider([
+            'query' => Notificacion::find()->where(['USUARIOid2' => $userId, 'fecha_borrado' => null]),
+        ]);
+
+        return $this->render('mis-notificaciones', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 }
