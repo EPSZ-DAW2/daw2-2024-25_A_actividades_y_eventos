@@ -6,6 +6,11 @@ use yii\widgets\LinkPager;
 ?>
 
 <p></p>
+
+    
+    <a href="<?= Yii::$app->urlManager->createUrl(['site/gestion_admin']) ?>">Panel de administrador</a>
+
+
     <?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success']) ?>
 </p>
 
