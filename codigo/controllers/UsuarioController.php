@@ -162,6 +162,14 @@ class UsuarioController extends Controller
             return $this->refresh();
         }
 
+        // Escenario para cambiar email
+        $model->setScenario('changeEmail');
+
+        if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
+            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
+            return $this->refresh();
+        }
+
         return $this->render('mi-perfil', [
             'model' => $model,
         ]);

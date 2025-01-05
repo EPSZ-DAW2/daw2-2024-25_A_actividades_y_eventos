@@ -42,7 +42,7 @@ $this->title = 'Mi Perfil';
     </tbody>
 </table>
 
-
+</br>
 <h2>Cambiar Contraseña</h2>
 
 <?php $form = \yii\widgets\ActiveForm::begin([
@@ -64,9 +64,34 @@ $this->title = 'Mi Perfil';
     </div>
 </div>
 
+<?php \yii\widgets\ActiveForm::end(); ?>
+
+</br>
 <h2>Cambiar Email</h2>
 
+<?php $form = \yii\widgets\ActiveForm::begin([
+    'id' => 'change-email-form',
+    'options' => ['class' => 'form-horizontal'],
+    'fieldConfig' => [
+        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
+        'labelOptions' => ['class' => 'col-lg-12 control-label'],
+    ],
+]); ?>
 
+<?= $form->field($model, 'newEmail')->input('email')->label('Nuevo Email') ?>
+<?= $form->field($model, 'confirmNewEmail')->input('email')->label('Confirmar Nuevo Email') ?>
+</br>
+<div class="form-group">
+    <div class="col-lg-12">
+        <?= Html::submitButton('Cambiar Email', ['class' => 'btn btn-primary']) ?>
+    </div>
+</div>
+
+<?php \yii\widgets\ActiveForm::end(); ?>
+
+</br>
+<h2>Solitud de soporte al administrador del sitio</h2>
+</br>
 <!-- Botones para crear notificaciones -->
 <div class="form-group">
     <div class="col-lg-12">
@@ -74,9 +99,5 @@ $this->title = 'Mi Perfil';
         <?= Html::a('Solicitud de Contacto', ['usuario/crear-notificacion', 'codigo' => 'SOLICITUD_CONTACTO'], ['class' => 'btn btn-warning']) ?>
     </div>
 </div>
-
-
-
-<?php \yii\widgets\ActiveForm::end(); ?>
 
 </br>

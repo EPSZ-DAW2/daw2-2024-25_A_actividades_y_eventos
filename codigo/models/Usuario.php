@@ -221,11 +221,11 @@ class Usuario extends ActiveRecord implements IdentityInterface
     }
 
     public function scenarios()
-{
-    return array_merge(parent::scenarios(), [
-        'changePassword' => ['currentPassword', 'newPassword', 'confirmNewPassword'],
-        'changeEmail' => ['newEmail', 'confirmNewEmail'],
-    ]);
-}
+    {
+        return array_merge(parent::scenarios(), [
+            'changePassword' => ['currentPassword', 'newPassword', 'confirmNewPassword'],
+            'changeEmail' => ['newEmail', 'confirmNewEmail'],
+        ]);
+    }
 
 }
