@@ -51,8 +51,8 @@ $this->title = 'Actividades y Eventos';
         <h3 class="display-4">¿TODO LISTO?</h3>
 
         <p class="under">
-            "¡<a href="<?= Yii::$app->urlManager->createUrl(['']) ?>">Inicia Sesión</a> o 
-            <a href="<?= Yii::$app->urlManager->createUrl(['']) ?>">Regístrate</a> en nuestro portal para continuar!"
+            ¡<a href="<?= Yii::$app->urlManager->createUrl(['/site/login']) ?>">Inicia Sesión</a> o 
+            <a href="<?= Yii::$app->urlManager->createUrl(['']) ?>">Regístrate</a> en nuestro portal para continuar!
         </p>
 
     </div>

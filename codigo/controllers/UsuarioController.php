@@ -9,6 +9,7 @@ use app\models\Notificacion;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\RegistroAcciones;
 
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
@@ -158,6 +159,7 @@ class UsuarioController extends Controller
         $model->setScenario('changePassword');
 
         if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
+            $this->logAction('changePassword', 'User changed password');
             Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
             return $this->refresh();
         }
@@ -166,6 +168,7 @@ class UsuarioController extends Controller
         $model->setScenario('changeEmail');
 
         if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
+            $this->logAction('changeEmail', 'User changed email');
             Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
             return $this->refresh();
         }
@@ -228,7 +231,7 @@ class UsuarioController extends Controller
         // La notificación al administrador, que se puede suponer con ID 1
         $notificacion->USUARIOid2 = 1;
 
-        // No establecer ACTIVIDADid si no es necesario
+        // No establecer actividad si no es necesario
         $notificacion->ACTIVIDADid = 1;
 
         if ($notificacion->save()) {
@@ -250,5 +253,14 @@ class UsuarioController extends Controller
         return $this->render('mis-notificaciones', [
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    protected function logAction($action, $details)
+    {
+        $log = new RegistroAcciones();
+        $log->usuario_accion = Yii::$app->user->identity->nick;
+        $log->fecha_accion = date('Y-m-d H:i:s');
+        $log->accion = $details;
+        $log->save();
     }
 }

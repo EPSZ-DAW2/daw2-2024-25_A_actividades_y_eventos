@@ -6,6 +6,7 @@ use Yii;
 use app\models\Notificacion;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use app\models\RegistroAcciones;
 
 class NotificacionController extends Controller
 {
@@ -17,6 +18,7 @@ class NotificacionController extends Controller
         if (!$model->fecha_lectura) {
             $model->fecha_lectura = date('Y-m-d H:i:s');
             $model->save(false);
+            $this->logAction('leida', 'Notificación marcada como leída');
         }
 
         return $this->render('view', [
@@ -48,6 +50,7 @@ class NotificacionController extends Controller
             $model->fecha_aceptacion = date('Y-m-d H:i:s');
             if ($model->save(false)) {
                 Yii::$app->session->setFlash('success', 'Notificación aceptada.');
+                $this->logAction('aceptar', 'Notificación aceptada');
             } else {
                 Yii::$app->session->setFlash('error', 'Error al aceptar la notificación.');
             }
@@ -79,5 +82,14 @@ class NotificacionController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function logAction($action, $details)
+    {
+        $log = new RegistroAcciones();
+        $log->usuario_accion = Yii::$app->user->identity->nick;
+        $log->fecha_accion = date('Y-m-d H:i:s');
+        $log->accion = $details;
+        $log->save();
     }
 }

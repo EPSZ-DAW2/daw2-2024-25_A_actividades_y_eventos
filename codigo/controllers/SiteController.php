@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Usuario;
+use app\models\RegistroAcciones;
 
 class SiteController extends Controller
 {
@@ -88,6 +89,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            $this->logAction('login', 'User logged in');
             return $this->goBack();
         }
 
@@ -104,9 +106,19 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+        $this->logAction('logout', 'User logged out');
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    protected function logAction($action, $details)
+    {
+        $log = new RegistroAcciones();
+        $log->usuario_accion = Yii::$app->user->identity->nick;
+        $log->fecha_accion = date('Y-m-d H:i:s');
+        $log->accion = $details;
+        $log->save();
     }
 
     /**
