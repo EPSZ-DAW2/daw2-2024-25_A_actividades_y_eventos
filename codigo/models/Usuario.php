@@ -228,4 +228,13 @@ class Usuario extends ActiveRecord implements IdentityInterface
         ]);
     }
 
+    public function getUsuarioOptions()
+    {
+        $usuarios = self::find()->all();
+        $usuarioOptions = [];
+        foreach ($usuarios as $usuario) {
+            $usuarioOptions[$usuario->id] = $usuario->nick;
+        }
+        return $usuarioOptions;
+    }
 }

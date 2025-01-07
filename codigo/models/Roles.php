@@ -43,4 +43,18 @@ class Roles extends ActiveRecord
             'descripcion' => 'Descripción',
         ];
     }
+
+    /**
+     * Returns an array of role options.
+     * @return array
+     */
+    public function getRoleOptions()
+    {
+        $roles = self::find()->all();
+        $roleOptions = [];
+        foreach ($roles as $role) {
+            $roleOptions[$role->id] = $role->nombre_rol;
+        }
+        return $roleOptions;
+    }
 }

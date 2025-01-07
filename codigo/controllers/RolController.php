@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Roles;
+use app\models\Usuario;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -126,4 +127,69 @@ class RolController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionView_roles_personas($id)
+    {
+        $db = Yii::$app->db;
+
+        $model = $db->createCommand('SELECT * FROM USUARIO u JOIN USUARIO_ROLES ur ON u.id = ur.USUARIOid WHERE ur.ROLESid = :id' )
+            ->bindValue(':id', $id)
+            ->queryAll();
+        if(empty($model)){
+            Yii::$app->session->setFlash('error', 'No hay usuarios con este rol.');
+            return $this->redirect(['index']); // Detener ejecución y redirigir
+        }
+
+        return $this->render('view_roles_personas', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionDelete_rol_persona($id)
+    {
+        $db = Yii::$app->db;
+
+        $db->createCommand('DELETE FROM USUARIO_ROLES WHERE USUARIOid = :id')
+            ->bindValue(':id', $id)
+            ->execute();
+
+        Yii::$app->session->setFlash('success', 'Rol eliminado exitosamente.');
+
+        return $this->redirect(['index']);
+    }
+
+    public function actionAdd_rol_persona()
+    {
+        $model = new Roles();
+
+        $usuarios = new Usuario();
+
+        return $this->render('view_asignar_roles', [
+            'model' => $model,
+            'usuarios' => $usuarios,
+
+        ]);
+    }
+
+    public function actionAsignar_rol_persona()
+    {
+        $db = Yii::$app->db;
+
+        $usuario = Yii::$app->request->post('usuario');
+        $rol = Yii::$app->request->post('rol');
+
+        if ($usuario !== null && $rol !== null) {
+            $db->createCommand('INSERT INTO USUARIO_ROLES (USUARIOid, ROLESid) VALUES (:usuario, :rol)')
+                ->bindValue(':usuario', $usuario)
+                ->bindValue(':rol', $rol)
+                ->execute();
+
+            Yii::$app->session->setFlash('success', 'Rol asignado exitosamente.');
+        } else {
+            Yii::$app->session->setFlash('error', 'Datos inválidos. Por favor, seleccione un usuario y un rol.');
+        }
+
+        return $this->redirect(['index']);
+    }
+
 }
