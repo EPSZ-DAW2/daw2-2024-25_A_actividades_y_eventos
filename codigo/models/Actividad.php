@@ -22,6 +22,7 @@ use Yii;
  * @property int|null $minimo_participantes
  * @property int|null $reserva
  * @property int|null $participantes
+ * @property int|null $contador_visitas
  */
 class Actividad extends \yii\db\ActiveRecord
 {
@@ -40,7 +41,7 @@ class Actividad extends \yii\db\ActiveRecord
     {
         return [
             [['fecha_celebracion'], 'safe'],
-            [['duracion_estimada', 'edad_recomendada', 'votosOK', 'votosKO', 'maximo_participantes', 'minimo_participantes', 'reserva', 'participantes'], 'integer'],
+            [['duracion_estimada', 'edad_recomendada', 'votosOK', 'votosKO', 'maximo_participantes', 'minimo_participantes', 'reserva', 'participantes', 'contador_visitas'], 'integer'],
             [['titulo', 'descripcion', 'lugar_celebracion', 'detalles', 'notas'], 'string', 'max' => 255],
         ];
     }
@@ -65,7 +66,8 @@ class Actividad extends \yii\db\ActiveRecord
             'maximo_participantes' => 'Máximo Participantes',
             'minimo_participantes' => 'Mínimo Participantes',
             'reserva' => 'Reserva',
-            'participantes' => 'Participantes'
+            'participantes' => 'Participantes',
+            'contador_visitas' => 'Contador de Visitas'
         ];
     }
 }

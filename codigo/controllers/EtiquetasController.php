@@ -7,15 +7,37 @@ use yii\web\Controller;
 use app\models\Etiqueta;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\Pagination;
+use yii\data\Sort;
 
 class EtiquetasController extends Controller
 {
     // Lista todas las etiquetas
     public function actionIndex()
     {
-        $etiquetas = Etiqueta::find()->all();
+        $sort = new Sort([
+            'attributes' => [
+                'id',
+                'Nombre',
+                'Descripcion',
+            ],
+        ]);
+
+        $query = Etiqueta::find()->orderBy($sort->orders);
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 5,
+            'totalCount' => $query->count(),
+        ]);
+
+        $etiquetas = $query->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
         return $this->render('index', [
-            'etiquetas' => $etiquetas
+            'etiquetas' => $etiquetas,
+            'pagination' => $pagination,
+            'sort' => $sort,
         ]);
     }
 

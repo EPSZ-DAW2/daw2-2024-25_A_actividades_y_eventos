@@ -18,7 +18,7 @@ use yii\helpers\Html;
             <tr>
                 <th>ID Participante</th>
                 <th>Nombre</th>
-                <th>Email</th>
+                <th>Descripción</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@ use yii\helpers\Html;
                     <tr>
                         <td><?= Html::encode($participante['id'] ?? $participante->id ?? 'N/A') ?></td>
                         <td><?= Html::encode($participante['nombre'] ?? $participante->nombre ?? 'N/A') ?></td>
-                        <td><?= Html::encode($participante['email'] ?? $participante->email ?? 'N/A') ?></td>
+                        <td><?= Html::encode($participante['descripcion'] ?? $participante->descripcion ?? 'N/A') ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>

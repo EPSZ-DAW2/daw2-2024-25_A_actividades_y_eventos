@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\data\Pagination;
+use yii\data\Sort;
 
 class ActividadesController extends Controller
 {
@@ -51,21 +52,30 @@ class ActividadesController extends Controller
 
     public function actionAdministrador()
     {
-        $query = Actividad::find();
+        $sort = new Sort([
+            'attributes' => [
+                'id',
+                'titulo',
+                'descripcion',
+                'fecha_celebracion',
+            ],
+        ]);
+
+        $query = Actividad::find()->orderBy($sort->orders);
 
         $pagination = new Pagination([
             'defaultPageSize' => 5,
             'totalCount' => $query->count(),
         ]);
 
-        $countries = $query->orderBy('id')
-            ->offset($pagination->offset)
+        $countries = $query->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
 
         return $this->render('panel_administrador', [
             'id' => $countries,
             'pagination' => $pagination,
+            'sort' => $sort,
         ]);
     }
 

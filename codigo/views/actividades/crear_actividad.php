@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Actividad */
@@ -22,8 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'fecha_celebracion')->textInput() ?>
-
+        <?= $form->field($model, 'fecha_celebracion')->widget(DatePicker::classname(), [
+            'dateFormat' => 'yyyy-MM-dd',
+            'options' => ['class' => 'form-control'],
+        ]) ?>
         <?= $form->field($model, 'duracion_estimada')->textInput() ?>
 
         <?= $form->field($model, 'lugar_celebracion')->textInput(['maxlength' => true]) ?>
@@ -45,6 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= $form->field($model, 'reserva')->checkbox() ?>
 
         <?= $form->field($model, 'participantes')->textInput() ?>
+
+        <?= $form->field($model, 'contador_visitas')->textInput() ?>
+
 
         <div class="form-group">
             <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

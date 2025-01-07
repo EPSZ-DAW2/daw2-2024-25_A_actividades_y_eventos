@@ -4,6 +4,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 $this->title = 'Actualizar Etiqueta: ' . $model->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Etiquetas', 'url' => ['index']];

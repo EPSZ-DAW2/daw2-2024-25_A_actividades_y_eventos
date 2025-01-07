@@ -2,25 +2,33 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+use yii\data\Sort;
+
+$sort = new Sort([
+    'attributes' => [
+        'id',
+        'titulo',
+        'descripcion',
+        'fecha_celebracion',
+    ],
+]);
 
 ?>
 
 <p></p>
 
-    
-    <a href="<?= Yii::$app->urlManager->createUrl(['site/gestion_admin']) ?>">Panel de administrador</a>
+<a href="<?= Yii::$app->urlManager->createUrl(['site/gestion_admin']) ?>">Panel de administrador</a>
 
-
-    <?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success']) ?>
+<?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success']) ?>
 </p>
 
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Titulo</th>
-            <th>Descripcion</th>
-            <th>Fecha Celebracion</th>
+            <th><?= $sort->link('id') ?></th>
+            <th><?= $sort->link('titulo') ?></th>
+            <th><?= $sort->link('descripcion') ?></th>
+            <th><?= $sort->link('fecha_celebracion') ?></th>
             <th>Acciones</th>
         </tr>
     </thead>

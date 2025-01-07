@@ -3,6 +3,17 @@
 /* @var $etiquetas app\models\Etiqueta[] */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\widgets\LinkPager;
+use yii\data\Sort;
+
+$sort = new Sort([
+    'attributes' => [
+        'id',
+        'Nombre',
+        'Descripcion',
+    ],
+]);
 
 $this->title = 'Etiquetas';
 $this->params['breadcrumbs'][] = $this->title;
@@ -14,15 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
+            <th><?= $sort->link('id') ?></th>
+            <th><?= $sort->link('Nombre') ?></th>
+            <th><?= $sort->link('Descripcion') ?></th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($etiquetas as $etiqueta): ?>
-                <tr></tr>
+                <tr>
                     <td><?= Html::encode($etiqueta->id) ?></td>
                     <td><?= Html::encode($etiqueta->nombre) ?></td>
                     <td><?= Html::encode($etiqueta->descripcion) ?></td>
