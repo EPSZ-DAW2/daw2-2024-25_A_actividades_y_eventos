@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-01-2025 a las 17:57:53
+-- Tiempo de generación: 07-01-2025 a las 18:01:05
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -42,25 +42,26 @@ CREATE TABLE `ACTIVIDAD` (
   `maximo_participantes` int(10) DEFAULT NULL COMMENT 'si está abierta la participación y el número máximo de participantes que pueden apuntarse en la actividad, 0: No se admiten participantes, >0: Ese valor límite, -1: No hay límite máximo',
   `minimo_participantes` int(10) DEFAULT NULL COMMENT 'número de participantes apuntados para que la actividad se lleve a cabo, >=0: Ese valor mínimo, -1: No hay mínimo',
   `reserva` int(10) DEFAULT NULL COMMENT 'valor lógico para indicar si se admiten o no participantes en reserva en caso de que esté abierta la participación ',
-  `participantes` int(10) DEFAULT NULL
+  `participantes` int(10) DEFAULT NULL,
+  `contador_visitas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `ACTIVIDAD`
 --
 
-INSERT INTO `ACTIVIDAD` (`id`, `titulo`, `descripcion`, `fecha_celebracion`, `duracion_estimada`, `lugar_celebracion`, `detalles`, `notas`, `edad_recomendada`, `votosOK`, `votosKO`, `maximo_participantes`, `minimo_participantes`, `reserva`, `participantes`) VALUES
-(1, 'Concierto de Música', 'Un concierto en el parque con diferentes bandas locales.', '2025-02-20 00:00:00', 120, 'Parque Central', 'Trae tu manta y disfruta del evento.', 'Evento gratuito para todas las edades.', 0, 100, 10, 500, 50, 1, 150),
-(2, 'Torneo de Futbol', 'Competencia de futbol entre equipos locales.', '2025-03-15 00:00:00', 180, 'Estadio Municipal', '¡Inscríbete y forma tu equipo!', 'La inscripción está abierta hasta el 1 de marzo.', 12, 200, 5, 10, 2, 1, 8),
-(5, 'ewewewe', 'fowlh', '2025-02-20 00:00:00', 4, 'fcwikubj', 'woveulh', 'ocwukljb', 3, 3, 3, NULL, NULL, NULL, NULL),
-(7, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL),
-(8, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL),
-(9, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL),
-(10, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL),
-(11, 'poprorp', 'foulhaj', '2025-12-19 00:00:00', 5, 'fcw', 'vwpoj', 'vpwoj', 5, 5, 5, NULL, NULL, NULL, NULL),
-(12, 'tytyty', 'uifhq', '2025-03-10 00:00:00', 4, 'fq', 'oihn', 'oub', 4, 4, 4, NULL, NULL, NULL, NULL),
-(13, 'hhhh', 'qoi', '2025-03-10 00:00:00', 3, 'fwrgw', 'fqfq', 'fqf', 7, 7, 7, NULL, NULL, NULL, NULL),
-(14, 'qq', 'qqqq', '2025-03-10 00:00:00', 400, 'qc', 'dqc', 'dq', 1, 1, 1, 1, 1, 1, 1);
+INSERT INTO `ACTIVIDAD` (`id`, `titulo`, `descripcion`, `fecha_celebracion`, `duracion_estimada`, `lugar_celebracion`, `detalles`, `notas`, `edad_recomendada`, `votosOK`, `votosKO`, `maximo_participantes`, `minimo_participantes`, `reserva`, `participantes`, `contador_visitas`) VALUES
+(1, 'Concierto de Música', 'Un concierto en el parque con diferentes bandas locales.', '2025-02-20 00:00:00', 120, 'Parque Central', 'Trae tu manta y disfruta del evento.', 'Evento gratuito para todas las edades.', 0, 100, 10, 500, 50, 1, 150, 0),
+(2, 'Torneo de Futbol', 'Competencia de futbol entre equipos locales.', '2025-03-15 00:00:00', 180, 'Estadio Municipal', '¡Inscríbete y forma tu equipo!', 'La inscripción está abierta hasta el 1 de marzo.', 12, 200, 5, 10, 2, 1, 8, 0),
+(5, 'ewewewe', 'fowlh', '2025-02-20 00:00:00', 4, 'fcwikubj', 'woveulh', 'ocwukljb', 3, 3, 3, NULL, NULL, NULL, NULL, 0),
+(7, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
+(8, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
+(9, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
+(10, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
+(11, 'poprorp', 'foulhaj', '2025-12-19 00:00:00', 5, 'fcw', 'vwpoj', 'vpwoj', 5, 5, 5, NULL, NULL, NULL, NULL, 0),
+(12, 'tytyty', 'uifhq', '2025-03-10 00:00:00', 4, 'fq', 'oihn', 'oub', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
+(13, 'hhhh', 'qoi', '2025-03-10 00:00:00', 3, 'fwrgw', 'fqfq', 'fqf', 7, 7, 7, NULL, NULL, NULL, NULL, 0),
+(14, 'qq', 'qqqq', '2025-03-10 00:00:00', 400, 'qc', 'dqc', 'dq', 1, 1, 1, 1, 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
