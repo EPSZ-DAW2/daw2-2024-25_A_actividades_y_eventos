@@ -7,9 +7,12 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "roles".
  *
- * @property bigint $id
+ * @property int $id
  * @property string|null $nombre_rol
  * @property string|null $descripcion
+ * @property string|null $nombre_rol
+ * @property string|null $descripcion
+ *
  */
 class Roles extends ActiveRecord
 {
@@ -27,6 +30,7 @@ class Roles extends ActiveRecord
     public function rules()
     {
         return [
+            [['id'], 'integer'],
             [['nombre_rol', 'descripcion'], 'string'],
             [['nombre_rol', 'descripcion'], 'default', 'value' => null],
         ];
@@ -38,13 +42,30 @@ class Roles extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'nombre_rol' => 'Nombre Rol',
-            'descripcion' => 'Descripción',
+            'id' => Yii::t('app', 'ID'),
+            'nombre_rol' => Yii::t('app', 'Nombre Rol'),
+            'descripcion' => Yii::t('app', 'Descripcion'),
+            'nombre_rol' => Yii::t('app', 'Nombre Rol'),
+            'descripcion' => Yii::t('app', 'Descripcion'),
         ];
     }
 
     /**
+     * Gets query for [[ID]].
+     */
+    public function getID(){
+        return $this->hasOne(Usuario::class, ['id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Nombre_rol]].
+     */
+    public function getNombre_rol(){
+        return $this->hasMany(Usuario::class, ['nombre_rol' => 'nick']);
+    }
+
+    /**
+     * Gets query for [[Nombre_rol]].
      * Returns an array of role options.
      * @return array
      */

@@ -4,23 +4,23 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var app\models\Usuarios $model */
+/** @var app\models\Usuario $model */
 
-$this->title = $model->nombreCompleto;
+$this->title = $model->nick;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Usuarios'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="usuarios-view">
+<div class="usuario-view">
 
-    <h1><?= Html::encode($model->nombreCompleto) ?></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Editar'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Eliminar'), ['delete', 'id' => $model->id], [
+        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => Yii::t('app', 'Está seguro de querer eliminar este usuario?'),
+                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -36,18 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'nombre',
             'apellidos',
             'fecha_nacimiento',
-            'direccion',
-            'ubicacion',
             'activo',
-            'fecha_registro',
+            'fecha_registor',
             'registro_confirmado',
-            'revisado',
-            'ultimo_acceso',
-            'intentos_acceso',
-            'bloqueado',
-            'fecha_hora_bloqueo',
-            'motivo_bloqueo:ntext',
-            'notas:ntext',
+            'fecha_bloqueo',
+            'motivo_bloqueo',
+            'notas',
         ],
     ]) ?>
 

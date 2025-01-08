@@ -28,8 +28,8 @@ $this->title = 'Mi Perfil';
             <td><?= Html::encode($model->apellidos) ?></td>
         </tr>
         <tr>
-            <td>Fecha de nacimiento</td>
-            <td><?= Html::encode($model->fecha_nacimiento) ?></td>
+            <td>Edad</td>
+            <td><?= Html::encode($model->edad) ?></td>
         </tr>
         <tr>
             <td>Activo</td>

@@ -1,7 +1,6 @@
 <?php
 
 namespace app\controllers;
-
 use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
@@ -10,7 +9,6 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\RegistroAcciones;
-
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */

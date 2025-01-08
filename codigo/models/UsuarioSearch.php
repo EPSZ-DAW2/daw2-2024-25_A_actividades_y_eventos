@@ -17,8 +17,8 @@ class UsuarioSearch extends Usuario
     public function rules()
     {
         return [
-            [['id', 'activo', 'registro_confirmado', 'revisado', 'intentos_acceso', 'bloqueado'], 'integer'],
-            [['nick', 'password', 'email', 'nombre', 'apellidos', 'fecha_nacimiento', 'ubicacion', 'fecha_registro', 'ultimo_acceso', 'fecha_bloqueo', 'motivo_bloqueo', 'notas'], 'safe'],
+            [['id', 'activo', 'registro_confirmado'], 'integer'],
+            [['nick', 'password', 'email', 'nombre', 'apellidos', 'fecha_nacimiento', 'fecha_registor', 'fecha_bloqueo', 'motivo_bloqueo', 'notas'], 'safe'],
         ];
     }
 
@@ -61,12 +61,8 @@ class UsuarioSearch extends Usuario
             'id' => $this->id,
             'fecha_nacimiento' => $this->fecha_nacimiento,
             'activo' => $this->activo,
-            'fecha_registro' => $this->fecha_registro,
+            'fecha_registor' => $this->fecha_registor,
             'registro_confirmado' => $this->registro_confirmado,
-            'revisado' => $this->revisado,
-            'ultimo_acceso' => $this->ultimo_acceso,
-            'intentos_acceso' => $this->intentos_acceso,
-            'bloqueado' => $this->bloqueado,
             'fecha_bloqueo' => $this->fecha_bloqueo,
         ]);
 
@@ -75,7 +71,6 @@ class UsuarioSearch extends Usuario
             ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'nombre', $this->nombre])
             ->andFilterWhere(['like', 'apellidos', $this->apellidos])
-            ->andFilterWhere(['like', 'ubicacion', $this->ubicacion])
             ->andFilterWhere(['like', 'motivo_bloqueo', $this->motivo_bloqueo])
             ->andFilterWhere(['like', 'notas', $this->notas]);
 

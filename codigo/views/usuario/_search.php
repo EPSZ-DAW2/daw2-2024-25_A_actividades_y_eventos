@@ -4,18 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var app\models\UsuariosSearch $model */
+/** @var app\models\UsuarioSearch $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="usuarios-search">
+<div class="usuario-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-        'options' => [
-            'data-pjax' => 1
-        ],
     ]); ?>
 
     <?= $form->field($model, 'id') ?>
@@ -32,28 +29,15 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'fecha_nacimiento') ?>
 
-    <?php // echo $form->field($model, 'direccion') ?>
-
-    <?php // echo $form->field($model, 'ubicacion') ?>
-
     <?php // echo $form->field($model, 'activo') ?>
 
-    <?php // echo $form->field($model, 'fecha_registro') ?>
+    <?php // echo $form->field($model, 'fecha_registor') ?>
 
     <?php // echo $form->field($model, 'registro_confirmado') ?>
-
-    <?php // echo $form->field($model, 'revisado') ?>
-
-    <?php // echo $form->field($model, 'ultimo_acceso') ?>
-
-    <?php // echo $form->field($model, 'intentos_acceso') ?>
-
-    <?php // echo $form->field($model, 'bloqueado') ?>
 
     <?php // echo $form->field($model, 'fecha_bloqueo') ?>
 
     <?php // echo $form->field($model, 'motivo_bloqueo') ?>
-
 
     <?php // echo $form->field($model, 'notas') ?>
 

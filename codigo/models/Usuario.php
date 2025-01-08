@@ -16,22 +16,13 @@ use yii\web\IdentityInterface;
  * @property string|null $nombre
  * @property string|null $apellidos
  * @property string|null $fecha_nacimiento
- * @property string|null $ubicacion
  * @property int|null $activo
- * @property string|null $fecha_registro
+ * @property string|null $fecha_registor
  * @property int|null $registro_confirmado
- * @property int|null $revisado
- * @property string|null $ultimo_acceso
- * @property int|null $intentos_acceso
- * @property int|null $bloqueado
  * @property string|null $fecha_bloqueo
  * @property string|null $motivo_bloqueo
  * @property string|null $notas
  *
- * @property Notificacion[] $notificaciones
- * @property Notificacion[] $notificaciones0
- * @property Roles[] $roles
- * @property Seguimiento[] $seguimientos
  */
 class Usuario extends ActiveRecord implements IdentityInterface
 {
@@ -41,24 +32,33 @@ class Usuario extends ActiveRecord implements IdentityInterface
     public $newEmail;
     public $confirmNewEmail;
 
+
+    /**
+     * {@inheritdoc}
+     */
     public static function tableName()
     {
         return 'usuario';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['fecha_nacimiento', 'fecha_registro', 'ultimo_acceso', 'fecha_bloqueo'], 'safe'],
-            [['activo', 'registro_confirmado', 'revisado', 'intentos_acceso', 'bloqueado'], 'integer'],
             [['notas'], 'string'],
-            [['nick', 'password', 'email', 'nombre', 'apellidos', 'ubicacion', 'motivo_bloqueo'], 'string', 'max' => 500],
             [['nick', 'email'], 'unique'],
+            [['nick', 'password', 'email', 'nombre', 'apellidos', 'motivo_bloqueo'], 'string', 'max' => 500],
+            [['fecha_nacimiento', 'fecha_registor', 'fecha_bloqueo'], 'safe'],
+            [['activo', 'registro_confirmado'], 'integer'],
+            [['nick', 'password', 'email', 'nombre', 'apellidos', 'motivo_bloqueo', 'notas'], 'string', 'max' => 255],
             [['currentPassword', 'newPassword', 'confirmNewPassword'], 'required', 'on' => 'changePassword'],
             ['newPassword', 'compare', 'compareAttribute' => 'confirmNewPassword', 'on' => 'changePassword'],
             [['newEmail', 'confirmNewEmail'], 'required', 'on' => 'changeEmail'],
             ['newEmail', 'email', 'on' => 'changeEmail'],
             ['newEmail', 'compare', 'compareAttribute' => 'confirmNewEmail', 'on' => 'changeEmail'],
+            ['newEmail', 'email', 'on' => 'changeEmail'],
         ];
     }
 
@@ -75,18 +75,20 @@ class Usuario extends ActiveRecord implements IdentityInterface
             'nombre' => Yii::t('app', 'Nombre'),
             'apellidos' => Yii::t('app', 'Apellidos'),
             'fecha_nacimiento' => Yii::t('app', 'Fecha Nacimiento'),
-            'ubicacion' => Yii::t('app', 'Ubicacion'),
             'activo' => Yii::t('app', 'Activo'),
-            'fecha_registro' => Yii::t('app', 'Fecha Registro'),
+            'fecha_registor' => Yii::t('app', 'Fecha Registro'),
             'registro_confirmado' => Yii::t('app', 'Registro Confirmado'),
-            'revisado' => Yii::t('app', 'Revisado'),
-            'ultimo_acceso' => Yii::t('app', 'Ultimo Acceso'),
-            'intentos_acceso' => Yii::t('app', 'Intentos Acceso'),
-            'bloqueado' => Yii::t('app', 'Bloqueado'),
             'fecha_bloqueo' => Yii::t('app', 'Fecha Bloqueo'),
             'motivo_bloqueo' => Yii::t('app', 'Motivo Bloqueo'),
             'notas' => Yii::t('app', 'Notas'),
         ];
+    }
+
+    public function getEdad(){
+        $fechaNacimiento = new \DateTime($this->fecha_nacimiento);
+        $hoy = new \DateTime();
+        $edad = $hoy->diff($fechaNacimiento);
+        return $edad->y;
     }
 
     public function getId(){
