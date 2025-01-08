@@ -38,7 +38,6 @@ $sort = new Sort([
                 <td><?= Html::encode($actividad->id) ?></td>
                 <td><?= Html::encode($actividad->titulo) ?></td>
                 <td><?= Html::encode($actividad->descripcion) ?></td>
-                <td><?= Html::encode($actividad->fecha_celebracion) ?></td>
                 <td>
                     <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-primary']) ?>
                     <?= Html::a('Editar', ['editar', 'id' => $actividad->id], ['class' => 'btn btn-warning']) ?>
