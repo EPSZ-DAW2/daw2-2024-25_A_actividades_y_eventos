@@ -58,6 +58,11 @@ $config = [
             ],
         ],
     ],
+    'controllerMap' => [
+        'backup' => [
+            'class' => 'app\controllers\BackupController',
+        ],
+    ],
     'params' => $params,
 ];
 
