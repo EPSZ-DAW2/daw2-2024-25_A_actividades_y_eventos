@@ -18,6 +18,10 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'EPSZ_DAW2_2024-25',
         ],
+            'response' => [
+            'format' => yii\web\Response::FORMAT_JSON,
+            'charset' => 'UTF-8',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -51,6 +55,7 @@ $config = [
             'enablePrettyUrl' => false,  // Habilitar URLs amigables
             'showScriptName' => false,  // Ocultar 'index.php' en las URLs
             'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['notificacion', 'actividades']],
                 // Regla personalizada para acceder a index2.php
                 'index2' => 'site/index2',  // Esto mapea 'index2' a 'site/index2'
                 // Regla personalizada para acceder a mi perfil

@@ -12,9 +12,12 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\data\Pagination;
 use yii\data\Sort;
+use yii\rest\ActiveController;
 
-class ActividadesController extends Controller
+class ActividadesController extends ActiveController
 {
+    public $modelClass = 'app\models\Actividad';
+    
     // Muestra las actividades recomendadas
     public function actionRecomendadas()
     {
