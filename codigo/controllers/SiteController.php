@@ -11,6 +11,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Usuario;
 use app\models\RegistroAcciones;
+use app\models\Roles;
 
 class SiteController extends Controller
 {
@@ -167,7 +168,12 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'Usuario registrado correctamente.');
             $model->activo = 1;
             $model->fecha_registor = date('Y-m-d H:i:s');
+
             if ($model->save()) {
+
+                //TO DO: Asignar un rol por defecto al usuario
+                $model->asignarRol(Roles::USUARIO_NORMAL); //Rol por defecto: Normal
+
                 
                 //Creamos un login form para loguear al usuario directamente
                 $login = new LoginForm();

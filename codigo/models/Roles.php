@@ -12,10 +12,17 @@ use yii\db\ActiveRecord;
  * @property string|null $descripcion
  * @property string|null $nombre_rol
  * @property string|null $descripcion
- *
  */
 class Roles extends ActiveRecord
 {
+    //Defino las constantes que representan los roles
+    public const USUARIO_NORMAL = 1;
+    public const MODERADOR = 2;
+    public const PATROCINADOR = 3;
+    public const ADMINISTRADOR = 4;
+    public const SUPER_ADMINISTRADOR = 5;
+
+
     /**
      * {@inheritdoc}
      */
@@ -43,7 +50,7 @@ class Roles extends ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'nombre_rol' => Yii::t('app', 'Nombre Rol'),
+            'nombre_rol' => Yii::t('app', 'Rol'),
             'descripcion' => Yii::t('app', 'Descripcion'),
         ];
     }

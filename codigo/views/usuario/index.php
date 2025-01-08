@@ -29,10 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id',
             'nick',
-            'password',
             'email:email',
-            'nombre',
             'edad',
+            'rol.nombre_rol',
             //'apellidos',
             //'fecha_nacimiento',
             //'activo',
