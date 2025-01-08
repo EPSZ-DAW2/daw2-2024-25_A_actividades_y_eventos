@@ -6,7 +6,6 @@
 
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
-use yii\captcha\Captcha;
 
 $this->title = 'Contacto';
 $this->params['breadcrumbs'][] = $this->title;
@@ -39,17 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
-                    <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                    <?= $form->field($model, 'email') ?>
-
-                    <?= $form->field($model, 'subject') ?>
-
-                    <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-                    <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
-                        'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
-                    ]) ?>
+                    <?= $form->field($model, 'name')->textInput(['autofocus' => true, 'placeholder' => 'Tu nombre']) ?>
+                    <?= $form->field($model, 'email')->input('email', ['placeholder' => 'Tu correo electrónico']) ?>
+                    <?= $form->field($model, 'subject')->textInput(['placeholder' => 'Asunto del mensaje']) ?>
+                    <?= $form->field($model, 'body')->textarea(['rows' => 6, 'placeholder' => 'Escribe tu mensaje aquí']) ?>
 
                     <div class="form-group">
                         <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
