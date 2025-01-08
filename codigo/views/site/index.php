@@ -13,7 +13,7 @@ $this->title = 'Actividades y Eventos';
 
     <div class="jumbotron text-center bg-transparent">
         <h1 class="display-4">ACTIVIDADES Y EVENTOS EPSZ</h1>
-        <img src="<?= Yii::$app->request->baseUrl ?>/images/actividades_eventos.png" alt="Logo" style="width: 40%;">
+        <img src="<?= Yii::$app->request->baseUrl ?>/images/actividades_eventos.png" alt="Logo" style="width: 30%;">
 
         <p class="lead">"Conecta con la cultura y el entretenimiento en Actividades y Eventos EPSZ, la plataforma que reúne la mayor oferta de eventos y actividades. Explora una amplia variedad de opciones, desde eventos locales hasta grandes espectáculos. Interactúa con otros usuarios, comparte tus experiencias y descubre recomendaciones personalizadas. Actividades y Eventos EPSZ es la comunidad donde la pasión por los eventos cobra vida."</p>
     </div>

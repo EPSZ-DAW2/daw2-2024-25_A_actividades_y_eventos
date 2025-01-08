@@ -1,6 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
+$this->registerCssFile(Yii::$app->request->baseUrl . '/css/estiloHeader.css', ['depends' => [yii\web\YiiAsset::class]]);
 /** @var string $content */
 
 use app\assets\AppAsset;
@@ -31,51 +32,57 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 <header id="header">
     <?php
+    // Barra de navegación principal
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => '', 
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
-        'items' => [
-            ['label' => 'Sobre nosotros', 'url' => ['/site/about']],
-            ['label' => 'Contacto', 'url' => ['/site/contact']],
-            ]
-    ]);
-    
-    
-    echo '<div id="navbarNav">';
-        echo '<ul class="navbar-nav ms-auto">';
-            
-            if (Yii::$app->user->isGuest) {
-                echo '<li class="nav-item">';
-                echo Html::a('Iniciar sesión', ['site/login'], ['class' => 'btn btn-sm btn-light mx-2']);
-                echo '</li>';
-                echo '<li class="nav-item">';
-                echo Html::a('Registrarse', ['site/register'], ['class' => 'btn btn-sm btn-primary mx-2']);
-                echo '</li>';
-            } else {
-                echo '<li class="nav-item">';
-                echo Html::a('Mi perfil', ['usuario/mi-perfil'], [
-                    'class' => 'btn btn-sm btn-secondary mx-2',
-                    'data-method' => 'post'
-                ]);
-                echo '</li>';
-                echo '<li class="nav-item">';
-                echo Html::a('Cerrar Sesión', ['site/logout'], [
-                    'class' => 'btn btn-sm btn-danger mx-2',
-                    'data-method' => 'post'
-                ]);
-                echo '</li>';
-            }
-            
-        echo '</ul>';
-    echo '</div>';
-
-
-    NavBar::end();
     ?>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <!-- Logo con imagen -->
+            <a class="navbar-brand" href="<?= Yii::$app->homeUrl ?>">
+                <img src="<?= Yii::$app->request->baseUrl ?>/images/actividades_eventos.png" alt="Logo" style="max-height: 40px; margin-right: 10px; margin-left: -40px;">
+                ACTIVIDADES Y EVENTOS 
+            </a>
+
+            <!-- Menú de navegación principal -->
+            <div class="navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <?= Html::a('Sobre nosotros', ['/site/about'], ['class' => 'nav-link']) ?>
+                    </li>
+                    <li class="nav-item">
+                        <?= Html::a('Contacto', ['/site/contact'], ['class' => 'nav-link']) ?>
+                    </li>
+                </ul>
+
+                <!-- Opciones para usuarios logueados o no -->
+                <ul class="navbar-nav ms-auto">
+                    <?php if (Yii::$app->user->isGuest): ?>
+                        <li class="nav-item">
+                            <?= Html::a('Iniciar sesión', ['site/login'], ['class' => 'btn btn-sm btn-light mx-2']) ?>
+                        </li>
+                        <li class="nav-item">
+                            <?= Html::a('Registrarse', ['site/register'], ['class' => 'btn btn-sm btn-primary mx-2']) ?>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <?= Html::a('Mi perfil', ['usuario/mi-perfil'], ['class' => 'btn btn-sm btn-secondary mx-2', 'data-method' => 'post']) ?>
+                        </li>
+                        <li class="nav-item">
+                            <?= Html::a('Cerrar Sesión', ['site/logout'], ['class' => 'btn btn-sm btn-danger mx-2', 'data-method' => 'post']) ?>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <?php NavBar::end(); ?>
 </header>
 
 <main id="main" class="flex-shrink-0" role="main">
