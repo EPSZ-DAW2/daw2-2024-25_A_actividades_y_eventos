@@ -442,6 +442,20 @@ CREATE TABLE `RECIBE` (
 
 -- --------------------------------------------------------
 
+
+-- --------------------------------------------------------
+-- Sirve para almacenar los registros de acciones realizadas por los usuarios en la aplicación, a modo de log
+--
+-- Estructura de tabla para la tabla `registro_acciones`
+--
+
+CREATE TABLE `registro_acciones` (
+  `id` int(11) NOT NULL,
+  `fecha_accion` datetime NOT NULL,
+  `accion` varchar(500) NOT NULL,
+  `usuario_accion` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Estructura de tabla para la tabla `ROLES`
 --
