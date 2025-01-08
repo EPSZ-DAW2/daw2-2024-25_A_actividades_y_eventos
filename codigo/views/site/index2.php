@@ -2,21 +2,13 @@
 
 /** @var yii\web\View $this */
 
+use app\models\Roles;
 use yii\helpers\Html;
 use yii\widgets\Menu;
 
-$this->title = 'Index 2';
+$this->title = 'Actividades y eventos';
 ?>
 <div class="site-index">
-    <?php
-        //Preparo diferentes mensajes según el tipo de usuario	
-        if(Yii::$app->user->isGuest){
-            $mensaje = "Bienvenido a la página de inicio de la aplicación de eventos. Por favor, inicie sesión o regístrese para acceder a todas las funcionalidades.";
-        }else{
-            $mensaje = "Bienvenido, ".Yii::$app->user->identity->nick."!";
-        }
-    ?>
-
     <div class="row">
         <!-- Menú Lateral de Categorías (Pegado al borde y ocultable) -->
         <div class="col-md-3 p-0">

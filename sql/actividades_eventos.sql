@@ -471,12 +471,11 @@ CREATE TABLE `ROLES` (
 --
 
 INSERT INTO `ROLES` (`id`, `nombre_rol`, `descripcion`) VALUES
-(7, 'invitado', 'Cualquier usuario que navega por las partes públicas del portal, sin necesidad de estar registrado o validado en la aplicación.'),
-(8, 'registrado', 'Pensado para los usuarios que quieren utilizar la web a la hora de buscar, consultar/visualizar las actividades de su interés, tanto públicas como privadas, gestionar su perfil, gestionar sus avisos, notificaciones y mensajes con moderadores o administradores, gestionar sus propias actividades, las actividades en seguimiento, las actividades como participante, y los comentarios asociados a las actividades.'),
-(9, 'moderador', 'Pensado para los usuarios que además deseen colaborar con la web a la hora de moderar las actividades y comentarios de una o varias áreas geográficas.'),
-(10, 'patrocinador', ' Pensado para los usuarios que sean patrocinadores y deseen acceder al portal para poder gestionar sus propios anuncios, y sus propias actividades patrocinadas y sus posibles participantes. Estos usuarios se registran de forma especial o son creados previamente por un administrador, dándoles un acceso diferente a la aplicación.'),
-(11, 'administrador_portal', 'Pensado para aquellos usuarios que realizan las tareas de mantenimiento de los datos del sistema, pueden gestionar cualquier cosa de la parte privada como usuarios, actividades y datos asociados, categorías, áreas y ubicaciones, patrocinios, configuración, hacer copias de seguridad o restaurarlas.'),
-(12, 'administrador_sistema', 'Pensado para los programadores de la aplicación y/o administradores generales del sistema donde se instale, tendrá acceso a todas las funciones de la aplicación sin restricciones, y opcionalmente deberá poder activar el rol que desee para trabajar como un usuario de ese tipo.\r\n');
+(1, 'Normal', 'Usuario que puede buscar y visualizar actividades públicas y privadas, gestionar su perfil, recibir notificaciones, comunicarse con moderadores o administradores, gestionar sus propias actividades, dar seguimiento a actividades, participar en ellas y gestionar comentarios asociados.'),
+(2, 'Moderador', 'Usuario que colabora con la web moderando actividades y comentarios en una o varias áreas geográficas.'),
+(3, 'Patrocinador', 'Usuario que gestiona sus propios anuncios, actividades patrocinadas y participantes. Su registro requiere un proceso especial o la creación previa por un administrador, con acceso diferenciado a la aplicación.'),
+(4, 'Administrador', 'Usuario que mantiene los datos del sistema, gestiona usuarios, actividades, categorías, áreas, ubicaciones, patrocinios y configuración. Puede realizar y restaurar copias de seguridad.'),
+(5, 'SysAdmin', 'Programador de la aplicación o administrador general del sistema. Tiene acceso sin restricciones a todas las funciones y puede activar cualquier rol para trabajar como un usuario de ese tipo.');
 
 -- --------------------------------------------------------
 
@@ -1051,8 +1050,8 @@ ALTER TABLE `USUARIO_IMAGEN`
 -- Filtros para la tabla `USUARIO_ROLES`
 --
 ALTER TABLE `USUARIO_ROLES`
-  ADD CONSTRAINT `FKUSUARIO_RO928803` FOREIGN KEY (`ROLESid`) REFERENCES `ROLES` (`id`),
-  ADD CONSTRAINT `FKUSUARIO_RO976461` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`);
+  ADD CONSTRAINT `FKUSUARIO_RO928803` FOREIGN KEY (`ROLESid`) REFERENCES `ROLES` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,,
+  ADD CONSTRAINT `FKUSUARIO_RO976461` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,;
 
 --
 -- Filtros para la tabla `USUARIO_UBICACION`

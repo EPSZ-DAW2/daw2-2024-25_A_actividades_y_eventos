@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\db\Query;
 use yii\web\IdentityInterface;
 
 /**
@@ -95,11 +96,22 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return $this->id;
     }
 
-    public function getRoles(){
-        return $this->hasMany(Roles::class, ['id' => 'ROLESid'])
-        ->viaTable('usuario_roles', ['USUARIOid' => 'id']);
+    public function getRol(){
+        return $this->hasOne(Roles::class, ['id' => 'ROLESid'])
+            ->viaTable('usuario_roles', ['USUARIOid' => 'id']);
     }
 
+    /**
+     * Metodo para asignar un rol a un usuario (refactorizar)
+     * 
+     */
+    public function asignarRol($rol){
+        $db = Yii::$app->db;
+        $db->createCommand('INSERT INTO usuario_roles (USUARIOid, ROLESid) VALUES (:usuario, :rol)')
+            ->bindValue(':usuario', $this->id)
+            ->bindValue(':rol', $rol)
+            ->execute();
+    }
     public static function findIdentity($id){
         return static::findOne($id);
     }
