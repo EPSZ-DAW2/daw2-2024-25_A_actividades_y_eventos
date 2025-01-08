@@ -62,6 +62,9 @@ $config = [
         'backup' => [
             'class' => 'app\controllers\BackupController',
         ],
+        'parametros-servidor' => [
+            'class' => 'app\controllers\ParametrosServidorController',
+        ],
     ],
     'params' => $params,
 ];
