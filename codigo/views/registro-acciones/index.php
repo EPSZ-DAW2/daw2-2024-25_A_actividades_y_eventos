@@ -19,6 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Registro Acciones'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Elimina todos los Logs'), ['delete-all'], [
+            'class' => 'btn btn-danger',
+            'data-confirm' => '¿Está seguro de que desea eliminar todos los registros de acciones?',
+            'data-method' => 'post',
+        ]) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

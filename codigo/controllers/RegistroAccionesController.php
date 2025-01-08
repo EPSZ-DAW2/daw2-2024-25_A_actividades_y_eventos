@@ -72,6 +72,17 @@ class RegistroAccionesController extends Controller
     }
 
     /**
+     * Deletes all RegistroAcciones models.
+     * @return mixed
+     */
+    public function actionDeleteAll()
+    {
+        RegistroAcciones::deleteAll();
+        Yii::$app->session->setFlash('success', 'Todos los registros de acciones han sido eliminados.');
+        return $this->redirect(['index']);
+    }
+
+    /**
      * Finds the RegistroAcciones model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
