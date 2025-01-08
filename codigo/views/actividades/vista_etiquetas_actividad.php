@@ -1,11 +1,11 @@
 <?php
 /* @var $this yii\web\View */
-/* @var $model app\models\Actividad */
-/* @var $etiquetas app\models\Participante[] */
+/* @var $id int */
+/* @var $etiquetas array */
 
 use yii\helpers\Html;
 
-// $this->title = 'etiquetas de la Actividad: ' . $model->nick;
+// $this->title = 'Etiquetas de la Actividad: ' . $id;
 
 ?>
 <div class="actividad-etiquetas">
@@ -16,23 +16,33 @@ use yii\helpers\Html;
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>ID Participante</th>
+                <th>ID Etiqueta</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
             <?php if (!empty($etiquetas) && is_array($etiquetas)): ?>
-                <?php foreach ($etiquetas as $participante): ?>
+                <?php foreach ($etiquetas as $etiqueta): ?>
                     <tr>
-                        <td><?= Html::encode($participante['id'] ?? $participante->id ?? 'N/A') ?></td>
-                        <td><?= Html::encode($participante['nombre'] ?? $participante->nombre ?? 'N/A') ?></td>
-                        <td><?= Html::encode($participante['descripcion'] ?? $participante->descripcion ?? 'N/A') ?></td>
+                        <td><?= Html::encode($etiqueta['id']) ?></td>
+                        <td><?= Html::encode($etiqueta['nombre']) ?></td>
+                        <td><?= Html::encode($etiqueta['descripcion']) ?></td>
+                        <td>
+                            <?= Html::a('Eliminar', ['etiquetas/eliminar_etiqueta_actividad', 'actividad_id' => $id, 'etiqueta_id' => $etiqueta['id']], [
+                                'class' => 'btn btn-danger',
+                                'data' => [
+                                    'confirm' => '¿Estás seguro de que deseas eliminar esta etiqueta de la actividad?',
+                                    'method' => 'post',
+                                ],
+                            ]) ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="3">No hay etiquetas disponibles.</td>
+                    <td colspan="4">No hay etiquetas disponibles.</td>
                 </tr>
             <?php endif; ?>
         </tbody>

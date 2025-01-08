@@ -143,13 +143,14 @@ class ActividadesController extends Controller
     {
         $db = Yii::$app->db;
 
-        $model = $db->createCommand('SELECT * FROM ETIQUETAS e JOIN ETIQUETAS_ACTIVIDAD ea on e.id=ea.ETIQUETASid WHERE ea.ACTIVIDADid= :id  ')
+        $etiquetas = $db->createCommand('SELECT * FROM ETIQUETAS e JOIN ETIQUETAS_ACTIVIDAD ea on e.id=ea.ETIQUETASid WHERE ea.ACTIVIDADid= :id')
             ->bindValue(':id', $id)
             ->queryAll();
 
-         return $this->render('vista_etiquetas_actividad', [
-             'etiquetas' => $model,
-         ]);
+        return $this->render('vista_etiquetas_actividad', [
+            'etiquetas' => $etiquetas,
+            'id' => $id,
+        ]);
     }
 
 
