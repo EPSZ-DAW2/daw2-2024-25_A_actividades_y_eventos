@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use yii\rest\ActiveController;
 
 use Yii;
 use app\models\Notificacion;
@@ -8,8 +9,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use app\models\RegistroAcciones;
 
-class NotificacionController extends Controller
+
+class NotificacionController extends ActiveController
 {
+    public $modelClass = 'app\models\Notificacion';
+
     public function actionView($id)
     {
         $model = $this->findModel($id);
@@ -59,20 +63,22 @@ class NotificacionController extends Controller
         return $this->redirect(['view', 'id' => $model->id]);
     }
 
+    // Acción personalizada para eliminar notificaciones
     public function actionEliminar($id)
     {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $model = $this->findModel($id);
 
         if (!$model->fecha_borrado) {
             $model->fecha_borrado = date('Y-m-d H:i:s');
             if ($model->save(false)) {
-                Yii::$app->session->setFlash('success', 'Notificación eliminada.');
+                return ['status' => 'success', 'message' => 'Notificación eliminada.'];
             } else {
-                Yii::$app->session->setFlash('error', 'Error al eliminar la notificación.');
+                return ['status' => 'error', 'message' => 'Error al eliminar la notificación.'];
             }
         }
 
-        return $this->redirect(['usuario/mis-notificaciones']);
+        return ['status' => 'error', 'message' => 'La notificación ya está eliminada.'];
     }
 
     protected function findModel($id)
@@ -81,7 +87,7 @@ class NotificacionController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('La notificación solicitada no existe.');
     }
 
     protected function logAction($action, $details)

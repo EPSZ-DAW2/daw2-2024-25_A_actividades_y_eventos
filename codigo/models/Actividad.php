@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use \yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "actividad".
@@ -24,7 +25,7 @@ use Yii;
  * @property int|null $participantes
  * @property int|null $contador_visitas
  */
-class Actividad extends \yii\db\ActiveRecord
+class Actividad extends ActiveRecord
 {
     /**
      * {@inheritdoc}
