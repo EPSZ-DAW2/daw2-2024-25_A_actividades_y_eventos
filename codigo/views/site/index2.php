@@ -1,7 +1,6 @@
 <?php
 /** @var yii\web\View $this */
 
-use app\models\Roles;
 use yii\helpers\Html;
 
 $this->title = 'Portada';
