@@ -1,50 +1,32 @@
 <?php
-
 /** @var yii\web\View $this */
 
 use app\models\Roles;
 use yii\helpers\Html;
-use yii\widgets\Menu;
 
-$this->title = 'Actividades y eventos';
+$this->title = 'Portada';
 ?>
 <div class="site-index">
-    <div class="row">
-        <!-- Menú Lateral de Categorías (Pegado al borde y ocultable) -->
-        <div class="col-md-3 p-0">
-            <div class="sidebar position-fixed" style="top: 50px; left: 10px; padding-right: 10px;  width: 250px; height: 100vh; background-color: #f8f9fa; box-shadow: 2px 0px 10px rgba(0,0,0,0.1); z-index: 1000;">
-                <button class="btn btn-primary mt-3 ml-3" id="toggleSidebarBtn">Toggle Sidebar</button> <!-- Botón para ocultar/mostrar -->
 
-                <h4 class="mt-4 ml-3">Categorías</h4>
-                <ul class="list-group">
-                    <?php
-                    // Aquí puedes obtener las categorías desde la base de datos.
-                    $categories = [
-                        ['name' => 'Deportes', 'slug' => 'deportes'],
-                        ['name' => 'Música', 'slug' => 'musica'],
-                        ['name' => 'Arte', 'slug' => 'arte'],
-                        ['name' => 'Cultura', 'slug' => 'cultura'],
-                        ['name' => 'Tecnología', 'slug' => 'tecnologia'],
-                    ];
-                    foreach ($categories as $category): ?>
-                        <li class="list-group-item">
-                            <a href="<?= Yii::$app->urlManager->createUrl(['site/index2' /*'actividad/category', 'slug' => $category['slug']*/]) ?>" class="p-2">
-                                <?= Html::encode($category['name']) ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
+    <?php
+        // Preparo diferentes mensajes según el tipo de usuario
+        if(Yii::$app->user->isGuest){
+            $mensaje = "Bienvenido a la página de inicio de la aplicación de eventos. Por favor, inicie sesión o regístrese para acceder a todas las funcionalidades.";
+        } else {
+            $mensaje = "Bienvenido, ".Yii::$app->user->identity->nick."!";
+        }
+    ?>
+
+    <div class="row">
 
         <!-- Contenido Principal -->
-        <div class="col-md-9 offset-md-3">
+        <div class="col-md-9 offset-md-3 body-content">
             <div class="jumbotron text-center bg-transparent" style="margin: 50px 0;">
-                <h1 class="display-4">Bienvenido, <?= Html::encode(Yii::$app->user->identity->username ?? 'Usuario') ?>!</h1>
+                <h1 class="display-4"><?= Html::encode(Yii::$app->user->identity->username ?? 'Usuario') ?>!</h1>
             </div>
 
             <!-- Carrusel de imágenes -->
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="5000">
                 <ol class="carousel-indicators">
                     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -166,16 +148,53 @@ $this->title = 'Actividades y eventos';
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
 </div>
 
-<!-- Script para ocultar/mostrar el menú lateral -->
+<!-- Menú Lateral de Categorías -->
+<div class="col-md-3 p-0">
+    <div class="sidebar position-fixed" id="sidebar" style="top: 50px; left: -250px; padding-right: 10px; width: 250px; height: 100vh; background-color: #f8f9fa; box-shadow: 2px 0px 10px rgba(0,0,0,0.1); z-index: 1000; transition: left 0.3s ease;">
+        <button class="btn btn-primary mt-3 ml-3" id="toggleSidebarBtn">Toggle Sidebar</button> <!-- Botón para ocultar/mostrar -->
+        
+        <h4 class="mt-4 ml-3">Categorías</h4>
+        <ul class="list-group">
+            <?php
+            // Aquí puedes obtener las categorías desde la base de datos.
+            $categories = [
+                ['name' => 'Deportes', 'slug' => 'deportes'],
+                ['name' => 'Música', 'slug' => 'musica'],
+                ['name' => 'Arte', 'slug' => 'arte'],
+                ['name' => 'Cultura', 'slug' => 'cultura'],
+                ['name' => 'Tecnología', 'slug' => 'tecnologia'],
+            ];
+            foreach ($categories as $category): ?>
+                <li class="list-group-item">
+                    <a href="<?= Yii::$app->urlManager->createUrl(['site/index2' /*'actividad/category', 'slug' => $category['slug']*/]) ?>" class="p-2">
+                        <?= Html::encode($category['name']) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>
+
+<!-- Agregar los scripts necesarios para que el carrusel funcione -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <script>
-    // Usando jQuery para ocultar/mostrar el menú lateral
+    // Usando jQuery para ocultar/mostrar el menú lateral cuando se hace clic en el botón
     $('#toggleSidebarBtn').click(function() {
-        $('.sidebar').toggleClass('d-none'); // Alterna la clase d-none para ocultar/mostrar
+        var sidebar = $('#sidebar');
+        
+        // Verificar si el menú está oculto o visible
+        if (sidebar.css('left') == '0px') {
+            sidebar.css('left', '-250px'); // Ocultar el menú
+        } else {
+            sidebar.css('left', '0px'); // Mostrar el menú
+        }
     });
 </script>
