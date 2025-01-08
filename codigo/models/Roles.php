@@ -45,8 +45,6 @@ class Roles extends ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'nombre_rol' => Yii::t('app', 'Nombre Rol'),
             'descripcion' => Yii::t('app', 'Descripcion'),
-            'nombre_rol' => Yii::t('app', 'Nombre Rol'),
-            'descripcion' => Yii::t('app', 'Descripcion'),
         ];
     }
 
@@ -55,6 +53,12 @@ class Roles extends ActiveRecord
      */
     public function getID(){
         return $this->hasOne(Usuario::class, ['id' => 'id']);
+    }
+
+    public function getUsuarios()
+    {
+        return $this->hasMany(Usuario::class, ['id' => 'USUARIOid'])
+            ->viaTable('usuario_roles', ['ROLESid' => 'id']);
     }
 
     /**

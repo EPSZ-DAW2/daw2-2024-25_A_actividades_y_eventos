@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="roles-assign">
     <?php $form = ActiveForm::begin([
-        'action' => ['rol/asignar_rol_persona', 'id' => $model->id],
+        'action' => ['rol/assign', 'id' => $model->id],
         'method' => 'post',
     ]); ?>
 

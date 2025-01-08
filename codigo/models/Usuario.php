@@ -95,6 +95,11 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return $this->id;
     }
 
+    public function getRoles(){
+        return $this->hasMany(Roles::class, ['id' => 'ROLESid'])
+        ->viaTable('usuario_roles', ['USUARIOid' => 'id']);
+    }
+
     public static function findIdentity($id){
         return static::findOne($id);
     }
@@ -152,16 +157,6 @@ class Usuario extends ActiveRecord implements IdentityInterface
     public function getNotificaciones0()
     {
         return $this->hasMany(Notificacion::class, ['USUARIOid' => 'id']);
-    }
-
-    /**
-     * Gets query for [[Roles]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRoles()
-    {
-        return $this->hasMany(Roles::class, ['nombre_usuario' => 'nick']);
     }
 
     /**

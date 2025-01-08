@@ -6,8 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\Roles */
 
-$this->title = 'Crear Rol';
-$this->params['breadcrumbs'][] = ['label' => 'Roles', 'url' => ['index']];
+$this->title = 'Crear nuevo rol';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="roles-create">

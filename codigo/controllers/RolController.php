@@ -9,6 +9,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\ActiveRecord;
 
 /**
  * RolController implements the CRUD actions for Roles model.
@@ -54,6 +55,7 @@ class RolController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'usuarios' => $this->getUsuariosPorRol($id),
         ]);
     }
 
@@ -125,24 +127,13 @@ class RolController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException('La página solicitada no existe.');
     }
 
-    public function actionView_roles_personas($id)
-    {
-        $db = Yii::$app->db;
-
-        $model = $db->createCommand('SELECT * FROM USUARIO u JOIN USUARIO_ROLES ur ON u.id = ur.USUARIOid WHERE ur.ROLESid = :id' )
-            ->bindValue(':id', $id)
-            ->queryAll();
-        if(empty($model)){
-            Yii::$app->session->setFlash('error', 'No hay usuarios con este rol.');
-            return $this->redirect(['index']); // Detener ejecución y redirigir
-        }
-
-        return $this->render('view_roles_personas', [
-            'model' => $model,
-        ]);
+    public function getUsuariosPorRol($id){
+        $model = $this->findModel($id);
+        $usuarios = $model->getUsuarios()->all();
+        return $usuarios;
     }
 
     public function actionDelete_rol_persona($id)
@@ -164,14 +155,14 @@ class RolController extends Controller
 
         $usuarios = new Usuario();
 
-        return $this->render('view_asignar_roles', [
+        return $this->render('assign', [
             'model' => $model,
             'usuarios' => $usuarios,
 
         ]);
     }
 
-    public function actionAsignar_rol_persona()
+    public function actionAssign()
     {
         $db = Yii::$app->db;
 

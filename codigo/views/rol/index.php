@@ -10,7 +10,6 @@ use yii\data\Sort;
 /* @var $pagination yii\data\Pagination */
 
 $this->title = 'Roles';
-$this->params['breadcrumbs'][] = $this->title;
 
 $sort = new Sort([
     'attributes' => [
@@ -26,9 +25,7 @@ $sort = new Sort([
 
     
     <p>
-
-
-        <a href="<?= Yii::$app->urlManager->createUrl(['site/gestion_admin']) ?>">Panel de administrador</a>
+        <?= Html::a('Pagina de administracion', ['site/gestion_admin'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Crear Rol', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Asignar Rol a Persona', ['rol/add_rol_persona'], ['class' => 'btn btn-success']) ?>
 

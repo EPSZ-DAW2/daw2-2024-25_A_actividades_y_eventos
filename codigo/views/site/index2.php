@@ -8,6 +8,14 @@ use yii\widgets\Menu;
 $this->title = 'Index 2';
 ?>
 <div class="site-index">
+    <?php
+        //Preparo diferentes mensajes según el tipo de usuario	
+        if(Yii::$app->user->isGuest){
+            $mensaje = "Bienvenido a la página de inicio de la aplicación de eventos. Por favor, inicie sesión o regístrese para acceder a todas las funcionalidades.";
+        }else{
+            $mensaje = "Bienvenido, ".Yii::$app->user->identity->nick."!";
+        }
+    ?>
 
     <div class="row">
         <!-- Menú Lateral de Categorías (Pegado al borde y ocultable) -->

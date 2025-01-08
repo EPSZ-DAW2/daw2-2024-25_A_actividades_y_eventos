@@ -42,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'fecha_bloqueo',
             'motivo_bloqueo',
             'notas',
+            
         ],
     ]) ?>
 
