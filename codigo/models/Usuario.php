@@ -70,16 +70,16 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return [
             'id' => Yii::t('app', 'ID'),
             'nick' => Yii::t('app', 'Nick'),
-            'password' => Yii::t('app', 'Password'),
-            'email' => Yii::t('app', 'Email'),
+            'password' => Yii::t('app', 'Contraseña'),
+            'email' => Yii::t('app', 'Correo Electrónico'),
             'nombre' => Yii::t('app', 'Nombre'),
             'apellidos' => Yii::t('app', 'Apellidos'),
-            'fecha_nacimiento' => Yii::t('app', 'Fecha Nacimiento'),
+            'fecha_nacimiento' => Yii::t('app', 'Fecha de Nacimiento'),
             'activo' => Yii::t('app', 'Activo'),
-            'fecha_registor' => Yii::t('app', 'Fecha Registro'),
+            'fecha_registor' => Yii::t('app', 'Fecha de Registro'),
             'registro_confirmado' => Yii::t('app', 'Registro Confirmado'),
-            'fecha_bloqueo' => Yii::t('app', 'Fecha Bloqueo'),
-            'motivo_bloqueo' => Yii::t('app', 'Motivo Bloqueo'),
+            'fecha_bloqueo' => Yii::t('app', 'Fecha de Bloqueo'),
+            'motivo_bloqueo' => Yii::t('app', 'Motivo de Bloqueo'),
             'notas' => Yii::t('app', 'Notas'),
         ];
     }
@@ -227,6 +227,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return array_merge(parent::scenarios(), [
             'changePassword' => ['currentPassword', 'newPassword', 'confirmNewPassword'],
             'changeEmail' => ['newEmail', 'confirmNewEmail'],
+            'registerNewUser' => ['nick', 'password', 'email', 'nombre', 'apellidos', 'fecha_nacimiento'],
         ]);
     }
 

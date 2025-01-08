@@ -40,6 +40,21 @@ class SiteController extends Controller
         ];
     }
 
+    public function beforeAction($action)
+    {
+        if ($action->id == 'index') {
+            if (Yii::$app->user->isGuest) {
+                // Usuario no autenticado, mostrar vista index
+                $this->layout = 'main'; // Layout para usuarios no autenticados
+            } else {
+                // Usuario autenticado, redirigir a index2
+                return $this->redirect(['site/index2']);
+            }
+        }
+
+        return parent::beforeAction($action);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -57,7 +72,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Esta es la vista principal para usuarios no autenticados.
      *
      * @return string
      */
@@ -67,7 +82,8 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Esta es la vista principal para usuarios autenticados.
+     * En ella se pueden ver ya las actividades disponibles para el usuario
      *
      * @return string
      */
@@ -145,15 +161,25 @@ class SiteController extends Controller
 
     public function actionRegister(){
         $model = new Usuario();
+        $model->setScenario('registerNewUser');
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['site/register']);
+        if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->session->setFlash('success', 'Usuario registrado correctamente.');
+            $model->activo = 1;
+            $model->fecha_registor = date('Y-m-d H:i:s');
+            if ($model->save()) {
+                
+                //Creamos un login form para loguear al usuario directamente
+                $login = new LoginForm();
+                $login->username = $model->nick;
+                $login->password = $model->password;
+                $login->login();
+                $this->logAction('register', 'User registered');
+                return $this->goHome();
+            } else {
+                Yii::$app->session->setFlash('error', 'Error al registrar el usuario.');
             }
-        } else {
-            $model->loadDefaultValues();
         }
-
         return $this->render('register', [
             'model' => $model,
         ]);
