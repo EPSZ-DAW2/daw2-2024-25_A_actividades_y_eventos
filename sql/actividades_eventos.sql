@@ -561,7 +561,7 @@ CREATE TABLE `USUARIO` (
 INSERT INTO `USUARIO` (`id`, `nick`, `password`, `email`, `nombre`, `apellidos`, `fecha_nacimiento`, `activo`, `fecha_registor`, `registro_confirmado`, `fecha_bloqueo`, `motivo_bloqueo`, `notas`) VALUES
 (1, 'user1', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user1@example.com', 'Juan', 'Pérez', '1990-06-15 00:00:00', 1, '2025-01-01 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
 (2, 'user2', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user2@example.com', 'María', 'Gómez', '1985-02-10 00:00:00', 1, '2025-01-02 00:00:00', 1, NULL, NULL, 'Interesado en actividades culturales'),
-(3, 'user3', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user3@example.com', 'Paco', 'Ramírez Hidalgo', '2025-01-07 00:00:00', 1, '2025-01-14 00:00:00', 1, '2025-01-22 00:00:00', NULL, NULL);
+(3, 'user3', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user3@example.com', 'Paco', 'Ramírez Hidalgo', '2025-01-07 00:00:00', 1, '2025-01-14 00:00:00', 1, '2025-01-22 00:00:00', NULL, NULL),
 (4, 'user4', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user4@example.com', 'Carlos', 'Sánchez', '1992-04-10 00:00:00', 1, '2025-01-04 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
 (5, 'user5', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user5@example.com', 'Ana', 'Martínez', '1988-11-23 00:00:00', 1, '2025-01-05 00:00:00', 1, NULL, NULL, 'Interesada en eventos deportivos'),
 (6, 'user6', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user6@example.com', 'Luis', 'García', '1995-07-19 00:00:00', 1, '2025-01-06 00:00:00', 1, NULL, NULL, 'Participante activo en actividades culturales'),
