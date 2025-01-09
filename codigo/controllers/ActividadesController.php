@@ -28,7 +28,9 @@ class ActividadesController extends controller
     // Muestra las actividades recomendadas
     public function actionRecomendadas()
     {
-        $actividades = Actividad::find()->all();
+        $actividades = Actividad::find()
+        ->limit(5)
+        ->all();
         return $this->render('actividades_recomendadas', [
             'actividades' => $actividades
         ]);
@@ -158,18 +160,20 @@ class ActividadesController extends controller
         ]);
     }
 
-    // MOSTRAR ACTIVIDADES MÁS PRÓXIMAS SEGUN FECHA DE CELEBRACIÓN
+    // MOSTRAR ACTIVIDADES MÁS PRÓXIMAS SEGÚN FECHA DE CELEBRACIÓN
     public function actionMasProximas()
     {
         $actividades = Actividad::find()
-            ->orderBy(['fecha_celebracion' => SORT_ASC])
-            ->limit(10)
+            ->where(['>=', 'fecha_celebracion', new \yii\db\Expression('CURDATE()')]) // Filtrar por la fecha actual
+            ->orderBy(['fecha_celebracion' => SORT_ASC])  // Ordenar por fecha ascendente
+            ->limit(10)  // Limitar a las 10 primeras actividades
             ->all();
 
         return $this->render('actividades_mas_proximas', [
             'actividades' => $actividades,
         ]);
     }
+
     
     // MOSTRAR ACTIVIDADES MÁS VISITADAS UTILIZANDO EL CONTADOR DE VISITAS
     public function actionMasVisitadas()
@@ -214,4 +218,5 @@ class ActividadesController extends controller
             'actividades' => $actividades,
         ]);
     }
+    
 }
