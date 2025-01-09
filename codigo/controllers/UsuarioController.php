@@ -222,54 +222,15 @@ class UsuarioController extends Controller
             throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
         }
 
-        // Procesar el formulario de perfil
-        if (Yii::$app->request->post('submit-button') === 'cambiarAll' && $model->load(Yii::$app->request->post()) && $model->save(false)) {
+        // Procesar el formulario de cambio de datos
+        $model->setScenario('changeData');
+        if ($model->load(Yii::$app->request->post()) && $model->save(false) && $model->changeData()){
+            $this->logAction('changeData', 'User changed data');
             Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
-            return $this->refresh();
-        }
-
-        // Escenario para cambiar contraseña
-        $model->setScenario('changePassword');
-        if (Yii::$app->request->post('submit-button') === 'cambiarPass' && $model->load(Yii::$app->request->post()) && $model->changePassword()) {
-            $this->logAction('changePassword', 'User changed password');
-            Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
-
-            return $this->refresh();
-        }
-        // Escenario para cambiar email
-        $model->setScenario('changeEmail');
-        if (Yii::$app->request->post('submit-button') === 'cambiarEmail' && $model->load(Yii::$app->request->post()) && $model->changeEmail()) {
-            $this->logAction('changeEmail', 'User changed email');
-            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
-            
             return $this->refresh();
         }
     
         return $this->render('editar-perfil', [
-            'model' => $model,
-        ]);
-    }
-
-    // OJO-REVISAR
-    public function actionCambiarEmail()
-    {
-        // Obtener el modelo del usuario autenticado
-        $model = Yii::$app->user->identity;
-    
-        if (!$model) {
-            throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
-        }
-    
-        // Escenario para cambiar el correo electrónico
-        $model->setScenario('changeEmail');
-    
-        // Procesar el formulario
-        if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
-            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
-            return $this->refresh();
-        }
-    
-        return $this->render('cambiar-email', [
             'model' => $model,
         ]);
     }

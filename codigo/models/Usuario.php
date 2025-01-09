@@ -49,8 +49,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules(){
         return [
             [['notas'], 'string'],
             [['nick', 'email'], 'unique'],
@@ -58,15 +57,18 @@ class Usuario extends ActiveRecord implements IdentityInterface
             [['fecha_nacimiento', 'fecha_registor', 'fecha_bloqueo'], 'safe'],
             [['activo', 'registro_confirmado', 'imagen_id'], 'integer'],
             [['nick', 'password', 'email', 'nombre', 'apellidos', 'motivo_bloqueo', 'notas'], 'string', 'max' => 255],
-            [['currentPassword', 'newPassword', 'confirmNewPassword'], 'required', 'on' => 'changePassword'],
-            ['newPassword', 'compare', 'compareAttribute' => 'confirmNewPassword', 'on' => 'changePassword'],
-            [['newEmail', 'confirmNewEmail'], 'required', 'on' => 'changeEmail'],
-            ['newEmail', 'email', 'on' => 'changeEmail'],
-            ['newEmail', 'compare', 'compareAttribute' => 'confirmNewEmail', 'on' => 'changeEmail'],
-            ['newEmail', 'email', 'on' => 'changeEmail'],
+
+            [['currentPassword', 'newPassword', 'confirmNewPassword'], 'string', 'on' => 'changeData'],
+            [['newEmail', 'confirmNewEmail'], 'email', 'on' => 'changeData', 'message' => 'El formato del correo electrónico no es válido.'],
+            [['newPassword'], 'string', 'min' => 8, 'on' => 'changeData', 'message' => 'La contraseña debe tener al menos 8 caracteres.'], // Mínimo 8 caracteres
+
+            ['newPassword', 'compare', 'compareAttribute' => 'confirmNewPassword', 'on' => 'changeData', 'message' => 'Las contraseñas no coinciden.'], // Validación de comparación
+            ['newEmail', 'compare', 'compareAttribute' => 'confirmNewEmail', 'on' => 'changeData', 'message' => 'Los correos electrónicos no coinciden.'],
+
             [['imageFile'], 'file', 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024 * 1024 * 2], // 2MB max
         ];
     }
+
 
     /**
      * {@inheritdoc}
@@ -89,6 +91,11 @@ class Usuario extends ActiveRecord implements IdentityInterface
             'notas' => Yii::t('app', 'Notas'),
             'imagen_id' => Yii::t('app', 'Imagen ID'),
             'imageFile' => Yii::t('app', 'Subir nueva foto de perfil'),
+            'currentPassword' => Yii::t('app', 'Contraseña actual'),
+            'newPassword' => Yii::t('app', 'Nueva contraseña'),
+            'confirmNewPassword' => Yii::t('app', 'Confirmar nueva contraseña'),
+            'newEmail' => Yii::t('app', 'Nuevo correo electrónico'),
+            'confirmNewEmail' => Yii::t('app', 'Confirmar nuevo correo electrónico'),
         ];
     }
 
@@ -198,12 +205,31 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return $this->save(false);
     }
 
+    public function changeData(){
+        // Cambiar contraseña
+        if ($this->currentPassword && $this->newPassword && $this->confirmNewPassword) {
+            if (!$this->changePassword()) {
+                return false;
+            }
+        }
+
+        // Cambiar email
+        if ($this->newEmail && $this->confirmNewEmail) {
+            if (!$this->changeEmail()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function scenarios()
     {
         return array_merge(parent::scenarios(), [
             'changePassword' => ['currentPassword', 'newPassword', 'confirmNewPassword'],
             'changeEmail' => ['newEmail', 'confirmNewEmail'],
             'registerNewUser' => ['nick', 'password', 'email', 'nombre', 'apellidos', 'fecha_nacimiento'],
+            'changeData' => ['currentPassword', 'newPassword', 'confirmNewPassword', 'newEmail', 'confirmNewEmail'],
         ]);
     }
 
