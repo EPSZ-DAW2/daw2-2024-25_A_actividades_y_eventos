@@ -60,6 +60,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <li class="nav-item">
                         <?= Html::a('Contacto', ['/site/contact'], ['class' => 'nav-link']) ?>
                     </li>
+                    <li class="nav-item">
+                        <?= Html::a('Actividades', ['/actividades/index'], ['class' => 'nav-link']) ?>
+                    </li>
                 </ul>
 
                 <!-- Opciones para usuarios logueados o no -->

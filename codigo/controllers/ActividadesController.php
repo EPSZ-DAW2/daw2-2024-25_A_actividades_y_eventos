@@ -17,6 +17,14 @@ use yii\data\Sort;
 class ActividadesController extends controller
 {
     
+    // Acción para mostrar todas las actividades
+    public function actionIndex()
+    {
+        $actividades = Actividad::find()->all();
+        return $this->render('actividades', [
+            'actividades' => $actividades
+        ]);
+    }
     // Muestra las actividades recomendadas
     public function actionRecomendadas()
     {
@@ -185,6 +193,24 @@ class ActividadesController extends controller
             ->all();
 
         return $this->render('actividades_mas_buscadas', [
+            'actividades' => $actividades,
+        ]);
+    }
+
+    // Acción para mostrar actividades pasadas en las que ha estado el usuario
+    public function actionActividadesPasadas()
+    {
+        $userId = Yii::$app->user->id; // Obtener el ID del usuario actual
+
+        $actividades = Yii::$app->db->createCommand('
+            SELECT a.* FROM ACTIVIDAD a
+            JOIN PARTICIPA p ON a.id = p.ACTIVIDADid
+            WHERE p.USUARIOid = :userId AND a.fecha_celebracion < NOW()
+        ')
+        ->bindValue(':userId', $userId)
+        ->queryAll();
+
+        return $this->render('actividades_pasadas', [
             'actividades' => $actividades,
         ]);
     }
