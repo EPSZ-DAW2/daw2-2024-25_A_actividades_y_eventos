@@ -11,7 +11,7 @@ $this->title = 'Mi Perfil';
 <h1><?= Html::encode($this->title) ?></h1>
 
 <div>
-    <?php if ($imagenPerfil !== null): ?>
+    <?php if ($imagenPerfil !== null && !empty($imagenPerfil->ruta_archivo)): ?>
         <?= Html::img($imagenPerfil->getRutaCompleta(), [
             'alt' => 'Imagen de Perfil',
             'class' => 'img-thumbnail',
