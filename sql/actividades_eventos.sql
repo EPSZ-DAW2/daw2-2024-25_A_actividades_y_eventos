@@ -7,6 +7,10 @@
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
+DROP DATABASE IF EXISTS `actividades_eventos`;
+CREATE DATABASE `actividades_eventos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `actividades_eventos`;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -551,7 +555,8 @@ CREATE TABLE `USUARIO` (
   `registro_confirmado` int(10) DEFAULT NULL,
   `fecha_bloqueo` datetime DEFAULT NULL,
   `motivo_bloqueo` varchar(255) DEFAULT NULL,
-  `notas` varchar(255) DEFAULT NULL
+  `notas` varchar(255) DEFAULT NULL,
+  `token` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1094,4 +1099,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-ALTER TABLE `USUARIO` ADD `token` VARCHAR(255) NOT NULL AFTER `notas`; 

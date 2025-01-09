@@ -69,70 +69,145 @@ class BackupController extends Controller
      */
     public function actionUpload()
     {
-        if (Yii::$app->request->isPost) {
+        Yii::$app->response->format = Response::FORMAT_HTML;
+        
+        try {
+            if (!Yii::$app->request->isPost) {
+                return $this->redirect(['index']);
+            }
+
             $model = new \yii\base\DynamicModel(['file']);
-            $model->addRule(['file'], 'file', ['extensions' => 'sql']);
+            $model->addRule(['file'], 'file', [
+                'extensions' => 'sql',
+                'skipOnEmpty' => false,
+                'checkExtensionByMimeType' => false, // Importante: no verificar por MIME type
+                'maxSize' => 1024 * 1024 * 10 // 10MB max
+            ]);
+
+            $uploadedFile = UploadedFile::getInstance($model, 'file');
             
-            $model->file = UploadedFile::getInstance($model, 'file');
-            if ($model->file && $model->validate()) {
-                // Asegurarse de que existe el directorio runtime
-                $runtimePath = Yii::getAlias('@app/runtime');
-                if (!is_dir($runtimePath)) {
-                    mkdir($runtimePath, 0777, true);
+            // Logging para depuración
+            Yii::info('Archivo recibido: ' . ($uploadedFile ? $uploadedFile->name : 'ninguno'), 'backup');
+            
+            if (!$uploadedFile) {
+                Yii::$app->session->setFlash('error', 'No se recibió ningún archivo.');
+                return $this->redirect(['index']);
+            }
+
+            $model->file = $uploadedFile;
+            
+            if (!$model->validate()) {
+                Yii::error('Errores de validación: ' . print_r($model->errors, true), 'backup');
+                Yii::$app->session->setFlash('error', 'Error de validación: ' . implode(', ', $model->getFirstErrors()));
+                return $this->redirect(['index']);
+            }
+
+            // Crear directorio temporal si no existe
+            $tempDir = Yii::getAlias('@app/runtime/temp');
+            if (!is_dir($tempDir)) {
+                mkdir($tempDir, 0777, true);
+            }
+
+            // Guardar archivo temporal con nombre único
+            $tempFile = $tempDir . '/' . uniqid() . '.sql';
+            if (!$model->file->saveAs($tempFile)) {
+                Yii::$app->session->setFlash('error', 'Error al guardar el archivo temporal.');
+                return $this->redirect(['index']);
+            }
+
+            try {
+                $db = Yii::$app->db;
+                $dsn = $db->dsn;
+                preg_match('/host=([^;]*)/', $dsn, $host);
+                preg_match('/dbname=([^;]*)/', $dsn, $dbname);
+
+                // Rutas a los ejecutables de MySQL
+                $mysqlPath = 'C:\xampp\mysql\bin\mysql.exe';
+                
+                // Desactivar foreign key checks y eliminar todas las tablas
+                $dropCommand = sprintf(
+                    '"%s" -h %s -u %s -p%s %s -e "SET FOREIGN_KEY_CHECKS=0; DROP DATABASE IF EXISTS %s; CREATE DATABASE %s; USE %s;"',
+                    $mysqlPath,
+                    $host[1],
+                    $db->username,
+                    $db->password,
+                    $dbname[1],
+                    $dbname[1],
+                    $dbname[1],
+                    $dbname[1]
+                );
+
+                exec($dropCommand . " 2>&1", $dropOutput, $dropReturnVar);
+
+                if ($dropReturnVar !== 0) {
+                    throw new \Exception("Error al limpiar la base de datos: " . implode("\n", $dropOutput));
                 }
 
-                // Asegurarse de que existe el archivo de log
-                $logFile = $runtimePath . '/restore.log';
-                if (!file_exists($logFile)) {
-                    touch($logFile);
-                    chmod($logFile, 0666);
+                // Restaurar la base de datos desde el archivo
+                $restoreCommand = sprintf(
+                    '"%s" -h %s -u %s -p%s %s < "%s"',
+                    $mysqlPath,
+                    $host[1],
+                    $db->username,
+                    $db->password,
+                    $dbname[1],
+                    $tempFile
+                );
+
+                exec($restoreCommand . " 2>&1", $output, $returnVar);
+
+                if ($returnVar !== 0) {
+                    throw new \Exception("Error al restaurar la base de datos: " . implode("\n", $output));
                 }
 
-                $filePath = Yii::getAlias('@app/backups/') . $model->file->baseName . '.' . $model->file->extension;
-                if ($model->file->saveAs($filePath)) {
-                    $db = Yii::$app->db;
-                    $dsn = $db->dsn;
-                    preg_match('/host=([^;]*)/', $dsn, $host);
-                    preg_match('/dbname=([^;]*)/', $dsn, $dbname);
+                // Reactivar foreign key checks
+                $finalCommand = sprintf(
+                    '"%s" -h %s -u %s -p%s %s -e "SET FOREIGN_KEY_CHECKS=1;"',
+                    $mysqlPath,
+                    $host[1],
+                    $db->username,
+                    $db->password,
+                    $dbname[1]
+                );
 
-                    // Ruta al ejecutable mysql
-                    $mysqlPath = 'C:\xampp\mysql\bin\mysql.exe';
+                exec($finalCommand);
 
-                    // Comando con comillas dobles para las rutas y redirección de errores
-                    $command = "\"{$mysqlPath}\" -h {$host[1]} -u {$db->username} -p{$db->password} {$dbname[1]} < \"{$filePath}\" 2>&1";
+                Yii::$app->session->setFlash('success', 'Base de datos restaurada exitosamente.');
 
-                    // Ejecutar el comando y capturar la salida
-                    $output = [];
-                    $returnVar = -1;
-                    exec($command, $output, $returnVar);
-
-                    // Log más detallado
-                    $logMessage = sprintf(
-                        "[%s] Intento de restauración\nArchivo: %s\nComando: %s\nCódigo retorno: %d\nSalida: %s\n\n",
-                        date('Y-m-d H:i:s'),
-                        $filePath,
-                        $command,
-                        $returnVar,
-                        implode("\n", $output)
-                    );
-                    file_put_contents($logFile, $logMessage, FILE_APPEND);
-
-                    if ($returnVar === 0) {
-                        Yii::$app->session->setFlash('success', 'Base de datos restaurada exitosamente.');
-                    } else {
-                        Yii::$app->session->setFlash('error', 'Error al restaurar la base de datos. Código: ' . $returnVar . '. Detalles: ' . implode("\n", $output));
-                    }
-
-                    // Limpiar el archivo temporal
-                    unlink($filePath);
-                } else {
-                    Yii::$app->session->setFlash('error', 'Error al guardar el archivo temporal.');
+            } catch (\Exception $e) {
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            } finally {
+                // Limpiar archivo temporal
+                if (file_exists($tempFile)) {
+                    unlink($tempFile);
                 }
-            } else {
-                Yii::$app->session->setFlash('error', 'Archivo no válido o no seleccionado.');
+            }
+
+            return $this->redirect(['index']);
+        } catch (\Exception $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+            return $this->redirect(['index']);
+        } finally {
+            if (isset($tempFile) && file_exists($tempFile)) {
+                unlink($tempFile);
             }
         }
+    }
 
-        return $this->redirect(['index']);
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        
+        // Asegurar que no se cachee la respuesta
+        Yii::$app->response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        Yii::$app->response->headers->set('Pragma', 'no-cache');
+        Yii::$app->response->headers->set('Expires', '0');
+        
+        return true;
     }
 }
