@@ -125,7 +125,7 @@ $this->title = 'Portada';
                             <div class="card h-100">
                                 <?php if (!empty($actividad['nombre_Archivo'])): ?>
                                     <img class="card-img-top" 
-                                         src="<?= Yii::getAlias('@web/images/' . Html::encode($actividad['nombre_Archivo'])) ?>" 
+                                         src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
                                          alt="<?= Html::encode($actividad['titulo']) ?>">
                                 <?php endif; ?>
                                 <div class="card-body">
