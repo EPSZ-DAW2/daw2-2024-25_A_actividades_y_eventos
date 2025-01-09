@@ -361,10 +361,14 @@ CREATE TABLE `IMAGEN` (
 -- Volcado de datos para la tabla `IMAGEN`
 --
 
-INSERT INTO `IMAGEN` (`id`, `titulo`, `descripcion`, `nombre_Archivo`, `extension`, `notas`) VALUES
-(1, '1', 'Vista panorámica del evento', 'concierto_parque', 'jpg', 'Imagen tomada desde el escenario principal.'),
-(2, '2', 'Equipo de futbol jugando', 'torneo_futbol', 'jpg', 'Imagen durante la competencia del torneo.');
-
+INSERT INTO `imagen` (`id`, `titulo`, `descripcion`, `nombre_Archivo`, `ruta_archivo`, `extension`, `notas`) VALUES
+(1, '1', 'Vista panorámica del evento', 'concierto_parque', NULL, 'jpg', 'Imagen tomada desde el escenario principal.'),
+(2, '2', 'Equipo de futbol jugando', 'torneo_futbol', NULL, 'jpg', 'Imagen durante la competencia del torneo.'),
+(3, NULL, NULL, 'navidad', NULL, 'jpg', NULL),
+(4, NULL, NULL, 'carrera', NULL, 'jpg', NULL),
+(5, NULL, NULL, 'medieval', NULL, 'jpg', NULL),
+(6, NULL, NULL, 'gastronomica', NULL, 'webp', NULL),
+(7, NULL, NULL, 'jazz', NULL, 'webp', NULL);
 -- --------------------------------------------------------
 
 --
@@ -381,9 +385,14 @@ CREATE TABLE `IMAGEN_ACTIVIDAD` (
 -- Volcado de datos para la tabla `IMAGEN_ACTIVIDAD`
 --
 
-INSERT INTO `IMAGEN_ACTIVIDAD` (`IMAGENid`, `ACTIVIDADid`, `orden`) VALUES
+INSERT INTO `imagen_actividad` (`IMAGENid`, `ACTIVIDADid`, `orden`) VALUES
 (1, 1, 1),
-(2, 2, 1);
+(2, 2, 1),
+(3, 14, 1),
+(4, 8, 1),
+(5, 11, 1),
+(6, 7, 1),
+(7, 13, 1);
 
 -- --------------------------------------------------------
 
