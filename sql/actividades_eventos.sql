@@ -57,15 +57,15 @@ CREATE TABLE `ACTIVIDAD` (
 INSERT INTO `ACTIVIDAD` (`id`, `titulo`, `descripcion`, `fecha_celebracion`, `duracion_estimada`, `lugar_celebracion`, `detalles`, `notas`, `edad_recomendada`, `votosOK`, `votosKO`, `maximo_participantes`, `minimo_participantes`, `reserva`, `participantes`, `contador_visitas`) VALUES
 (1, 'Concierto de Música', 'Un concierto en el parque con diferentes bandas locales.', '2025-02-20 00:00:00', 120, 'Parque Central', 'Trae tu manta y disfruta del evento.', 'Evento gratuito para todas las edades.', 0, 100, 10, 500, 50, 1, 150, 0),
 (2, 'Torneo de Futbol', 'Competencia de futbol entre equipos locales.', '2025-03-15 00:00:00', 180, 'Estadio Municipal', '¡Inscríbete y forma tu equipo!', 'La inscripción está abierta hasta el 1 de marzo.', 12, 200, 5, 10, 2, 1, 8, 0),
-(5, 'ewewewe', 'fowlh', '2025-02-20 00:00:00', 4, 'fcwikubj', 'woveulh', 'ocwukljb', 3, 3, 3, NULL, NULL, NULL, NULL, 0),
-(7, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
-(8, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
-(9, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
-(10, 'lololol', 'dfwkvb', '2025-02-12 00:00:00', 4, 'fwjbk', 'owcn', 'woljn', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
-(11, 'poprorp', 'foulhaj', '2025-12-19 00:00:00', 5, 'fcw', 'vwpoj', 'vpwoj', 5, 5, 5, NULL, NULL, NULL, NULL, 0),
-(12, 'tytyty', 'uifhq', '2025-03-10 00:00:00', 4, 'fq', 'oihn', 'oub', 4, 4, 4, NULL, NULL, NULL, NULL, 0),
-(13, 'hhhh', 'qoi', '2025-03-10 00:00:00', 3, 'fwrgw', 'fqfq', 'fqf', 7, 7, 7, NULL, NULL, NULL, NULL, 0),
-(14, 'qq', 'qqqq', '2025-03-10 00:00:00', 400, 'qc', 'dqc', 'dq', 1, 1, 1, 1, 1, 1, 1, 0);
+(5, 'Feria del Libro', 'Feria anual con expositores locales y nacionales', '2025-04-15 00:00:00', 480, 'Plaza Mayor', 'Presentaciones de libros y firmas de autores', 'Evento cultural con actividades para niños', 0, 150, 8, 1000, 0, 1, 300, 0),
+(7, 'Festival Gastronómico', 'Muestra de la gastronomía local y regional', '2025-05-20 00:00:00', 360, 'Recinto Ferial', 'Degustaciones y talleres culinarios', 'Participan restaurantes locales', 0, 280, 15, 800, 100, 1, 500, 0),
+(8, 'Carrera Popular', 'Carrera urbana 10K', '2025-06-10 00:00:00', 180, 'Centro Ciudad', 'Recorrido por el casco histórico', 'Incluye categorías infantiles', 12, 400, 20, 1000, 200, 1, 750, 0),
+(9, 'Teatro en la Calle', 'Festival de artes escénicas', '2025-07-01 00:00:00', 240, 'Casco Antiguo', 'Actuaciones de compañías locales', 'Espectáculos gratuitos', 0, 180, 5, 300, 0, 0, 250, 0),
+(10, 'Exposición de Arte Local', 'Muestra de artistas contemporáneos', '2025-08-05 00:00:00', 720, 'Centro Cultural', 'Pinturas y esculturas locales', 'Visitas guiadas disponibles', 0, 90, 10, 200, 0, 1, 150, 0),
+(11, 'Mercado Medieval', 'Recreación histórica y mercado tradicional', '2025-09-15 00:00:00', 480, 'Plaza del Ayuntamiento', 'Artesanía y espectáculos medievales', 'Ambiente familiar', 0, 320, 25, 2000, 0, 1, 1500, 0),
+(12, 'Torneo de Pádel', 'Competición amateur por categorías', '2025-10-01 00:00:00', 480, 'Club Deportivo Municipal', 'Todas las categorías y niveles', 'Inscripción por parejas', 16, 150, 12, 64, 32, 1, 48, 0),
+(13, 'Festival de Jazz', 'Conciertos de jazz y blues', '2025-11-10 00:00:00', 240, 'Teatro Municipal', 'Artistas nacionales e internacionales', 'Aforo limitado', 0, 200, 8, 400, 100, 1, 350, 0),
+(14, 'Navidad en la Ciudad', 'Actividades navideñas familiares', '2025-12-20 00:00:00', 720, 'Centro Ciudad', 'Mercadillo navideño y actividades infantiles', 'Programación especial', 0, 450, 30, 1000, 0, 1, 800, 0);
 
 -- --------------------------------------------------------
 
@@ -82,9 +82,11 @@ CREATE TABLE `ACTIVIDAD_UBICACION` (
 -- Volcado de datos para la tabla `ACTIVIDAD_UBICACION`
 --
 
+DELETE FROM `ACTIVIDAD_UBICACION` WHERE `ACTIVIDADid` > 2;
 INSERT INTO `ACTIVIDAD_UBICACION` (`ACTIVIDADid`, `UBICACIONid`) VALUES
 (1, 1),
-(2, 2);
+(2, 2),
+(5, 1), (7, 2), (8, 1), (9, 1), (10, 2), (11, 1), (12, 2), (13, 2), (14, 1);
 
 -- --------------------------------------------------------
 
@@ -165,9 +167,11 @@ CREATE TABLE `CLASIFICACION_ACTIVIDAD` (
 -- Volcado de datos para la tabla `CLASIFICACION_ACTIVIDAD`
 --
 
+DELETE FROM `CLASIFICACION_ACTIVIDAD` WHERE `ACTIVIDADid` > 2;
 INSERT INTO `CLASIFICACION_ACTIVIDAD` (`CLASIFICACIONid`, `ACTIVIDADid`) VALUES
 (1, 1),
-(2, 2);
+(2, 2),
+(1, 5), (1, 7), (2, 8), (1, 9), (1, 10), (1, 11), (2, 12), (1, 13), (1, 14);
 
 -- --------------------------------------------------------
 
@@ -318,9 +322,11 @@ CREATE TABLE `ETIQUETAS_ACTIVIDAD` (
 -- Volcado de datos para la tabla `ETIQUETAS_ACTIVIDAD`
 --
 
+DELETE FROM `ETIQUETAS_ACTIVIDAD` WHERE `ACTIVIDADid` > 2;
 INSERT INTO `ETIQUETAS_ACTIVIDAD` (`ETIQUETASid`, `ACTIVIDADid`) VALUES
 (1, 2),
-(2, 1);
+(2, 1),
+(2, 13), (2, 14), (1, 8), (1, 12);
 
 -- --------------------------------------------------------
 
