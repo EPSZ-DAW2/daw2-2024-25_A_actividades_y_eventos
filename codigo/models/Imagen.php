@@ -63,11 +63,21 @@ class Imagen extends \yii\db\ActiveRecord
         return $this->hasOne(UsuarioImagen::class, ['imagen_id' => 'id']);
     }
 
-    public function getRutaCompleta($perfil = false){
-        if (!$this->nombre_Archivo) {
-            $this->nombre_Archivo = 'no-photo';
-            $this->extension = 'png';
+    /**
+     * Gets the complete path of the image
+     * @param bool $absolute whether to return an absolute URL
+     * @return string
+     */
+    public function getRutaCompleta($absolute = false)
+    {
+        if (empty($this->ruta_archivo)) {
+            return Yii::getAlias('@web/images/perfiles/no-photo.png');
         }
-        return Yii::getAlias('@web') . '/images/' . ($perfil ? 'perfiles/' : '') . $this->nombre_Archivo . '.' . $this->extension;
+        
+        $path = $this->ruta_archivo;
+        if ($absolute) {
+            return Yii::$app->request->hostInfo . Yii::getAlias('@web/' . $path);
+        }
+        return Yii::getAlias('@web/' . $path);
     }
 }

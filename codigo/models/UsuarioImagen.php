@@ -66,4 +66,18 @@ class UsuarioImagen extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuario::class, ['id' => 'usuario_id']);
     }
+
+    /**
+     * Gets the complete path of the image
+     * @param bool $absolute whether to return an absolute URL
+     * @return string
+     */
+    public function getRutaCompleta($absolute = false)
+    {
+        $imagen = $this->getImagen()->one();
+        if ($imagen === null) {
+            return Yii::getAlias('@web/images/perfiles/no-photo.png');
+        }
+        return $imagen->getRutaCompleta($absolute);
+    }
 }

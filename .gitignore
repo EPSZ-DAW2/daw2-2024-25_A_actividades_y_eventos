@@ -7,3 +7,4 @@ themes/classic/views/
 librerias/
 .DS_Store
 /codigo/backups
+codigo/web/log.txt

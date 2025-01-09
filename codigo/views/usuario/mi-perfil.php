@@ -11,15 +11,19 @@ $this->title = 'Mi Perfil';
 <h1><?= Html::encode($this->title) ?></h1>
 
 <div>
-        <?php if ($imagenPerfil !== null): ?>
-            <?= Html::img(Html::encode($imagenPerfil->getrutaCompleta(true)), [
-                'alt' => 'Imagen de Perfil',
-                'class' => 'img-thumbnail',
-                'style' => 'max-width: 200px; max-height: 200px;'
-            ]) ?>
-        <?php else: ?>
-            <p>El usuario no tiene una imagen de perfil.</p>
-        <?php endif; ?>
+    <?php if ($imagenPerfil !== null): ?>
+        <?= Html::img($imagenPerfil->getRutaCompleta(), [
+            'alt' => 'Imagen de Perfil',
+            'class' => 'img-thumbnail',
+            'style' => 'max-width: 200px; max-height: 200px;'
+        ]) ?>
+    <?php else: ?>
+        <?= Html::img(Yii::getAlias('@web/images/perfiles/no-photo.png'), [
+            'alt' => 'Imagen por defecto',
+            'class' => 'img-thumbnail',
+            'style' => 'max-width: 200px; max-height: 200px;'
+        ]) ?>
+    <?php endif; ?>
 </div>
 
 <table class="table table-striped table-bordered">
@@ -86,7 +90,7 @@ $this->title = 'Mi Perfil';
     'id' => 'change-email-form',
     'options' => ['class' => 'form-horizontal'],
     'fieldConfig' => [
-        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
+        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}\n",
         'labelOptions' => ['class' => 'col-lg-12 control-label'],
     ],
 ]); ?>
