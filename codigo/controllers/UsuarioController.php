@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Usuario;
+use app\models\Roles;
 use app\models\UsuarioSearch;
 use app\models\Notificacion;
 use yii\web\Controller;
@@ -33,8 +34,16 @@ class UsuarioController extends Controller
                 ],
                 'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'only' => ['editar-perfil', 'mi-perfil'],
+                'only' => ['editar-perfil', 'mi-perfil', 'create', 'update', 'delete', 'index', 'view'],
                 'rules' => [
+                    //Solo los administradores pueden realizar estas acciones
+                    [
+                        'actions' => ['create', 'update', 'delete', 'index', 'view'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->hasRole([Roles::ADMINISTRADOR, Roles::SYSADMIN]);
+                        },
+                    ],
                     // Permitir a los usuarios autenticados acceder a su perfil y editarlo
                     [
                         'actions' => ['mi-perfil', 'editar-perfil'],
