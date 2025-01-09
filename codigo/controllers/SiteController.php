@@ -21,21 +21,29 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout'],
+                'only' => ['logout', 'admin'],
                 'rules' => [
                     [
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
+                    [
+                        'actions' => ['admin'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->hasRole(Roles::ADMINISTRADOR);
+                        },
+                    ],
                 ],
             ],
         ];
@@ -160,43 +168,42 @@ class SiteController extends Controller
      * Register a new user.
      */
 
-     public function actionRegister()
-     {
-         $model = new Usuario();
-         $model->setScenario('registerNewUser');
-     
-         if ($model->load(Yii::$app->request->post())) {
-             $model->activo = 1;
-             $model->fecha_registor = date('Y-m-d H:i:s');
-     
-             // Generar hash de la contraseña antes de guardar
-             $model->setPassword($model->password);
-     
-             if ($model->save()) {
-                 // Asignar un rol por defecto al usuario
-                 $model->asignarRol(Roles::USUARIO_NORMAL); // Rol por defecto: Normal
-     
-                 // Creamos un login form para loguear al usuario directamente
-                 $login = new LoginForm();
-                 $login->username = $model->nick;
-                 $login->password = Yii::$app->request->post('Usuario')['password']; // Tomar la contraseña sin hash
-                 if ($login->login()) {
-                     $this->logAction('register', 'User registered');
-                     Yii::$app->session->setFlash('success', 'Usuario registrado correctamente.');
-                     return $this->goHome();
-                 } else {
-                     Yii::$app->session->setFlash('error', 'Error al iniciar sesión después del registro.');
-                 }
-             } else {
-                 Yii::$app->session->setFlash('error', 'Error al registrar el usuario.');
-             }
-         }
-     
-         return $this->render('register', [
-             'model' => $model,
-         ]);
-     }
-     
+    public function actionRegister()
+    {
+        $model = new Usuario();
+        $model->setScenario('registerNewUser');
+    
+        if ($model->load(Yii::$app->request->post())) {
+            $model->activo = 1;
+            $model->fecha_registor = date('Y-m-d H:i:s');
+    
+            // Generar hash de la contraseña antes de guardar
+            $model->setPassword($model->password);
+    
+            if ($model->save()) {
+                // Asignar un rol por defecto al usuario
+                $model->asignarRol(Roles::USUARIO_NORMAL); // Rol por defecto: Normal
+    
+                // Creamos un login form para loguear al usuario directamente
+                $login = new LoginForm();
+                $login->username = $model->nick;
+                $login->password = Yii::$app->request->post('Usuario')['password']; // Tomar la contraseña sin hash
+                if ($login->login()) {
+                    $this->logAction('register', 'User registered');
+                    Yii::$app->session->setFlash('success', 'Usuario registrado correctamente.');
+                    return $this->goHome();
+                } else {
+                    Yii::$app->session->setFlash('error', 'Error al iniciar sesión después del registro.');
+                }
+            } else {
+                Yii::$app->session->setFlash('error', 'Error al registrar el usuario.');
+            }
+        }
+    
+        return $this->render('register', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Displays about page.
@@ -208,11 +215,6 @@ class SiteController extends Controller
         return $this->render('about');
     }
     
-    // Nueva acción para la página privada
-    public function actionPrivada()
-    {
-        return $this->render('privada');
-    }// actionPrivada
 
     // Nueva acción para la página de política de privacidad
     public function actionPoliticaprivacidad()

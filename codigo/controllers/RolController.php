@@ -28,6 +28,19 @@ class RolController extends Controller
                     'delete' => ['POST'],
                 ],
             ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['index', 'view', 'create', 'update', 'delete', 'assign'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->hasRole([Roles::SYSADMIN]);
+                        },
+                    ],
+                ],
+            ],
         ];
     }
 
