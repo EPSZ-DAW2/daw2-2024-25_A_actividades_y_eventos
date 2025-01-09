@@ -175,6 +175,8 @@ class Usuario extends ActiveRecord implements IdentityInterface
 
         // Asignar y guardar el nuevo hash de la contraseña
         $this->setPassword($this->newPassword);
+        // Asignar y guardar el nuevo hash de la contraseña
+        $this->setPassword($this->newPassword);
 
         if ($this->save(false, ['password'])) {
             return true;
@@ -184,7 +186,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return false;
     }
 
-    public function changeEmail()
+        public function changeEmail()
     {
         if (!$this->validate()) {
             return false;
