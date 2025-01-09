@@ -10,8 +10,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Usuario;
+use app\models\Actividad;
 use app\models\RegistroAcciones;
 use app\models\Roles;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
