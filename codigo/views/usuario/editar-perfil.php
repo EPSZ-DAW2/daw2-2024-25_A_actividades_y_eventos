@@ -20,7 +20,7 @@ $this->title = 'Editar Perfil';
 
         <div class="form-group mt-2">
             <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
-            <?= Html::a('Cancelar', ['mi-perfil'], ['class' => 'btn btn-danger']) ?>
+            <?= Html::a('Cancelar', ['mi-perfil'], ['class' => 'btn btn-danger', 'name'=>'submit-button', 'value'=>'cambiarAll']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -47,7 +47,7 @@ $this->title = 'Editar Perfil';
                     <?= $form->field($model, 'confirmNewEmail')->input('email')->label('Confirmar Nuevo Email') ?>
                     </br>
                     <div class="form-group">
-                        <?= Html::submitButton('Cambiar Email', ['class' => 'btn btn-primary']) ?>
+                        <?= Html::submitButton('Cambiar Email', ['class' => 'btn btn-primary', 'name'=>'submit-button', 'value'=>'cambiarEmail']) ?>
                     </div>
 
                     <?php ActiveForm::end(); ?>
@@ -72,7 +72,7 @@ $this->title = 'Editar Perfil';
                     </br>
                     <div class="form-group">
                         <div class="col-lg-12">
-                            <?= Html::submitButton('Cambiar Contraseña', ['class' => 'btn btn-primary']) ?>
+                            <?= Html::submitButton('Cambiar Contraseña', ['class' => 'btn btn-primary', 'name'=>'submit-button', 'value'=>'cambiarPass']) ?>
                         </div>
                     </div>
 

@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 use yii\data\Sort;
+/** @var yii\web\View $this */
 
 $sort = new Sort([
     'attributes' => [
@@ -12,13 +13,11 @@ $sort = new Sort([
         'fecha_celebracion',
     ],
 ]);
-
+$this->title = 'Administracion de actividades';
 ?>
 
-<p></p>
 
-<a href="<?= Yii::$app->urlManager->createUrl(['site/admin']) ?>">Panel de administrador</a>
-
+<h1>Gestion de actividades</h1>
 <?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success']) ?>
 </p>
 

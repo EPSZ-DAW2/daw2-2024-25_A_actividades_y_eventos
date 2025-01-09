@@ -16,12 +16,10 @@ $sort = new Sort([
 ]);
 
 $this->title = 'Etiquetas';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="etiquetas-index"></div>
-<a href="<?= Yii::$app->urlManager->createUrl(['site/admin']) ?>">Panel de administrador</a>
-
-    <?= Html::a('Crear Etiqueta', ['create'], ['class' => 'btn btn-success']) ?></p>
+<div class="etiquetas-index">
+    <h1>Gestion de etiquetas</h1>
+    <?= Html::a('Crear nueva etiqueta', ['create'], ['class' => 'btn btn-success']) ?></p>
     <table class="table table-bordered">
         <thead>
             <tr>

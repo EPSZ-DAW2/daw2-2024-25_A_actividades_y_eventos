@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Usuario;
+use app\models\Roles;
 use app\models\UsuarioSearch;
 use app\models\Notificacion;
 use yii\web\Controller;
@@ -33,8 +34,16 @@ class UsuarioController extends Controller
                 ],
                 'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'only' => ['editar-perfil', 'mi-perfil'],
+                'only' => ['editar-perfil', 'mi-perfil', 'create', 'update', 'delete', 'index', 'view'],
                 'rules' => [
+                    //Solo los administradores pueden realizar estas acciones
+                    [
+                        'actions' => ['create', 'update', 'delete', 'index', 'view'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->hasRole([Roles::ADMINISTRADOR, Roles::SYSADMIN]);
+                        },
+                    ],
                     // Permitir a los usuarios autenticados acceder a su perfil y editarlo
                     [
                         'actions' => ['mi-perfil', 'editar-perfil'],
@@ -156,24 +165,6 @@ class UsuarioController extends Controller
             throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
         }
 
-        // Escenario para cambiar contraseña
-        $model->setScenario('changePassword');
-
-        if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
-            $this->logAction('changePassword', 'User changed password');
-            Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
-            return $this->refresh();
-        }
-
-        // Escenario para cambiar email
-        $model->setScenario('changeEmail');
-
-        if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
-            $this->logAction('changeEmail', 'User changed email');
-            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
-            return $this->refresh();
-        }
-
         // Manejar la subida de la imagen de perfil
         $model->setScenario('updateProfile');
         if ($model->load(Yii::$app->request->post())) {
@@ -230,11 +221,28 @@ class UsuarioController extends Controller
         if (!$model) {
             throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
         }
-    
-        // Procesar el formulario
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+
+        // Procesar el formulario de perfil
+        if (Yii::$app->request->post('submit-button') === 'cambiarAll' && $model->load(Yii::$app->request->post()) && $model->save(false)) {
             Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
-            return $this->redirect(['mi-perfil']);
+            return $this->refresh();
+        }
+
+        // Escenario para cambiar contraseña
+        $model->setScenario('changePassword');
+        if (Yii::$app->request->post('submit-button') === 'cambiarPass' && $model->load(Yii::$app->request->post()) && $model->changePassword()) {
+            $this->logAction('changePassword', 'User changed password');
+            Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
+
+            return $this->refresh();
+        }
+        // Escenario para cambiar email
+        $model->setScenario('changeEmail');
+        if (Yii::$app->request->post('submit-button') === 'cambiarEmail' && $model->load(Yii::$app->request->post()) && $model->changeEmail()) {
+            $this->logAction('changeEmail', 'User changed email');
+            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
+            
+            return $this->refresh();
         }
     
         return $this->render('editar-perfil', [
