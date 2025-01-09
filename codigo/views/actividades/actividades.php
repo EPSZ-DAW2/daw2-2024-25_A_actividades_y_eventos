@@ -13,7 +13,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="actividades-index">
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <?php if (!Yii::$app->user->isGuest): ?>
+            <?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
     <p>
         <?= Html::a('Actividades Recomendadas', ['actividades/recomendadas'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Actividades Más Cercanas', ['actividades/mas-proximas'], ['class' => 'btn btn-primary']) ?>
