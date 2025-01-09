@@ -101,17 +101,31 @@ class SiteController extends Controller
     public function actionIndex2()
     {
         $searchTerm = Yii::$app->request->get('q');
-        $dataProvider = null;
+        
+        // Crear dataProviders para las diferentes secciones
+        $dataProvider = new ActiveDataProvider([
+            'query' => Actividad::find()->orderBy(['votosOK' => SORT_DESC]),
+            'pagination' => ['pageSize' => 3],
+        ]);
 
+        $dataProvider2 = new ActiveDataProvider([
+            'query' => Actividad::find()->orderBy(['contador_visitas' => SORT_DESC]),
+            'pagination' => ['pageSize' => 3],
+        ]);
+
+        $dataProvider3 = new ActiveDataProvider([
+            'query' => Actividad::find()
+                ->where(['>=', 'fecha_celebracion', new \yii\db\Expression('CURDATE()')])
+                ->orderBy(['fecha_celebracion' => SORT_ASC]),
+            'pagination' => ['pageSize' => 3],
+        ]);
+
+        // Si hay término de búsqueda, crear dataProvider de búsqueda
         if ($searchTerm !== null && trim($searchTerm) !== '') {
-            $query = \app\models\Actividad::find();
+            $searchQuery = Actividad::find();
+            $searchTerm = trim($searchTerm);
             
-            // Limpiar y sanitizar el término de búsqueda
-            $searchTerm = strip_tags(trim($searchTerm));
-            $searchTerm = htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8');
-            
-            // Usar parámetros vinculados para mayor seguridad
-            $query->where([
+            $searchQuery->where([
                 'or',
                 ['like', 'titulo', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
                 ['like', 'descripcion', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
@@ -120,32 +134,18 @@ class SiteController extends Controller
                 ['like', 'notas', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false]
             ]);
 
-            // Log seguro de la consulta
-            Yii::debug('Término de búsqueda sanitizado: ' . $searchTerm);
-            Yii::debug('SQL Query: ' . $query->createCommand()->getRawSql());
-
-            $dataProvider = new \yii\data\ActiveDataProvider([
-                'query' => $query,
-                'pagination' => [
-                    'pageSize' => 10,
-                    'validatePage' => true, // Validar número de página
-                ],
-                'sort' => [
-                    'defaultOrder' => ['fecha_celebracion' => SORT_DESC],
-                    'attributes' => [
-                        'titulo',
-                        'descripcion',
-                        'fecha_celebracion',
-                        'lugar_celebracion',
-                        'detalles',
-                        'notas'
-                    ]
-                ]
+            $searchProvider = new ActiveDataProvider([
+                'query' => $searchQuery,
+                'pagination' => ['pageSize' => 10],
+                'sort' => ['defaultOrder' => ['fecha_celebracion' => SORT_DESC]]
             ]);
         }
 
         return $this->render('index2', [
             'dataProvider' => $dataProvider,
+            'dataProvider2' => $dataProvider2,
+            'dataProvider3' => $dataProvider3,
+            'searchProvider' => $searchProvider ?? null,
             'searchTerm' => $searchTerm
         ]);
     }

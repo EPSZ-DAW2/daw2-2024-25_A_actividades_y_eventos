@@ -73,13 +73,13 @@ $this->title = 'Portada';
             </div>
 
             <!-- Resultados de búsqueda -->
-            <?php if (isset($dataProvider) && $searchTerm !== ''): ?>
+            <?php if (isset($searchProvider) && $searchTerm !== ''): ?>
                 <div class="search-results mt-4">
                     <h3>Resultados de búsqueda para: "<?= Html::encode($searchTerm) ?>"</h3>
                     
-                    <?php if ($dataProvider->getTotalCount() > 0): ?>
+                    <?php if ($searchProvider->getTotalCount() > 0): ?>
                         <?= GridView::widget([
-                            'dataProvider' => $dataProvider,
+                            'dataProvider' => $searchProvider,
                             'columns' => [
                                 [
                                     'attribute' => 'titulo',
@@ -117,68 +117,15 @@ $this->title = 'Portada';
                 </div>
             <?php endif; ?>
 
-            <!-- Resultados de búsqueda -->
-            <?php if (isset($dataProvider) && $searchTerm !== ''): ?>
-                <div class="search-results mt-4">
-                    <h3>Resultados de búsqueda para: "<?= Html::encode($searchTerm) ?>"</h3>
-                    
-                    <?php if ($dataProvider->getTotalCount() > 0): ?>
-                        <?= GridView::widget([
-                            'dataProvider' => $dataProvider,
-                            'columns' => [
-                                [
-                                    'attribute' => 'titulo',
-                                    'format' => 'raw',
-                                    'value' => function($model) {
-                                        return Html::a(
-                                            Html::encode($model->titulo),
-                                            ['actividades/ver_actividad', 'id' => $model->id],
-                                            ['class' => 'activity-title']
-                                        );
-                                    }
-                                ],
-                                'descripcion:ntext',
-                                [
-                                    'attribute' => 'fecha_celebracion',
-                                    'format' => ['date', 'php:d-m-Y H:i']
-                                ],
-                                'lugar_celebracion',
-                            ],
-                            'layout' => "{summary}\n{items}\n{pager}",
-                            'emptyText' => 'No se encontraron actividades.',
-                            'summary' => 'Mostrando {begin}-{end} de {totalCount} actividades.',
-                        ]); ?>
-                    <?php else: ?>
-                        <div class="alert alert-info">
-                            <p>No se encontraron actividades que coincidan con "<?= Html::encode($searchTerm) ?>"</p>
-                            <p>Sugerencias:</p>
-                            <ul>
-                                <li>Revise la ortografía</li>
-                                <li>Use términos más generales</li>
-                                <li>Pruebe con menos palabras</li>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
-
-            <!-- Actividades Recomendadas -->
+            <!-- Actividades Con más votos -->
             <div class="activities-section mt-5">
                 <h2>Actividades Con más votos</h2>
                 <?= ListView::widget([
                     'dataProvider' => $dataProvider,
-                    'itemOptions' => ['class' => 'col-lg-4'],
-                    'itemView' => function ($model, $key, $index, $widget) {
-                        return '<div class="activity-item">
-                                    <h4>' . Html::encode($model->titulo) . '</h4>
-                                    <p>' . Html::encode($model->descripcion) . '</p>
-                                    ' . (!empty($model->imagen_principal) ? '<img src="' . Yii::getAlias('@web') . '/images/' . Html::encode($model->imagen_principal) . '" alt="' . Html::encode($model->titulo) . '" class="img-fluid">' : '') . '
-                                    <p><strong>Votos Positivos:</strong> ' . Html::encode($model->votosOK) . '</p>
-                                    <p>' . Html::a('Ver', ['ver_actividad', 'id' => $model->id], ['class' => 'btn btn-info']) . '</p>
-                                </div>';
-                    },
+                    'itemView' => '_activityItem',
                     'layout' => "{items}\n{pager}",
-                ]) ?>
+                    'itemOptions' => ['class' => 'activity-item'],
+                ]); ?>
             </div>
 
             <!-- Actividades Más Cercanas, Más Nuevas y Más Visitadas -->
