@@ -1,15 +1,17 @@
 <?php
 
 namespace app\controllers;
+
 use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
-use app\models\Roles;
 use app\models\Notificacion;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\RegistroAcciones;
+use yii\web\UploadedFile;
+
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */
@@ -18,7 +20,8 @@ class UsuarioController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors(){
+    public function behaviors()
+    {
         return array_merge(
             parent::behaviors(),
             [
@@ -30,16 +33,8 @@ class UsuarioController extends Controller
                 ],
                 'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'only' => ['create', 'update', 'delete', 'index', 'view', 'editar-perfil', 'mi-perfil'],
+                'only' => ['editar-perfil', 'mi-perfil'],
                 'rules' => [
-                    //Solo los administradores pueden realizar estas acciones
-                    [
-                        'actions' => ['create', 'update', 'delete', 'index', 'view'],
-                        'allow' => true,
-                        'matchCallback' => function ($rule, $action) {
-                            return Yii::$app->user->hasRole([Roles::ADMINISTRADOR, Roles::SYSADMIN]);
-                        },
-                    ],
                     // Permitir a los usuarios autenticados acceder a su perfil y editarlo
                     [
                         'actions' => ['mi-perfil', 'editar-perfil'],
@@ -76,22 +71,8 @@ class UsuarioController extends Controller
      */
     public function actionView($id)
     {
-        $usuario = Usuario::findOne($id);
-        if ($usuario === null) {
-            throw new NotFoundHttpException('El usuario no existe.');
-        }
-
-        // Obtener la imagen de perfil del usuario
-        $imagenPerfil = $usuario->getImagen();
-        if ($imagenPerfil === null) {
-            //Indicamos la ruta de la imagen por defecto
-            $imagenPerfil = new \app\models\Imagen();
-            $imagenPerfil->ruta_archivo = '@app/web/images/perfiles/no-photo.png';
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'imagenPerfil' => $imagenPerfil,
         ]);
     }
 
@@ -193,12 +174,46 @@ class UsuarioController extends Controller
             return $this->refresh();
         }
 
+        // Manejar la subida de la imagen de perfil
+        $model->setScenario('updateProfile');
+        if ($model->load(Yii::$app->request->post())) {
+            $imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($imageFile) {
+                $imageName = 'profile_' . $model->id . '.' . $imageFile->extension;
+                $imagePath = 'images/perfiles/' . $imageName;
+                if ($imageFile->saveAs(Yii::getAlias('@webroot') . '/' . $imagePath)) {
+                    $imagenPerfil = new \app\models\Imagen();
+                    $imagenPerfil->ruta_archivo = $imagePath;
+                    $imagenPerfil->nombre_Archivo = $imageName;
+                    $imagenPerfil->extension = $imageFile->extension;
+                    if ($imagenPerfil->save()) {
+                        $usuarioImagen = $model->getImagen()->one();
+                        if ($usuarioImagen === null) {
+                            $usuarioImagen = new \app\models\UsuarioImagen();
+                            $usuarioImagen->usuario_id = $model->id;
+                        }
+                        $usuarioImagen->setImagen($imagenPerfil->id);
+                        Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente. Por favor, refresque la página para ver los cambios si es necesario.');
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Error al guardar la imagen de perfil.');
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', 'Error al subir la imagen de perfil.');
+                }
+            } else {
+                $model->save(false);
+                Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
+            }
+            return $this->refresh();
+        }
+
         // Obtener la imagen de perfil del usuario
-        $imagenPerfil = $model->getImagen()->one();
+        $usuarioImagen = $model->getImagen()->one();
+        $imagenPerfil = $usuarioImagen ? $usuarioImagen->imagen : null;
         if ($imagenPerfil === null) {
             //Indicamos la ruta de la imagen por defecto
             $imagenPerfil = new \app\models\Imagen();
-            $imagenPerfil->ruta_archivo =  Yii::getAlias('@web');
+            $imagenPerfil->ruta_archivo = Yii::getAlias('@web/images/perfiles/no-photo.png');
         }
 
         return $this->render('mi-perfil', [

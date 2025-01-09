@@ -820,6 +820,9 @@ ALTER TABLE `USUARIO_IMAGEN`
   ADD KEY `fk_usuario` (`usuario_id`),
   ADD KEY `fk_imagen` (`imagen_id`);
 
+ALTER TABLE `usuario_imagen`
+ADD PRIMARY KEY (`usuario_id`, `imagen_id`);
+
 --
 -- Indices de la tabla `USUARIO_ROLES`
 --

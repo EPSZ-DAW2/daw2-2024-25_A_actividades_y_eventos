@@ -15,6 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
         y emocionantes. 
         </br></br>
         ¡Únete a nosotros y descubre todo lo que tenemos para ofrecer!
-        </br></br></br></br></br></br></br></br></br></br></br></br>
+        </br></br></br></br>
     </p>
 </div>

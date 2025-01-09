@@ -6,6 +6,7 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 use yii\web\IdentityInterface;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "usuario".
@@ -23,7 +24,9 @@ use yii\web\IdentityInterface;
  * @property string|null $fecha_bloqueo
  * @property string|null $motivo_bloqueo
  * @property string|null $notas
+ * @property int|null $imagen_id
  *
+ * @property Imagen $imagen
  */
 class Usuario extends ActiveRecord implements IdentityInterface
 {
@@ -32,7 +35,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
     public $confirmNewPassword;
     public $newEmail;
     public $confirmNewEmail;
-
+    public $imageFile;
 
     /**
      * {@inheritdoc}
@@ -52,7 +55,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
             [['nick', 'email'], 'unique'],
             [['nick', 'password', 'email', 'nombre', 'apellidos', 'motivo_bloqueo'], 'string', 'max' => 500],
             [['fecha_nacimiento', 'fecha_registor', 'fecha_bloqueo'], 'safe'],
-            [['activo', 'registro_confirmado'], 'integer'],
+            [['activo', 'registro_confirmado', 'imagen_id'], 'integer'],
             [['nick', 'password', 'email', 'nombre', 'apellidos', 'motivo_bloqueo', 'notas'], 'string', 'max' => 255],
             [['currentPassword', 'newPassword', 'confirmNewPassword'], 'required', 'on' => 'changePassword'],
             ['newPassword', 'compare', 'compareAttribute' => 'confirmNewPassword', 'on' => 'changePassword'],
@@ -60,6 +63,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
             ['newEmail', 'email', 'on' => 'changeEmail'],
             ['newEmail', 'compare', 'compareAttribute' => 'confirmNewEmail', 'on' => 'changeEmail'],
             ['newEmail', 'email', 'on' => 'changeEmail'],
+            [['imageFile'], 'file', 'extensions' => 'png, jpg, jpeg', 'maxSize' => 1024 * 1024 * 2], // 2MB max
         ];
     }
 
@@ -82,6 +86,8 @@ class Usuario extends ActiveRecord implements IdentityInterface
             'fecha_bloqueo' => Yii::t('app', 'Fecha de Bloqueo'),
             'motivo_bloqueo' => Yii::t('app', 'Motivo de Bloqueo'),
             'notas' => Yii::t('app', 'Notas'),
+            'imagen_id' => Yii::t('app', 'Imagen ID'),
+            'imageFile' => Yii::t('app', 'Subir nueva foto de perfil'),
         ];
     }
 

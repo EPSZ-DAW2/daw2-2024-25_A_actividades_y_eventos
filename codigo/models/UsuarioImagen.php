@@ -80,4 +80,15 @@ class UsuarioImagen extends \yii\db\ActiveRecord
         }
         return $imagen->getRutaCompleta($absolute);
     }
+
+    /**
+     * Sets the image for the user
+     * @param int $imagenId
+     * @return bool
+     */
+    public function setImagen($imagenId)
+    {
+        $this->imagen_id = $imagenId;
+        return $this->save(false);
+    }
 }
