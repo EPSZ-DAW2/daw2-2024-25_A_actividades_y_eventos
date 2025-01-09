@@ -1,15 +1,18 @@
 <?php
 
 namespace app\controllers;
+
 use Yii;
 use app\models\Usuario;
-use app\models\UsuarioSearch;
 use app\models\Roles;
+use app\models\UsuarioSearch;
 use app\models\Notificacion;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\RegistroAcciones;
+use yii\web\UploadedFile;
+
 /**
  * UsuarioController implements the CRUD actions for Usuario model.
  */
@@ -18,7 +21,8 @@ class UsuarioController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors(){
+    public function behaviors()
+    {
         return array_merge(
             parent::behaviors(),
             [
@@ -30,7 +34,7 @@ class UsuarioController extends Controller
                 ],
                 'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'only' => ['create', 'update', 'delete', 'index', 'view', 'editar-perfil', 'mi-perfil'],
+                'only' => ['editar-perfil', 'mi-perfil', 'create', 'update', 'delete', 'index', 'view'],
                 'rules' => [
                     //Solo los administradores pueden realizar estas acciones
                     [
@@ -76,22 +80,8 @@ class UsuarioController extends Controller
      */
     public function actionView($id)
     {
-        $usuario = Usuario::findOne($id);
-        if ($usuario === null) {
-            throw new NotFoundHttpException('El usuario no existe.');
-        }
-
-        // Obtener la imagen de perfil del usuario
-        $imagenPerfil = $usuario->getImagen();
-        if ($imagenPerfil === null) {
-            //Indicamos la ruta de la imagen por defecto
-            $imagenPerfil = new \app\models\Imagen();
-            $imagenPerfil->ruta_archivo = '@app/web/images/perfiles/no-photo.png';
-        }
-
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'imagenPerfil' => $imagenPerfil,
         ]);
     }
 
@@ -175,30 +165,46 @@ class UsuarioController extends Controller
             throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
         }
 
-        // Escenario para cambiar contraseña
-        $model->setScenario('changePassword');
-
-        if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
-            $this->logAction('changePassword', 'User changed password');
-            Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
-            return $this->refresh();
-        }
-
-        // Escenario para cambiar email
-        $model->setScenario('changeEmail');
-
-        if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
-            $this->logAction('changeEmail', 'User changed email');
-            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
+        // Manejar la subida de la imagen de perfil
+        $model->setScenario('updateProfile');
+        if ($model->load(Yii::$app->request->post())) {
+            $imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($imageFile) {
+                $imageName = 'profile_' . $model->id . '.' . $imageFile->extension;
+                $imagePath = 'images/perfiles/' . $imageName;
+                if ($imageFile->saveAs(Yii::getAlias('@webroot') . '/' . $imagePath)) {
+                    $imagenPerfil = new \app\models\Imagen();
+                    $imagenPerfil->ruta_archivo = $imagePath;
+                    $imagenPerfil->nombre_Archivo = $imageName;
+                    $imagenPerfil->extension = $imageFile->extension;
+                    if ($imagenPerfil->save()) {
+                        $usuarioImagen = $model->getImagen()->one();
+                        if ($usuarioImagen === null) {
+                            $usuarioImagen = new \app\models\UsuarioImagen();
+                            $usuarioImagen->usuario_id = $model->id;
+                        }
+                        $usuarioImagen->setImagen($imagenPerfil->id);
+                        Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente. Por favor, refresque la página para ver los cambios si es necesario.');
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Error al guardar la imagen de perfil.');
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', 'Error al subir la imagen de perfil.');
+                }
+            } else {
+                $model->save(false);
+                Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
+            }
             return $this->refresh();
         }
 
         // Obtener la imagen de perfil del usuario
-        $imagenPerfil = $model->getImagen()->one();
+        $usuarioImagen = $model->getImagen()->one();
+        $imagenPerfil = $usuarioImagen ? $usuarioImagen->imagen : null;
         if ($imagenPerfil === null) {
             //Indicamos la ruta de la imagen por defecto
             $imagenPerfil = new \app\models\Imagen();
-            $imagenPerfil->ruta_archivo =  Yii::getAlias('@web');
+            $imagenPerfil->ruta_archivo = Yii::getAlias('@web/images/perfiles/no-photo.png');
         }
 
         return $this->render('mi-perfil', [
@@ -215,11 +221,28 @@ class UsuarioController extends Controller
         if (!$model) {
             throw new \yii\web\ForbiddenHttpException('Debe iniciar sesión para acceder a esta página.');
         }
-    
-        // Procesar el formulario
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+
+        // Procesar el formulario de perfil
+        if (Yii::$app->request->post('submit-button') === 'cambiarAll' && $model->load(Yii::$app->request->post()) && $model->save(false)) {
             Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
-            return $this->redirect(['mi-perfil']);
+            return $this->refresh();
+        }
+
+        // Escenario para cambiar contraseña
+        $model->setScenario('changePassword');
+        if (Yii::$app->request->post('submit-button') === 'cambiarPass' && $model->load(Yii::$app->request->post()) && $model->changePassword()) {
+            $this->logAction('changePassword', 'User changed password');
+            Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
+
+            return $this->refresh();
+        }
+        // Escenario para cambiar email
+        $model->setScenario('changeEmail');
+        if (Yii::$app->request->post('submit-button') === 'cambiarEmail' && $model->load(Yii::$app->request->post()) && $model->changeEmail()) {
+            $this->logAction('changeEmail', 'User changed email');
+            Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
+            
+            return $this->refresh();
         }
     
         return $this->render('editar-perfil', [
@@ -257,7 +280,7 @@ class UsuarioController extends Controller
         $notificacion->codigo_de_clase = $codigo;
         $notificacion->fecha = date('Y-m-d H:i:s');
         $notificacion->USUARIOid = Yii::$app->user->id;
-        // La notificación al administrador, que se puede suponer con ID 1
+        // La notificación al administrador, que se ha establecido a 1
         $notificacion->USUARIOid2 = 1;
 
         // No establecer actividad si no es necesario

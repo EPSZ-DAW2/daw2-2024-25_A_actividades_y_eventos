@@ -2,6 +2,7 @@
 
 /** @var yii\web\View $this */
 $this->registerCssFile(Yii::$app->request->baseUrl . '/css/estiloHeader.css', ['depends' => [yii\web\YiiAsset::class]]);
+$this->registerCssFile('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css');
 /** @var string $content */
 
 use app\assets\AppAsset;
@@ -70,9 +71,20 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         <li class="nav-item">
                             <?= Html::a('Registrarse', ['site/register'], ['class' => 'btn btn-sm btn-primary mx-2']) ?>
                         </li>
-                    <?php else: ?>
+                    <?php else: 
+                        if (Yii::$app->user->hasRole([Roles::ADMINISTRADOR, Roles::SYSADMIN])) {
+                            echo '<li class="nav-item">';
+                            echo Html::a('Administracion', ['site/admin'], [
+                                'class' => 'btn btn-sm btn-warning mx-2',
+                            ]);
+                            echo '</li>';
+                        }
+                        ?>
                         <li class="nav-item">
                             <?= Html::a('Mi perfil', ['usuario/mi-perfil'], ['class' => 'btn btn-sm btn-secondary mx-2', 'data-method' => 'post']) ?>
+                        </li>
+                        <li class="nav-item">
+                            <?= Html::a('<i class="bi bi-bell"></i>', ['usuario/mis-notificaciones'], ['class' => 'btn btn-sm btn-info mx-2']) ?>
                         </li>
                         <li class="nav-item">
                             <?= Html::a('Cerrar Sesión', ['site/logout'], ['class' => 'btn btn-sm btn-danger mx-2', 'data-method' => 'post']) ?>

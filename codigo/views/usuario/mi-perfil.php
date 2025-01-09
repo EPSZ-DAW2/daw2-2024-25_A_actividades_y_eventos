@@ -10,9 +10,10 @@ $this->title = 'Mi Perfil';
 ?>
 <h1><?= Html::encode($this->title) ?></h1>
 
+
 <div>
     <?php if ($imagenPerfil !== null && !empty($imagenPerfil->ruta_archivo)): ?>
-        <?= Html::img($imagenPerfil->getRutaCompleta(), [
+        <?= Html::img($imagenPerfil->getRutaCompleta(true), [
             'alt' => 'Imagen de Perfil',
             'class' => 'img-thumbnail',
             'style' => 'max-width: 200px; max-height: 200px;'
@@ -25,7 +26,27 @@ $this->title = 'Mi Perfil';
         ]) ?>
     <?php endif; ?>
 </div>
+</br>
+<?php $form = ActiveForm::begin([
+    'id' => 'profile-form',
+    'options' => ['enctype' => 'multipart/form-data'], // Añadir enctype para subir archivos
+    'fieldConfig' => [
+        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
+        'labelOptions' => ['class' => 'col-lg-12 control-label'],
+    ],
+]); ?>
 
+<?= $form->field($model, 'imageFile')->fileInput()->label('Subir nueva foto de perfil') ?>
+</br>
+<div class="form-group">
+    <div class="col-lg-12">
+        <?= Html::submitButton('Guardar nueva imagen', ['class' => 'btn btn-success']) ?>
+    </div>
+</div>
+
+<?php ActiveForm::end(); ?>
+
+</br>
 <table class="table table-striped table-bordered">
     <tbody>
         <tr>
@@ -59,52 +80,12 @@ $this->title = 'Mi Perfil';
     </tbody>
 </table>
 
-</br>
-<h2>Cambiar Contraseña</h2>
-
-<?php $form = ActiveForm::begin([
-    'id' => 'change-password-form',
-    'options' => ['class' => 'form-horizontal'],
-    'fieldConfig' => [
-        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
-        'labelOptions' => ['class' => 'col-lg-12 control-label'],
-    ],
-]); ?>
-
-<?= $form->field($model, 'currentPassword')->passwordInput()->label('Contraseña Actual') ?>
-<?= $form->field($model, 'newPassword')->passwordInput()->label('Nueva Contraseña') ?>
-<?= $form->field($model, 'confirmNewPassword')->passwordInput()->label('Confirmar Nueva Contraseña') ?>
-</br>
-<div class="form-group">
-    <div class="col-lg-12">
-        <?= Html::submitButton('Cambiar Contraseña', ['class' => 'btn btn-primary']) ?>
-    </div>
-</div>
-
-<?php ActiveForm::end(); ?>
+<?= Html::a('Editar Perfil', ['usuario/editar-perfil'], ['class' => 'btn btn-warning']) ?>
 
 </br>
-<h2>Cambiar Email</h2>
 
-<?php $form = ActiveForm::begin([
-    'id' => 'change-email-form',
-    'options' => ['class' => 'form-horizontal'],
-    'fieldConfig' => [
-        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}\n",
-        'labelOptions' => ['class' => 'col-lg-12 control-label'],
-    ],
-]); ?>
-
-<?= $form->field($model, 'newEmail')->input('email')->label('Nuevo Email') ?>
-<?= $form->field($model, 'confirmNewEmail')->input('email')->label('Confirmar Nuevo Email') ?>
 </br>
-<div class="form-group">
-    <div class="col-lg-12">
-        <?= Html::submitButton('Cambiar Email', ['class' => 'btn btn-primary']) ?>
-    </div>
-</div>
 
-<?php ActiveForm::end(); ?>
 
 </br>
 <h2>Solitud de soporte al administrador del sitio</h2>

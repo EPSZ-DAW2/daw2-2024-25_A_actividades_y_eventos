@@ -394,6 +394,16 @@ CREATE TABLE `NOTIFICACION` (
   `texto` varchar(500) NOT NULL COMMENT 'Texto de la notificacion '
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `NOTIFICACION`
+--
+INSERT INTO `NOTIFICACION` (`id`, `fecha`, `codigo_de_clase`, `fecha_lectura`, `fecha_borrado`, `fecha_aceptacion`, `ACTIVIDADid`, `USUARIOid`, `USUARIOid2`, `texto`) VALUES
+(1, '2025-01-09 12:35:56', 'SOLICITUD_BAJA', NULL, NULL, NULL, 1, 1, 1, ''),
+(2, '2025-01-09 12:35:56', 'SOLICITUD_BAJA', NULL, NULL, NULL, 1, 1, 1, ''),
+(3, '2025-01-10 00:00:00', 'AVISO', NULL, NULL, NULL, 1, 1, 1, 'Notificación de prueba para el usuario 1'),
+(4, '2025-01-11 00:00:00', 'NOTIFICACIÓN', NULL, NULL, NULL, 2, 2, 2, 'Notificación de prueba para el usuario 2'),
+(5, '2025-01-12 00:00:00', 'DENUNCIA', NULL, NULL, NULL, 1, 1, 3, 'Notificación de prueba para el usuario 3');
+
 -- --------------------------------------------------------
 
 --
@@ -549,10 +559,13 @@ CREATE TABLE `USUARIO` (
 --
 
 INSERT INTO `USUARIO` (`id`, `nick`, `password`, `email`, `nombre`, `apellidos`, `fecha_nacimiento`, `activo`, `fecha_registor`, `registro_confirmado`, `fecha_bloqueo`, `motivo_bloqueo`, `notas`) VALUES
-(1, 'user1', 'password123', 'user1@example.com', 'Juan', 'Pérez', '1990-06-15 00:00:00', 1, '2025-01-01 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
-(2, 'user2', 'password456', 'user2@example.com', 'María', 'Gómez', '1985-02-10 00:00:00', 1, '2025-01-02 00:00:00', 1, NULL, NULL, 'Interesado en actividades culturales'),
-(3, 'paco', '1234', 'fwfge@emab.es', 'paco', 'paco', '2025-01-07 00:00:00', 1, '2025-01-14 00:00:00', 1, '2025-01-22 00:00:00', 'por bobo', 'ninfuna');
-
+(1, 'user1', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user1@example.com', 'Juan', 'Pérez', '1990-06-15 00:00:00', 1, '2025-01-01 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
+(2, 'user2', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user2@example.com', 'María', 'Gómez', '1985-02-10 00:00:00', 1, '2025-01-02 00:00:00', 1, NULL, NULL, 'Interesado en actividades culturales'),
+(3, 'user3', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user3@example.com', 'Paco', 'Ramírez Hidalgo', '2025-01-07 00:00:00', 1, '2025-01-14 00:00:00', 1, '2025-01-22 00:00:00', NULL, NULL);
+(4, 'user4', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user4@example.com', 'Carlos', 'Sánchez', '1992-04-10 00:00:00', 1, '2025-01-04 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
+(5, 'user5', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user5@example.com', 'Ana', 'Martínez', '1988-11-23 00:00:00', 1, '2025-01-05 00:00:00', 1, NULL, NULL, 'Interesada en eventos deportivos'),
+(6, 'user6', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user6@example.com', 'Luis', 'García', '1995-07-19 00:00:00', 1, '2025-01-06 00:00:00', 1, NULL, NULL, 'Participante activo en actividades culturales'),
+(7, 'user7', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user7@example.com', 'Elena', 'Rodríguez', '1993-09-30 00:00:00', 1, '2025-01-07 00:00:00', 1, NULL, NULL, 'Interesada en actividades al aire libre');
 -- --------------------------------------------------------
 
 --
@@ -607,6 +620,15 @@ CREATE TABLE `USUARIO_ROLES` (
 --
 -- Volcado de datos para la tabla `USUARIO_ROLES`
 --
+
+INSERT INTO `USUARIO_ROLES` (`USUARIOid`, `ROLESid`) VALUES
+(1, 5),
+(2, 4),
+(3, 3),
+(4, 2),
+(5, 1),
+(6, 1),
+(7, 1);
 
 -- --------------------------------------------------------
 
@@ -819,6 +841,9 @@ ALTER TABLE `USUARIO_HISTORIAL`
 ALTER TABLE `USUARIO_IMAGEN`
   ADD KEY `fk_usuario` (`usuario_id`),
   ADD KEY `fk_imagen` (`imagen_id`);
+
+ALTER TABLE `usuario_imagen`
+ADD PRIMARY KEY (`usuario_id`, `imagen_id`);
 
 --
 -- Indices de la tabla `USUARIO_ROLES`
