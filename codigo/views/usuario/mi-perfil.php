@@ -59,52 +59,12 @@ $this->title = 'Mi Perfil';
     </tbody>
 </table>
 
-</br>
-<h2>Cambiar Contraseña</h2>
-
-<?php $form = ActiveForm::begin([
-    'id' => 'change-password-form',
-    'options' => ['class' => 'form-horizontal'],
-    'fieldConfig' => [
-        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
-        'labelOptions' => ['class' => 'col-lg-12 control-label'],
-    ],
-]); ?>
-
-<?= $form->field($model, 'currentPassword')->passwordInput()->label('Contraseña Actual') ?>
-<?= $form->field($model, 'newPassword')->passwordInput()->label('Nueva Contraseña') ?>
-<?= $form->field($model, 'confirmNewPassword')->passwordInput()->label('Confirmar Nueva Contraseña') ?>
-</br>
-<div class="form-group">
-    <div class="col-lg-12">
-        <?= Html::submitButton('Cambiar Contraseña', ['class' => 'btn btn-primary']) ?>
-    </div>
-</div>
-
-<?php ActiveForm::end(); ?>
+<?= Html::a('Editar Perfil', ['usuario/editar-perfil'], ['class' => 'btn btn-warning']) ?>
 
 </br>
-<h2>Cambiar Email</h2>
 
-<?php $form = ActiveForm::begin([
-    'id' => 'change-email-form',
-    'options' => ['class' => 'form-horizontal'],
-    'fieldConfig' => [
-        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}\n",
-        'labelOptions' => ['class' => 'col-lg-12 control-label'],
-    ],
-]); ?>
-
-<?= $form->field($model, 'newEmail')->input('email')->label('Nuevo Email') ?>
-<?= $form->field($model, 'confirmNewEmail')->input('email')->label('Confirmar Nuevo Email') ?>
 </br>
-<div class="form-group">
-    <div class="col-lg-12">
-        <?= Html::submitButton('Cambiar Email', ['class' => 'btn btn-primary']) ?>
-    </div>
-</div>
 
-<?php ActiveForm::end(); ?>
 
 </br>
 <h2>Solitud de soporte al administrador del sitio</h2>
