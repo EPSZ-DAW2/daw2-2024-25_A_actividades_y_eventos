@@ -20,12 +20,14 @@
         <?= Html::a('Gestion de etiquetas', ['etiquetas/index'], ['class' => 'btn btn-success']); ?>
         <?= Html::a('Gestion de roles', ['rol/index'], ['class' => 'btn btn-success']); ?>
         <?= Html::a('Gestion de usuarios', ['usuario/index'], ['class' => 'btn btn-success']); ?>
+        <?= Html::a('Registro de actividades- LOG', ['registro-acciones/index'], ['class' => 'btn btn-success']); ?>
         
         <?php
-        if (  Yii::$app->user->hasRole(Roles::SYSADMIN) ){
-        echo '<br><br>';
-        echo Html::a('Gestion del servidor', ['parametros-servidor/index'], ['class' => 'btn btn-success']);
-        echo Html::a('Copia de seguridad', ['backup/index'], ['class' => 'btn btn-success']);
+        if (Yii::$app->user->hasRole(Roles::SYSADMIN)) {
+            echo '<br><br>';
+            echo '<p>Acciones de SysAdmin:</p>';
+            echo Html::a('Gestion del servidor', ['parametros-servidor/index'], ['class' => 'btn btn-success', 'style' => 'margin-right: 10px;']);
+            echo Html::a('Copia de seguridad', ['backup/index'], ['class' => 'btn btn-success', 'style' => 'margin-left: 10px;']);
         }
         ?>
     </p>
