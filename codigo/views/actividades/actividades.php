@@ -8,7 +8,9 @@ use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
 
 $this->title = 'Actividades';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="actividades-index">
     <h1><?= Html::encode($this->title) ?></h1>
 

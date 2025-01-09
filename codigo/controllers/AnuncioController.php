@@ -2,11 +2,14 @@
 
 namespace app\controllers;
 
+use yii;
 use app\models\Anuncio;
 use app\models\AnuncioSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Roles;
+use yii\filters\AccessControl;
 
 /**
  * AnuncioController implements the CRUD actions for Anuncio model.
@@ -27,7 +30,20 @@ class AnuncioController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
-            ]
+
+                'access'=>[
+                    'class'=>AccessControl::class,
+                    'rules'=>[
+                        [
+                            'allow'=>true,
+                            'roles'=>['@'],
+                            'matchCallback'=>function(){
+                                return Yii::$app->user->hasRole([Roles::ADMINISTRADOR, Roles::SYSADMIN, Roles::PATROCINADOR]);
+                            },
+                        ],
+                    ],
+                ],
+            ],
         );
     }
 
