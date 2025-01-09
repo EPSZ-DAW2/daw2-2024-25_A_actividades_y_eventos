@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 
 /**
- * ContactForm is the model behind the contact form.
+ * ContactForm es el modelo detrás del formulario de contacto.
  */
 class ContactForm extends Model
 {
@@ -16,36 +16,39 @@ class ContactForm extends Model
     public $body;
     public $verifyCode;
 
-
     /**
-     * @return array the validation rules.
+     * @return array las reglas de validación.
      */
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
-            ['email', 'email'],
-            // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+            // name, email, subject y body son obligatorios
+            [['name', 'email', 'subject', 'body'], 'required', 'message' => 'Este campo es obligatorio.'],
+            // email debe ser una dirección de correo válida
+            ['email', 'email', 'message' => 'Por favor ingrese un correo electrónico válido.'],
+            // verifyCode debe ser ingresado correctamente
+            ['verifyCode', 'captcha', 'message' => 'El código de verificación es incorrecto.'],
         ];
     }
 
     /**
-     * @return array customized attribute labels
+     * @return array etiquetas personalizadas para los atributos
      */
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'name' => 'Nombre',
+            'email' => 'Correo electrónico',
+            'subject' => 'Asunto',
+            'body' => 'Mensaje',
+            'verifyCode' => 'Código de verificación',
         ];
     }
 
     /**
-     * Sends an email to the specified email address using the information collected by this model.
-     * @param string $email the target email address
-     * @return bool whether the model passes validation
+     * Envía un correo electrónico a la dirección especificada usando la información recopilada por este modelo.
+     * @param string $email la dirección de correo electrónico de destino
+     * @return bool si el modelo pasa la validación
      */
     public function contact($email)
     {
