@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\AccessControl;
 use app\models\ParametrosServidor;
+use app\models\Roles;
 
 /**
  * Controlador para gestionar los parámetros del servidor
@@ -21,6 +22,9 @@ class ParametrosServidorController extends Controller
                     [
                         'allow' => true,
                         'roles' => ['@'], // Solo usuarios autenticados
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->hasRole([Roles::SYSADMIN]);
+                        },
                     ],
                 ],
             ],
