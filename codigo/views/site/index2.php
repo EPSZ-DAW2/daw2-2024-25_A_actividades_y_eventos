@@ -1,8 +1,9 @@
 <?php
 /** @var yii\web\View $this */
+/** @var yii\data\ActiveDataProvider $dataProvider */
 
-use app\models\Roles;
 use yii\helpers\Html;
+use yii\widgets\ListView;
 
 $this->title = 'Portada';
 ?>
@@ -48,145 +49,72 @@ $this->title = 'Portada';
             <!-- Buscador -->
             <div class="search-container text-center mt-4">
                 <h2>Buscar Actividades</h2>
-                <form action="<?= Yii::$app->urlManager->createUrl(['site/index2' /*'actividad/search'*/]) ?>" method="get">
+                <form action="<?= Yii::$app->urlManager->createUrl(['site/index2']) ?>" method="get">
                     <input type="text" name="q" class="form-control" placeholder="Buscar actividades..." />
                     <button type="submit" class="btn btn-primary mt-2">Buscar</button>
                 </form>
             </div>
 
             <!-- Actividades Recomendadas -->
-            <div class="recommended-activities mt-5">
-                <h2>Actividades Recomendadas</h2>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="activity-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Actividad 1" class="img-fluid">
-                            <h4>Actividad 1</h4>
-                            <p>Descripción breve de la actividad recomendada.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="activity-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Actividad 2" class="img-fluid">
-                            <h4>Actividad 2</h4>
-                            <p>Descripción breve de la actividad recomendada.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="activity-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Actividad 3" class="img-fluid">
-                            <h4>Actividad 3</h4>
-                            <p>Descripción breve de la actividad recomendada.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="activities-section mt-5">
+                <h2>Actividades Con más votos</h2>
+                <?= ListView::widget([
+                    'dataProvider' => $dataProvider,
+                    'itemOptions' => ['class' => 'col-lg-4'],
+                    'itemView' => function ($model, $key, $index, $widget) {
+                        return '<div class="activity-item">
+                                    <h4>' . Html::encode($model->titulo) . '</h4>
+                                    <p>' . Html::encode($model->descripcion) . '</p>
+                                    ' . (!empty($model->imagen_principal) ? '<img src="' . Yii::getAlias('@web') . '/images/' . Html::encode($model->imagen_principal) . '" alt="' . Html::encode($model->titulo) . '" class="img-fluid">' : '') . '
+                                    <p><strong>Votos Positivos:</strong> ' . Html::encode($model->votosOK) . '</p>
+                                    <p>' . Html::a('Ver', ['ver_actividad', 'id' => $model->id], ['class' => 'btn btn-info']) . '</p>
+                                </div>';
+                    },
+                    'layout' => "{items}\n{pager}",
+                ]) ?>
             </div>
 
             <!-- Actividades Más Cercanas, Más Nuevas y Más Visitadas -->
             <div class="activities-section mt-5">
-                <h2>Actividades Populares</h2>
+                <h2>Actividades más cercanas</h2>
                 <div class="row">
                     <!-- Más Cercanas -->
-                    <div class="col-lg-4">
-                        <h4>Más Cercanas</h4>
-                        <div class="activity-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Cercana 1" class="img-fluid">
-                            <h5>Actividad Cercana 1</h5>
-                            <p>Descripción de la actividad cercana.</p>
-                        </div>
-                    </div>
-                    <!-- Más Nuevas -->
-                    <div class="col-lg-4">
-                        <h4>Más Nuevas</h4>
-                        <div class="activity-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Nueva 1" class="img-fluid">
-                            <h5>Actividad Nueva 1</h5>
-                            <p>Descripción de la actividad nueva.</p>
-                        </div>
-                    </div>
+                    <?= ListView::widget([
+                        'dataProvider' => $dataProvider3,
+                        'itemOptions' => ['class' => 'col-lg-4'],
+                        'itemView' => function ($model, $key, $index, $widget) {
+                            return '<div class="activity-item">
+                                        <h4>' . Html::encode($model->titulo) . '</h4>
+                                        <p>' . Html::encode($model->descripcion) . '</p>
+                                        ' . (!empty($model->imagen_principal) ? '<img src="' . Yii::getAlias('@web') . '/images/' . Html::encode($model->imagen_principal) . '" alt="' . Html::encode($model->titulo) . '" class="img-fluid">' : '') . '
+                                        <p><strong>Fecha de celebración:</strong> ' . Html::encode($model->fecha_celebracion) . '</p>
+                                        <p>' . Html::a('Ver', ['ver_actividad', 'id' => $model->id], ['class' => 'btn btn-info']) . '</p>
+                                    </div>';
+                        },
+                        'layout' => "{items}\n{pager}",
+                    ]) ?>
+
+
                     <!-- Más Visitadas -->
                     <div class="col-lg-4">
                         <h4>Más Visitadas</h4>
-                        <div class="activity-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Visitada 1" class="img-fluid">
-                            <h5>Actividad Visitada 1</h5>
-                            <p>Descripción de la actividad más visitada.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Categorías Más Buscadas -->
-            <div class="categories-section mt-5">
-                <h2>Categorías Más Buscadas</h2>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="category-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Categoría 1" class="img-fluid">
-                            <h4>Categoría 1</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="category-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Categoría 2" class="img-fluid">
-                            <h4>Categoría 2</h4>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="category-item">
-                            <img src="https://via.placeholder.com/300x200" alt="Categoría 3" class="img-fluid">
-                            <h4>Categoría 3</h4>
-                        </div>
+                        <?= ListView::widget([
+                        'dataProvider' => $dataProvider2,
+                        'itemOptions' => ['class' => 'col-lg-4'],
+                        'itemView' => function ($model, $key, $index, $widget) {
+                            return '<div class="activity-item">
+                                        <h4>' . Html::encode($model->titulo) . '</h4>
+                                        <p>' . Html::encode($model->descripcion) . '</p>
+                                        ' . (!empty($model->imagen_principal) ? '<img src="' . Yii::getAlias('@web') . '/images/' . Html::encode($model->imagen_principal) . '" alt="' . Html::encode($model->titulo) . '" class="img-fluid">' : '') . '
+                                        <p><strong>Visitas:</strong> ' . Html::encode($model->contador_visitas) . '</p>
+                                        <p>' . Html::a('Ver', ['ver_actividad', 'id' => $model->id], ['class' => 'btn btn-info']) . '</p>
+                                    </div>';
+                        },
+                        'layout' => "{items}\n{pager}",
+                    ]) ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
-<!-- Menú Lateral de Categorías -->
-<div class="col-md-3 p-0">
-    <div class="sidebar position-fixed" id="sidebar" style="top: 50px; left: -250px; padding-right: 10px; width: 250px; height: 100vh; background-color: #f8f9fa; box-shadow: 2px 0px 10px rgba(0,0,0,0.1); z-index: 1000; transition: left 0.3s ease;">
-        <button class="btn btn-primary mt-3 ml-3" id="toggleSidebarBtn">Toggle Sidebar</button> <!-- Botón para ocultar/mostrar -->
-        
-        <h4 class="mt-4 ml-3">Categorías</h4>
-        <ul class="list-group">
-            <?php
-            // Aquí puedes obtener las categorías desde la base de datos.
-            $categories = [
-                ['name' => 'Deportes', 'slug' => 'deportes'],
-                ['name' => 'Música', 'slug' => 'musica'],
-                ['name' => 'Arte', 'slug' => 'arte'],
-                ['name' => 'Cultura', 'slug' => 'cultura'],
-                ['name' => 'Tecnología', 'slug' => 'tecnologia'],
-            ];
-            foreach ($categories as $category): ?>
-                <li class="list-group-item">
-                    <a href="<?= Yii::$app->urlManager->createUrl(['site/index2' /*'actividad/category', 'slug' => $category['slug']*/]) ?>" class="p-2">
-                        <?= Html::encode($category['name']) ?>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-</div>
-
-<!-- Agregar los scripts necesarios para que el carrusel funcione -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<script>
-    // Usando jQuery para ocultar/mostrar el menú lateral cuando se hace clic en el botón
-    $('#toggleSidebarBtn').click(function() {
-        var sidebar = $('#sidebar');
-        
-        // Verificar si el menú está oculto o visible
-        if (sidebar.css('left') == '0px') {
-            sidebar.css('left', '-250px'); // Ocultar el menú
-        } else {
-            sidebar.css('left', '0px'); // Mostrar el menú
-        }
-    });
-</script>

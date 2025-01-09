@@ -10,8 +10,10 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Usuario;
+use app\models\Actividad;
 use app\models\RegistroAcciones;
 use app\models\Roles;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -98,7 +100,23 @@ class SiteController extends Controller
      */
     public function actionIndex2()
     {
-        return $this->render('index2');
+        $db = Yii::$app->db;
+
+        $dataProvider = $db->createCommand('SELECT actividad.*, imagen.* FROM actividad LEFT JOIN IMAGEN_ACTIVIDAD ON actividad.id = IMAGEN_ACTIVIDAD.ACTIVIDADid LEFT JOIN imagen ON IMAGEN_ACTIVIDAD.IMAGENid = imagen.id ORDER BY actividad.votosOK DESC; ')
+        ->queryAll();
+
+        $dataProvider2 = $db->createCommand('SELECT actividad.*, imagen.* FROM actividad LEFT JOIN IMAGEN_ACTIVIDAD ON actividad.id = IMAGEN_ACTIVIDAD.ACTIVIDADid LEFT JOIN imagen ON IMAGEN_ACTIVIDAD.IMAGENid = imagen.id ORDER BY actividad.contador_visitas DESC; ')
+        ->queryAll();
+
+
+        $dataProvider3 = $db->createCommand('SELECT actividad.*, imagen.* FROM actividad LEFT JOIN IMAGEN_ACTIVIDAD ON actividad.id = IMAGEN_ACTIVIDAD.ACTIVIDADid LEFT JOIN imagen ON IMAGEN_ACTIVIDAD.IMAGENid = imagen.id ORDER BY actividad.fecha_celebracion DESC; ')
+        ->queryAll();
+
+        return $this->render('index2', [
+            'dataProvider' => $dataProvider,
+            'dataProvider2' => $dataProvider2,
+            'dataProvider3' => $dataProvider3,
+        ]);
     }
 
     /**
