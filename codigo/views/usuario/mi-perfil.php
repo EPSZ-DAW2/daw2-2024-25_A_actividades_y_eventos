@@ -77,6 +77,10 @@ $this->title = 'Mi Perfil';
             <td>Registro confirmado</td>
             <td><?= $model->registro_confirmado ? '✔️' : '❌' ?></td>
         </tr>
+        <tr>
+            <td>Token</td>
+            <td><?= Html::encode($model->token) ?></td>
+        </tr>
     </tbody>
 </table>
 

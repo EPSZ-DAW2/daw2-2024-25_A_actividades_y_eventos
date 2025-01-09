@@ -154,6 +154,9 @@ class Usuario extends ActiveRecord implements IdentityInterface
     {
         // Generar hash y asignarlo a la propiedad password
         $this->password = Yii::$app->getSecurity()->generatePasswordHash($password);
+        
+        // Generar token y asignarlo a la propiedad token
+        $this->token = Yii::$app->getSecurity()->generateRandomString() . '_' . time();
     }
 
     public function changePassword()
@@ -184,7 +187,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return false;
     }
 
-    public function changeEmail()
+        public function changeEmail()
     {
         if (!$this->validate()) {
             return false;
