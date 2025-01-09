@@ -272,7 +272,7 @@ class UsuarioController extends Controller
         $notificacion->codigo_de_clase = $codigo;
         $notificacion->fecha = date('Y-m-d H:i:s');
         $notificacion->USUARIOid = Yii::$app->user->id;
-        // La notificación al administrador, que se puede suponer con ID 1
+        // La notificación al administrador, que se ha establecido a 1
         $notificacion->USUARIOid2 = 1;
 
         // No establecer actividad si no es necesario

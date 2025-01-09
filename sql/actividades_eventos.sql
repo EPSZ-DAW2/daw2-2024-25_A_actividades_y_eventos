@@ -608,6 +608,11 @@ CREATE TABLE `USUARIO_ROLES` (
 -- Volcado de datos para la tabla `USUARIO_ROLES`
 --
 
+INSERT INTO `USUARIO_ROLES` (`USUARIOid`, `ROLESid`) VALUES
+(1, 4),
+(2, 5),
+(3, 1);
+
 -- --------------------------------------------------------
 
 --
