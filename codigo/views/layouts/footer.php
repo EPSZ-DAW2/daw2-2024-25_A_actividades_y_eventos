@@ -26,12 +26,55 @@ $this->registerCssFile(Yii::$app->request->baseUrl . '/css/estiloFooter.css', ['
 
             <div class="col-md-3">
                 <h4>Contacto</h4>
-                <p>Dirección: Av. de Requejo, 33, 49029 Zamora</p>
-                <p>Teléfono: <?= Html::a('+980 545 000') ?></p>
-                <p>Email: <?= Html::a('politecnicazamora.usal.es', 'mailto:contacto@ejemplo.com') ?></p>
-                <div class="map">
-                    <?= Html::a('Ver ubicación', 'https://www.google.com/maps?hl=es&gl=es&um=1&ie=UTF-8&fb=1&sa=X&ftid=0xd391e26a194aa8b:0xc49cd8148e1acf64', ['target' => '_blank']) ?>
-                </div>
+
+                <?php
+                    // API Key de Google Maps
+                    $apiKey = 'AIzaSyAwkqhsAcJIftL32sor2fYd5Q7-zaOkc5A';
+
+                    // Dirección fija que deseas geolocalizar
+                    $direccion = "Avenida de Requejo, 33, 49029 Zamora";
+
+                    // Codificar la dirección para incluirla en la URL
+                    $direccionEncoded = urlencode($direccion);
+
+                    // URL de la API de Geocoding
+                    $url = "https://maps.googleapis.com/maps/api/geocode/json?address=$direccionEncoded&components=country:ES&key=$apiKey";
+
+                    // Llamada a la API
+                    $response = file_get_contents($url);
+                    $data = json_decode($response, true);
+
+                    if ($data['status'] == 'OK') {
+                        // Extraer coordenadas
+                        $lat = $data['results'][0]['geometry']['location']['lat'];
+                        $lng = $data['results'][0]['geometry']['location']['lng'];
+
+                        // Guardar consulta en el log
+                        $consulta = "Dirección: $direccion";
+                        file_put_contents('log.txt', $consulta.PHP_EOL, FILE_APPEND);
+                        echo "<div style='display: flex; justify-content: center; align-items: center;'><div id='map' style='width: 40%; height: 150px;'></div></div>";
+
+
+                        // Generar mapa con JavaScript
+                        echo "<script>
+                            function initMap() {
+                                var location = {lat: $lat, lng: $lng};
+                                var map = new google.maps.Map(document.getElementById('map'), {
+                                    zoom: 15,
+                                    center: location
+                                });
+                                new google.maps.Marker({position: location, map: map});
+                            }
+                        </script>";
+                        echo "<script async defer src='https://maps.googleapis.com/maps/api/js?key=$apiKey&callback=initMap'></script>";
+                    } else {
+                        echo "<div class='alert alert-danger'>No se pudo obtener la localización. Verifica la dirección.</div>";
+                    }
+                ?>
+                <br>
+                <p>Avenida de Requejo, 33, 49029 Zamora</p>
+                <p>Teléfono: <?= Html::a('(+34) 980 545 000') ?></p>
+                <p>+ Info: <?= Html::a('politecnicazamora.usal.es', 'https://politecnicazamora.usal.es', ['target' => '_blank']) ?></p>
             </div>
 
             <!-- Legales -->
