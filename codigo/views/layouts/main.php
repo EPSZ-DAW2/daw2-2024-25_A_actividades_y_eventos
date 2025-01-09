@@ -60,9 +60,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <li class="nav-item">
                         <?= Html::a('Contacto', ['/site/contact'], ['class' => 'nav-link']) ?>
                     </li>
-                    <li class="nav-item">
-                        <?= Html::a('Actividades', ['/actividades/index'], ['class' => 'nav-link']) ?>
-                    </li>
+                    <?php if (!Yii::$app->user->isGuest): ?>
+                        <li class="nav-item">
+                            <?= Html::a('Mis actividades', ['/actividades/mis-actividades'], ['class' => 'nav-link']) ?>
+                        </li>
+                    <?php endif; ?>
                 </ul>
 
                 <!-- Opciones para usuarios logueados o no -->
@@ -81,17 +83,24 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                                 'class' => 'btn btn-sm btn-warning mx-2',
                             ]);
                             echo '</li>';
+                        } else if (Yii::$app->user->hasRole([Roles::MODERADOR])) {
+                            echo '<li class="nav-item">';
+                            echo Html::a('Moderación', ['site/moderador'], [
+                                'class' => 'btn btn-sm btn-secondary mx-2',
+                            ]);
+                            echo '</li>';
                         }
                         ?>
                         <li class="nav-item">
-                            <?= Html::a('Mi perfil', ['usuario/mi-perfil'], ['class' => 'btn btn-sm btn-secondary mx-2', 'data-method' => 'post']) ?>
+                            <?= Html::a('', ['usuario/mi-perfil'], ['class' => 'btn btn-sm btn-secondary mx-1 bi bi-person', 'data-method' => 'post']) ?>
                         </li>
                         <li class="nav-item">
-                            <?= Html::a('<i class="bi bi-bell"></i>', ['usuario/mis-notificaciones'], ['class' => 'btn btn-sm btn-info mx-2']) ?>
+                            <?= Html::a('<i class="bi bi-bell"></i>', ['usuario/mis-notificaciones'], ['class' => 'btn btn-sm btn-info mx-1']) ?>
                         </li>
                         <li class="nav-item">
-                            <?= Html::a('Cerrar Sesión', ['site/logout'], ['class' => 'btn btn-sm btn-danger mx-2', 'data-method' => 'post']) ?>
+                            <?= Html::a('', ['site/logout'], ['class' => 'btn btn-sm btn-danger mx-1 bi bi-door-open', 'data-method' => 'post']) ?>
                         </li>
+                        
                     <?php endif; ?>
                 </ul>
             </div>

@@ -303,4 +303,9 @@ class SiteController extends Controller
     {
         return $this->render('admin');
     }
+
+    public function actionModerador()
+    {
+        return $this->render('moderador');
+    }
 }
