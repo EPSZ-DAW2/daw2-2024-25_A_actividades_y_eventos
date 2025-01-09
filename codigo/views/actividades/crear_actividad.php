@@ -20,6 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
+        <?= $form->field($model, 'imageFile')->fileInput()->label('Subir foto de actividad.') ?>
+
+        <hr>
+
         <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'descripcion')->textInput(['maxlength' => true]) ?>

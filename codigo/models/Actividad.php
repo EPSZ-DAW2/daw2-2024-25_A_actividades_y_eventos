@@ -24,9 +24,14 @@ use Yii;
  * @property int|null $reserva
  * @property int|null $participantes
  * @property int|null $contador_visitas
+ * 
+ * @property int|null $imagen_id
+ *
+ * @property Imagen $imagen
  */
 class Actividad extends \yii\db\ActiveRecord
 {
+    public $imageFile;
     /**
      * {@inheritdoc}
      */
@@ -70,5 +75,10 @@ class Actividad extends \yii\db\ActiveRecord
             'participantes' => 'Participantes',
             'contador_visitas' => 'Contador de Visitas'
         ];
+    }
+
+    public function getImagen()
+    {
+        return $this->hasOne(ActividadImagen::class, ['ACTIVIDADid' => 'id']);
     }
 }

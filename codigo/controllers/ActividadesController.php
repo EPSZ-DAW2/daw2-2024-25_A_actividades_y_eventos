@@ -13,6 +13,7 @@ use yii\widgets\ActiveForm;
 use yii\data\Pagination;
 use yii\data\Sort;
 use yii\data\ActiveDataProvider;
+use yii\web\UploadedFile;
 
 
 class ActividadesController extends controller
@@ -139,21 +140,55 @@ class ActividadesController extends controller
             'model' => $model,
         ]);
     }
-        // Crea una nueva actividad
-        public function actionCrear()
-        {
-            $model = new Actividad();
-        
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('success', 'Actividad creada exitosamente.');
-                return $this->redirect(['ver_actividad', 'id' => $model->id]);
 
+    // Crea una nueva actividad
+    public function actionCrear()
+    {
+        $model = new Actividad();
+    
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->save(false);
+
+            $imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($imageFile) {
+                $imageName = $model->titulo . '_' . $model->id . '.' . $imageFile->extension;
+                $imagePath = 'images/actividades/' . $imageName;
+                if ($imageFile->saveAs(Yii::getAlias('@webroot') . '/' . $imagePath)) {
+                    $imagenActividad = new \app\models\Imagen();
+                    $imagenActividad->ruta_archivo = $imagePath;
+                    $imagenActividad->nombre_Archivo = $imageName;
+                    $imagenActividad->extension = $imageFile->extension;
+                    if ($imagenActividad->save()) {
+                        $actividadImagen = $model->getImagen()->one();
+                        if ($actividadImagen === null) {
+                            $actividadImagen = new \app\models\ActividadImagen();
+                            $actividadImagen->ACTIVIDADid = $model->id;
+                        }
+                        $actividadImagen->setImagen($imagenActividad->id);
+                        Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente. Por favor, refresque la página para ver los cambios si es necesario.');
+                    } else {
+                        Yii::$app->session->setFlash('error', 'Error al guardar la imagen de perfil.');
+                    }
+                } else {
+                    Yii::$app->session->setFlash('error', 'Error al subir la imagen de perfil.');
+                }
+            } else {
+                $model->save(false);
+                Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
             }
-        
-            return $this->render('crear_actividad', [
-                'model' => $model, // Pasa el modelo a la vista
-            ]);
-        }    
+            Yii::$app->session->setFlash('success', 'Actividad creada exitosamente.');
+            return $this->refresh();
+
+            
+            //return $this->redirect(['ver_actividad', 'id' => $model->id]);
+
+        }
+    
+        return $this->render('crear_actividad', [
+            'model' => $model, // Pasa el modelo a la vista
+        ]);
+    }    
     
     // Elimina una actividad
     public function actionEliminar($id)
