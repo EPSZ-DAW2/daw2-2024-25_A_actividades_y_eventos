@@ -52,7 +52,7 @@ $this->title = 'Actividades y Eventos';
 
         <p class="under">
             ¡<a href="<?= Yii::$app->urlManager->createUrl(['/site/login']) ?>">Inicia Sesión</a> o 
-            <a href="<?= Yii::$app->urlManager->createUrl(['']) ?>">Regístrate</a> en nuestro portal para continuar!
+            <a href="<?= Yii::$app->urlManager->createUrl(['/site/register']) ?>">Regístrate</a> en nuestro portal para continuar!
         </p>
 
     </div>

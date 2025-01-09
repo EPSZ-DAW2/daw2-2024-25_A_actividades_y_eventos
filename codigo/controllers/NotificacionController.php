@@ -1,7 +1,7 @@
 <?php
 
 namespace app\controllers;
-use yii\rest\ActiveController;
+
 
 use Yii;
 use app\models\Notificacion;
@@ -10,9 +10,9 @@ use yii\web\NotFoundHttpException;
 use app\models\RegistroAcciones;
 
 
-class NotificacionController extends ActiveController
+class NotificacionController extends controller
 {
-    public $modelClass = 'app\models\Notificacion';
+    
 
     public function actionView($id)
     {

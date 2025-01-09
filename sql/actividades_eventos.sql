@@ -549,9 +549,9 @@ CREATE TABLE `USUARIO` (
 --
 
 INSERT INTO `USUARIO` (`id`, `nick`, `password`, `email`, `nombre`, `apellidos`, `fecha_nacimiento`, `activo`, `fecha_registor`, `registro_confirmado`, `fecha_bloqueo`, `motivo_bloqueo`, `notas`) VALUES
-(1, 'user1', 'password123', 'user1@example.com', 'Juan', 'Pérez', '1990-06-15 00:00:00', 1, '2025-01-01 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
-(2, 'user2', 'password456', 'user2@example.com', 'María', 'Gómez', '1985-02-10 00:00:00', 1, '2025-01-02 00:00:00', 1, NULL, NULL, 'Interesado en actividades culturales'),
-(3, 'paco', '1234', 'fwfge@emab.es', 'paco', 'paco', '2025-01-07 00:00:00', 1, '2025-01-14 00:00:00', 1, '2025-01-22 00:00:00', 'por bobo', 'ninfuna');
+(1, 'user1', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user1@example.com', 'Juan', 'Pérez', '1990-06-15 00:00:00', 1, '2025-01-01 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
+(2, 'user2', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user2@example.com', 'María', 'Gómez', '1985-02-10 00:00:00', 1, '2025-01-02 00:00:00', 1, NULL, NULL, 'Interesado en actividades culturales'),
+(3, 'user3', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user3@example.com', 'paco', 'paco', '2025-01-07 00:00:00', 1, '2025-01-14 00:00:00', 1, '2025-01-22 00:00:00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -607,6 +607,11 @@ CREATE TABLE `USUARIO_ROLES` (
 --
 -- Volcado de datos para la tabla `USUARIO_ROLES`
 --
+
+INSERT INTO `USUARIO_ROLES` (`USUARIOid`, `ROLESid`) VALUES
+(1, 4),
+(2, 5),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -819,6 +824,9 @@ ALTER TABLE `USUARIO_HISTORIAL`
 ALTER TABLE `USUARIO_IMAGEN`
   ADD KEY `fk_usuario` (`usuario_id`),
   ADD KEY `fk_imagen` (`imagen_id`);
+
+ALTER TABLE `usuario_imagen`
+ADD PRIMARY KEY (`usuario_id`, `imagen_id`);
 
 --
 -- Indices de la tabla `USUARIO_ROLES`

@@ -23,8 +23,11 @@ $sort = new Sort([
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+
     
     <p>
+    <a href="<?= Yii::$app->urlManager->createUrl(['site/admin']) ?>">Panel de administrador</a>
+
         <?= Html::a('Crear Rol', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Asignar Rol', ['rol/add_rol_persona'], ['class' => 'btn btn-success']) ?>
 

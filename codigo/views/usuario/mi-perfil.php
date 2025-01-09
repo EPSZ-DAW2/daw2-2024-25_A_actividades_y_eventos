@@ -10,9 +10,10 @@ $this->title = 'Mi Perfil';
 ?>
 <h1><?= Html::encode($this->title) ?></h1>
 
+
 <div>
-    <?php if ($imagenPerfil !== null): ?>
-        <?= Html::img($imagenPerfil->getRutaCompleta(), [
+    <?php if ($imagenPerfil !== null && !empty($imagenPerfil->ruta_archivo)): ?>
+        <?= Html::img($imagenPerfil->getRutaCompleta(true), [
             'alt' => 'Imagen de Perfil',
             'class' => 'img-thumbnail',
             'style' => 'max-width: 200px; max-height: 200px;'
@@ -25,7 +26,27 @@ $this->title = 'Mi Perfil';
         ]) ?>
     <?php endif; ?>
 </div>
+</br>
+<?php $form = ActiveForm::begin([
+    'id' => 'profile-form',
+    'options' => ['enctype' => 'multipart/form-data'], // Añadir enctype para subir archivos
+    'fieldConfig' => [
+        'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
+        'labelOptions' => ['class' => 'col-lg-12 control-label'],
+    ],
+]); ?>
 
+<?= $form->field($model, 'imageFile')->fileInput()->label('Subir nueva foto de perfil') ?>
+</br>
+<div class="form-group">
+    <div class="col-lg-12">
+        <?= Html::submitButton('Guardar cambios', ['class' => 'btn btn-primary']) ?>
+    </div>
+</div>
+
+<?php ActiveForm::end(); ?>
+
+</br>
 <table class="table table-striped table-bordered">
     <tbody>
         <tr>
