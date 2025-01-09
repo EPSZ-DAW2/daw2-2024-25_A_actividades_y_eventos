@@ -184,7 +184,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return false;
     }
 
-        public function changeEmail()
+    public function changeEmail()
     {
         if (!$this->validate()) {
             return false;

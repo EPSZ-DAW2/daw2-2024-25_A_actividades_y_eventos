@@ -223,14 +223,14 @@ class UsuarioController extends Controller
         }
 
         // Procesar el formulario de perfil
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
+        if (Yii::$app->request->post('submit-button') === 'cambiarAll' && $model->load(Yii::$app->request->post()) && $model->save(false)) {
             Yii::$app->session->setFlash('success', 'Perfil actualizado correctamente.');
             return $this->refresh();
         }
 
         // Escenario para cambiar contraseña
         $model->setScenario('changePassword');
-        if ($model->load(Yii::$app->request->post()) && $model->changePassword()) {
+        if (Yii::$app->request->post('submit-button') === 'cambiarPass' && $model->load(Yii::$app->request->post()) && $model->changePassword()) {
             $this->logAction('changePassword', 'User changed password');
             Yii::$app->session->setFlash('success', 'La contraseña se cambió correctamente.');
 
@@ -238,13 +238,11 @@ class UsuarioController extends Controller
         }
         // Escenario para cambiar email
         $model->setScenario('changeEmail');
-        if ($model->load(Yii::$app->request->post()) && $model->changeEmail()) {
+        if (Yii::$app->request->post('submit-button') === 'cambiarEmail' && $model->load(Yii::$app->request->post()) && $model->changeEmail()) {
             $this->logAction('changeEmail', 'User changed email');
             Yii::$app->session->setFlash('success', 'El correo electrónico se cambió correctamente.');
-            return $this->render('mi-perfil', [
-                'model' => $model,
-            ]);
-
+            
+            return $this->refresh();
         }
     
         return $this->render('editar-perfil', [
