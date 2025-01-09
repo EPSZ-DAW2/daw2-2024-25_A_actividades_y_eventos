@@ -40,7 +40,7 @@ $this->title = 'Mi Perfil';
 </br>
 <div class="form-group">
     <div class="col-lg-12">
-        <?= Html::submitButton('Guardar cambios', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Guardar nueva imagen', ['class' => 'btn btn-success']) ?>
     </div>
 </div>
 

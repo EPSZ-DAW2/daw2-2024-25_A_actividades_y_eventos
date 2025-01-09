@@ -175,8 +175,6 @@ class Usuario extends ActiveRecord implements IdentityInterface
 
         // Asignar y guardar el nuevo hash de la contraseña
         $this->setPassword($this->newPassword);
-        // Asignar y guardar el nuevo hash de la contraseña
-        $this->setPassword($this->newPassword);
 
         if ($this->save(false, ['password'])) {
             return true;
