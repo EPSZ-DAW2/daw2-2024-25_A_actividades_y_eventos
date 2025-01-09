@@ -4,10 +4,23 @@ use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\Usuario $model */
+/** @var app\models\Imagen $imagenPerfil */
 
 $this->title = 'Mi Perfil';
 ?>
 <h1><?= Html::encode($this->title) ?></h1>
+
+<div>
+        <?php if ($imagenPerfil !== null): ?>
+            <?= Html::img(Html::encode($imagenPerfil->getrutaCompleta(true)), [
+                'alt' => 'Imagen de Perfil',
+                'class' => 'img-thumbnail',
+                'style' => 'max-width: 200px; max-height: 200px;'
+            ]) ?>
+        <?php else: ?>
+            <p>El usuario no tiene una imagen de perfil.</p>
+        <?php endif; ?>
+</div>
 
 <table class="table table-striped table-bordered">
     <tbody>
@@ -45,7 +58,7 @@ $this->title = 'Mi Perfil';
 </br>
 <h2>Cambiar Contraseña</h2>
 
-<?php $form = \yii\widgets\ActiveForm::begin([
+<?php $form = ActiveForm::begin([
     'id' => 'change-password-form',
     'options' => ['class' => 'form-horizontal'],
     'fieldConfig' => [
@@ -64,12 +77,12 @@ $this->title = 'Mi Perfil';
     </div>
 </div>
 
-<?php \yii\widgets\ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </br>
 <h2>Cambiar Email</h2>
 
-<?php $form = \yii\widgets\ActiveForm::begin([
+<?php $form = ActiveForm::begin([
     'id' => 'change-email-form',
     'options' => ['class' => 'form-horizontal'],
     'fieldConfig' => [
@@ -87,7 +100,7 @@ $this->title = 'Mi Perfil';
     </div>
 </div>
 
-<?php \yii\widgets\ActiveForm::end(); ?>
+<?php ActiveForm::end(); ?>
 
 </br>
 <h2>Solitud de soporte al administrador del sitio</h2>

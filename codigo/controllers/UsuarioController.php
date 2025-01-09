@@ -76,8 +76,22 @@ class UsuarioController extends Controller
      */
     public function actionView($id)
     {
+        $usuario = Usuario::findOne($id);
+        if ($usuario === null) {
+            throw new NotFoundHttpException('El usuario no existe.');
+        }
+
+        // Obtener la imagen de perfil del usuario
+        $imagenPerfil = $usuario->getImagen();
+        if ($imagenPerfil === null) {
+            //Indicamos la ruta de la imagen por defecto
+            $imagenPerfil = new \app\models\Imagen();
+            $imagenPerfil->ruta_archivo = '@app/web/images/perfiles/no-photo.png';
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'imagenPerfil' => $imagenPerfil,
         ]);
     }
 
@@ -179,8 +193,17 @@ class UsuarioController extends Controller
             return $this->refresh();
         }
 
+        // Obtener la imagen de perfil del usuario
+        $imagenPerfil = $model->getImagen()->one();
+        if ($imagenPerfil === null) {
+            //Indicamos la ruta de la imagen por defecto
+            $imagenPerfil = new \app\models\Imagen();
+            $imagenPerfil->ruta_archivo =  Yii::getAlias('@web');
+        }
+
         return $this->render('mi-perfil', [
             'model' => $model,
+            'imagenPerfil' => $imagenPerfil,
         ]);
     }
 

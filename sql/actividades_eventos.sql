@@ -342,6 +342,7 @@ CREATE TABLE `IMAGEN` (
   `titulo` varchar(255) DEFAULT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   `nombre_Archivo` varchar(255) DEFAULT NULL,
+  `ruta_archivo` varchar(80) DEFAULT NULL,
   `extension` varchar(255) DEFAULT NULL,
   `notas` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

@@ -247,4 +247,8 @@ class Usuario extends ActiveRecord implements IdentityInterface
         }
         return $usuarioOptions;
     }
+
+    public function getImagen(){
+        return $this->hasOne(UsuarioImagen::class, ['usuario_id' => 'id']);
+    }
 }
