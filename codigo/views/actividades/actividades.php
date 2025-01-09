@@ -4,36 +4,52 @@
 
 use yii\helpers\Html;
 
-
+$this->title = 'Actividades';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="actividades-index">
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Actividades Recomendadas', ['actividades/recomendadas'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Actividades Más Cercanas', ['actividades/mas-proximas'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Actividades Más Nuevas', ['actividades/mas-nuevas'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Actividades Más Visitadas', ['actividades/mas-visitadas'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Actividades Pasadas', ['actividades/pasadas-usuario', 'usuarioId' => Yii::$app->user->id], ['class' => 'btn btn-primary']) ?>
+        <?php if (!Yii::$app->user->isGuest): ?>
+            <?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
+        <?= Html::a('Actividades Recomendadas', ['recomendadas'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Próximas Actividades', ['mas-proximas'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Actividades Más Visitadas', ['mas-visitadas'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Actividades Pasadas', ['pasadas-usuario', 'usuarioId' => Yii::$app->user->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Actividades Más Buscadas', ['mas-buscadas'], ['class' => 'btn btn-primary']) ?>
     </p>
 
-    <div class="row">
-        <div class="col-lg-12">
-            <h2>Lista de Actividades</h2>
-            <?php if (!empty($actividades)): ?>
-                <ul class="list-unstyled">
-                    <?php foreach ($actividades as $actividad): ?>
-                        <li class="mb-4">
-                            <h3><?= Html::encode($actividad->titulo) ?></h3>
-                            <p><?= Html::encode($actividad->descripcion) ?></p>
-                            <p><strong>Fecha de Celebración:</strong> <?= Yii::$app->formatter->asDate($actividad->fecha_celebracion) ?></p>
+    <div class="actividades-list">
+    <?php if (!empty($actividades)): ?>
+        <div class="list-group">
+            <?php foreach ($actividades as $actividad): ?>
+                <div class="list-group-item">
+                    <div class="actividad">
+                        <?php 
+                            // Si no hay imagen principal, usar la imagen predeterminada
+                            $imagen = !empty($actividad->imagen_principal) ? $actividad->imagen_principal : 'profile_4.jpg'; 
+                        ?>
+                        <div class="actividad-imagen">
+                            <img src="<?= Yii::getAlias('@web/images/perfiles/') . Html::encode($imagen) ?>"
+                                 alt="<?= Html::encode($actividad->titulo) ?>"
+                                 class="img-fluid" style="max-width: 100%; height: 100px;">
+                        </div>
+
+                        <h3><?= Html::encode($actividad->titulo) ?></h3>
+                        <p><?= Html::encode($actividad->descripcion) ?></p>
+                        <p><strong>Fecha de celebración:</strong> <?= Html::encode($actividad->fecha_celebracion) ?></p>
+                        <p>
                             <?= Html::a('Ver Detalles', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else: ?>
-                <p>No hay actividades disponibles en este momento.</p>
-            <?php endif; ?>
+                        </p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
+    <?php else: ?>
+        <p>No hay actividades próximas en este momento.</p>
+    <?php endif; ?>
     </div>
 </div>
