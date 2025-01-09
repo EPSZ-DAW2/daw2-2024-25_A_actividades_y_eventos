@@ -14,6 +14,6 @@ use yii\helpers\Html;
                  class="img-fluid">
         <?php endif; ?>
         <p><strong>Fecha:</strong> <?= Yii::$app->formatter->asDate($model->fecha_celebracion) ?></p>
-        <?= Html::a('Ver Detalles', ['actividades/ver_actividad', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
+        <?= Html::a('Ver Detalles', ['actividades/actividad', 'id' => $model->id], ['class' => 'btn btn-info']) ?>
     </div>
 </div>

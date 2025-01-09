@@ -91,7 +91,7 @@ $this->title = 'Portada';
                                     'value' => function($model) {
                                         return Html::a(
                                             Html::encode($model->titulo),
-                                            ['actividades/ver_actividad', 'id' => $model->id],
+                                            ['actividades/actividad', 'id' => $model->id],
                                             ['class' => 'activity-title']
                                         );
                                     }
@@ -141,7 +141,7 @@ $this->title = 'Portada';
                                             Votos positivos: <?= Html::encode($actividad['votosOK']) ?>
                                         </small>
                                     </p>
-                                    <?= Html::a('Ver más', ['actividades/ver_actividad', 'id' => $actividad['id']], 
+                                    <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
                                              ['class' => 'btn btn-primary']) ?>
                                 </div>
                             </div>
@@ -173,7 +173,7 @@ $this->title = 'Portada';
                                                     Visitas: <?= Html::encode($actividad['contador_visitas']) ?>
                                                 </small>
                                             </p>
-                                            <?= Html::a('Ver más', ['actividades/ver_actividad', 'id' => $actividad['id']], 
+                                            <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
                                                     ['class' => 'btn btn-primary']) ?>
                                         </div>
                                     </div>
@@ -210,7 +210,7 @@ $this->title = 'Portada';
                                                     Fecha de actividad: <?= Html::encode($actividad['fecha_celebracion']) ?>
                                                 </small>
                                             </p>
-                                            <?= Html::a('Ver más', ['actividades/ver_actividad', 'id' => $actividad['id']], 
+                                            <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
                                                     ['class' => 'btn btn-primary']) ?>
                                         </div>
                                     </div>

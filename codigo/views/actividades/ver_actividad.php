@@ -21,7 +21,6 @@ $this->title = $model->titulo;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Panel Administrador', ['actividades/administrador'], ['class' => 'btn btn-secondary']) ?>
 
         <?= Html::a('Añadir Etiqueta', ['etiquetas/asignar_etiqueta', 'actividad_id' => $model->id], ['class' => 'btn btn-primary']) ?>
 

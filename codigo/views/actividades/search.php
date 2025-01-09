@@ -38,7 +38,7 @@ $this->title = 'Resultados de búsqueda';
                         'value' => function($model) {
                             return Html::a(
                                 Html::encode($model->titulo),
-                                ['ver_actividad', 'id' => $model->id],
+                                ['actividad', 'id' => $model->id],
                                 ['class' => 'activity-title']
                             );
                         }

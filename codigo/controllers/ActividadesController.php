@@ -347,7 +347,25 @@ class ActividadesController extends controller
         ]);
     }
 
+    public function actionActividad($id)
+    {
+        $actividad = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM ACTIVIDAD a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN IMAGEN i ON ia.IMAGENid = i.id 
+            WHERE a.id = :id')
+            ->bindValue(':id', $id)
+            ->queryOne();
 
+        if (!$actividad) {
+            throw new NotFoundHttpException('La actividad solicitada no existe.');
+        }
+
+        return $this->render('actividad', [
+            'actividad' => $actividad,
+        ]);
+    }
 
     
 }

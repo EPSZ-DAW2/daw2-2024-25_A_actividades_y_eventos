@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function($model) {
                                 return Html::a(
                                     Html::encode($model->titulo),
-                                    ['actividades/ver_actividad', 'id' => $model->id],
+                                    ['actividades/actividad', 'id' => $model->id],
                                     ['class' => 'activity-title']
                                 );
                             }
@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <h3><?= Html::encode($actividad->titulo) ?></h3>
                                 <p><?= Html::encode($actividad->descripcion) ?></p>
                                 <p><strong>Fecha de Celebración:</strong> <?= Yii::$app->formatter->asDate($actividad->fecha_celebracion) ?></p>
-                                <?= Html::a('Ver Detalles', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
+                                <?= Html::a('Ver Detalles', ['actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
                             </li>
                         <?php endforeach; ?>
                     </ul>
