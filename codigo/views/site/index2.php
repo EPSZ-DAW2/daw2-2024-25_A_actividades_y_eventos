@@ -18,7 +18,6 @@ $this->title = 'Portada';
         <div class="col-md-9 offset-md-3 body-content">
             <div class="jumbotron text-center bg-transparent" style="margin: 50px 0;">
                 <h1 class="display-4"> ¡Bienvenido/a, <?= Html::encode(Yii::$app->user->identity->nick ?? 'Usuario') ?>!</h1>
-                <p><?= Html::a('Actividades Pasadas', ['/actividades/actividades-pasadas'], ['class' => 'btn btn-default']) ?></p>
             </div>
 
             <!-- Carrusel de imágenes -->
