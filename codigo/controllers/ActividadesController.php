@@ -26,9 +26,6 @@ class ActividadesController extends controller
         ]);
     }
 
-
-
-
     // Encuentra el modelo de la actividad por ID
     protected function findModel($id)
     {
@@ -49,8 +46,6 @@ class ActividadesController extends controller
         }
         return null;
     }
-
-
 
     public function actionAdministrador()
     {
@@ -155,6 +150,42 @@ class ActividadesController extends controller
         ]);
     }
 
+    // MOSTRAR ACTIVIDADES MÁS PRÓXIMAS SEGUN FECHA DE CELEBRACIÓN
+    public function actionMasProximas()
+    {
+        $actividades = Actividad::find()
+            ->orderBy(['fecha_celebracion' => SORT_ASC])
+            ->limit(10)
+            ->all();
 
+        return $this->render('actividades_mas_proximas', [
+            'actividades' => $actividades,
+        ]);
+    }
     
+    // MOSTRAR ACTIVIDADES MÁS VISITADAS UTILIZANDO EL CONTADOR DE VISITAS
+    public function actionMasVisitadas()
+    {
+        $actividades = Actividad::find()
+            ->orderBy(['contador_visitas' => SORT_DESC])
+            ->limit(10)
+            ->all();
+
+        return $this->render('actividades_mas_visitadas', [
+            'actividades' => $actividades,
+        ]);
+    }
+
+    // MOSTRAR LAS MÁS BUSCADAS UTILIZANDO EL VOTOS OK
+    public function actionMasBuscadas()
+    {
+        $actividades = Actividad::find()
+            ->orderBy(['votosOK' => SORT_DESC])
+            ->limit(10)
+            ->all();
+
+        return $this->render('actividades_mas_buscadas', [
+            'actividades' => $actividades,
+        ]);
+    }
 }

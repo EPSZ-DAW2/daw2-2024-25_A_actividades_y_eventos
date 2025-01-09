@@ -1,10 +1,11 @@
 <?php
+
 /** @var yii\web\View $this */
 /** @var app\models\Actividad[] $actividades */
 
 use yii\helpers\Html;
 
-$this->title = 'Actividades Recomendadas';
+$this->title = 'Actividades Más Próximas';
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
@@ -26,19 +27,11 @@ $this->title = 'Actividades Recomendadas';
                 <?php endif; ?>
                 <p><strong>Fecha de celebración:</strong> <?= Html::encode($actividad->fecha_celebracion) ?></p>
                 <p>
-                    <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
-                    <?= Html::a('Editar', ['update', 'id' => $actividad->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Eliminar', ['delete', 'id' => $actividad->id], [
-                        'class' => 'btn btn-danger',
-                        'data' => [
-                            'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
+                <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
                 </p>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p>No hay actividades recomendadas en este momento.</p>
+        <p>No hay actividades próximas en este momento.</p>
     <?php endif; ?>
 </div>

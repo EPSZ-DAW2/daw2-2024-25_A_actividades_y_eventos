@@ -4,14 +4,10 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Actividades Recomendadas';
+$this->title = 'Actividades Más Buscadas';
 ?>
 
 <h1><?= Html::encode($this->title) ?></h1>
-
-<p>
-    <?= Html::a('Crear Actividad', ['create'], ['class' => 'btn btn-success']) ?>
-</p>
 
 <div class="actividades-list">
     <?php if (!empty($actividades)): ?>
@@ -24,21 +20,13 @@ $this->title = 'Actividades Recomendadas';
                          alt="<?= Html::encode($actividad->titulo) ?>" 
                          class="actividad-imagen">
                 <?php endif; ?>
-                <p><strong>Fecha de celebración:</strong> <?= Html::encode($actividad->fecha_celebracion) ?></p>
+                <p><strong>Votos Positivos:</strong> <?= Html::encode($actividad->votosOK) ?></p>
                 <p>
-                    <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
-                    <?= Html::a('Editar', ['update', 'id' => $actividad->id], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Eliminar', ['delete', 'id' => $actividad->id], [
-                        'class' => 'btn btn-danger',
-                        'data' => [
-                            'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
+                <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
                 </p>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
-        <p>No hay actividades recomendadas en este momento.</p>
+        <p>No hay actividades buscadas en este momento.</p>
     <?php endif; ?>
 </div>
