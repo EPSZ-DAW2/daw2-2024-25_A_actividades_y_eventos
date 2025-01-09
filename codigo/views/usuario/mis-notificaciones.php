@@ -11,6 +11,30 @@ $this->title = 'Mis Notificaciones';
 ?>
 <h1><?= Html::encode($this->title) ?></h1>
 
+<!-- Mensajes flash para éxito o error -->
+<?php if (Yii::$app->session->hasFlash('success')): ?>
+    <div class="alert alert-success">
+        <?= Yii::$app->session->getFlash('success') ?>
+    </div>
+    <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = document.referrer;  // Redirigir a la página anterior
+        }, 3000); // Redirigir después de 3 segundos
+    </script>
+<?php endif; ?>
+
+<?php if (Yii::$app->session->hasFlash('error')): ?>
+    <div class="alert alert-danger">
+        <?= Yii::$app->session->getFlash('error') ?>
+    </div>
+    <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = document.referrer;  // Redirigir a la página anterior
+        }, 3000); // Redirigir después de 3 segundos
+    </script>
+<?php endif; ?>
+
+<!-- GridView con las notificaciones -->
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
@@ -41,7 +65,6 @@ $this->title = 'Mis Notificaciones';
                 return in_array($model->codigo_de_clase, ['SOLICITUD_BAJA', 'SOLICITUD_CONTACTO']) ? 'no procede' : $model->texto;
             },
         ],
-        // other columns as needed
         [
             'class' => 'yii\grid\ActionColumn',
             'template' => '{view} {delete}',
@@ -60,4 +83,3 @@ $this->title = 'Mis Notificaciones';
         ],
     ],
 ]); ?>
-
