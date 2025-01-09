@@ -10,8 +10,8 @@ class User extends BaseUser
 
     /**
      * Metodo para ver si un usuario tiene un rol determinado
-     * @param int $idRol El id del rol a comprobar
-     * @return bool Si el usuario tiene el rol
+     * @param int|array $idRol El id del rol a comprobar o un array de ids
+     * @return bool True si el usuario tiene alguno de los roles, false en caso contrario
      */
     public function hasRole($roleID)
     {
@@ -23,31 +23,15 @@ class User extends BaseUser
         $query = (new \yii\db\Query())
             ->select('ROLESid')
             ->from('usuario_roles')
-            ->where(['USUARIOid' => $userID])->one();
+            ->where(['USUARIOid' => $userID])
+            ->andWhere(['in', 'ROLESid', $roleID]);
 
-        return $query && $query['ROLESid'] == $roleID;
+        // devolvemos si el usuario tiene el rol
+        return $query->exists();
     }
 
 
-    // public function tieneRol($idRol){
-    //     // Obtenemos el id del usuario conectado
-    //     $idUsuario = Yii::$app->user->id;
-
-        // // Creamos la consulta
-        // $query = (new Query())
-        //     ->select('ROLESid')
-        //     ->from('usuario_roles')
-        //     ->where(['USUARIOid' => $idUsuario]);
-        
-    //     // Ejecutamos la consulta
-    //     $match = $query->one();
-
-    //     // Comprobamos si el usuario tiene el rol
-    //     return $match && $match['ROLESid'] == $idRol;
-    // }
-
-    public function getUsuario()
-    {
+    public function getUsuario(){
         return Usuario::findOne(Yii::$app->user->id);
     }
 }

@@ -25,9 +25,8 @@ $sort = new Sort([
 
     
     <p>
-        <?= Html::a('Pagina de administracion', ['site/gestion_admin'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Crear Rol', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Asignar Rol a Persona', ['rol/add_rol_persona'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Asignar Rol', ['rol/add_rol_persona'], ['class' => 'btn btn-success']) ?>
 
     </p>
 

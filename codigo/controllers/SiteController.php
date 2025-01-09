@@ -222,8 +222,8 @@ class SiteController extends Controller
     {
         return $this->render('cookies');
     }
-    public function actionGestion_admin()
+    public function actionAdmin()
     {
-        return $this->render('gestion_admin');
+        return $this->render('admin');
     }
 }

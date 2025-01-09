@@ -4,6 +4,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
+use app\models\Roles;
 use app\models\Notificacion;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -17,8 +18,7 @@ class UsuarioController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors()
-    {
+    public function behaviors(){
         return array_merge(
             parent::behaviors(),
             [
@@ -30,8 +30,16 @@ class UsuarioController extends Controller
                 ],
                 'access' => [
                 'class' => \yii\filters\AccessControl::class,
-                'only' => ['editar-perfil', 'mi-perfil'],
+                'only' => ['create', 'update', 'delete', 'index', 'view', 'editar-perfil', 'mi-perfil'],
                 'rules' => [
+                    //Solo los administradores pueden realizar estas acciones
+                    [
+                        'actions' => ['create', 'update', 'delete', 'index', 'view'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->hasRole([Roles::ADMINISTRADOR, Roles::SYSADMIN]);
+                        },
+                    ],
                     // Permitir a los usuarios autenticados acceder a su perfil y editarlo
                     [
                         'actions' => ['mi-perfil', 'editar-perfil'],

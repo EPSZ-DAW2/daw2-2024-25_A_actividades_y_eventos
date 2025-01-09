@@ -20,7 +20,7 @@ class Roles extends ActiveRecord
     public const MODERADOR = 2;
     public const PATROCINADOR = 3;
     public const ADMINISTRADOR = 4;
-    public const SUPER_ADMINISTRADOR = 5;
+    public const SYSADMIN = 5;
 
 
     /**

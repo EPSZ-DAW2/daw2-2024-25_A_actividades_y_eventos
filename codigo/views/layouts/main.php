@@ -9,6 +9,7 @@ use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
+use app\models\Roles;
 
 AppAsset::register($this);
 
@@ -56,10 +57,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 echo Html::a('Registrarse', ['site/register'], ['class' => 'btn btn-sm btn-primary mx-2']);
                 echo '</li>';
             } else {
+                if (Yii::$app->user->hasRole([Roles::ADMINISTRADOR, Roles::SYSADMIN])) {
+                    echo '<li class="nav-item">';
+                    echo Html::a('Administracion', ['site/admin'], [
+                        'class' => 'btn btn-sm btn-warning mx-2',
+                    ]);
+                    echo '</li>';
+                }
                 echo '<li class="nav-item">';
                 echo Html::a('Mi perfil', ['usuario/mi-perfil'], [
                     'class' => 'btn btn-sm btn-secondary mx-2',
-                    'data-method' => 'post'
                 ]);
                 echo '</li>';
                 echo '<li class="nav-item">';

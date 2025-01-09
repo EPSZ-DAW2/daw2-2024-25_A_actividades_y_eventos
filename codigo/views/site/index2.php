@@ -1,27 +1,19 @@
 <?php
 /** @var yii\web\View $this */
 
+use app\models\Roles;
 use yii\helpers\Html;
 
 $this->title = 'Portada';
 ?>
 <div class="site-index">
 
-    <?php
-        // Preparo diferentes mensajes según el tipo de usuario
-        if(Yii::$app->user->isGuest){
-            $mensaje = "Bienvenido a la página de inicio de la aplicación de eventos. Por favor, inicie sesión o regístrese para acceder a todas las funcionalidades.";
-        } else {
-            $mensaje = "Bienvenido, ".Yii::$app->user->identity->nick."!";
-        }
-    ?>
-
     <div class="row">
 
         <!-- Contenido Principal -->
         <div class="col-md-9 offset-md-3 body-content">
             <div class="jumbotron text-center bg-transparent" style="margin: 50px 0;">
-                <h1 class="display-4"><?= Html::encode(Yii::$app->user->identity->username ?? 'Usuario') ?>!</h1>
+                <h1 class="display-4"><?= Html::encode(Yii::$app->user->identity->nick ?? 'Usuario') ?>!</h1>
             </div>
 
             <!-- Carrusel de imágenes -->

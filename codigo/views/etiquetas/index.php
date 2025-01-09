@@ -19,7 +19,6 @@ $this->title = 'Etiquetas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="etiquetas-index"></div>
-<a href="<?= Yii::$app->urlManager->createUrl(['site/gestion_admin']) ?>">Panel de administrador</a>
 
     <?= Html::a('Crear Etiqueta', ['create'], ['class' => 'btn btn-success']) ?></p>
     <table class="table table-bordered">
