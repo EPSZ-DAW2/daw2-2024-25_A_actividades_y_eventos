@@ -51,7 +51,6 @@ $this->registerCssFile(Yii::$app->request->baseUrl . '/css/estiloFooter.css', ['
 
                         // Guardar consulta en el log
                         $consulta = "Dirección: $direccion";
-                        file_put_contents('log.txt', $consulta.PHP_EOL, FILE_APPEND);
                         echo "<div style='display: flex; justify-content: center; align-items: center;'><div id='map' style='width: 40%; height: 150px;'></div></div>";
 
 
