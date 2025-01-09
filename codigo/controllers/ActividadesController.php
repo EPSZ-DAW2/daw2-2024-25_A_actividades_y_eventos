@@ -121,10 +121,23 @@ class ActividadesController extends controller
     public function actionVer_actividad($id)
     {
         $model = Actividad::findOne($id);
+
+        if (!$model) {
+            throw new NotFoundHttpException('La actividad solicitada no existe.');
+        }
+
+        // Incrementar el contador de visitas de forma atómica
+        Yii::$app->db->createCommand('
+            UPDATE ACTIVIDAD 
+            SET contador_visitas = contador_visitas + 1 
+            WHERE id = :id
+        ')->bindValue(':id', $id)->execute();
+
         return $this->render('ver_actividad', [
             'model' => $model,
         ]);
     }
+
 
     // Acción para editar una actividad
     public function actionEditar($id)
@@ -333,5 +346,8 @@ class ActividadesController extends controller
             'searchTerm' => $q,
         ]);
     }
+
+
+
     
 }

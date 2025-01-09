@@ -134,7 +134,7 @@ class SiteController extends Controller
         ]);
 
         // Obtener actividades ordenadas por diferentes criterios
-        $actividadesConImagenes = $db->createCommand('
+        $masVotadas = $db->createCommand('
             SELECT a.*, i.nombre_Archivo, i.extension 
             FROM actividad a 
             LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
@@ -143,31 +143,37 @@ class SiteController extends Controller
             LIMIT 6
         ')->queryAll();
 
-        // Providers para los diferentes listados
-        $masProximasProvider = new ActiveDataProvider([
-            'query' => Actividad::find()
-                ->where(['>=', 'fecha_celebracion', new \yii\db\Expression('CURDATE()')])
-                ->orderBy(['fecha_celebracion' => SORT_ASC])
-                ->limit(6),
-            'pagination' => false
-        ]);
 
-        $masVisitadasProvider = new ActiveDataProvider([
-            'query' => Actividad::find()
-                ->orderBy(['contador_visitas' => SORT_DESC])
-                ->limit(6),
-            'pagination' => false
-        ]);
+        $masProximas = $db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            WHERE a.fecha_celebracion >= CURDATE()
+            ORDER BY a.fecha_celebracion ASC 
+            LIMIT 6
+        ')->queryAll();
+
+
+        $masVisitadas = $db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            ORDER BY a.contador_visitas DESC 
+            LIMIT 6
+        ')->queryAll();
+        
 
         return $this->render('index2', [
             'searchProvider' => $searchProvider,
             'searchTerm' => $searchTerm,
-            'masVotadasProvider' => $masVotadasProvider, // Añadir este provider
-            'masProximasProvider' => $masProximasProvider,
-            'masVisitadasProvider' => $masVisitadasProvider,
-            'actividadesConImagenes' => $actividadesConImagenes,
+            'masVotadas' => $masVotadas, 
+            'masProximas' => $masProximas,
+            'masVisitadas' => $masVisitadas,
         ]);
     }
+
 
     /**
      * Login action.
@@ -308,4 +314,6 @@ class SiteController extends Controller
     {
         return $this->render('moderador');
     }
+
+
 }
