@@ -77,7 +77,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     <?php else: 
                         if (Yii::$app->user->hasRole([Roles::ADMINISTRADOR, Roles::SYSADMIN])) {
                             echo '<li class="nav-item">';
-                            echo Html::a('Administracion', ['site/admin'], [
+                            echo Html::a('Administración', ['site/admin'], [
                                 'class' => 'btn btn-sm btn-warning mx-2',
                             ]);
                             echo '</li>';

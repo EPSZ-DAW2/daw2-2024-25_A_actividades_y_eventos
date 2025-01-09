@@ -98,7 +98,54 @@ class SiteController extends Controller
      */
     public function actionIndex2()
     {
-        return $this->render('index2');
+        $searchTerm = Yii::$app->request->get('q');
+        $dataProvider = null;
+
+        if ($searchTerm !== null && trim($searchTerm) !== '') {
+            $query = \app\models\Actividad::find();
+            
+            // Limpiar y sanitizar el término de búsqueda
+            $searchTerm = strip_tags(trim($searchTerm));
+            $searchTerm = htmlspecialchars($searchTerm, ENT_QUOTES, 'UTF-8');
+            
+            // Usar parámetros vinculados para mayor seguridad
+            $query->where([
+                'or',
+                ['like', 'titulo', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
+                ['like', 'descripcion', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
+                ['like', 'lugar_celebracion', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
+                ['like', 'detalles', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
+                ['like', 'notas', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false]
+            ]);
+
+            // Log seguro de la consulta
+            Yii::debug('Término de búsqueda sanitizado: ' . $searchTerm);
+            Yii::debug('SQL Query: ' . $query->createCommand()->getRawSql());
+
+            $dataProvider = new \yii\data\ActiveDataProvider([
+                'query' => $query,
+                'pagination' => [
+                    'pageSize' => 10,
+                    'validatePage' => true, // Validar número de página
+                ],
+                'sort' => [
+                    'defaultOrder' => ['fecha_celebracion' => SORT_DESC],
+                    'attributes' => [
+                        'titulo',
+                        'descripcion',
+                        'fecha_celebracion',
+                        'lugar_celebracion',
+                        'detalles',
+                        'notas'
+                    ]
+                ]
+            ]);
+        }
+
+        return $this->render('index2', [
+            'dataProvider' => $dataProvider,
+            'searchTerm' => $searchTerm
+        ]);
     }
 
     /**

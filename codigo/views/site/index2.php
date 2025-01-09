@@ -3,6 +3,9 @@
 
 use app\models\Roles;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\grid\GridView;
+use yii\data\ActiveDataProvider;
 
 $this->title = 'Portada';
 ?>
@@ -48,11 +51,70 @@ $this->title = 'Portada';
             <!-- Buscador -->
             <div class="search-container text-center mt-4">
                 <h2>Buscar Actividades</h2>
-                <form action="<?= Yii::$app->urlManager->createUrl(['site/index2' /*'actividad/search'*/]) ?>" method="get">
-                    <input type="text" name="q" class="form-control" placeholder="Buscar actividades..." />
-                    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
-                </form>
+                <?= Html::beginForm(['site/index2'], 'get', ['class' => 'search-form']) ?>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <?= Html::textInput('q', 
+                                    Yii::$app->request->get('q'), 
+                                    [
+                                        'class' => 'form-control',
+                                        'placeholder' => 'Buscar por título, descripción o lugar...',
+                                    ]
+                                ) ?>
+                                <div class="input-group-append">
+                                    <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?= Html::endForm() ?>
             </div>
+
+            <!-- Resultados de búsqueda -->
+            <?php if (isset($dataProvider) && $searchTerm !== ''): ?>
+                <div class="search-results mt-4">
+                    <h3>Resultados de búsqueda para: "<?= Html::encode($searchTerm) ?>"</h3>
+                    
+                    <?php if ($dataProvider->getTotalCount() > 0): ?>
+                        <?= GridView::widget([
+                            'dataProvider' => $dataProvider,
+                            'columns' => [
+                                [
+                                    'attribute' => 'titulo',
+                                    'format' => 'raw',
+                                    'value' => function($model) {
+                                        return Html::a(
+                                            Html::encode($model->titulo),
+                                            ['actividades/ver_actividad', 'id' => $model->id],
+                                            ['class' => 'activity-title']
+                                        );
+                                    }
+                                ],
+                                'descripcion:ntext',
+                                [
+                                    'attribute' => 'fecha_celebracion',
+                                    'format' => ['date', 'php:d-m-Y H:i']
+                                ],
+                                'lugar_celebracion',
+                            ],
+                            'layout' => "{summary}\n{items}\n{pager}",
+                            'emptyText' => 'No se encontraron actividades.',
+                            'summary' => 'Mostrando {begin}-{end} de {totalCount} actividades.',
+                        ]); ?>
+                    <?php else: ?>
+                        <div class="alert alert-info">
+                            <p>No se encontraron actividades que coincidan con "<?= Html::encode($searchTerm) ?>"</p>
+                            <p>Sugerencias:</p>
+                            <ul>
+                                <li>Revise la ortografía</li>
+                                <li>Use términos más generales</li>
+                                <li>Pruebe con menos palabras</li>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
 
             <!-- Actividades Recomendadas -->
             <div class="recommended-activities mt-5">

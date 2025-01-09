@@ -12,6 +12,7 @@ use yii\web\Response;
 use yii\widgets\ActiveForm;
 use yii\data\Pagination;
 use yii\data\Sort;
+use yii\data\ActiveDataProvider;
 
 
 class ActividadesController extends controller
@@ -20,9 +21,39 @@ class ActividadesController extends controller
     // Acción para mostrar todas las actividades
     public function actionIndex()
     {
-        $actividades = Actividad::find()->all();
+        $searchTerm = Yii::$app->request->get('q');
+        $query = \app\models\Actividad::find();
+
+        if ($searchTerm !== null && trim($searchTerm) !== '') {
+            $searchTerm = trim($searchTerm);
+            
+            $query->where([
+                'or',
+                ['like', 'titulo', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
+                ['like', 'descripcion', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
+                ['like', 'lugar_celebracion', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
+                ['like', 'detalles', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
+                ['like', 'notas', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false]
+            ]);
+
+            $dataProvider = new \yii\data\ActiveDataProvider([
+                'query' => $query,
+                'pagination' => ['pageSize' => 10],
+                'sort' => ['defaultOrder' => ['fecha_celebracion' => SORT_DESC]]
+            ]);
+
+            return $this->render('actividades', [
+                'dataProvider' => $dataProvider,
+                'searchTerm' => $searchTerm,
+                'actividades' => []
+            ]);
+        }
+
+        // Si no hay búsqueda, mostrar todas las actividades
         return $this->render('actividades', [
-            'actividades' => $actividades
+            'actividades' => $query->all(),
+            'searchTerm' => '',
+            'dataProvider' => null
         ]);
     }
     // Muestra las actividades recomendadas
@@ -212,6 +243,55 @@ class ActividadesController extends controller
 
         return $this->render('actividades_pasadas', [
             'actividades' => $actividades,
+        ]);
+    }
+
+    public function actionSearch($q = '')
+    {
+        Yii::debug('Recibiendo petición de búsqueda');
+        Yii::debug('Parámetro q: ' . $q);
+        
+        // Asegurar que q no sea null
+        $q = trim($q ?? '');
+        
+        $query = Actividad::find();
+        
+        if (!empty($q)) {
+            $searchTerm = '%' . $q . '%';
+            $query->where([
+                'or',
+                ['like', 'titulo', $searchTerm],
+                ['like', 'descripcion', $searchTerm],
+                ['like', 'lugar_celebracion', $searchTerm]
+            ]);
+        }
+
+        Yii::debug('SQL generado: ' . $query->createCommand()->getRawSql());
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => ['fecha_celebracion' => SORT_DESC]
+            ],
+        ]);
+
+        Yii::debug('Resultados encontrados: ' . $dataProvider->getTotalCount());
+
+        // Si es una petición AJAX, devolver resultados parciales
+        if (Yii::$app->request->isAjax) {
+            return $this->renderPartial('search', [
+                'dataProvider' => $dataProvider,
+                'searchTerm' => $q,
+            ]);
+        }
+
+        // Si no es AJAX, renderizar vista completa
+        return $this->render('search', [
+            'dataProvider' => $dataProvider,
+            'searchTerm' => $q,
         ]);
     }
 }
