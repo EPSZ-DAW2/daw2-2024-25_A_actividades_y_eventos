@@ -91,132 +91,91 @@ class Usuario extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public function getEdad(){
+    public function getEdad()
+    {
         $fechaNacimiento = new \DateTime($this->fecha_nacimiento);
         $hoy = new \DateTime();
         $edad = $hoy->diff($fechaNacimiento);
         return $edad->y;
     }
 
-    public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getRol(){
+    public function getRol()
+    {
         return $this->hasOne(Roles::class, ['id' => 'ROLESid'])
             ->viaTable('usuario_roles', ['USUARIOid' => 'id']);
     }
 
-    /**
-     * Metodo para asignar un rol a un usuario (refactorizar)
-     * 
-     */
-    public function asignarRol($rol){
+    public function asignarRol($rol)
+    {
         $db = Yii::$app->db;
         $db->createCommand('INSERT INTO usuario_roles (USUARIOid, ROLESid) VALUES (:usuario, :rol)')
             ->bindValue(':usuario', $this->id)
             ->bindValue(':rol', $rol)
             ->execute();
     }
-    public static function findIdentity($id){
+
+    public static function findIdentity($id)
+    {
         return static::findOne($id);
     }
 
-    public static function findByNick($nick){
+    public static function findByNick($nick)
+    {
         return static::findOne(['nick' => $nick]);
     }
 
-    public function validatePassword($password){
-        //TO DO: Encriptar la contraseña
-        return $this->password === $password;
+    public function validatePassword($password)
+    {
+        // Validar la contraseña usando el hash almacenado
+        return Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
 
-    public static function findIdentityByAccessToken($token, $type = null){
-        //TO DO: Implementar la busqueda por token
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
         return null;
     }
 
     public function getAuthKey()
     {
-        //TO DO: Implementar la generación de clave de autenticación
-        return null; 
+        return null;
     }
 
-    public function validateAuthKey($authKey){
-        // TO DO: Implementar la validación de la clave de autenticación
-        return false; 
-    }
-
-    /**
-     * Atributo virtual que devuelve el nombre competo
-     */
-    public function getNombreCompleto(){
-        $nombreCompleto = "$this->nombre $this->apellidos";
-        return $nombreCompleto;
-    }
-
-
-
-    /**
-     * Gets query for [[Notificaciones]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNotificaciones()
+    public function validateAuthKey($authKey)
     {
-        return $this->hasMany(Notificacion::class, ['USUARIOid2' => 'id']);
+        return false;
     }
 
-    /**
-     * Gets query for [[Notificaciones0]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getNotificaciones0()
+    public function setPassword($password)
     {
-        return $this->hasMany(Notificacion::class, ['USUARIOid' => 'id']);
+        // Generar hash y asignarlo a la propiedad password
+        $this->password = Yii::$app->getSecurity()->generatePasswordHash($password);
     }
 
-    /**
-     * Gets query for [[Seguimientos]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSeguimientos()
-    {
-        return $this->hasMany(Seguimiento::class, ['usuario_seguidor' => 'id']);
-    }
-
-    /**
-     * Cambia la contraseña del usuario después de validar los datos proporcionados.
-     *
-     * @return bool Si la contraseña se cambió con éxito.
-     */
     public function changePassword()
     {
-        // Validar que la contraseña actual sea correcta
         if (!$this->validatePassword($this->currentPassword)) {
             $this->addError('currentPassword', 'La contraseña actual es incorrecta.');
             return false;
         }
 
-        // Verificar que la nueva contraseña y su confirmación coincidan
         if ($this->newPassword !== $this->confirmNewPassword) {
             $this->addError('confirmNewPassword', 'La nueva contraseña y su confirmación no coinciden.');
             return false;
         }
 
-        // Aquí puedes agregar validaciones adicionales para la nueva contraseña si es necesario
-        if (strlen($this->newPassword) < 8) { // Ejemplo: longitud mínima de 8 caracteres
+        if (strlen($this->newPassword) < 8) {
             $this->addError('newPassword', 'La nueva contraseña debe tener al menos 8 caracteres.');
             return false;
         }
 
-        // OJO-REVISAR - HACER HASH
-        // Cambiar la contraseña 
-        $this->password = $this->newPassword;
+        // Asignar y guardar el nuevo hash de la contraseña
+        $this->setPassword($this->newPassword);
 
-        // Guardar los cambios en la base de datos
         if ($this->save(false, ['password'])) {
             return true;
         }
@@ -254,7 +213,8 @@ class Usuario extends ActiveRecord implements IdentityInterface
         return $usuarioOptions;
     }
 
-    public function getImagen(){
+    public function getImagen()
+    {
         return $this->hasOne(UsuarioImagen::class, ['usuario_id' => 'id']);
     }
 }
