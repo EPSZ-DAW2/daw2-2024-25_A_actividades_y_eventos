@@ -13,7 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
         Bienvenido a nuestra web, donde organizamos una variedad de actividades y eventos para todas las edades y gustos. 
         Nuestro objetivo es proporcionar experiencias inolvidables y fomentar la comunidad a través de eventos bien planificados
         y emocionantes. 
-        <br>
+        </br></br>
         ¡Únete a nosotros y descubre todo lo que tenemos para ofrecer!
+        </br></br></br></br></br></br></br></br></br></br></br></br>
     </p>
 </div>

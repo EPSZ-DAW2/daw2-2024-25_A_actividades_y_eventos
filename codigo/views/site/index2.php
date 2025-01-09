@@ -13,7 +13,7 @@ $this->title = 'Portada';
         <!-- Contenido Principal -->
         <div class="col-md-9 offset-md-3 body-content">
             <div class="jumbotron text-center bg-transparent" style="margin: 50px 0;">
-                <h1 class="display-4"><?= Html::encode(Yii::$app->user->identity->nick ?? 'Usuario') ?>!</h1>
+                <h1 class="display-4"> ¡Bienvenido/a, <?= Html::encode(Yii::$app->user->identity->nick ?? 'Usuario') ?>!</h1>
             </div>
 
             <!-- Carrusel de imágenes -->

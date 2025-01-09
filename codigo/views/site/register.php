@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap5\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\Usuario $model */
@@ -9,31 +9,34 @@ use yii\widgets\ActiveForm;
 
 $this->title = 'Registro de Usuario';
 ?>
-<div class="site-register d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+<div class="site-register">
+    <h1><?= Html::encode($this->title) ?></h1>
 
-    <div class="w-50">
-        <h2>Por favor, rellene los siguientes campos para registrarse:</h2>
+    <p>Por favor, rellene los siguientes campos para registrarse:</p>
 
-        <?php $form = ActiveForm::begin([
-            'id' => 'register-form',
-            'fieldConfig' => [
-                'template' => "{label}\n{input}\n{error}",
-                'labelOptions' => ['class' => 'col-lg-2 col-form-label mb-1'],
-                'inputOptions' => ['class' => 'w-100 form-control mb-1'],
-                'errorOptions' => ['class' => 'col-lg-7 invalid-feedback'],
-            ],
-        ]); ?>
-        <?= $form->field($model, 'nombre') ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'register-form',
+        'layout' => 'horizontal',
+        'fieldConfig' => [
+            'template' => "{label}\n<div class=\"col-lg-4\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
+            'labelOptions' => ['class' => 'col-lg-3 col-form-label'],
+            'inputOptions' => ['class' => 'form-control'],
+            'errorOptions' => ['class' => 'invalid-feedback'],
+        ],
+    ]); ?>
+
+        <?= $form->field($model, 'nombre')->textInput(['autofocus' => true]) ?>
         <?= $form->field($model, 'apellidos') ?>
         <?= $form->field($model, 'email')->input('email') ?>
         <?= $form->field($model, 'nick') ?>
         <?= $form->field($model, 'password')->passwordInput() ?>
         <?= $form->field($model, 'fecha_nacimiento')->input('date') ?>
 
-        <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'Registrarse'), ['class' => 'btn btn-primary mt-2']) ?>
+        <div class="form-group row">
+            <div class="offset-lg-3 col-lg-4">
+                <?= Html::submitButton(Yii::t('app', 'Registrarse'), ['class' => 'btn btn-primary', 'name' => 'register-button']) ?>
+            </div>
         </div>
-        <?php ActiveForm::end(); ?>
-    </div>
 
+    <?php ActiveForm::end(); ?>
 </div>
