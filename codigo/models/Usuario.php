@@ -36,7 +36,7 @@ class Usuario extends ActiveRecord implements IdentityInterface
     public $newEmail;
     public $confirmNewEmail;
     public $imageFile;
-    public $token;
+
 
     /**
      * {@inheritdoc}
