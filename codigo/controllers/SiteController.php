@@ -125,14 +125,6 @@ class SiteController extends Controller
             ]);
         }
 
-        // Provider para actividades más votadas
-        $masVotadasProvider = new ActiveDataProvider([
-            'query' => Actividad::find()
-                ->orderBy(['votosOK' => SORT_DESC])
-                ->limit(6),
-            'pagination' => false
-        ]);
-
         // Obtener actividades ordenadas por diferentes criterios
         $masVotadas = $db->createCommand('
             SELECT a.*, i.nombre_Archivo, i.extension 

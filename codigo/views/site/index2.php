@@ -156,18 +156,14 @@ $this->title = 'Portada';
                 <h2>Actividades más visitadas</h2>
                 <div class="row">
                 <?php if (!empty($masVisitadas)) {
-                        foreach ($masVisitadas as $actividad): 
-                            if ($actividad['contador_visitas'] > 1) { ?>
+                        foreach ($masVisitadas as $actividad): ?>
+                            
                                 <div class="col-lg-4 mb-4">
                                     <div class="card h-100">
                                         <?php if (!empty($actividad['nombre_Archivo'])): ?>
                                             <img class="card-img-top" 
-                                                src="<?= Yii::getAlias('@web/images/' . Html::encode($actividad['nombre_Archivo'])) ?>" 
+                                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
                                                 alt="<?= Html::encode($actividad['titulo']) ?>">
-                                        <?php else: ?>
-                                            <img class="card-img-top" 
-                                                src="<?= Yii::getAlias('@web/images/default.jpg') ?>" 
-                                                alt="Imagen predeterminada">
                                         <?php endif; ?>
                                         <div class="card-body">
                                             <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
@@ -182,7 +178,7 @@ $this->title = 'Portada';
                                         </div>
                                     </div>
                                 </div>
-                            <?php } 
+                            <?php  
                         endforeach; 
                     } else { ?>
                         <div class="col-md-12">
@@ -198,18 +194,13 @@ $this->title = 'Portada';
                 <h2>Actividades más cercanas</h2>
                 <div class="row">
                 <?php if (!empty($masProximas)) {
-                        foreach ($masProximas as $actividad): 
-                            if ($actividad['contador_visitas'] > 1) { ?>
+                        foreach ($masProximas as $actividad):  ?>
                                 <div class="col-lg-4 mb-4">
                                     <div class="card h-100">
                                         <?php if (!empty($actividad['nombre_Archivo'])): ?>
                                             <img class="card-img-top" 
-                                                src="<?= Yii::getAlias('@web/images/' . Html::encode($actividad['nombre_Archivo'])) ?>" 
+                                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
                                                 alt="<?= Html::encode($actividad['titulo']) ?>">
-                                        <?php else: ?>
-                                            <img class="card-img-top" 
-                                                src="<?= Yii::getAlias('@web/images/default.jpg') ?>" 
-                                                alt="Imagen predeterminada">
                                         <?php endif; ?>
                                         <div class="card-body">
                                             <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
@@ -224,7 +215,7 @@ $this->title = 'Portada';
                                         </div>
                                     </div>
                                 </div>
-                            <?php } 
+                            <?php  
                         endforeach; 
                     } else { ?>
                         <div class="col-md-12">
