@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-use \yii\db\ActiveRecord;
+
 
 /**
  * This is the model class for table "notificaciones".
@@ -23,7 +23,7 @@ use \yii\db\ActiveRecord;
  * @property Usuario $usuarioDestino
  * @property Usuario $usuarioOrigen
  */
-class Notificacion extends ActiveRecord
+class Notificacion extends \yii\db\ActiveRecord
 {
     public static function tableName()
     {

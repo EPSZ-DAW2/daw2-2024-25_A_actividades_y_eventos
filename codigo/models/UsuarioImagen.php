@@ -75,7 +75,7 @@ class UsuarioImagen extends \yii\db\ActiveRecord
     public function getRutaCompleta($absolute = false)
     {
         $imagen = $this->getImagen()->one();
-        if ($imagen === null) {
+        if ($imagen === null || empty($imagen->ruta_archivo)) {
             return Yii::getAlias('@web/images/perfiles/no-photo.png');
         }
         return $imagen->getRutaCompleta($absolute);
