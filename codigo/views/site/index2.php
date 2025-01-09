@@ -120,55 +120,58 @@ $this->title = 'Portada';
             <!-- Actividades Con más votos -->
             <div class="activities-section mt-5">
                 <h2>Actividades Con más votos</h2>
-                <?= ListView::widget([
-                    'dataProvider' => $dataProvider,
-                    'itemView' => '_activityItem',
-                    'layout' => "{items}\n{pager}",
-                    'itemOptions' => ['class' => 'activity-item'],
-                ]); ?>
+                <div class="row">
+                    <?php foreach ($actividadesConImagenes as $actividad): ?>
+                        <div class="col-lg-4 mb-4">
+                            <div class="card h-100">
+                                <?php if (!empty($actividad['nombre_Archivo'])): ?>
+                                    <img class="card-img-top" 
+                                         src="<?= Yii::getAlias('@web/images/' . Html::encode($actividad['nombre_Archivo'])) ?>" 
+                                         alt="<?= Html::encode($actividad['titulo']) ?>">
+                                <?php endif; ?>
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
+                                    <p class="card-text"><?= Html::encode($actividad['descripcion']) ?></p>
+                                    <p class="card-text">
+                                        <small class="text-muted">
+                                            Votos positivos: <?= Html::encode($actividad['votosOK']) ?>
+                                        </small>
+                                    </p>
+                                    <?= Html::a('Ver más', ['actividades/ver_actividad', 'id' => $actividad['id']], 
+                                             ['class' => 'btn btn-primary']) ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
 
-            <!-- Actividades Más Cercanas, Más Nuevas y Más Visitadas -->
+            <!-- Actividades más cercanas -->
             <div class="activities-section mt-5">
                 <h2>Actividades más cercanas</h2>
                 <div class="row">
-                    <!-- Más Cercanas -->
-                    <?= ListView::widget([
-                        'dataProvider' => $dataProvider3,
-                        'itemOptions' => ['class' => 'col-lg-4'],
-                        'itemView' => function ($model, $key, $index, $widget) {
-                            return '<div class="activity-item">
-                                        <h4>' . Html::encode($model->titulo) . '</h4>
-                                        <p>' . Html::encode($model->descripcion) . '</p>
-                                        ' . (!empty($model->imagen_principal) ? '<img src="' . Yii::getAlias('@web') . '/images/' . Html::encode($model->imagen_principal) . '" alt="' . Html::encode($model->titulo) . '" class="img-fluid">' : '') . '
-                                        <p><strong>Fecha de celebración:</strong> ' . Html::encode($model->fecha_celebracion) . '</p>
-                                        <p>' . Html::a('Ver', ['ver_actividad', 'id' => $model->id], ['class' => 'btn btn-info']) . '</p>
-                                    </div>';
-                        },
-                        'layout' => "{items}\n{pager}",
+                    <?= \yii\widgets\ListView::widget([
+                        'dataProvider' => $masProximasProvider,
+                        'itemView' => '_activityItem',
+                        'layout' => "{items}",
+                        'itemOptions' => ['class' => 'col-lg-4 mb-4'],
                     ]) ?>
-
-
-                    <!-- Más Visitadas -->
-                    <div class="col-lg-4">
-                        <h4>Más Visitadas</h4>
-                        <?= ListView::widget([
-                        'dataProvider' => $dataProvider2,
-                        'itemOptions' => ['class' => 'col-lg-4'],
-                        'itemView' => function ($model, $key, $index, $widget) {
-                            return '<div class="activity-item">
-                                        <h4>' . Html::encode($model->titulo) . '</h4>
-                                        <p>' . Html::encode($model->descripcion) . '</p>
-                                        ' . (!empty($model->imagen_principal) ? '<img src="' . Yii::getAlias('@web') . '/images/' . Html::encode($model->imagen_principal) . '" alt="' . Html::encode($model->titulo) . '" class="img-fluid">' : '') . '
-                                        <p><strong>Visitas:</strong> ' . Html::encode($model->contador_visitas) . '</p>
-                                        <p>' . Html::a('Ver', ['ver_actividad', 'id' => $model->id], ['class' => 'btn btn-info']) . '</p>
-                                    </div>';
-                        },
-                        'layout' => "{items}\n{pager}",
-                    ]) ?>
-                    </div>
                 </div>
             </div>
+
+            <!-- Actividades más visitadas -->
+            <div class="activities-section mt-5">
+                <h2>Actividades más visitadas</h2>
+                <div class="row">
+                    <?= \yii\widgets\ListView::widget([
+                        'dataProvider' => $masVisitadasProvider,
+                        'itemView' => '_activityItem',
+                        'layout' => "{items}",
+                        'itemOptions' => ['class' => 'col-lg-4 mb-4'],
+                    ]) ?>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

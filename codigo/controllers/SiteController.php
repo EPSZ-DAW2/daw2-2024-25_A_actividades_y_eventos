@@ -101,31 +101,15 @@ class SiteController extends Controller
     public function actionIndex2()
     {
         $searchTerm = Yii::$app->request->get('q');
+        $db = Yii::$app->db;
         
-        // Crear dataProviders para las diferentes secciones
-        $dataProvider = new ActiveDataProvider([
-            'query' => Actividad::find()->orderBy(['votosOK' => SORT_DESC]),
-            'pagination' => ['pageSize' => 3],
-        ]);
-
-        $dataProvider2 = new ActiveDataProvider([
-            'query' => Actividad::find()->orderBy(['contador_visitas' => SORT_DESC]),
-            'pagination' => ['pageSize' => 3],
-        ]);
-
-        $dataProvider3 = new ActiveDataProvider([
-            'query' => Actividad::find()
-                ->where(['>=', 'fecha_celebracion', new \yii\db\Expression('CURDATE()')])
-                ->orderBy(['fecha_celebracion' => SORT_ASC]),
-            'pagination' => ['pageSize' => 3],
-        ]);
-
-        // Si hay término de búsqueda, crear dataProvider de búsqueda
+        // Provider para búsqueda
+        $searchProvider = null;
         if ($searchTerm !== null && trim($searchTerm) !== '') {
-            $searchQuery = Actividad::find();
             $searchTerm = trim($searchTerm);
+            $query = Actividad::find();
             
-            $searchQuery->where([
+            $query->where([
                 'or',
                 ['like', 'titulo', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
                 ['like', 'descripcion', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
@@ -135,18 +119,53 @@ class SiteController extends Controller
             ]);
 
             $searchProvider = new ActiveDataProvider([
-                'query' => $searchQuery,
+                'query' => $query,
                 'pagination' => ['pageSize' => 10],
                 'sort' => ['defaultOrder' => ['fecha_celebracion' => SORT_DESC]]
             ]);
         }
 
+        // Provider para actividades más votadas
+        $masVotadasProvider = new ActiveDataProvider([
+            'query' => Actividad::find()
+                ->orderBy(['votosOK' => SORT_DESC])
+                ->limit(6),
+            'pagination' => false
+        ]);
+
+        // Obtener actividades ordenadas por diferentes criterios
+        $actividadesConImagenes = $db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            ORDER BY a.votosOK DESC 
+            LIMIT 6
+        ')->queryAll();
+
+        // Providers para los diferentes listados
+        $masProximasProvider = new ActiveDataProvider([
+            'query' => Actividad::find()
+                ->where(['>=', 'fecha_celebracion', new \yii\db\Expression('CURDATE()')])
+                ->orderBy(['fecha_celebracion' => SORT_ASC])
+                ->limit(6),
+            'pagination' => false
+        ]);
+
+        $masVisitadasProvider = new ActiveDataProvider([
+            'query' => Actividad::find()
+                ->orderBy(['contador_visitas' => SORT_DESC])
+                ->limit(6),
+            'pagination' => false
+        ]);
+
         return $this->render('index2', [
-            'dataProvider' => $dataProvider,
-            'dataProvider2' => $dataProvider2,
-            'dataProvider3' => $dataProvider3,
-            'searchProvider' => $searchProvider ?? null,
-            'searchTerm' => $searchTerm
+            'searchProvider' => $searchProvider,
+            'searchTerm' => $searchTerm,
+            'masVotadasProvider' => $masVotadasProvider, // Añadir este provider
+            'masProximasProvider' => $masProximasProvider,
+            'masVisitadasProvider' => $masVisitadasProvider,
+            'actividadesConImagenes' => $actividadesConImagenes,
         ]);
     }
 
