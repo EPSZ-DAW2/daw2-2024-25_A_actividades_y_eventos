@@ -564,7 +564,7 @@ CREATE TABLE `USUARIO` (
   `email` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `apellidos` varchar(255) DEFAULT NULL,
-  `fecha_nacimiento` datetime DEFAULT NULL,
+  `fecha_nacimiento` DATE DEFAULT NULL,
   `activo` int(10) DEFAULT NULL,
   `fecha_registor` datetime DEFAULT NULL,
   `registro_confirmado` int(10) DEFAULT NULL,

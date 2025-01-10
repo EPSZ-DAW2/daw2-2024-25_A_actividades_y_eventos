@@ -67,14 +67,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <!-- Menú de navegación principal -->
             <div class="navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <?php if (!Yii::$app->user->isGuest): ?>
-                        <li class="nav-item">
-                            <?= Html::a('Actividades', ['/actividades/index'], ['class' => 'nav-link']) ?>
-                        </li>
-                    <?php endif; ?>
                     <?php if (!Yii::$app->user->isGuest): ?>
                         <li class="nav-item">
-                            <?= Html::a('Actividades apuntado', ['/actividades/mis-actividades'], ['class' => 'nav-link']) ?>
+                            <?= Html::a('Mis Actividades', ['/actividades/mis-actividades'], ['class' => 'nav-link']) ?>
                         </li>
                     <?php endif; ?>
                     <li class="nav-item">

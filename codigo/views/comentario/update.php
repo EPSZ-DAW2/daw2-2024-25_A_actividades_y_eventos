@@ -5,12 +5,12 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\Comentario $model */
 
-$this->title = Yii::t('app', 'Update Comentario: {name}', [
+$this->title = Yii::t('app', 'Editar Comentario: {name}', [
     'name' => $model->id,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Comentarios'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+$this->params['breadcrumbs'][] = Yii::t('app', 'Editar');
 ?>
 <div class="comentario-update">
 

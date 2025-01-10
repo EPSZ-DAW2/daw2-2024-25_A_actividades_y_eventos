@@ -17,9 +17,10 @@ $this->title = Yii::t('app', 'Comentarios');
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Crear nuevo comentario'), ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Ver comentarios de actividades'), ['comentarios-actividades'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a(Yii::t('app', 'Ver comentarios de usuarios'), ['comentarios-usuarios'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Crear nuevo comentario'), ['create'], ['class' => 'btn btn-success mb-4']) ?>
+        <br>
+        <?= Html::a(Yii::t('app', 'Ver comentarios de actividades'), ['comentarios-actividades'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('app', 'Ver comentarios de usuarios'), ['comentarios-usuarios'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -28,8 +29,6 @@ $this->title = Yii::t('app', 'Comentarios');
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'texto',
             'comentario_relacionado',

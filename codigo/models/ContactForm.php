@@ -28,6 +28,18 @@ class ContactForm extends Model
     }
 
     /**
+     * @return array etiquetas de atributos personalizadas
+     */
+    public function attributeLabels(){
+        return [
+            'name' => 'Nombre',
+            'email' => 'Correo electrónico',
+            'subject' => 'Asunto',
+            'body' => 'Mensaje',
+        ];
+    }
+
+    /**
      * Envía un correo electrónico a la dirección especificada usando la información recopilada por este modelo.
      * @param string $email la dirección de correo electrónico de destino.
      * @return bool si el correo fue enviado correctamente.
