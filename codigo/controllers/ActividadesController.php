@@ -14,6 +14,8 @@ use yii\data\Pagination;
 use yii\data\Sort;
 use yii\data\ActiveDataProvider;
 use yii\web\UploadedFile;
+use app\models\Etiquetas;
+use app\models\Etiqueta;
 
 
 class ActividadesController extends controller
@@ -506,6 +508,15 @@ class ActividadesController extends controller
                 ],
             ],
         ];
+    }
+
+    public function actionActividadesEtiquetas()
+    {
+        $etiquetas = Etiqueta::find()->with('actividades')->all();
+
+        return $this->render('actividades-etiquetas', [
+            'etiquetas' => $etiquetas,
+        ]);
     }
     
 }

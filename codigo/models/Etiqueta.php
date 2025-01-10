@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "etiqueta".
@@ -11,7 +12,7 @@ use Yii;
  * @property string|null $nombre
  * @property string|null $descripcion
  */
-class Etiqueta extends \yii\db\ActiveRecord
+class Etiqueta extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -42,5 +43,11 @@ class Etiqueta extends \yii\db\ActiveRecord
             'nombre' => 'Nombre',
             'descripcion' => 'Descripción',
         ];
+    }
+
+    public function getActividades()
+    {
+        return $this->hasMany(Actividad::class, ['id' => 'ACTIVIDADid'])
+            ->viaTable('ETIQUETAS_ACTIVIDAD', ['ETIQUETASid' => 'id']);
     }
 }
