@@ -304,7 +304,7 @@ CREATE TABLE `ETIQUETAS` (
 --
 
 INSERT INTO `ETIQUETAS` (`id`, `nombre`, `descripcion`) VALUES
-(1, 'Deporte acuatico', 'Actividades deportivas y competencias'),
+(1, 'Deporte', 'Actividades deportivas y competencias'),
 (2, 'Música', 'Eventos relacionados con música en vivo');
 
 -- --------------------------------------------------------

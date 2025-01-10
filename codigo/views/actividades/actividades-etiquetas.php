@@ -17,6 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="etiqueta-section mb-5">
                 <h2><?= Html::encode($etiqueta->nombre) ?></h2>
                 <p><?= Html::encode($etiqueta->descripcion) ?></p>
+                <div class="mb-3">
+                    <?= Html::a('Seguir Etiqueta', ['seguir-etiqueta', 'id' => $etiqueta->id], ['class' => 'btn btn-success btn-sm']) ?>
+                    <?= Html::a('Dejar de Seguir Etiqueta', ['dejar-seguir-etiqueta', 'id' => $etiqueta->id], ['class' => 'btn btn-danger btn-sm']) ?>
+                </div>
                 <?php if (!empty($etiqueta->actividades)): ?>
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                         <?php foreach ($etiqueta->actividades as $actividad): ?>

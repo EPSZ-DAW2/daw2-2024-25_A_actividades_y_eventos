@@ -525,5 +525,41 @@ class ActividadesController extends controller
             'etiquetas' => $etiquetas,
         ]);
     }
+
+    public function actionSeguirEtiqueta($id)
+    {
+        $userId = Yii::$app->user->id;
+        $fechaSeguimiento = date('Y-m-d H:i:s');
+
+        $actividades = Etiqueta::findOne($id)->actividades;
+
+        foreach ($actividades as $actividad) {
+            Yii::$app->db->createCommand()->insert('SIGUE', [
+                'USUARIOid' => $userId,
+                'ACTIVIDADid' => $actividad->id,
+                'fecha_seguimiento' => $fechaSeguimiento,
+            ])->execute();
+        }
+
+        Yii::$app->session->setFlash('success', 'Ahora sigues esta etiqueta.');
+        return $this->redirect(['actividades-etiquetas']);
+    }
+
+    public function actionDejarSeguirEtiqueta($id)
+    {
+        $userId = Yii::$app->user->id;
+
+        $actividades = Etiqueta::findOne($id)->actividades;
+
+        foreach ($actividades as $actividad) {
+            Yii::$app->db->createCommand()->delete('SIGUE', [
+                'USUARIOid' => $userId,
+                'ACTIVIDADid' => $actividad->id,
+            ])->execute();
+        }
+
+        Yii::$app->session->setFlash('success', 'Has dejado de seguir esta etiqueta.');
+        return $this->redirect(['actividades-etiquetas']);
+    }
     
 }
