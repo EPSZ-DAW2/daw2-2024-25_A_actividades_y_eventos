@@ -397,5 +397,97 @@ class ActividadesController extends controller
         ]);
     }
 
+    public function actionRegistrar($id)
+    {
+        $userId = Yii::$app->user->id;
+        $fechaInscripcion = date('Y-m-d H:i:s');
+
+        // Check if the user is already registered
+        $existingRegistration = Yii::$app->db->createCommand('
+            SELECT * FROM PARTICIPA 
+            WHERE USUARIOid = :userId AND ACTIVIDADid = :actividadId
+        ')
+        ->bindValue(':userId', $userId)
+        ->bindValue(':actividadId', $id)
+        ->queryOne();
+
+        if ($existingRegistration) {
+            Yii::$app->session->setFlash('error', 'Ya estás registrado en esta actividad.');
+        } else {
+            // Register the user for the activity
+            Yii::$app->db->createCommand()->insert('PARTICIPA', [
+                'USUARIOid' => $userId,
+                'ACTIVIDADid' => $id,
+                'fecha_inscripcion' => $fechaInscripcion,
+                'cancelado' => 0,
+            ])->execute();
+
+            Yii::$app->session->setFlash('success', 'Te has registrado exitosamente en la actividad.');
+        }
+
+        return $this->redirect(['actividad', 'id' => $id]);
+    }
+
+    public function actionMisActividades()
+    {
+        $userId = Yii::$app->user->id;
+
+        $actividades = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM ACTIVIDAD a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN IMAGEN i ON ia.IMAGENid = i.id 
+            JOIN PARTICIPA p ON a.id = p.ACTIVIDADid 
+            WHERE p.USUARIOid = :userId AND p.cancelado = 0
+        ')
+        ->bindValue(':userId', $userId)
+        ->queryAll();
+
+        return $this->render('mis-actividades', [
+            'actividades' => $actividades,
+        ]);
+    }
+
+    public function actionDesapuntar($id)
+    {
+        $userId = Yii::$app->user->id;
+        $fechaCancelacion = date('Y-m-d H:i:s');
+
+        Yii::$app->db->createCommand()->update('PARTICIPA', [
+            'cancelado' => 1,
+            'fecha_cancelacion' => $fechaCancelacion,
+        ], 'USUARIOid = :userId AND ACTIVIDADid = :actividadId', [
+            ':userId' => $userId,
+            ':actividadId' => $id,
+        ])->execute();
+
+        Yii::$app->session->setFlash('success', 'Te has desapuntado de la actividad exitosamente.');
+
+        return $this->redirect(['mis-actividades']);
+    }
+
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'delete' => ['POST'],
+                    'registrar' => ['POST'],
+                    'desapuntar' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => \yii\filters\AccessControl::class,
+                'only' => ['mis-actividades', 'registrar', 'desapuntar'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
     
 }

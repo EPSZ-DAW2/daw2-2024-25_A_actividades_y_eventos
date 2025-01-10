@@ -64,6 +64,15 @@ $this->title = $actividad['titulo'];
                             <?php endif; ?>
                         </div>
                     <?php endif; ?>
+
+                    <!-- Botón para registrarse en la actividad -->
+                    <?= Html::a('Participar', ['actividades/registrar', 'id' => $actividad['id']], [
+                        'class' => 'btn btn-warning',
+                        'data' => [
+                            'confirm' => '¿Estás seguro de que deseas participar en esta actividad?',
+                            'method' => 'post',
+                        ],
+                    ]) ?>
                 </div>
             </div>
         </div>

@@ -25,7 +25,7 @@ class InscripcionesController extends Controller
             ->with('actividad') // Traer la relación con Actividad
             ->all();
 
-        return $this->render('mis_actividades', [
+        return $this->render('mis-actividades', [
             'inscripciones' => $inscripciones,
         ]);
     }
