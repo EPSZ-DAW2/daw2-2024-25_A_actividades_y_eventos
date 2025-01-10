@@ -412,7 +412,25 @@ class ActividadesController extends controller
         ->queryOne();
 
         if ($existingRegistration) {
-            Yii::$app->session->setFlash('error', 'Ya estás registrado en esta actividad.');
+            if ($existingRegistration['cancelado'] == 1 && $existingRegistration['fecha_cancelacion'] !== null) {
+                // Delete the previous registration
+                Yii::$app->db->createCommand()->delete('PARTICIPA', [
+                    'USUARIOid' => $userId,
+                    'ACTIVIDADid' => $id,
+                ])->execute();
+
+                // Create a new registration
+                Yii::$app->db->createCommand()->insert('PARTICIPA', [
+                    'USUARIOid' => $userId,
+                    'ACTIVIDADid' => $id,
+                    'fecha_inscripcion' => $fechaInscripcion,
+                    'cancelado' => 0,
+                ])->execute();
+
+                Yii::$app->session->setFlash('success', 'Te has registrado nuevamente en la actividad.');
+            } else {
+                Yii::$app->session->setFlash('error', 'Ya estás registrado en esta actividad.');
+            }
         } else {
             // Register the user for the activity
             Yii::$app->db->createCommand()->insert('PARTICIPA', [
