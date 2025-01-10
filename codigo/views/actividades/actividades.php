@@ -30,6 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Actividades Pasadas', ['actividades/pasadas'], ['class' => 'btn btn-primary btn-lg']) ?>
     </div>
 
+    <div class="text-center mb-4">
+        <?= Html::a('Actividades por Etiquetas', ['actividades/actividades-etiquetas'], ['class' => 'btn btn-info btn-lg']) ?>
+    </div>
+
     <!-- Buscador -->
     <div class="search-container text-center mt-4 mb-4">
         <h2>Buscar Actividades</h2>
