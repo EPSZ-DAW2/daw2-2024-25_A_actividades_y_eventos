@@ -11,30 +11,45 @@ use yii\widgets\ListView;
 $this->title = 'Portada';
 ?>
 <div class="site-index">
-    <div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Botón para alternar el menú -->
+            <!--<button id="toggleMenu" class="btn btn-outline-primary position-fixed" style="top: 20px; left: 20px; z-index: 1050;">
+                <i class="bi bi-list"></i> Menú
+            </button>-->
 
-        <!-- Menú desplegable para categorías -->
-        <div class="dropdown mb-4 text-center">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Selecciona un Filtro
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <?php foreach ($categorias as $categoria => $url): ?>
-                    <li>
-                        <a class="dropdown-item" href="<?= Yii::$app->urlManager->createUrl([$url]) ?>">
-                            <?= Html::encode($categoria) ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+            <!-- Sidebar fijo -->
+            <div id="sidebar" class="col-md-3 col-lg-2 bg-light sidebar position-fixed" style="top: 0; left: 0; bottom: 0; overflow-y: auto; height: 100vh; padding-top: 20px; padding-right: 15px; box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1); border-radius: 0 10px 10px 0; background-color: #f9f9f9; transform: translateX(0); transition: transform 0.3s ease;">
+                <div class="position-sticky mt-4">
+                    <h5 class="text-center text-primary font-weight-bold mb-4">Selecciona un Filtro</h5>
+                    <ul class="nav flex-column">
+                        <?php foreach ($categorias as $categoria => $url): ?>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-primary btn-lg w-100" href="<?= Yii::$app->urlManager->createUrl([$url]) ?>" style="font-size: 18px; padding: 12px; border-radius: 5px; transition: background-color 0.3s ease;">
+                                    <!-- Añadir el ícono solo si la categoría tiene una condición -->
+                                    <?php if ($categoria == 'Más Visitadas'): ?>
+                                        <i class="bi bi-eye me-2"></i>
+                                    <?php elseif ($categoria == 'Recomendadas'): ?>
+                                        <i class="bi bi-star me-2"></i>
+                                    <?php elseif ($categoria == 'Próximas'): ?>
+                                        <i class="bi bi-geo-alt me-2"></i>
+                                    <?php elseif ($categoria == 'Pasadas'): ?>
+                                        <i class="bi bi-calendar-x me-2"></i>
+                                    <?php elseif ($categoria == 'Nuevas'): ?>
+                                        <i class="bi bi-plus-circle me-2"></i>
+                                    <?php endif; ?>
+                                    <?= Html::encode($categoria) ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>
 
 
 
-
-        <div class="row justify-content-center"> <!-- Centra las columnas en la fila -->
             <!-- Contenido Principal -->
-            <div class="col-md-12 col-lg-12 body-content">
+            <div class="col-md-9 col-lg-10 ms-sm-auto px-4" style="margin-left: 25%;">
                 <div class="jumbotron text-center bg-transparent" style="margin: 50px 0;">
                     <h1 class="display-4"> ¡Bienvenido/a, <?= Html::encode(Yii::$app->user->identity->nick ?? 'Usuario') ?>!</h1>
                 </div>
@@ -139,10 +154,8 @@ $this->title = 'Portada';
                                     class="d-block w-100 fixed-size" 
                                     alt="Imagen <?= $index + 1 ?>"> 
                             </a>
-
                         </div>
                     <?php endforeach; ?>
-
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -154,18 +167,9 @@ $this->title = 'Portada';
                     </a>
                 </div>
 
-                
-
                 <!-- Actividades Con más votos -->
                 <div class="activities-section mt-5">
                     <h2 class="text-center mb-4">Actividades Recomendadas</h2>
-                    <style>
-                        .fixed-size-img {
-                            width: 100%; 
-                            height: 200px; 
-                            object-fit: cover; 
-                        } 
-                    </style>
                     <div class="row justify-content-center">
                         <?php if (!empty($masVotadas)) {
                             foreach ($masVotadas as $actividad): ?>
@@ -284,11 +288,10 @@ $this->title = 'Portada';
                                         </div>
                                     </div>
                                 </div>
-                            <?php  
-                            endforeach; 
+                            <?php endforeach; 
                         } else { ?>
                             <div class="col-md-12">
-                                <p class="text-center">No hay actividades más buscadas en este momento.</p>
+                                <p class="text-center">No hay actividades más cercanas en este momento.</p>
                             </div>
                         <?php } ?>
                     </div>
@@ -297,3 +300,15 @@ $this->title = 'Portada';
         </div>
     </div>
 </div>
+
+<script>
+    // Script para alternar la visibilidad del menú lateral
+    document.getElementById("toggleMenu").addEventListener("click", function() {
+        var sidebar = document.getElementById("sidebar");
+        if (sidebar.style.transform === "translateX(0px)") {
+            sidebar.style.transform = "translateX(-100%)";
+        } else {
+            sidebar.style.transform = "translateX(0)";
+        }
+    });
+</script>

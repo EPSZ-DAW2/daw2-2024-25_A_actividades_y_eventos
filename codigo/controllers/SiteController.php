@@ -181,7 +181,7 @@ class SiteController extends Controller
         // Array con los nombres de las categorías
         $categorias = [
             'Todas' => 'actividades/index',
-            'Mas Buscadas' => 'actividades/mas-buscadas',
+            //'Mas Buscadas' => 'actividades/mas-buscadas',
             'Próximas' => 'actividades/mas-proximas',
             'Más Visitadas' => 'actividades/mas-visitadas',
             'Pasadas' => 'actividades/actividades-pasadas',

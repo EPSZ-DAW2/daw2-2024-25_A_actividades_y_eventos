@@ -40,11 +40,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <i class="bi bi-eye me-2"></i> Actividades Más Visitadas
                 </a>
             </div>
-            <div class="col">
+            <!--<div class="col">
                 <a href="<?= Yii::$app->urlManager->createUrl(['actividades/mas-buscadas']) ?>" class="btn btn-outline-primary btn-lg w-100">
                     <i class="bi bi-search me-2"></i> Actividades Más Buscadas
                 </a>
-            </div>
+            </div>-->
             <div class="col">
                 <a href="<?= Yii::$app->urlManager->createUrl(['actividades/pasadas']) ?>" class="btn btn-outline-primary btn-lg w-100">
                     <i class="bi bi-calendar-x me-2"></i> Actividades Pasadas
@@ -58,11 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <div class="text-center mb-4">
+    <!--<div class="text-center mb-4">
         <a href="<?= Yii::$app->urlManager->createUrl(['actividades/actividades-etiquetas']) ?>" class="btn btn-outline-info btn-lg">
             <i class="bi bi-tags me-2"></i> Actividades por Etiquetas
         </a>
-    </div>
+    </div>-->
 
 
     <!-- Buscador -->
