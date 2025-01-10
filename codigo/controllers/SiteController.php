@@ -184,7 +184,7 @@ class SiteController extends Controller
             //'Mas Buscadas' => 'actividades/mas-buscadas',
             'Próximas' => 'actividades/mas-proximas',
             'Más Visitadas' => 'actividades/mas-visitadas',
-            'Pasadas' => 'actividades/actividades-pasadas',
+            'Pasadas' => 'actividades/pasadas',
             'Recomendadas' => 'actividades/recomendadas',
             'Nuevas' => 'actividades/nuevas',
         ];
