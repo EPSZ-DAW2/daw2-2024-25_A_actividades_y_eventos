@@ -25,17 +25,20 @@ class ActividadesController extends controller
         $searchTerm = Yii::$app->request->get('q');
         $query = \app\models\Actividad::find();
 
+        // Filtrado por búsqueda
         if ($searchTerm !== null && trim($searchTerm) !== '') {
             $searchTerm = trim($searchTerm);
-            
+
             $query->where([
                 'or',
-                ['like', 'titulo', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
-                ['like', 'descripcion', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
-                ['like', 'lugar_celebracion', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
-                ['like', 'detalles', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false],
-                ['like', 'notas', '%' . strtr($searchTerm, ['%'=>'\%', '_'=>'\_', '\\'=>'\\\\']) . '%', false]
+                ['like', 'titulo', '%' . strtr($searchTerm, ['%' => '\%', '_' => '\_', '\\' => '\\\\']) . '%', false],
+                ['like', 'descripcion', '%' . strtr($searchTerm, ['%' => '\%', '_' => '\_', '\\' => '\\\\']) . '%', false],
+                ['like', 'lugar_celebracion', '%' . strtr($searchTerm, ['%' => '\%', '_' => '\_', '\\' => '\\\\']) . '%', false],
+                ['like', 'detalles', '%' . strtr($searchTerm, ['%' => '\%', '_' => '\_', '\\' => '\\\\']) . '%', false],
+                ['like', 'notas', '%' . strtr($searchTerm, ['%' => '\%', '_' => '\_', '\\' => '\\\\']) . '%', false],
+                ['like', 'id', '%' . strtr($searchTerm, ['%' => '\%', '_' => '\_', '\\' => '\\\\']) . '%', false] // Añadir búsqueda por id
             ]);
+            
 
             $dataProvider = new \yii\data\ActiveDataProvider([
                 'query' => $query,
@@ -46,17 +49,27 @@ class ActividadesController extends controller
             return $this->render('actividades', [
                 'dataProvider' => $dataProvider,
                 'searchTerm' => $searchTerm,
-                'actividades' => []
+                'actividades' => [],
             ]);
         }
+
+        // Cargar las imágenes asociadas a las actividades
+        $imgActividades = Yii::$app->db->createCommand('
+            SELECT i.*, a.id AS actividad_id 
+            FROM imagen i
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON i.id = ia.IMAGENid 
+            LEFT JOIN actividad a ON ia.ACTIVIDADid = a.id
+        ')->queryAll();
 
         // Si no hay búsqueda, mostrar todas las actividades
         return $this->render('actividades', [
             'actividades' => $query->all(),
             'searchTerm' => '',
-            'dataProvider' => null
+            'dataProvider' => null,            
+            'imgActividades' => $imgActividades,
         ]);
     }
+
     
 
     // Encuentra el modelo de la actividad por ID
@@ -234,25 +247,36 @@ class ActividadesController extends controller
     // Muestra las actividades recomendadas
     public function actionRecomendadas()
     {
-        $actividades = Actividad::find()
-        ->limit(5)
-        ->all();
+        // Usar el componente de base de datos de Yii
+        $masVotadas = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            ORDER BY a.votosOK DESC 
+        ')->queryAll();
+
         return $this->render('actividades_recomendadas', [
-            'actividades' => $actividades
+            'masVotadas' => $masVotadas,
         ]);
     }
+
+
 
     // MOSTRAR ACTIVIDADES MÁS PRÓXIMAS SEGÚN FECHA DE CELEBRACIÓN
     public function actionMasProximas()
     {
-        $actividades = Actividad::find()
-            ->where(['>=', 'fecha_celebracion', new \yii\db\Expression('CURDATE()')]) // Filtrar por la fecha actual
-            ->orderBy(['fecha_celebracion' => SORT_ASC])  // Ordenar por fecha ascendente
-            ->limit(10)  // Limitar a las 10 primeras actividades
-            ->all();
+        $masProximas = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            WHERE a.fecha_celebracion >= CURDATE()
+            ORDER BY a.fecha_celebracion ASC 
+        ')->queryAll();
 
         return $this->render('actividades_mas_proximas', [
-            'actividades' => $actividades,
+            'actividades' => $masProximas,
         ]);
     }
 
@@ -260,13 +284,16 @@ class ActividadesController extends controller
     // MOSTRAR ACTIVIDADES MÁS VISITADAS UTILIZANDO EL CONTADOR DE VISITAS
     public function actionMasVisitadas()
     {
-        $actividades = Actividad::find()
-            ->orderBy(['contador_visitas' => SORT_DESC])
-            ->limit(10)
-            ->all();
+        $masVisitadas = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            ORDER BY a.contador_visitas DESC 
+        ')->queryAll();
 
         return $this->render('actividades_mas_visitadas', [
-            'actividades' => $actividades,
+            'actividades' => $masVisitadas,
         ]);
     }
 
@@ -284,20 +311,20 @@ class ActividadesController extends controller
     }
 
     // Acción para mostrar actividades pasadas en las que ha estado el usuario
-    public function actionActividadesPasadas()
+    public function actionPasadas()
     {
-        $userId = Yii::$app->user->id; // Obtener el ID del usuario actual
-
-        $actividades = Yii::$app->db->createCommand('
-            SELECT a.* FROM ACTIVIDAD a
-            JOIN PARTICIPA p ON a.id = p.ACTIVIDADid
-            WHERE p.USUARIOid = :userId AND a.fecha_celebracion < NOW()
-        ')
-        ->bindValue(':userId', $userId)
-        ->queryAll();
+        $Pasadas = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            WHERE a.fecha_celebracion < CURDATE()
+            ORDER BY a.fecha_celebracion DESC 
+            LIMIT 6
+        ')->queryAll();
 
         return $this->render('actividades_pasadas', [
-            'actividades' => $actividades,
+            'actividades' => $Pasadas,
         ]);
     }
 

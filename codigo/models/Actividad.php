@@ -77,7 +77,7 @@ class Actividad extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getImagen()
+    public function getImagen() 
     {
         return $this->hasOne(ActividadImagen::class, ['ACTIVIDADid' => 'id']);
     }

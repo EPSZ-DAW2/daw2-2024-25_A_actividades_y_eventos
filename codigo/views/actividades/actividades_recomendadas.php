@@ -9,45 +9,52 @@ $this->params['breadcrumbs'][] = ['label' => 'Actividades', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h1><?= Html::encode($this->title) ?></h1>
-
-
+<h1 class="text-center mb-4"><?= Html::encode($this->title) ?></h1>
 
 <div class="actividades-list">
-    <?php if (!empty($actividades)): ?>
-        <div class="list-group">
-            <?php foreach ($actividades as $actividad): ?>
-                <div class="list-group-item">
-                    <div class="actividad">
-                        <?php 
-                            // Si no hay imagen principal, usar la imagen predeterminada
-                            $imagen = !empty($actividad->imagen_principal) ? $actividad->imagen_principal : 'profile_4.jpg'; 
-                        ?>
-                        <div class="actividad-imagen">
-                            <img src="<?= Yii::getAlias('@web/images/perfiles/') . Html::encode($imagen) ?>"
-                                 alt="<?= Html::encode($actividad->titulo) ?>"
-                                 class="img-fluid" style="max-width: 100%; height: 100px;">
+    <?php if (!empty($masVotadas)): ?>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <?php foreach ($masVotadas as $actividad): ?>
+                <div class="col">
+                    <div class="card shadow-sm h-100">
+                        <?php if (!empty($actividad['nombre_Archivo'])): ?>
+                            <img 
+                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
+                                alt="<?= Html::encode($actividad['titulo']) ?>" 
+                                class="card-img-top" 
+                                style="height: 180px; object-fit: cover;"
+                            >
+                        <?php else: ?>
+                            <img 
+                                src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
+                                alt="<?= Html::encode($actividad['titulo']) ?>" 
+                                class="card-img-top" 
+                                style="height: 180px; object-fit: cover;"
+                            >
+                        <?php endif; ?>
+                        <div class="card-body">
+                            <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
+                            <p class="card-text text-muted" style="font-size: 0.9rem;"><?= Html::encode($actividad['descripcion']) ?></p>
+                            <p class="card-text"><strong>Fecha:</strong> <?= Html::encode($actividad['fecha_celebracion']) ?></p>
                         </div>
-
-                        <h3><?= Html::encode($actividad->titulo) ?></h3>
-                        <p><?= Html::encode($actividad->descripcion) ?></p>
-                        <p><strong>Fecha de celebración:</strong> <?= Html::encode($actividad->fecha_celebracion) ?></p>
-                        <p>
-                            <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
-                            <?= Html::a('Editar', ['update', 'id' => $actividad->id], ['class' => 'btn btn-primary']) ?>
-                            <?= Html::a('Eliminar', ['delete', 'id' => $actividad->id], [
-                                'class' => 'btn btn-danger',
+                        <div class="card-footer d-flex justify-content-between">
+                            <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad['id']], ['class' => 'btn btn-info btn-sm']) ?>
+                            <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-primary btn-sm']) ?>
+                            <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
+                                'class' => 'btn btn-danger btn-sm',
                                 'data' => [
                                     'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
                                     'method' => 'post',
                                 ],
                             ]) ?>
-                        </p>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
     <?php else: ?>
-        <p>No hay actividades recomendadas en este momento.</p>
+        <div class="alert alert-warning text-center" role="alert">
+            No hay actividades recomendadas en este momento.
+        </div>
     <?php endif; ?>
 </div>

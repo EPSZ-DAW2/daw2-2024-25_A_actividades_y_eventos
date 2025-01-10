@@ -12,17 +12,23 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="actividades-index">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="text-center mb-4">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
+
     <?php if (!Yii::$app->user->isGuest): ?>
-            <?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success']) ?>
-        <?php endif; ?>
-    <p>
-        <?= Html::a('Actividades Recomendadas', ['actividades/recomendadas'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Actividades Más Cercanas', ['actividades/mas-proximas'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Actividades Más Nuevas', ['actividades/mas-nuevas'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Actividades Más Visitadas', ['actividades/mas-visitadas'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Actividades Pasadas', ['actividades/pasadas-usuario', 'usuarioId' => Yii::$app->user->id], ['class' => 'btn btn-primary']) ?>
-    </p>
+        <div class="text-center mb-4">
+            <?= Html::a('Crear Actividad', ['crear'], ['class' => 'btn btn-success btn-lg']) ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="text-center mb-4">
+        <?= Html::a('Actividades Recomendadas', ['actividades/recomendadas'], ['class' => 'btn btn-primary btn-lg']) ?>
+        <?= Html::a('Actividades Más Cercanas', ['actividades/mas-proximas'], ['class' => 'btn btn-primary btn-lg']) ?>
+        <?= Html::a('Actividades Más Nuevas', ['actividades/mas-nuevas'], ['class' => 'btn btn-primary btn-lg']) ?>
+        <?= Html::a('Actividades Más Visitadas', ['actividades/mas-visitadas'], ['class' => 'btn btn-primary btn-lg']) ?>
+        <?= Html::a('Actividades Pasadas', ['actividades/pasadas'], ['class' => 'btn btn-primary btn-lg']) ?>
+    </div>
 
     <!-- Buscador -->
     <div class="search-container text-center mt-4 mb-4">
@@ -31,13 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="input-group">
-                        <?= Html::textInput('q', 
-                            Yii::$app->request->get('q'), 
-                            [
-                                'class' => 'form-control',
-                                'placeholder' => 'Buscar por título, descripción o lugar...',
-                            ]
-                        ) ?>
+                        <?= Html::textInput('q', Yii::$app->request->get('q'), [
+                            'class' => 'form-control',
+                            'placeholder' => 'Buscar por título, descripción o lugar...',
+                        ]) ?>
                         <div class="input-group-append">
                             <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
                         </div>
@@ -51,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if (isset($dataProvider) && $searchTerm !== ''): ?>
         <div class="search-results mt-4">
             <h3>Resultados de búsqueda para: "<?= Html::encode($searchTerm) ?>"</h3>
-            
+
             <?php if ($dataProvider->getTotalCount() > 0): ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -96,16 +99,44 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-lg-12">
                 <h2>Lista de Actividades</h2>
                 <?php if (!empty($actividades)): ?>
-                    <ul class="list-unstyled">
+                    <div class="row">
                         <?php foreach ($actividades as $actividad): ?>
-                            <li class="mb-4">
-                                <h3><?= Html::encode($actividad->titulo) ?></h3>
-                                <p><?= Html::encode($actividad->descripcion) ?></p>
-                                <p><strong>Fecha de Celebración:</strong> <?= Yii::$app->formatter->asDate($actividad->fecha_celebracion) ?></p>
-                                <?= Html::a('Ver Detalles', ['actividad', 'id' => $actividad->id], ['class' => 'btn btn-info']) ?>
-                            </li>
+                            <div class="col-md-4 mb-4">
+                                <div class="card shadow-sm h-100">
+                                    <?php 
+                                        // Buscar si la actividad tiene una imagen asociada
+                                        $imagen = null;
+                                        foreach ($imgActividades as $img) {
+                                            if ($img['actividad_id'] == $actividad->id) {
+                                                $imagen = $img;
+                                                break;
+                                            }
+                                        }
+
+                                        if ($imagen): ?>
+                                            <img 
+                                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($img['nombre_Archivo'] . '.' . $img['extension'])) ?>"  
+                                                alt="<?= Html::encode($actividad->titulo) ?>" 
+                                                class="card-img-top" style="height: 180px; object-fit: cover;">
+                                        <?php else: ?>
+                                            <img 
+                                                src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>" 
+                                                alt="<?= Html::encode($actividad->titulo) ?>" 
+                                                class="card-img-top" style="height: 180px; object-fit: cover;">
+                                        <?php endif; ?>
+
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?= Html::encode($actividad->titulo) ?></h5>
+                                        <p class="card-text"><?= Html::encode($actividad->descripcion) ?></p>
+                                        <p><strong>Fecha de Celebración:</strong> <?= Yii::$app->formatter->asDate($actividad->fecha_celebracion) ?></p>
+                                    </div>
+                                    <div class="card-footer d-flex justify-content-between">
+                                        <?= Html::a('Ver Detalles', ['actividad', 'id' => $actividad->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                    </div>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
-                    </ul>
+                    </div>
                 <?php else: ?>
                     <p>No hay actividades disponibles en este momento.</p>
                 <?php endif; ?>

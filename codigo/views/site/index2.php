@@ -183,7 +183,7 @@ $this->title = 'Portada';
                             width: 100%; 
                             height: 200px; 
                             object-fit: cover; 
-                        }
+                        } 
                     </style>
                     <div class="row">
                         <?php foreach ($masVotadas as $actividad): ?>
