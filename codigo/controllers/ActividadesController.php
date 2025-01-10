@@ -387,6 +387,13 @@ class ActividadesController extends controller
             WHERE a.id = :id')
             ->bindValue(':id', $id)
             ->queryOne();
+            
+            // Incrementar el contador de visitas de forma atómica
+            Yii::$app->db->createCommand('
+                UPDATE ACTIVIDAD 
+                SET contador_visitas = contador_visitas + 1 
+                WHERE id = :id
+            ')->bindValue(':id', $id)->execute();
 
         if (!$actividad) {
             throw new NotFoundHttpException('La actividad solicitada no existe.');
