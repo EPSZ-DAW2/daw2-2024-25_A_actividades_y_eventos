@@ -126,10 +126,11 @@ class SiteController extends Controller
         }
 
         $imgActividades = $db->createCommand('
-            SELECT i.*, a.id AS actividad_id 
+            SELECT i.*, a.fecha_celebracion, a.id AS actividad_id 
             FROM imagen i
             LEFT JOIN IMAGEN_ACTIVIDAD ia ON i.id = ia.IMAGENid 
             LEFT JOIN actividad a ON ia.ACTIVIDADid = a.id 
+            WHERE a.fecha_celebracion >= CURDATE()
             ORDER BY RAND()
             LIMIT 5
         ')->queryAll();
@@ -153,7 +154,7 @@ class SiteController extends Controller
             LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
             LEFT JOIN imagen i ON ia.IMAGENid = i.id 
             ORDER BY a.votosOK DESC 
-            LIMIT 6
+            LIMIT 4
         ')->queryAll();
 
 
@@ -164,7 +165,7 @@ class SiteController extends Controller
             LEFT JOIN imagen i ON ia.IMAGENid = i.id 
             WHERE a.fecha_celebracion >= CURDATE()
             ORDER BY a.fecha_celebracion ASC 
-            LIMIT 6
+            LIMIT 4
         ')->queryAll();
 
 
@@ -174,7 +175,7 @@ class SiteController extends Controller
             LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
             LEFT JOIN imagen i ON ia.IMAGENid = i.id 
             ORDER BY a.contador_visitas DESC 
-            LIMIT 6
+            LIMIT 4
         ')->queryAll();
         
         // Array con los nombres de las categorías

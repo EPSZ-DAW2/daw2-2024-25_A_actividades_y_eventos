@@ -90,7 +90,7 @@ $this->title = 'Portada';
                             <a href="<?= isset($imagen['id']) ? Yii::$app->urlManager->createUrl(['actividades/actividad', 'id' => $imagen['actividad_id']]) : '#' ?>">
                                 <img src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($imagen['nombre_Archivo'] . '.' . $imagen['extension'])) ?>"
                                     class="d-block w-100 fixed-size" 
-                                    alt="Imagen <?= $index + 1 ?>">
+                                    alt="Imagen <?= $index + 1 ?>"> 
                             </a>
 
                         </div>
@@ -177,7 +177,7 @@ $this->title = 'Portada';
 
                 <!-- Actividades Con más votos -->
                 <div class="activities-section mt-5">
-                    <h2>Actividades Recomendadas</h2>
+                    <h2 class="text-center mb-4">Actividades Recomendadas</h2>
                     <style>
                         .fixed-size-img {
                             width: 100%; 
@@ -185,65 +185,34 @@ $this->title = 'Portada';
                             object-fit: cover; 
                         } 
                     </style>
-                    <div class="row">
-                        <?php foreach ($masVotadas as $actividad): ?>
-                            <div class="col-lg-4 mb-4">
-                                <div class="card h-100">
-                                    <?php if (!empty($actividad['nombre_Archivo'])): ?>
-                                        <img class="card-img-top fixed-size-img" 
-                                            src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
-                                            alt="<?= Html::encode($actividad['titulo']) ?>">
-                                    <?php else: ?>
-                                        <img class="card-img-top fixed-size-img" 
-                                            src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
-                                            alt="<?= Html::encode($actividad['titulo']) ?>">
-                                    <?php endif; ?>
+                    <div class="row justify-content-center">
+                        <?php if (!empty($masVotadas)) {
+                            foreach ($masVotadas as $actividad): ?>
+                                <div class="col-lg-6 mb-5">
+                                    <div class="card h-100 shadow-lg">
+                                        <?php if (!empty($actividad['nombre_Archivo'])): ?>
+                                            <img class="card-img-top" 
+                                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
+                                                alt="<?= Html::encode($actividad['titulo']) ?>"
+                                                style="height: 300px; object-fit: cover;">
+                                        <?php else: ?>
+                                            <img class="card-img-top" 
+                                                src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
+                                                alt="<?= Html::encode($actividad['titulo']) ?>"
+                                                style="height: 300px; object-fit: cover;">
+                                        <?php endif; ?>
 
-                                    <div class="card-body">
-                                        <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
-                                        <p class="card-text"><?= Html::encode($actividad['descripcion']) ?></p>
-                                        <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
-                                                ['class' => 'btn btn-primary']) ?>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-
-                <!-- Actividades más visitadas -->
-                <div class="activities-section mt-5">
-                    <h2>Actividades más visitadas</h2>
-                    <div class="row">
-                    <?php if (!empty($masVisitadas)) {
-                            foreach ($masVisitadas as $actividad): ?>
-                                
-                                    <div class="col-lg-4 mb-4">
-                                        <div class="card h-100">
-                                            <?php if (!empty($actividad['nombre_Archivo'])): ?>
-                                                <img class="card-img-top fixed-size-img" 
-                                                    src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
-                                                    alt="<?= Html::encode($actividad['titulo']) ?>">
-                                            <?php else: ?>
-                                                <img class="card-img-top fixed-size-img" 
-                                                    src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
-                                                    alt="<?= Html::encode($actividad['titulo']) ?>">
-                                            <?php endif; ?>
-
-                                            <div class="card-body">
-                                                <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
-                                                <p class="card-text"><?= Html::encode($actividad['descripcion']) ?></p>
-                                                <p class="card-text">
-                                                    <small class="text-muted">
-                                                        Visitas: <?= Html::encode($actividad['contador_visitas']) ?>
-                                                    </small>
-                                                </p>
-                                                <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
-                                                        ['class' => 'btn btn-primary']) ?>
-                                            </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title text-primary"><?= Html::encode($actividad['titulo']) ?></h4>
+                                            <p class="card-text text-muted"><?= Html::encode($actividad['descripcion']) ?></p>
+                                        </div>
+                                        <div class="card-footer bg-white">
+                                            <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
+                                                    ['class' => 'btn btn-outline-primary btn-block']) ?>
                                         </div>
                                     </div>
-                                <?php  
+                                </div>
+                            <?php  
                             endforeach; 
                         } else { ?>
                             <div class="col-md-12">
@@ -253,38 +222,88 @@ $this->title = 'Portada';
                     </div>
                 </div>
 
-                <!-- Actividades más cercanas -->
+                <!-- Actividades más visitadas -->
                 <div class="activities-section mt-5">
-                    <h2>Actividades más cercanas</h2>
-                    <div class="row">
-                    <?php if (!empty($masProximas)) {
-                            foreach ($masProximas as $actividad):  ?>
-                                    <div class="col-lg-4 mb-4">
-                                        <div class="card h-100">
-                                            <?php if (!empty($actividad['nombre_Archivo'])): ?>
-                                                <img class="card-img-top fixed-size-img" 
-                                                    src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
-                                                    alt="<?= Html::encode($actividad['titulo']) ?>">
-                                            <?php else: ?>
-                                                <img class="card-img-top fixed-size-img" 
-                                                    src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
-                                                    alt="<?= Html::encode($actividad['titulo']) ?>">
-                                            <?php endif; ?>
+                    <h2 class="text-center mb-4">Actividades Más Visitadas</h2>
+                    <div class="row justify-content-center">
+                        <?php if (!empty($masVisitadas)) {
+                            foreach ($masVisitadas as $actividad): ?>
+                                <div class="col-lg-6 mb-5">
+                                    <div class="card h-100 shadow-lg">
+                                        <?php if (!empty($actividad['nombre_Archivo'])): ?>
+                                            <img class="card-img-top" 
+                                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
+                                                alt="<?= Html::encode($actividad['titulo']) ?>"
+                                                style="height: 300px; object-fit: cover;">
+                                        <?php else: ?>
+                                            <img class="card-img-top" 
+                                                src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
+                                                alt="<?= Html::encode($actividad['titulo']) ?>"
+                                                style="height: 300px; object-fit: cover;">
+                                        <?php endif; ?>
 
-                                            <div class="card-body">
-                                                <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
-                                                <p class="card-text"><?= Html::encode($actividad['descripcion']) ?></p>
-                                                <p class="card-text">
-                                                    <small class="text-muted">
-                                                        Fecha de actividad: <?= Html::encode($actividad['fecha_celebracion']) ?>
-                                                    </small>
-                                                </p>
-                                                <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
-                                                        ['class' => 'btn btn-primary']) ?>
-                                            </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title text-primary"><?= Html::encode($actividad['titulo']) ?></h4>
+                                            <p class="card-text text-muted"><?= Html::encode($actividad['descripcion']) ?></p>
+                                            <p class="card-text">
+                                                <small class="text-muted">
+                                                    Visitas: <?= Html::encode($actividad['contador_visitas']) ?>
+                                                </small>
+                                            </p>
+                                        </div>
+                                        <div class="card-footer bg-white">
+                                            <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
+                                                    ['class' => 'btn btn-outline-primary btn-block']) ?>
                                         </div>
                                     </div>
-                                <?php  
+                                </div>
+                            <?php  
+                            endforeach; 
+                        } else { ?>
+                            <div class="col-md-12">
+                                <p class="text-center">No hay actividades más buscadas en este momento.</p>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+
+
+                <!-- Actividades más cercanas -->
+                <div class="activities-section mt-5">
+                    <h2 class="text-center mb-4">Próximas actividades</h2>
+                    <div class="row justify-content-center">
+                        <?php if (!empty($masProximas)) {
+                            foreach ($masProximas as $actividad): ?>
+                                <div class="col-lg-6 mb-5">
+                                    <div class="card h-100 shadow-lg">
+                                        <?php if (!empty($actividad['nombre_Archivo'])): ?>
+                                            <img class="card-img-top" 
+                                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
+                                                alt="<?= Html::encode($actividad['titulo']) ?>"
+                                                style="height: 300px; object-fit: cover;">
+                                        <?php else: ?>
+                                            <img class="card-img-top" 
+                                                src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
+                                                alt="<?= Html::encode($actividad['titulo']) ?>"
+                                                style="height: 300px; object-fit: cover;">
+                                        <?php endif; ?>
+
+                                        <div class="card-body">
+                                            <h4 class="card-title text-primary"><?= Html::encode($actividad['titulo']) ?></h4>
+                                            <p class="card-text text-muted"><?= Html::encode($actividad['descripcion']) ?></p>
+                                            <p class="card-text">
+                                                <small class="text-muted">
+                                                Fecha de actividad: <?= Html::encode($actividad['fecha_celebracion']) ?>
+                                                </small>
+                                            </p>
+                                        </div>
+                                        <div class="card-footer bg-white">
+                                            <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
+                                                    ['class' => 'btn btn-outline-primary btn-block']) ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php  
                             endforeach; 
                         } else { ?>
                             <div class="col-md-12">
