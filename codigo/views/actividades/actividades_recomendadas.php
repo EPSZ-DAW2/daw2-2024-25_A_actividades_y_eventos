@@ -40,9 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                         <div class="card-footer d-flex justify-content-between">
                             <?= Html::a('Ver', 
-                                [Yii::$app->user->hasRole([Roles::MODERADOR]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
+                                [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
                                 ['class' => 'btn btn-info btn-sm']) ?>
-                            <?php if (Yii::$app->user->hasRole([Roles::MODERADOR])): ?>
+                            <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
                                 <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-primary btn-sm']) ?>
                                 <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
                                     'class' => 'btn btn-danger btn-sm',

@@ -1,8 +1,13 @@
 <?php
 use yii\helpers\Html;
+use app\models\Roles;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Actividad */
+
+if (!Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])) {
+    return Yii::$app->response->redirect(['actividades/actividad', 'id' => $model->id]);
+}
 
 $this->title = $model->titulo;
 

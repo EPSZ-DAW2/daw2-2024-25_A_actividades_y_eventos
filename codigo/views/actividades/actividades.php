@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Actividades Recomendadas', ['actividades/recomendadas'], ['class' => 'btn btn-primary btn-lg']) ?>
         <?= Html::a('Actividades Más Cercanas', ['actividades/mas-proximas'], ['class' => 'btn btn-primary btn-lg']) ?>
         <?= Html::a('Actividades Más Visitadas', ['actividades/mas-visitadas'], ['class' => 'btn btn-primary btn-lg']) ?>
+        <?= Html::a('Actividades Más Buscadas', ['actividades/mas-buscadas'], ['class' => 'btn btn-primary btn-lg']) ?>
         <?= Html::a('Actividades Pasadas', ['actividades/pasadas'], ['class' => 'btn btn-primary btn-lg']) ?>
     </div>
 

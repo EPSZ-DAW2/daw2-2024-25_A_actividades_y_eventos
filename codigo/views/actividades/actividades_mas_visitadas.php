@@ -38,9 +38,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </small>
                             </p>
                             <?= Html::a('Ver más', 
-                                [Yii::$app->user->hasRole([Roles::MODERADOR]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']], 
+                                [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']], 
                                 ['class' => 'btn btn-primary']) ?>
-                            <?php if (Yii::$app->user->hasRole([Roles::MODERADOR])): ?>
+                            <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
                                 <?= Html::a('Editar', ['editar', 'id' => $actividad['id']], ['class' => 'btn btn-warning']) ?>
                                 <?= Html::a('Eliminar', ['eliminar', 'id' => $actividad['id']], [
                                     'class' => 'btn btn-danger',
