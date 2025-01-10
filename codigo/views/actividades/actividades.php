@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
+use app\models\Roles;
 
 $this->title = 'Actividades';
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,16 +24,46 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endif; ?>
 
     <div class="text-center mb-4">
-        <?= Html::a('Actividades Recomendadas', ['actividades/recomendadas'], ['class' => 'btn btn-primary btn-lg']) ?>
-        <?= Html::a('Actividades Más Cercanas', ['actividades/mas-proximas'], ['class' => 'btn btn-primary btn-lg']) ?>
-        <?= Html::a('Actividades Más Visitadas', ['actividades/mas-visitadas'], ['class' => 'btn btn-primary btn-lg']) ?>
-        <?= Html::a('Actividades Más Buscadas', ['actividades/mas-buscadas'], ['class' => 'btn btn-primary btn-lg']) ?>
-        <?= Html::a('Actividades Pasadas', ['actividades/pasadas'], ['class' => 'btn btn-primary btn-lg']) ?>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 justify-content-center">
+            <div class="col">
+                <a href="<?= Yii::$app->urlManager->createUrl(['actividades/recomendadas']) ?>" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="bi bi-star me-2"></i> Actividades Recomendadas
+                </a>
+            </div>
+            <div class="col">
+                <a href="<?= Yii::$app->urlManager->createUrl(['actividades/mas-proximas']) ?>" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="bi bi-geo-alt me-2"></i> Actividades Más Cercanas
+                </a>
+            </div>
+            <div class="col">
+                <a href="<?= Yii::$app->urlManager->createUrl(['actividades/mas-visitadas']) ?>" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="bi bi-eye me-2"></i> Actividades Más Visitadas
+                </a>
+            </div>
+            <div class="col">
+                <a href="<?= Yii::$app->urlManager->createUrl(['actividades/mas-buscadas']) ?>" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="bi bi-search me-2"></i> Actividades Más Buscadas
+                </a>
+            </div>
+            <div class="col">
+                <a href="<?= Yii::$app->urlManager->createUrl(['actividades/pasadas']) ?>" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="bi bi-calendar-x me-2"></i> Actividades Pasadas
+                </a>
+            </div>
+            <div class="col">
+                <a href="<?= Yii::$app->urlManager->createUrl(['actividades/nuevas']) ?>" class="btn btn-outline-primary btn-lg w-100">
+                    <i class="bi bi-plus-circle me-2"></i> Actividades Nuevas
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="text-center mb-4">
-        <?= Html::a('Actividades por Etiquetas', ['actividades/actividades-etiquetas'], ['class' => 'btn btn-info btn-lg']) ?>
+        <a href="<?= Yii::$app->urlManager->createUrl(['actividades/actividades-etiquetas']) ?>" class="btn btn-outline-info btn-lg">
+            <i class="bi bi-tags me-2"></i> Actividades por Etiquetas
+        </a>
     </div>
+
 
     <!-- Buscador -->
     <div class="search-container text-center mt-4 mb-4">
@@ -138,17 +169,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="actividad-info">
                                         <p><strong>Fecha de Celebración:</strong> <?= Yii::$app->formatter->asDate($actividad->fecha_celebracion) ?></p>
                                         <p class="card-text"><strong>Lugar:</strong> <?= Html::encode($actividad['lugar_celebracion'] ?? 'No especificado') ?></p>
-                            <p class="card-text"><strong>Duración estimada:</strong> <?= Html::encode($actividad['duracion_estimada'] ?? 'No especificado') ?> minutos</p>
-                            <?php if ($actividad['edad_recomendada'] > 0): ?>
-                                <p class="card-text"><strong>Edad recomendada:</strong> <?= Html::encode($actividad['edad_recomendada'] ?? 'No especificado') ?></p>
-                            <?php endif; ?>
-                            <?php if ($actividad['contador_visitas'] > 0): ?>
-                                <p class="card-text"><strong>Visitas:</strong> <?= Html::encode($actividad['contador_visitas']) ?></p>
-                            <?php endif; ?>
-                            <p class="card-text"><strong>Para más información haga clic en Ver Detalles y podrá informarse al completo y se actualizarán los cambios que puedan surgir</strong></p>
+                                        <p class="card-text"><strong>Duración estimada:</strong> <?= Html::encode($actividad['duracion_estimada'] ?? 'No especificado') ?> minutos</p>
+                                        <?php if ($actividad['edad_recomendada'] > 0): ?>
+                                            <p class="card-text"><strong>Edad recomendada:</strong> <?= Html::encode($actividad['edad_recomendada'] ?? 'No especificado') ?></p>
+                                        <?php endif; ?>
+                                        <?php if ($actividad['contador_visitas'] > 0): ?>
+                                            <p class="card-text"><strong>Visitas:</strong> <?= Html::encode($actividad['contador_visitas']) ?></p>
+                                        <?php endif; ?>
+                                        <p class="card-text"><strong>Para más información haga clic en Ver Detalles y podrá informarse al completo y se actualizarán los cambios que puedan surgir</strong></p>
                                     </div>
+                                    
                                     <div class="card-footer d-flex justify-content-between">
-                                        <?= Html::a('Ver Detalles', ['actividad', 'id' => $actividad->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                        <?= Html::a('Ver más', 
+                                            [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']], 
+                                            ['class' => 'btn btn-primary']) ?>
+                                        <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
+                                            <?= Html::a('Editar', ['editar', 'id' => $actividad['id']], ['class' => 'btn btn-warning']) ?>
+                                            <?= Html::a('Eliminar', ['eliminar', 'id' => $actividad['id']], [
+                                                'class' => 'btn btn-danger',
+                                                'data' => [
+                                                    'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
+                                                    'method' => 'post',
+                                                ],
+                                            ]) ?>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>

@@ -268,19 +268,47 @@ class ActividadesController extends controller
     // MOSTRAR ACTIVIDADES MÁS PRÓXIMAS SEGÚN FECHA DE CELEBRACIÓN
     public function actionMasProximas()
     {
-        $masProximas = Yii::$app->db->createCommand('
+        // Consultar actividades de este mes
+        $actividadesEsteMes = Yii::$app->db->createCommand('
             SELECT a.*, i.nombre_Archivo, i.extension 
             FROM actividad a 
             LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
             LEFT JOIN imagen i ON ia.IMAGENid = i.id 
-            WHERE a.fecha_celebracion >= CURDATE()
-            ORDER BY a.fecha_celebracion ASC 
+            WHERE a.fecha_celebracion >= CURDATE() 
+            AND MONTH(a.fecha_celebracion) = MONTH(CURDATE())
+            ORDER BY a.fecha_celebracion ASC
+        ')->queryAll();
+
+        // Consultar actividades del siguiente mes
+        $actividadesProximoMes = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            WHERE a.fecha_celebracion >= CURDATE() 
+            AND MONTH(a.fecha_celebracion) = MONTH(CURDATE()) + 1
+            ORDER BY a.fecha_celebracion ASC
+        ')->queryAll();
+
+        // Consultar las próximas 3 actividades después de las de este mes y del siguiente
+        $actividadesSiguientes = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            WHERE a.fecha_celebracion > LAST_DAY(CURDATE() + INTERVAL 1 MONTH)
+            ORDER BY a.fecha_celebracion ASC
+            LIMIT 3
         ')->queryAll();
 
         return $this->render('actividades_mas_proximas', [
-            'actividades' => $masProximas,
+            'actividadesEsteMes' => $actividadesEsteMes,
+            'actividadesProximoMes' => $actividadesProximoMes,
+            'actividadesSiguientes' => $actividadesSiguientes,
         ]);
     }
+
+
 
     
     // MOSTRAR ACTIVIDADES MÁS VISITADAS UTILIZANDO EL CONTADOR DE VISITAS
@@ -291,7 +319,8 @@ class ActividadesController extends controller
             FROM actividad a 
             LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
             LEFT JOIN imagen i ON ia.IMAGENid = i.id 
-            ORDER BY a.contador_visitas DESC 
+            WHERE a.contador_visitas > 0
+            ORDER BY a.contador_visitas DESC
         ')->queryAll();
 
         return $this->render('actividades_mas_visitadas', [
@@ -302,10 +331,15 @@ class ActividadesController extends controller
     // MOSTRAR LAS MÁS BUSCADAS UTILIZANDO EL VOTOS OK
     public function actionMasBuscadas()
     {
-        $actividades = Actividad::find()
-            ->orderBy(['votosOK' => SORT_DESC])
-            ->limit(10)
-            ->all();
+        $actividades = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            WHERE a.contador_visitas > 1
+            ORDER BY a.contador_visitas DESC
+        ')->queryAll();
+
 
         return $this->render('actividades_mas_buscadas', [
             'actividades' => $actividades,
@@ -327,6 +361,23 @@ class ActividadesController extends controller
 
         return $this->render('actividades_pasadas', [
             'actividades' => $Pasadas,
+        ]);
+    }
+
+    // Acción para mostrar actividades pasadas en las que ha estado el usuario
+    public function actionNuevas()
+    {
+        $Nuevas = Yii::$app->db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            ORDER BY a.id DESC 
+            LIMIT 6
+        ')->queryAll();
+
+        return $this->render('actividades_nuevas', [
+            'actividades' => $Nuevas,
         ]);
     }
 

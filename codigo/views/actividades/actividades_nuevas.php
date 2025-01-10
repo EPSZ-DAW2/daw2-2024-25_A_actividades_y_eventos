@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 use app\models\Roles;
 
-$this->title = 'Actividades Más Buscadas';
+$this->title = 'Nuevas actividades';
 $this->params['breadcrumbs'][] = ['label' => 'Actividades', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($actividades as $actividad): ?>
                 <div class="col">
-                    <div class="card shadow-sm h-100 actividad-card" style="position: relative;">
+                    <div class="card shadow-sm h-100 actividad-card" style = "position: relative;">
                         <?php if (!empty($actividad['nombre_Archivo'])): ?>
                             <img 
                                 src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
@@ -36,26 +36,31 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="card-body">
                             <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
                             <p class="card-text text-muted" style="font-size: 0.9rem;"><?= Html::encode($actividad['descripcion']) ?></p>
+                            <p class="card-text"><strong>Votos:</strong> <?= Html::encode($actividad['votosOK']) ?></p>
                         </div>
 
                         <!-- Información adicional que aparece al pasar el ratón -->
                         <div class="actividad-info">
-                            <p><strong>Fecha de Celebración:</strong> <?= Yii::$app->formatter->asDate($actividad['fecha_celebracion']) ?></p>
+                            <p class="card-text"><strong>Fecha:</strong> <?= Html::encode($actividad['fecha_celebracion']) ?></p>
                             <p class="card-text"><strong>Lugar:</strong> <?= Html::encode($actividad['lugar_celebracion'] ?? 'No especificado') ?></p>
                             <p class="card-text"><strong>Duración estimada:</strong> <?= Html::encode($actividad['duracion_estimada'] ?? 'No especificado') ?> minutos</p>
                             <?php if ($actividad['edad_recomendada'] > 0): ?>
                                 <p class="card-text"><strong>Edad recomendada:</strong> <?= Html::encode($actividad['edad_recomendada'] ?? 'No especificado') ?></p>
                             <?php endif; ?>
-                            <p class="card-text"><strong>Para más información haga clic en Ver Detalles y podrá informarse al completo y se actualizarán los cambios que puedan surgir</strong></p>
+                            <?php if ($actividad['contador_visitas'] > 0): ?>
+                                <p class="card-text"><strong>Visitas:</strong> <?= Html::encode($actividad['contador_visitas']) ?></p>
+                            <?php endif; ?>
+                            <p class="card-text"><strong>Para más información haga clic en ver y podrá informarse al completo y se actualizarán los cambios que puedan surgir</strong></p>
                         </div>
+
                         <div class="card-footer d-flex justify-content-between">
-                            <?= Html::a('Ver más', 
-                                [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']], 
+                            <?= Html::a('Ver', 
+                                [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
                                 ['class' => 'btn btn-primary']) ?>
                             <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
-                                <?= Html::a('Editar', ['editar', 'id' => $actividad['id']], ['class' => 'btn btn-warning']) ?>
-                                <?= Html::a('Eliminar', ['eliminar', 'id' => $actividad['id']], [
-                                    'class' => 'btn btn-danger',
+                                <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-warning ']) ?>
+                                <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
+                                    'class' => 'btn btn-danger ',
                                     'data' => [
                                         'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
                                         'method' => 'post',
@@ -67,12 +72,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             <?php endforeach; ?>
         </div>
-        <?php else: ?>
-            <div class="alert alert-warning text-center" role="alert">
-                No hay actividades más visitadas en este momento.
-            </div>
-        <?php endif; ?>
-    </div>
+    <?php else: ?>
+        <div class="alert alert-warning text-center" role="alert">
+            No hay actividades recomendadas en este momento.
+        </div>
+    <?php endif; ?>
+</div>
 
 <?php
 $this->registerCss("

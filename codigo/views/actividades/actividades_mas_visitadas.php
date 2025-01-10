@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <p class="card-text"><strong>Para más información haga clic en ver y podrá informarse al completo y se actualizarán los cambios que puedan surgir</strong></p>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                        <?= Html::a('Ver más', 
+                            <?= Html::a('Ver más', 
                                 [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']], 
                                 ['class' => 'btn btn-primary']) ?>
                             <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>

@@ -56,11 +56,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="card-footer d-flex justify-content-between">
                             <?= Html::a('Ver', 
                                 [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
-                                ['class' => 'btn btn-info btn-sm']) ?>
+                                ['class' => 'btn btn-primary']) ?>
                             <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
-                                <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-primary btn-sm']) ?>
+                                <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-warning ']) ?>
                                 <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
-                                    'class' => 'btn btn-danger btn-sm',
+                                    'class' => 'btn btn-danger ',
                                     'data' => [
                                         'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
                                         'method' => 'post',

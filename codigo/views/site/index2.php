@@ -19,39 +19,11 @@ $this->title = 'Portada';
                 Selecciona un Filtro
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <?php foreach ($categorias as $categoria): ?>
+                <?php foreach ($categorias as $categoria => $url): ?>
                     <li>
-                        <?php if (strtolower($categoria) === 'recomendadas'): ?>
-                            <!-- Enlace específico para la categoría "Recomendadas" -->
-                            <a class="dropdown-item" href="<?= Yii::$app->urlManager->createUrl(['actividades/recomendadas']) ?>">
-                                <?= Html::encode($categoria) ?>
-                            </a>
-                        <?php elseif (strtolower($categoria) === 'próximas'): ?>
-                            <!-- Enlace específico para la categoría "Próximas" -->
-                            <a class="dropdown-item" href="<?= Yii::$app->urlManager->createUrl(['actividades/mas-proximas']) ?>">
-                                <?= Html::encode($categoria) ?>
-                            </a>
-                        <?php elseif (strtolower($categoria) === 'mas buscadas'): ?>
-                            <!-- Enlace específico para la categoría "Mas Buscadas" -->
-                            <a class="dropdown-item" href="<?= Yii::$app->urlManager->createUrl(['actividades/mas-buscadas']) ?>">
-                                <?= Html::encode($categoria) ?>
-                            </a>
-                        <?php elseif (strtolower($categoria) === 'más visitadas'): ?>
-                            <!-- Enlace específico para la categoría "Mas Visitadas" -->
-                            <a class="dropdown-item" href="<?= Yii::$app->urlManager->createUrl(['actividades/mas-visitadas']) ?>">
-                                <?= Html::encode($categoria) ?>
-                            </a>
-                        <?php elseif (strtolower($categoria) === 'pasadas'): ?>
-                            <!-- Enlace específico para la categoría "Pasadas" -->
-                            <a class="dropdown-item" href="<?= Yii::$app->urlManager->createUrl(['actividades/actividades-pasadas']) ?>">
-                                <?= Html::encode($categoria) ?>
-                            </a>
-                        <?php else: ?>
-                            <!-- Enlaces genéricos para otras categorías -->
-                            <a class="dropdown-item" href="<?= Yii::$app->urlManager->createUrl(['site/' . strtolower(str_replace(' ', '_', $categoria))]) ?>">
-                                <?= Html::encode($categoria) ?>
-                            </a>
-                        <?php endif; ?>
+                        <a class="dropdown-item" href="<?= Yii::$app->urlManager->createUrl([$url]) ?>">
+                            <?= Html::encode($categoria) ?>
+                        </a>
                     </li>
                 <?php endforeach; ?>
             </ul>
