@@ -16,7 +16,7 @@ $this->title = 'Portada';
         <!-- Menú desplegable para categorías -->
         <div class="dropdown mb-4 text-center">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Selecciona una Categoría
+                Selecciona un Filtro
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <?php foreach ($categorias as $categoria): ?>

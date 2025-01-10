@@ -24,4 +24,8 @@ $this->title = $name;
         Por favor contáctenos si cree que esto es un error del servidor. Gracias.
     </p>
 
+    <div style="text-align: center;">
+            <img src="https://media.giphy.com/media/14uQ3cOFteDaU/giphy.gif" alt="Error Gif">
+    </div>
+
 </div>
