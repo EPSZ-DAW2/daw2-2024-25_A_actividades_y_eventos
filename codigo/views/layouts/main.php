@@ -67,13 +67,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <!-- Menú de navegación principal -->
             <div class="navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <?= Html::a('Sobre nosotros', ['/site/about'], ['class' => 'nav-link']) ?>
-                    </li>
-                    <li class="nav-item">
-                        <?= Html::a('Contacto', ['/site/contact'], ['class' => 'nav-link']) ?>
-                    </li>
-                    <?php if (!Yii::$app->user->isGuest): ?>
+                <?php if (!Yii::$app->user->isGuest): ?>
                         <li class="nav-item">
                             <?= Html::a('Actividades', ['/actividades/index'], ['class' => 'nav-link']) ?>
                         </li>
@@ -83,7 +77,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             <?= Html::a('Actividades apuntado', ['/actividades/mis-actividades'], ['class' => 'nav-link']) ?>
                         </li>
                     <?php endif; ?>
-
+                    <li class="nav-item">
+                        <?= Html::a('Sobre nosotros', ['/site/about'], ['class' => 'nav-link']) ?>
+                    </li>
+                    <li class="nav-item">
+                        <?= Html::a('Contacto', ['/site/contact'], ['class' => 'nav-link']) ?>
+                    </li>
                 </ul>
 
                 <!-- Opciones para usuarios logueados o no -->
