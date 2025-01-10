@@ -125,6 +125,27 @@ class SiteController extends Controller
             ]);
         }
 
+        $imgActividades = $db->createCommand('
+            SELECT i.*, a.id AS actividad_id 
+            FROM imagen i
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON i.id = ia.IMAGENid 
+            LEFT JOIN actividad a ON ia.ACTIVIDADid = a.id 
+            ORDER BY RAND()
+            LIMIT 5
+        ')->queryAll();
+
+
+
+        /*$imgActividades = $db->createCommand('
+            SELECT a.*, i.nombre_Archivo, i.extension 
+            FROM actividad a 
+            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
+            LEFT JOIN imagen i ON ia.IMAGENid = i.id 
+            ORDER BY RAND()
+            LIMIT 5
+        ')->queryAll();*/
+
+
         // Obtener actividades ordenadas por diferentes criterios
         $masVotadas = $db->createCommand('
             SELECT a.*, i.nombre_Archivo, i.extension 
@@ -156,13 +177,24 @@ class SiteController extends Controller
             LIMIT 6
         ')->queryAll();
         
+        // Array con los nombres de las categorías
+        $categorias = [
+            'Mas Buscadas',
+            'Próximas',
+            'Más Visitadas',
+            'Pasadas',
+            'Recomendadas',
+        ];
+
 
         return $this->render('index2', [
             'searchProvider' => $searchProvider,
             'searchTerm' => $searchTerm,
+            'imgActividades' => $imgActividades,
             'masVotadas' => $masVotadas, 
             'masProximas' => $masProximas,
             'masVisitadas' => $masVisitadas,
+            'categorias' => $categorias,
         ]);
     }
 

@@ -57,16 +57,7 @@ class ActividadesController extends controller
             'dataProvider' => null
         ]);
     }
-    // Muestra las actividades recomendadas
-    public function actionRecomendadas()
-    {
-        $actividades = Actividad::find()
-        ->limit(5)
-        ->all();
-        return $this->render('actividades_recomendadas', [
-            'actividades' => $actividades
-        ]);
-    }
+    
 
     // Encuentra el modelo de la actividad por ID
     protected function findModel($id)
@@ -236,6 +227,18 @@ class ActividadesController extends controller
         return $this->render('vista_etiquetas_actividad', [
             'etiquetas' => $etiquetas,
             'id' => $id,
+        ]);
+    }
+
+
+    // Muestra las actividades recomendadas
+    public function actionRecomendadas()
+    {
+        $actividades = Actividad::find()
+        ->limit(5)
+        ->all();
+        return $this->render('actividades_recomendadas', [
+            'actividades' => $actividades
         ]);
     }
 
