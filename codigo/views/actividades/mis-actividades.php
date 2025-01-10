@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $actividades array */
 
-$this->title = 'Mis Actividades';
+$this->title = 'Actividades en las que estoy apuntado';
 ?>
 <div class="mis-actividades">
     <h1><?= Html::encode($this->title) ?></h1>

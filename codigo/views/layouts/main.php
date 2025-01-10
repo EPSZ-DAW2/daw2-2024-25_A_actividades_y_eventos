@@ -62,9 +62,15 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                     </li>
                     <?php if (!Yii::$app->user->isGuest): ?>
                         <li class="nav-item">
-                            <?= Html::a('Mis actividades', ['/actividades/mis-actividades'], ['class' => 'nav-link']) ?>
+                            <?= Html::a('Actividades', ['/actividades/index'], ['class' => 'nav-link']) ?>
                         </li>
                     <?php endif; ?>
+                    <?php if (!Yii::$app->user->isGuest): ?>
+                        <li class="nav-item">
+                            <?= Html::a('Actividades apuntado', ['/actividades/mis-actividades'], ['class' => 'nav-link']) ?>
+                        </li>
+                    <?php endif; ?>
+
                 </ul>
 
                 <!-- Opciones para usuarios logueados o no -->

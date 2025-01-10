@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="text-center mb-4">
         <?= Html::a('Actividades Recomendadas', ['actividades/recomendadas'], ['class' => 'btn btn-primary btn-lg']) ?>
         <?= Html::a('Actividades Más Cercanas', ['actividades/mas-proximas'], ['class' => 'btn btn-primary btn-lg']) ?>
-        <?= Html::a('Actividades Más Nuevas', ['actividades/mas-nuevas'], ['class' => 'btn btn-primary btn-lg']) ?>
         <?= Html::a('Actividades Más Visitadas', ['actividades/mas-visitadas'], ['class' => 'btn btn-primary btn-lg']) ?>
+        <?= Html::a('Actividades Más Buscadas', ['actividades/mas-buscadas'], ['class' => 'btn btn-primary btn-lg']) ?>
         <?= Html::a('Actividades Pasadas', ['actividades/pasadas'], ['class' => 'btn btn-primary btn-lg']) ?>
     </div>
 
@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="row">
                         <?php foreach ($actividades as $actividad): ?>
                             <div class="col-md-4 mb-4">
-                                <div class="card shadow-sm h-100">
+                                <div class="card shadow-sm h-100 actividad-card" style="position: relative;">
                                     <?php 
                                         // Buscar si la actividad tiene una imagen asociada
                                         $imagen = null;
@@ -128,7 +128,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="card-body">
                                         <h5 class="card-title"><?= Html::encode($actividad->titulo) ?></h5>
                                         <p class="card-text"><?= Html::encode($actividad->descripcion) ?></p>
+                                    </div>
+                                    
+                                    <!-- Información adicional que aparece al pasar el ratón -->
+                                    <div class="actividad-info">
                                         <p><strong>Fecha de Celebración:</strong> <?= Yii::$app->formatter->asDate($actividad->fecha_celebracion) ?></p>
+                                        <p class="card-text"><strong>Lugar:</strong> <?= Html::encode($actividad['lugar_celebracion'] ?? 'No especificado') ?></p>
+                            <p class="card-text"><strong>Duración estimada:</strong> <?= Html::encode($actividad['duracion_estimada'] ?? 'No especificado') ?> minutos</p>
+                            <?php if ($actividad['edad_recomendada'] > 0): ?>
+                                <p class="card-text"><strong>Edad recomendada:</strong> <?= Html::encode($actividad['edad_recomendada'] ?? 'No especificado') ?></p>
+                            <?php endif; ?>
+                            <?php if ($actividad['contador_visitas'] > 0): ?>
+                                <p class="card-text"><strong>Visitas:</strong> <?= Html::encode($actividad['contador_visitas']) ?></p>
+                            <?php endif; ?>
+                            <p class="card-text"><strong>Para más información haga clic en Ver Detalles y podrá informarse al completo y se actualizarán los cambios que puedan surgir</strong></p>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between">
                                         <?= Html::a('Ver Detalles', ['actividad', 'id' => $actividad->id], ['class' => 'btn btn-info btn-sm']) ?>
@@ -154,6 +167,36 @@ $this->registerCss("
     }
     .activity-title:hover {
         text-decoration: underline;
+    }
+
+    .actividad-card {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .actividad-info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 10px;
+        font-size: 0.9rem;
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .actividad-card:hover .actividad-info {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .card-footer {
+        position: relative;
+        z-index: 20; /* Asegura que los botones queden interactivos */
     }
 ");
 ?>
