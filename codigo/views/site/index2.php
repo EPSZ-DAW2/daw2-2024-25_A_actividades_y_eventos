@@ -116,6 +116,11 @@ $this->title = 'Portada';
                         height: 600px; 
                         object-fit: cover; 
                     }
+                    /* para que no se vean los numeros en el carrousel */
+                    .carousel-indicators [data-bs-target] {
+                        color: transparent;
+                        border: 0;
+                    }
                 </style>
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
                     <ol class="carousel-indicators">
