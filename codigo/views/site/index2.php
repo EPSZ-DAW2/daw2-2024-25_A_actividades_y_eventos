@@ -25,6 +25,12 @@ $this->title = 'Portada';
                     <ul class="nav flex-column">
                         <?php foreach ($categorias as $categoria => $url): ?>
                             <li class="nav-item">
+                            <style>
+                                .nav-link:hover {
+                                    color: black !important; 
+                                    background-color: #d0e0f0 !important;
+                                }
+                            </style>
                                 <a class="nav-link btn btn-outline-primary btn-lg w-100" href="<?= Yii::$app->urlManager->createUrl([$url]) ?>" style="font-size: 18px; padding: 12px; border-radius: 5px; transition: background-color 0.3s ease;">
                                     <!-- Añadir el ícono solo si la categoría tiene una condición -->
                                     <?php if ($categoria == 'Más Visitadas'): ?>
