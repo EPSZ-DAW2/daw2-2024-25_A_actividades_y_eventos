@@ -75,7 +75,6 @@ $this->title = 'Mis Notificaciones';
                 'delete' => function ($url, $model) {
                     return Html::a('Eliminar', ['notificacion/eliminar', 'id' => $model->id], [
                         'class' => 'btn btn-danger',
-                        'data-confirm' => '¿Está seguro de que desea eliminar esta notificación?',
                         'data-method' => 'post',
                     ]);
                 },
@@ -83,3 +82,17 @@ $this->title = 'Mis Notificaciones';
         ],
     ],
 ]); ?>
+
+<?php
+$this->registerJs("
+    $('.btn-danger').on('click', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        if (confirm('¿Está seguro de que desea eliminar esta notificación?')) {
+            $.post(url, function() {
+                location.reload();
+            });
+        }
+    });
+");
+?>
