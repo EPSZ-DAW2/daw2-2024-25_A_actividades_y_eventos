@@ -12,37 +12,29 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h1 class="text-center mb-4"><?= Html::encode($this->title) ?></h1>
 
-<div class="activities-section mt-5">
-    <div class="row">
-        <?php if (!empty($actividades)): ?>
+<div class="actividades-list">
+    <?php if (!empty($actividades)): ?>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             <?php foreach ($actividades as $actividad): ?>
-<<<<<<< Updated upstream
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100">
-=======
-<<<<<<< HEAD
                 <div class="col">
                     <div class="card shadow-sm h-100 actividad-card" style="position: relative;">
-=======
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100">
->>>>>>> e6cc2b2b4d9b7e393aa895f88d893cc7a67bc7a9
->>>>>>> Stashed changes
                         <?php if (!empty($actividad['nombre_Archivo'])): ?>
-                            <img class="card-img-top fixed-size-img" 
-                                 src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
-                                 alt="<?= Html::encode($actividad['titulo']) ?>">
+                            <img 
+                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($actividad['nombre_Archivo'] . '.' . $actividad['extension'])) ?>"
+                                alt="<?= Html::encode($actividad['titulo']) ?>" 
+                                class="card-img-top" 
+                                style="height: 180px; object-fit: cover;"
+                            >
                         <?php else: ?>
-                            <img class="card-img-top fixed-size-img" 
-                                 src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
-                                 alt="<?= Html::encode($actividad['titulo']) ?>">
+                            <img 
+                                src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
+                                alt="<?= Html::encode($actividad['titulo']) ?>" 
+                                class="card-img-top" 
+                                style="height: 180px; object-fit: cover;"
+                            >
                         <?php endif; ?>
-
                         <div class="card-body">
                             <h5 class="card-title"><?= Html::encode($actividad['titulo']) ?></h5>
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
                             <p class="card-text text-muted" style="font-size: 0.9rem;"><?= Html::encode($actividad['descripcion']) ?></p>
                             <?php if ($actividad['contador_visitas'] > 0): ?>
                                 <p class="card-text"><strong>Visitas:</strong> <?= Html::encode($actividad['contador_visitas']) ?></p>
@@ -57,19 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php if ($actividad['edad_recomendada'] > 0): ?>
                                 <p class="card-text"><strong>Edad recomendada:</strong> <?= Html::encode($actividad['edad_recomendada'] ?? 'No especificado') ?></p>
                             <?php endif; ?>
-                            <?php if ($actividad['votosOK'] > 0): ?>
-                                <p class="card-text"><strong>Votos:</strong> <?= Html::encode($actividad['votosOK']) ?></p>
-                            <?php endif; ?>
                             <p class="card-text"><strong>Para más información haga clic en ver y podrá informarse al completo y se actualizarán los cambios que puedan surgir</strong></p>
                         </div>
 
                         <div class="card-footer d-flex justify-content-between">
-                            <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad['id']], ['class' => 'btn btn-info btn-sm']) ?>
-=======
->>>>>>> Stashed changes
-                            <p class="card-text"><?= Html::encode($actividad['descripcion']) ?></p>
-                            <?= Html::a('Ver más', 
-                                [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']], 
+                        <?= Html::a('Ver más', 
+                                [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']],
                                 ['class' => 'btn btn-primary']) ?>
                             <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
                                 <?= Html::a('Editar', ['editar', 'id' => $actividad['id']], ['class' => 'btn btn-warning']) ?>
@@ -81,21 +66,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                 ]) ?>
                             <?php endif; ?>
-<<<<<<< Updated upstream
-=======
->>>>>>> e6cc2b2b4d9b7e393aa895f88d893cc7a67bc7a9
->>>>>>> Stashed changes
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
+        </div>
         <?php else: ?>
             <div class="alert alert-warning text-center" role="alert">
                 No hay actividades más visitadas en este momento.
             </div>
         <?php endif; ?>
     </div>
-</div>
 
 <?php
 $this->registerCss("
