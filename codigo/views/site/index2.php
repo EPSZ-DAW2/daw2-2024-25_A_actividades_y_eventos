@@ -67,46 +67,6 @@ $this->title = 'Portada';
                     <h1 class="display-4"> ¡Bienvenido/a, <?= Html::encode(Yii::$app->user->identity->nick ?? 'Usuario') ?>!</h1>
                 </div>
 
-                <!-- Carrusel de imágenes -->
-                <style>
-                    .size-carrusel {
-                        width: 100%; 
-                        height: 600px; 
-                        object-fit: cover; 
-                    }
-                </style>
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
-                    <ol class="carousel-indicators">
-                        <?php foreach ($imgActividades as $index => $imagen): ?>
-                            <li data-bs-target="#carouselExampleIndicators" 
-                                data-bs-slide-to="<?= $index ?>" 
-                                class="<?= $index === 0 ? 'active' : '' ?>"></li>
-                        <?php endforeach; ?>
-                    </ol>
-
-                    <div class="carousel-inner">
-                    <?php foreach ($imgActividades as $index => $imagen): ?>
-                        <div class="carousel-item <?= $index === 0 ? 'active' : '' ?> size-carrusel">
-                            <a href="<?= isset($imagen['id']) ? Yii::$app->urlManager->createUrl(['actividades/actividad', 'id' => $imagen['actividad_id']]) : '#' ?>">
-                                <img src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($imagen['nombre_Archivo'] . '.' . $imagen['extension'])) ?>"
-                                    class="d-block w-100 fixed-size" 
-                                    alt="Imagen <?= $index + 1 ?>"> 
-                            </a>
-
-                        </div>
-                    <?php endforeach; ?>
-
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Anterior</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Siguiente</span>
-                    </a>
-                </div>
-
                 <!-- Buscador -->
                 <div class="search-container text-center mt-4">
                     <h2>Buscar Actividades</h2>
@@ -174,6 +134,50 @@ $this->title = 'Portada';
                         <?php endif; ?>
                     </div>
                 <?php endif; ?>
+
+                </br></br>
+
+                <!-- Carrusel de imágenes -->
+                <style>
+                    .size-carrusel {
+                        width: 100%; 
+                        height: 600px; 
+                        object-fit: cover; 
+                    }
+                </style>
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                    <ol class="carousel-indicators">
+                        <?php foreach ($imgActividades as $index => $imagen): ?>
+                            <li data-bs-target="#carouselExampleIndicators" 
+                                data-bs-slide-to="<?= $index ?>" 
+                                class="<?= $index === 0 ? 'active' : '' ?>"></li>
+                        <?php endforeach; ?>
+                    </ol>
+
+                    <div class="carousel-inner">
+                    <?php foreach ($imgActividades as $index => $imagen): ?>
+                        <div class="carousel-item <?= $index === 0 ? 'active' : '' ?> size-carrusel">
+                            <a href="<?= isset($imagen['id']) ? Yii::$app->urlManager->createUrl(['actividades/actividad', 'id' => $imagen['actividad_id']]) : '#' ?>">
+                                <img src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($imagen['nombre_Archivo'] . '.' . $imagen['extension'])) ?>"
+                                    class="d-block w-100 fixed-size" 
+                                    alt="Imagen <?= $index + 1 ?>"> 
+                            </a>
+
+                        </div>
+                    <?php endforeach; ?>
+
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
+                </div>
+
+                
 
                 <!-- Actividades Con más votos -->
                 <div class="activities-section mt-5">
