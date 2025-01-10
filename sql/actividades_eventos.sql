@@ -421,7 +421,7 @@ INSERT INTO `NOTIFICACION` (`id`, `fecha`, `codigo_de_clase`, `fecha_lectura`, `
 (2, '2025-01-09 12:35:56', 'SOLICITUD_BAJA', NULL, NULL, NULL, 1, 1, 1, ''),
 (3, '2025-01-10 00:00:00', 'AVISO', NULL, NULL, NULL, 1, 1, 1, 'Notificación de prueba para el usuario 1'),
 (4, '2025-01-11 00:00:00', 'NOTIFICACIÓN', NULL, NULL, NULL, 2, 2, 2, 'Notificación de prueba para el usuario 2'),
-(5, '2025-01-12 00:00:00', 'DENUNCIA', NULL, NULL, NULL, 1, 1, 3, 'Notificación de prueba para el usuario 3');
+(5, '2025-01-12 00:00:00', 'DENUNCIA', NULL, NULL, NULL, 1, 2, 3, 'Notificación de prueba para el usuario 3');
 
 -- --------------------------------------------------------
 

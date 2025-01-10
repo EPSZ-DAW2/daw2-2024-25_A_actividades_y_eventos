@@ -12,6 +12,7 @@ use yii\bootstrap5\Html;
 use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use app\models\Roles;
+use app\models\Notificacion;
 
 AppAsset::register($this);
 
@@ -28,6 +29,18 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <head>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <style>
+    .badge-notification {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        padding: 5px 10px;
+        border-radius: 50%;
+        background-color: red;
+        color: white;
+        font-size: 12px;
+    }
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
@@ -54,13 +67,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             <!-- Menú de navegación principal -->
             <div class="navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <?= Html::a('Sobre nosotros', ['/site/about'], ['class' => 'nav-link']) ?>
-                    </li>
-                    <li class="nav-item">
-                        <?= Html::a('Contacto', ['/site/contact'], ['class' => 'nav-link']) ?>
-                    </li>
-                    <?php if (!Yii::$app->user->isGuest): ?>
+                <?php if (!Yii::$app->user->isGuest): ?>
                         <li class="nav-item">
                             <?= Html::a('Actividades', ['/actividades/index'], ['class' => 'nav-link']) ?>
                         </li>
@@ -70,7 +77,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             <?= Html::a('Actividades apuntado', ['/actividades/mis-actividades'], ['class' => 'nav-link']) ?>
                         </li>
                     <?php endif; ?>
-
+                    <li class="nav-item">
+                        <?= Html::a('Sobre nosotros', ['/site/about'], ['class' => 'nav-link']) ?>
+                    </li>
+                    <li class="nav-item">
+                        <?= Html::a('Contacto', ['/site/contact'], ['class' => 'nav-link']) ?>
+                    </li>
                 </ul>
 
                 <!-- Opciones para usuarios logueados o no -->
@@ -96,12 +108,17 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             ]);
                             echo '</li>';
                         }
+
+                        $pendingNotifications = 0;
+                        if (!Yii::$app->user->isGuest) {
+                            $pendingNotifications = Notificacion::find()->where(['USUARIOid' => Yii::$app->user->id, 'fecha_lectura' => null])->count();
+                        }
                         ?>
                         <li class="nav-item">
                             <?= Html::a('', ['usuario/mi-perfil'], ['class' => 'btn btn-sm btn-secondary mx-1 bi bi-person', 'data-method' => 'post']) ?>
                         </li>
-                        <li class="nav-item">
-                            <?= Html::a('<i class="bi bi-bell"></i>', ['usuario/mis-notificaciones'], ['class' => 'btn btn-sm btn-info mx-1']) ?>
+                        <li class="nav-item position-relative">
+                            <?= Html::a('<i class="bi bi-bell"></i>' . ($pendingNotifications > 0 ? '<span class="badge-notification">' . $pendingNotifications . '</span>' : ''), ['usuario/mis-notificaciones'], ['class' => 'btn btn-sm btn-info mx-1']) ?>
                         </li>
                         <li class="nav-item">
                             <?= Html::a('', ['site/logout'], ['class' => 'btn btn-sm btn-danger mx-1 bi bi-door-open', 'data-method' => 'post']) ?>
