@@ -3,6 +3,7 @@
 /** @var app\models\Actividad[] $actividades */
 
 use yii\helpers\Html;
+use app\models\Roles;
 
 $this->title = 'Actividades Recomendadas';
 $this->params['breadcrumbs'][] = ['label' => 'Actividades', 'url' => ['index']];
@@ -38,15 +39,19 @@ $this->params['breadcrumbs'][] = $this->title;
                             <p class="card-text"><strong>Fecha:</strong> <?= Html::encode($actividad['fecha_celebracion']) ?></p>
                         </div>
                         <div class="card-footer d-flex justify-content-between">
-                            <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad['id']], ['class' => 'btn btn-info btn-sm']) ?>
-                            <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-primary btn-sm']) ?>
-                            <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
-                                'class' => 'btn btn-danger btn-sm',
-                                'data' => [
-                                    'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
-                                    'method' => 'post',
-                                ],
-                            ]) ?>
+                            <?= Html::a('Ver', 
+                                [Yii::$app->user->hasRole([Roles::MODERADOR]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
+                                ['class' => 'btn btn-info btn-sm']) ?>
+                            <?php if (Yii::$app->user->hasRole([Roles::MODERADOR])): ?>
+                                <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-primary btn-sm']) ?>
+                                <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
+                                    'class' => 'btn btn-danger btn-sm',
+                                    'data' => [
+                                        'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
+                                        'method' => 'post',
+                                    ],
+                                ]) ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
