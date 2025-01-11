@@ -16,14 +16,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
 
         <div class="alert alert-success">
-            Gracias por contactarnos. Te responderemos lo antes posible.
+        ¡Solicitud de Contacto enviada con éxito! Por Favor, espere a que un Administrador se ponga en contacto con usted.
         </div>
 
         <p>
-            Ten en cuenta que si tienes habilitado el depurador de Yii, podrás ver el mensaje de correo en el panel de correo del depurador.
             <?php if (Yii::$app->mailer->useFileTransport): ?>
+                <!--¡Solicitud de Contacto enviada con éxito! Por Favor, espere a que un Administrador se ponga en contacto con usted.
                 Dado que la aplicación está en modo de desarrollo, el correo no se envía, sino que se guarda como un archivo en <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                Por favor, configura la propiedad <code>useFileTransport</code> del componente <code>mail</code> para que sea falsa si deseas enviar correos electrónicos.
+                Por favor, configura la propiedad <code>useFileTransport</code> del componente <code>mail</code> para que sea falsa si deseas enviar correos electrónicos.-->
             <?php endif; ?>
         </p>
 

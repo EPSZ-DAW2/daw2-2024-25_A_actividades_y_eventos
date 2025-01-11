@@ -112,13 +112,11 @@ footer .patrocinador-logo {
 }
 
 .especial{
-
     margin-top: 15px;
     margin-bottom: 15px;
 }
 
 /* Espaciado en dispositivos pequeños */
-
 @media (max-width: 768px) {
     .rowdest {
         flex-direction: column;
@@ -132,5 +130,19 @@ footer .patrocinador-logo {
 
     .list-inline {
         justify-content: center;
+    }
+
+    /* Ajuste de mapa para pantallas pequeñas */
+    #map {
+        width: 100%; 
+        height: 150px; 
+    }
+}
+
+/* Mapa de mayor tamaño en pantallas más grandes */
+@media (min-width: 768px) {
+    #map {
+        width: 80%; 
+        height: 200px; 
     }
 }

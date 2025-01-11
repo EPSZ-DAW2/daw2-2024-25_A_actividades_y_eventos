@@ -1,0 +1,65 @@
+/* Estilo general de la sidebar */
+    #sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px; /* Ancho fijo para desktop */
+        height: 100vh;
+        padding-top: 20px;
+        padding-right: 15px;
+        background-color: #f9f9f9;
+        box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+        border-radius: 0 10px 10px 0;
+        transform: translateX(0);
+        transition: transform 0.3s ease;
+        z-index: 1050; /* Asegura que esté por encima del contenido */
+    }
+
+    /* Ocultar sidebar en pantallas pequeñas inicialmente */
+    @media (max-width: 768px) {
+        #sidebar {
+            transform: translateX(-100%);
+            width: 80%; /* Ocupa un porcentaje de la pantalla en móviles */
+        }
+    }
+
+    /* Botón de alternar visibilidad */
+    #toggleMenu {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 1100;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Cambiar estilo del botón al pasar el cursor */
+    #toggleMenu:hover {
+        background-color: #0056b3;
+    }
+
+    /* Overlay para oscurecer el contenido al mostrar la sidebar */
+    #sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1045; /* Debajo de la sidebar pero encima del contenido */
+        display: none; /* Oculto por defecto */
+    }
+
+    /* Mostrar el overlay en pantallas pequeñas */
+    @media (max-width: 768px) {
+        #sidebar.active + #sidebar-overlay {
+            display: block;
+        }
+    }
+
