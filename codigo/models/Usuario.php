@@ -57,6 +57,14 @@ class Usuario extends ActiveRecord implements IdentityInterface
             [['fecha_nacimiento', 'fecha_registor', 'fecha_bloqueo'], 'safe'],
             [['activo', 'registro_confirmado', 'imagen_id'], 'integer'],
             [['nick', 'password', 'email', 'nombre', 'apellidos', 'motivo_bloqueo', 'notas'], 'string', 'max' => 255],
+            
+
+            //Creo las reglas para el escenario registerNewUser
+            [['nick', 'password', 'email', 'nombre', 'apellidos', 'fecha_nacimiento'], 'required', 'on' => 'registerNewUser'],
+            [['email'], 'email', 'on' => 'registerNewUser', 'message' => 'El formato del correo electrónico no es válido.'],
+            [['password'], 'string', 'min' => 8, 'on' => 'registerNewUser', 'message' => 'La contraseña debe tener al menos 8 caracteres.'], // Mínimo 8 caracteres
+            [['fecha_nacimiento'], 'date', 'format' => 'yyyy-MM-dd', 'on' => 'registerNewUser', 'message' => 'El formato de la fecha de nacimiento no es válido.'],
+            [['fecha_nacimiento'], 'compare', 'compareValue' => date('Y-m-d', strtotime('-16 years')), 'operator' => '<=', 'on' => 'registerNewUser', 'message' => 'Debes tener al menos 16 años para registrarte.'],
 
             [['currentPassword', 'newPassword', 'confirmNewPassword'], 'string', 'on' => 'changeData'],
             [['newEmail', 'confirmNewEmail'], 'email', 'on' => 'changeData', 'message' => 'El formato del correo electrónico no es válido.'],

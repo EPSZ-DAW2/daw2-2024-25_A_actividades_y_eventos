@@ -7,12 +7,12 @@ use yii\bootstrap5\ActiveForm;
 /** @var app\models\Usuario $model */
 /** @var ActiveForm $form */
 
-$this->title = 'Registro de Usuario';
+$this->title = 'Registro de usuario';
 ?>
 <div class="site-register">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Por favor, rellene los siguientes campos para registrarse:</p>
+    <p>Por favor, complete los siguientes campos para registrarse: </p>
 
     <?php $form = ActiveForm::begin([
         'id' => 'register-form',
@@ -29,7 +29,7 @@ $this->title = 'Registro de Usuario';
         <?= $form->field($model, 'apellidos') ?>
         <?= $form->field($model, 'email')->input('email') ?>
         <?= $form->field($model, 'nick') ?>
-        <?= $form->field($model, 'password')->passwordInput() ?>
+        <?= $form->field($model, 'password')->passwordInput(['placeholder' => 'Al menos 8 caracteres']) ?>
         <?= $form->field($model, 'fecha_nacimiento')->input('date') ?>
 
         <div class="form-group row">
@@ -37,6 +37,10 @@ $this->title = 'Registro de Usuario';
                 <?= Html::submitButton(Yii::t('app', 'Registrarse'), ['class' => 'btn btn-primary', 'name' => 'register-button']) ?>
             </div>
         </div>
+
+        <section class="form-group my-2">
+            <p>Al registrarse, usted asume ser un usuario <strong>mayor de 16 años</strong> y acepta los <?= Html::a('términos y condiciones', ['site/politicaprivacidad']) ?></p>
+        </section>
 
     <?php ActiveForm::end(); ?>
 </div>
