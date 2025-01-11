@@ -77,7 +77,7 @@ class ContactForm extends Model
      */
     public function createNotification()
     {
-        Yii::error('Creando notificación...', __METHOD__); // Para depurar
+       // Yii::error('Creando notificación...', __METHOD__); // Para depurar
 
         $notificacion = new Notificacion();
         $notificacion->fecha = date('Y-m-d H:i:s');
@@ -87,12 +87,12 @@ class ContactForm extends Model
         $notificacion->ACTIVIDADid = 0; // Sin actividad relacionada
         $notificacion->texto = "Nuevo mensaje de contacto de {$this->name}: {$this->subject}";
 
-        if ($notificacion->save()) {
+    /*    if ($notificacion->save()) {
             Yii::error('Notificación guardada exitosamente', __METHOD__); // Para depurar
             return true;
         } else {
             Yii::error('Error al guardar la notificación', __METHOD__); // Para depurar
-        }
+        }*/
 
         return false;
     }

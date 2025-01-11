@@ -14,15 +14,15 @@ class SiteController extends Controller
         $model = new ContactForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            Yii::error('Formulario cargado y validado correctamente', __METHOD__); // Para depurar
+        //    Yii::error('Formulario cargado y validado correctamente', __METHOD__); // Para depurar
 
             // Intentamos enviar el correo electrónico
             $emailSent = $model->contact(Yii::$app->params['adminEmail']);
-            Yii::error('Correo enviado: ' . ($emailSent ? 'Sí' : 'No'), __METHOD__); // Para depurar
+        //    Yii::error('Correo enviado: ' . ($emailSent ? 'Sí' : 'No'), __METHOD__); // Para depurar
 
             // Intentamos crear la notificación
             $notificationCreated = $model->createNotification();
-            Yii::error('Notificación creada: ' . ($notificationCreated ? 'Sí' : 'No'), __METHOD__); // Para depurar
+        //    Yii::error('Notificación creada: ' . ($notificationCreated ? 'Sí' : 'No'), __METHOD__); // Para depurar
 
             if ($emailSent && $notificationCreated) {
                 Yii::$app->session->setFlash('contactFormSubmitted', true);

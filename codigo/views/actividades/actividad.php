@@ -49,6 +49,23 @@ $this->title = $actividad['titulo'];
 
                     <div class="mb-3">
                         <h5>Valoraciones</h5>
+                        <div class="d-flex justify-content-start">
+                            <!-- Botón de Like -->
+                            <?= Html::a('<i class="fas fa-thumbs-up"></i> Me gusta', ['actividades/like', 'id' => $actividad['id']], [
+                                'class' => 'btn btn-success btn-sm me-2',
+                                'data' => [
+                                    'method' => 'post',
+                                ],
+                            ]) ?>
+
+                            <!-- Botón de Dislike -->
+                            <?= Html::a('<i class="fas fa-thumbs-down"></i> No me gusta', ['actividades/dislike', 'id' => $actividad['id']], [
+                                'class' => 'btn btn-danger btn-sm',
+                                'data' => [
+                                    'method' => 'post',
+                                ],
+                            ]) ?>
+                        </div>
                         <p class="text-success">Votos positivos: <?= Html::encode($actividad['votosOK']) ?></p>
                         <p class="text-danger">Votos negativos: <?= Html::encode($actividad['votosKO']) ?></p>
                     </div>

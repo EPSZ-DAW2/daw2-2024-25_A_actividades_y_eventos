@@ -612,5 +612,42 @@ class ActividadesController extends controller
         Yii::$app->session->setFlash('success', 'Has dejado de seguir esta etiqueta.');
         return $this->redirect(['actividades-etiquetas']);
     }
+
+    public function actionLike($id)
+    {
+        $actividad = Actividad::findOne($id);
+        if ($actividad) {
+            // Verificamos si el usuario ya votó
+            if (!Yii::$app->session->get("voto_actividad_{$id}")) {
+                $actividad->votosOK += 1;  // Incrementamos los votos positivos
+                $actividad->save();
+                
+                // Guardamos en la sesión que el usuario ha votado
+                Yii::$app->session->set("voto_actividad_{$id}", 'like');
+            }
+        }
     
+        // Redirigimos de nuevo a la página anterior o a la vista de la actividad si no hay referencia
+        return $this->redirect(Yii::$app->request->referrer ?: ['actividad/view', 'id' => $id]);
+    }
+    
+    public function actionDislike($id)
+    {
+        $actividad = Actividad::findOne($id);
+        if ($actividad) {
+            // Verificamos si el usuario ya votó
+            if (!Yii::$app->session->get("voto_actividad_{$id}")) {
+                $actividad->votosKO += 1;  // Incrementamos los votos negativos
+                $actividad->save();
+                
+                // Guardamos en la sesión que el usuario ha votado
+                Yii::$app->session->set("voto_actividad_{$id}", 'dislike');
+            }
+        }
+    
+        // Redirigimos de nuevo a la página anterior o a la vista de la actividad si no hay referencia
+        return $this->redirect(Yii::$app->request->referrer ?: ['actividad/view', 'id' => $id]);
+    }
+    
+
 }
