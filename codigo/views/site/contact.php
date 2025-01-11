@@ -10,33 +10,35 @@ use yii\bootstrap5\Html;
 $this->title = 'Contacto';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <!-- Mensaje de éxito -->
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
-
         <div class="alert alert-success">
-        ¡Solicitud de Contacto enviada con éxito! Por Favor, espere a que un Administrador se ponga en contacto con usted.
+            ¡Solicitud de Contacto enviada con éxito! Por favor, espere a que un Administrador se ponga en contacto con usted.
         </div>
+    <?php endif; ?>
 
-        <p>
-            <?php if (Yii::$app->mailer->useFileTransport): ?>
-                <!--¡Solicitud de Contacto enviada con éxito! Por Favor, espere a que un Administrador se ponga en contacto con usted.
-                Dado que la aplicación está en modo de desarrollo, el correo no se envía, sino que se guarda como un archivo en <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                Por favor, configura la propiedad <code>useFileTransport</code> del componente <code>mail</code> para que sea falsa si deseas enviar correos electrónicos.-->
-            <?php endif; ?>
-        </p>
+    <!-- Mensaje de error -->
+    <?php if (Yii::$app->session->hasFlash('contactFormFailed')): ?>
+        <div class="alert alert-danger">
+            <?= Yii::$app->session->getFlash('contactFormFailed'); ?>
+        </div>
+    <?php endif; ?>
 
-    <?php else: ?>
-
+    <?php if (!Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
         <p>
             Si tienes consultas comerciales u otras preguntas, por favor completa el siguiente formulario para ponerte en contacto con nosotros. Gracias.
         </p>
 
         <div class="row">
             <div class="col-lg-5">
-
-                <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
+                <?php $form = ActiveForm::begin([
+                    'id' => 'contact-form',
+                    'action' => ['site/contact'],  // Acción del formulario
+                ]); ?>
 
                     <?= $form->field($model, 'name')->textInput(['autofocus' => true, 'placeholder' => 'Tu nombre']) ?>
                     <?= $form->field($model, 'email')->input('email', ['placeholder' => 'Tu correo electrónico']) ?>
@@ -48,9 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
 
                 <?php ActiveForm::end(); ?>
-
             </div>
         </div>
-
     <?php endif; ?>
 </div>

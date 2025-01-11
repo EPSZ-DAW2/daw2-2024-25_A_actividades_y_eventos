@@ -47,14 +47,26 @@ class ContactForm extends Model
     public function contact($email)
     {
         if ($this->validate()) {
-            return Yii::$app->mailer->compose()
+            Yii::error('Validación exitosa. Intentando enviar correo...', __METHOD__); // Para depurar
+
+            $sent = Yii::$app->mailer->compose()
                 ->setTo($email)
                 ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
                 ->setReplyTo([$this->email => $this->name])
                 ->setSubject($this->subject)
                 ->setTextBody($this->body)
                 ->send();
+
+            if ($sent) {
+                Yii::error('Correo enviado exitosamente', __METHOD__); // Para depurar
+            } else {
+                Yii::error('Error al enviar correo', __METHOD__); // Para depurar
+            }
+
+            return $sent;
         }
+        
+        Yii::error('Error de validación', __METHOD__); // Para depurar
         return false;
     }
 
@@ -65,14 +77,23 @@ class ContactForm extends Model
      */
     public function createNotification()
     {
+        Yii::error('Creando notificación...', __METHOD__); // Para depurar
+
         $notificacion = new Notificacion();
         $notificacion->fecha = date('Y-m-d H:i:s');
-        $notificacion->codigo_de_clase = 'SOLICITUD_CONTACTO'; // Tipo de notificación
-        $notificacion->USUARIOid = Yii::$app->user->id ?? 0; // Usuario origen (si no está logueado, se asigna 0)
-        $notificacion->USUARIOid2 = 0; // Usuario destino (puede ajustarse según necesidades)
-        $notificacion->ACTIVIDADid = 0; // No aplica para esta notificación
+        $notificacion->codigo_de_clase = 'SOLICITUD_CONTACTO';
+        $notificacion->USUARIOid = Yii::$app->user->id ?? 0; // Si no está logueado, se asigna 0
+        $notificacion->USUARIOid2 = 1; // Administrador (puedes cambiar esto a otro ID si lo necesitas)
+        $notificacion->ACTIVIDADid = 0; // Sin actividad relacionada
         $notificacion->texto = "Nuevo mensaje de contacto de {$this->name}: {$this->subject}";
-        
-        return $notificacion->save();
+
+        if ($notificacion->save()) {
+            Yii::error('Notificación guardada exitosamente', __METHOD__); // Para depurar
+            return true;
+        } else {
+            Yii::error('Error al guardar la notificación', __METHOD__); // Para depurar
+        }
+
+        return false;
     }
 }

@@ -33,6 +33,8 @@ class RegistroUsuario extends \yii\db\ActiveRecord
         return [
             [['fecha_creacion', 'fecha_mod'], 'safe'],
             [['usuario_creador', 'usuario_mod'], 'string', 'max' => 500],
+            [['email'], 'email'], // Validación de formato de correo electrónico
+            [['nick'], 'match', 'pattern' => '/^[a-zA-Z0-9_]+$/'], // Validación para nick (solo caracteres alfanuméricos y guión bajo)
         ];
     }
 
