@@ -55,7 +55,8 @@ class Usuario extends ActiveRecord implements IdentityInterface
             [['nick', 'email'], 'unique'],
             [['nick', 'password', 'email', 'nombre', 'apellidos', 'motivo_bloqueo'], 'string', 'max' => 500],
             [['fecha_nacimiento', 'fecha_registor', 'fecha_bloqueo'], 'safe'],
-            [['activo', 'registro_confirmado', 'imagen_id'], 'integer'],
+            [['registro_confirmado', 'imagen_id'], 'integer'],
+            ['activo', 'boolean', 'trueValue' => 1, 'falseValue' => 0],
             [['nick', 'password', 'email', 'nombre', 'apellidos', 'motivo_bloqueo', 'notas'], 'string', 'max' => 255],
             
 

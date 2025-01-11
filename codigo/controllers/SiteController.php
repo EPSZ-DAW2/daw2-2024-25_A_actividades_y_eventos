@@ -209,14 +209,40 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            $this->logAction('login', 'User logged in');
-            return $this->goBack();
+        if ($model->load(Yii::$app->request->post())) {
+            $user = Usuario::findOne(['nick' => $model->username]);
+            if($user !== null ){
+                if ($user->activo == 0){
+                    Yii::$app->session->setFlash('error', 'Tu cuenta está bloqueada debido a múltiples intentos fallidos de inicio de sesión.');
+                    return $this->refresh();
+                }
+
+                if ($model->login()){
+                    $model->intentos_acceso = 0; // Reinicia los intentos fallidos al iniciar sesión correctamente
+                    $this->logAction('login', 'User logged in');
+                    return $this->goHome();
+                } else {
+                    $model->intentos_acceso+=1;
+                    if ($model->intentos_acceso > 3){
+                        $user->activo = 0;
+                        $user->motivo_bloqueo = 'Múltiples intentos fallidos de inicio de sesión';
+                        $user->fecha_bloqueo = date('Y-m-d H:i:s');
+                        $user->save(false);
+                        Yii::$app->session->setFlash('error', 'Tu cuenta se encuentra bloqueada. Contacte con un administrador para resolverlo el problema.');
+                    } else {
+                        Yii::$app->session->setFlash('error', "Contraseña incorrecta. Intento $model->intentos_acceso de 3.");
+                    }
+                }
+            } else {
+                Yii::$app->session->setFlash('error', 'Usuario o contraseña incorrectos.');
+            }
+            return $this->refresh();
         }
 
         $model->password = '';

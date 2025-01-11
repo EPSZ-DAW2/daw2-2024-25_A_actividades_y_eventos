@@ -16,6 +16,7 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    public $intentos_acceso = 0;
 
     private $_user = false;
 
@@ -77,7 +78,7 @@ class LoginForm extends Model
     /**
      * Finds user by [[username]]
      *
-     * @return User|null
+     * @return Usuario|null
      */
     public function getUser()
     {
@@ -86,5 +87,23 @@ class LoginForm extends Model
         }
 
         return $this->_user;
+    }
+
+    public function load($data, $formName = null)
+    {
+        $result = parent::load($data, $formName);
+        $this->intentos_acceso = Yii::$app->session->get('intentos_acceso', 0);
+        return $result;
+    }
+
+    public function afterValidate()
+    {
+        parent::afterValidate();
+        if ($this->hasErrors()) {
+            $this->intentos_acceso++;
+            Yii::$app->session->set('intentos_acceso', $this->intentos_acceso);
+        } else {
+            Yii::$app->session->remove('intentos_acceso');
+        }
     }
 }
