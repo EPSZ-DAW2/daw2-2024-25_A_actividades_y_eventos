@@ -83,13 +83,26 @@ $this->title = $actividad['titulo'];
                     <?php endif; ?>
 
                     <!-- Botón para registrarse en la actividad -->
-                    <?= Html::a('Participar', ['actividades/registrar', 'id' => $actividad['id']], [
-                        'class' => 'btn btn-warning',
-                        'data' => [
-                            'confirm' => '¿Estás seguro de que deseas participar en esta actividad?',
-                            'method' => 'post',
-                        ],
-                    ]) ?>
+                    <?php
+                        // Crear un objeto DateTime a partir de la fecha de celebración
+                        $fechaCelebracion = new DateTime($actividad['fecha_celebracion']);
+
+                        // Crear un objeto DateTime para la fecha y hora actual
+                        $fechaActual = new DateTime();
+
+                        // Comprobar si la fecha de celebración es anterior a la fecha actual
+                        if ($fechaCelebracion > $fechaActual) {
+                            echo Html::a('Participar', ['actividades/registrar', 'id' => $actividad['id']], [
+                                'class' => 'btn btn-warning',
+                                'data' => [
+                                    'confirm' => '¿Estás seguro de que deseas participar en esta actividad?',
+                                    'method' => 'post',
+                                ],
+                            ]);
+                        } else {
+                            echo '<div class="alert alert-danger" role="alert">Esta actividad ya ha finalizado.</div>';
+                        }
+                    ?>
                 </div>
             </div>
         </div>
