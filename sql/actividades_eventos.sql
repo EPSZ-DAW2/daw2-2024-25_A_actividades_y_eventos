@@ -3,13 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 07-01-2025 a las 18:01:05
+-- Tiempo de generación: 13-01-2025 a las 11:08:57
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
-
-DROP DATABASE IF EXISTS `actividades_eventos`;
-CREATE DATABASE `actividades_eventos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `actividades_eventos`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -55,17 +51,17 @@ CREATE TABLE `ACTIVIDAD` (
 --
 
 INSERT INTO `ACTIVIDAD` (`id`, `titulo`, `descripcion`, `fecha_celebracion`, `duracion_estimada`, `lugar_celebracion`, `detalles`, `notas`, `edad_recomendada`, `votosOK`, `votosKO`, `maximo_participantes`, `minimo_participantes`, `reserva`, `participantes`, `contador_visitas`) VALUES
-(1, 'Concierto de Música', 'Un concierto en el parque con diferentes bandas locales.', '2025-02-20 00:00:00', 120, 'Parque Central', 'Trae tu manta y disfruta del evento.', 'Evento gratuito para todas las edades.', 0, 100, 10, 500, 50, 1, 150, 0),
+(1, 'Concierto de Música', 'Un concierto en el parque con diferentes bandas locales.', '2025-02-20 00:00:00', 120, 'Parque Central', 'Trae tu manta y disfruta del evento.', 'Evento gratuito para todas las edades.', 0, 100, 10, 500, 50, 1, 150, 2),
 (2, 'Torneo de Futbol', 'Competencia de futbol entre equipos locales.', '2025-03-15 00:00:00', 180, 'Estadio Municipal', '¡Inscríbete y forma tu equipo!', 'La inscripción está abierta hasta el 1 de marzo.', 12, 200, 5, 10, 2, 1, 8, 0),
 (5, 'Feria del Libro', 'Feria anual con expositores locales y nacionales', '2025-04-15 00:00:00', 480, 'Plaza Mayor', 'Presentaciones de libros y firmas de autores', 'Evento cultural con actividades para niños', 0, 150, 8, 1000, 0, 1, 300, 0),
 (7, 'Festival Gastronómico', 'Muestra de la gastronomía local y regional', '2025-05-20 00:00:00', 360, 'Recinto Ferial', 'Degustaciones y talleres culinarios', 'Participan restaurantes locales', 0, 280, 15, 800, 100, 1, 500, 0),
 (8, 'Carrera Popular', 'Carrera urbana 10Km', '2025-06-10 00:00:00', 180, 'Centro Ciudad', 'Recorrido por el casco histórico', 'Incluye categorías infantiles', 12, 400, 20, 1000, 200, 1, 750, 0),
 (9, 'Teatro en la Calle', 'Festival de artes escénicas', '2025-07-01 00:00:00', 240, 'Casco Antiguo', 'Actuaciones de compañías locales', 'Espectáculos gratuitos', 0, 180, 5, 300, 0, 0, 250, 0),
-(10, 'Exposición de Arte Local', 'Muestra de artistas contemporáneos', '2025-08-05 00:00:00', 720, 'Centro Cultural', 'Pinturas y esculturas locales', 'Visitas guiadas disponibles', 0, 90, 10, 200, 0, 1, 150, 0),
+(10, 'Exposición de Arte Local', 'Muestra de artistas contemporáneos', '2025-08-05 00:00:00', 720, 'Centro Cultural', 'Pinturas y esculturas locales', 'Visitas guiadas disponibles', 0, 90, 10, 200, 0, 1, 150, 1),
 (11, 'Mercado Medieval', 'Recreación histórica y mercado tradicional', '2025-09-15 00:00:00', 480, 'Plaza del Ayuntamiento', 'Artesanía y espectáculos medievales', 'Ambiente familiar', 0, 320, 25, 2000, 0, 1, 1500, 0),
 (12, 'Torneo de Pádel', 'Competición amateur por categorías', '2025-10-01 00:00:00', 480, 'Club Deportivo Municipal', 'Todas las categorías y niveles', 'Inscripción por parejas', 16, 150, 12, 64, 32, 1, 48, 0),
 (13, 'Festival de Jazz', 'Conciertos de jazz y blues', '2025-11-10 00:00:00', 240, 'Teatro Municipal', 'Artistas nacionales e internacionales', 'Aforo limitado', 0, 200, 8, 400, 100, 1, 350, 0),
-(14, 'Navidad en la Ciudad', 'Actividades navideñas familiares', '2025-12-20 00:00:00', 720, 'Centro Ciudad', 'Mercadillo navideño y actividades infantiles', 'Programación especial', 0, 450, 30, 1000, 0, 1, 800, 0);
+(14, 'Navidad en la Ciudad', 'Actividades navideñas familiares', '2025-12-20 00:00:00', 720, 'Centro Ciudad', 'Mercadillo navideño y actividades infantiles', 'Programación especial', 0, 450, 20, 1000, 0, 1, 800, 3);
 
 -- --------------------------------------------------------
 
@@ -82,11 +78,18 @@ CREATE TABLE `ACTIVIDAD_UBICACION` (
 -- Volcado de datos para la tabla `ACTIVIDAD_UBICACION`
 --
 
-DELETE FROM `ACTIVIDAD_UBICACION` WHERE `ACTIVIDADid` > 2;
 INSERT INTO `ACTIVIDAD_UBICACION` (`ACTIVIDADid`, `UBICACIONid`) VALUES
 (1, 1),
 (2, 2),
-(5, 1), (7, 2), (8, 1), (9, 1), (10, 2), (11, 1), (12, 2), (13, 2), (14, 1);
+(5, 1),
+(7, 2),
+(8, 1),
+(9, 1),
+(10, 2),
+(11, 1),
+(12, 2),
+(13, 2),
+(14, 1);
 
 -- --------------------------------------------------------
 
@@ -167,11 +170,18 @@ CREATE TABLE `CLASIFICACION_ACTIVIDAD` (
 -- Volcado de datos para la tabla `CLASIFICACION_ACTIVIDAD`
 --
 
-DELETE FROM `CLASIFICACION_ACTIVIDAD` WHERE `ACTIVIDADid` > 2;
 INSERT INTO `CLASIFICACION_ACTIVIDAD` (`CLASIFICACIONid`, `ACTIVIDADid`) VALUES
 (1, 1),
+(1, 5),
+(1, 7),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 13),
+(1, 14),
 (2, 2),
-(1, 5), (1, 7), (2, 8), (1, 9), (1, 10), (1, 11), (2, 12), (1, 13), (1, 14);
+(2, 8),
+(2, 12);
 
 -- --------------------------------------------------------
 
@@ -322,11 +332,13 @@ CREATE TABLE `ETIQUETAS_ACTIVIDAD` (
 -- Volcado de datos para la tabla `ETIQUETAS_ACTIVIDAD`
 --
 
-DELETE FROM `ETIQUETAS_ACTIVIDAD` WHERE `ACTIVIDADid` > 2;
 INSERT INTO `ETIQUETAS_ACTIVIDAD` (`ETIQUETASid`, `ACTIVIDADid`) VALUES
 (1, 2),
+(1, 8),
+(1, 12),
 (2, 1),
-(2, 13), (2, 14), (1, 8), (1, 12);
+(2, 13),
+(2, 14);
 
 -- --------------------------------------------------------
 
@@ -361,7 +373,7 @@ CREATE TABLE `IMAGEN` (
 -- Volcado de datos para la tabla `IMAGEN`
 --
 
-INSERT INTO `imagen` (`id`, `titulo`, `descripcion`, `nombre_Archivo`, `ruta_archivo`, `extension`, `notas`) VALUES
+INSERT INTO `IMAGEN` (`id`, `titulo`, `descripcion`, `nombre_Archivo`, `ruta_archivo`, `extension`, `notas`) VALUES
 (1, '1', 'Vista panorámica del evento', 'concierto_parque', NULL, 'jpg', 'Imagen tomada desde el escenario principal.'),
 (2, '2', 'Equipo de futbol jugando', 'torneo_futbol', NULL, 'jpg', 'Imagen durante la competencia del torneo.'),
 (3, NULL, NULL, 'navidad', NULL, 'jpg', NULL),
@@ -369,6 +381,7 @@ INSERT INTO `imagen` (`id`, `titulo`, `descripcion`, `nombre_Archivo`, `ruta_arc
 (5, NULL, NULL, 'medieval', NULL, 'jpg', NULL),
 (6, NULL, NULL, 'gastronomica', NULL, 'webp', NULL),
 (7, NULL, NULL, 'jazz', NULL, 'webp', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -385,7 +398,7 @@ CREATE TABLE `IMAGEN_ACTIVIDAD` (
 -- Volcado de datos para la tabla `IMAGEN_ACTIVIDAD`
 --
 
-INSERT INTO `imagen_actividad` (`IMAGENid`, `ACTIVIDADid`, `orden`) VALUES
+INSERT INTO `IMAGEN_ACTIVIDAD` (`IMAGENid`, `ACTIVIDADid`, `orden`) VALUES
 (1, 1, 1),
 (2, 2, 1),
 (3, 14, 1),
@@ -416,6 +429,7 @@ CREATE TABLE `NOTIFICACION` (
 --
 -- Volcado de datos para la tabla `NOTIFICACION`
 --
+
 INSERT INTO `NOTIFICACION` (`id`, `fecha`, `codigo_de_clase`, `fecha_lectura`, `fecha_borrado`, `fecha_aceptacion`, `ACTIVIDADid`, `USUARIOid`, `USUARIOid2`, `texto`) VALUES
 (1, '2025-01-09 12:35:56', 'SOLICITUD_BAJA', NULL, NULL, NULL, 1, 1, 1, ''),
 (2, '2025-01-09 12:35:56', 'SOLICITUD_BAJA', NULL, NULL, NULL, 1, 1, 1, ''),
@@ -472,9 +486,6 @@ CREATE TABLE `RECIBE` (
 
 -- --------------------------------------------------------
 
-
--- --------------------------------------------------------
--- Sirve para almacenar los registros de acciones realizadas por los usuarios en la aplicación, a modo de log
 --
 -- Estructura de tabla para la tabla `registro_acciones`
 --
@@ -485,6 +496,24 @@ CREATE TABLE `registro_acciones` (
   `accion` varchar(500) NOT NULL,
   `usuario_accion` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `registro_acciones`
+--
+
+INSERT INTO `registro_acciones` (`id`, `fecha_accion`, `accion`, `usuario_accion`) VALUES
+(1, '2025-01-13 10:50:29', 'User logged out', 'admin'),
+(2, '2025-01-13 10:51:48', 'User registered', 'adminadmin'),
+(3, '2025-01-13 10:52:04', 'User logged out', 'adminadmin'),
+(4, '2025-01-13 10:55:09', 'User registered', 'pepe'),
+(5, '2025-01-13 10:58:59', 'User logged out', 'pepe'),
+(6, '2025-01-13 10:59:55', 'User logged in', 'user1'),
+(7, '2025-01-13 11:00:20', 'User logged out', 'user1'),
+(8, '2025-01-13 11:00:31', 'User logged in', 'user2'),
+(9, '2025-01-13 11:00:48', 'User logged out', 'user2'),
+(10, '2025-01-13 11:01:01', 'User logged in', 'user5');
+
+-- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `ROLES`
@@ -564,7 +593,7 @@ CREATE TABLE `USUARIO` (
   `email` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `apellidos` varchar(255) DEFAULT NULL,
-  `fecha_nacimiento` DATE DEFAULT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
   `activo` int(10) DEFAULT NULL,
   `fecha_registor` datetime DEFAULT NULL,
   `registro_confirmado` int(10) DEFAULT NULL,
@@ -578,14 +607,16 @@ CREATE TABLE `USUARIO` (
 -- Volcado de datos para la tabla `USUARIO`
 --
 
-INSERT INTO `USUARIO` (`id`, `nick`, `password`, `email`, `nombre`, `apellidos`, `fecha_nacimiento`, `activo`, `fecha_registor`, `registro_confirmado`, `fecha_bloqueo`, `motivo_bloqueo`, `notas`) VALUES
-(1, 'user1', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user1@example.com', 'Juan', 'Pérez', '1990-06-15 00:00:00', 1, '2025-01-01 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
-(2, 'user2', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user2@example.com', 'María', 'Gómez', '1985-02-10 00:00:00', 1, '2025-01-02 00:00:00', 1, NULL, NULL, 'Interesado en actividades culturales'),
-(3, 'user3', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user3@example.com', 'Paco', 'Ramírez Hidalgo', '2025-01-07 00:00:00', 1, '2025-01-14 00:00:00', 1, '2025-01-22 00:00:00', NULL, NULL),
-(4, 'user4', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user4@example.com', 'Carlos', 'Sánchez', '1992-04-10 00:00:00', 1, '2025-01-04 00:00:00', 1, NULL, NULL, 'Activo en el sistema'),
-(5, 'user5', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user5@example.com', 'Ana', 'Martínez', '1988-11-23 00:00:00', 1, '2025-01-05 00:00:00', 1, NULL, NULL, 'Interesada en eventos deportivos'),
-(6, 'user6', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user6@example.com', 'Luis', 'García', '1995-07-19 00:00:00', 1, '2025-01-06 00:00:00', 1, NULL, NULL, 'Participante activo en actividades culturales'),
-(7, 'user7', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user7@example.com', 'Elena', 'Rodríguez', '1993-09-30 00:00:00', 1, '2025-01-07 00:00:00', 1, NULL, NULL, 'Interesada en actividades al aire libre');
+INSERT INTO `USUARIO` (`id`, `nick`, `password`, `email`, `nombre`, `apellidos`, `fecha_nacimiento`, `activo`, `fecha_registor`, `registro_confirmado`, `fecha_bloqueo`, `motivo_bloqueo`, `notas`, `token`) VALUES
+(1, 'user1', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user1@example.com', 'Juan', 'Pérez', '1990-06-15', 1, '2025-01-01 00:00:00', 1, NULL, NULL, 'Activo en el sistema', ''),
+(2, 'user2', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user2@example.com', 'María', 'Gómez', '1985-02-10', 1, '2025-01-02 00:00:00', 1, NULL, NULL, 'Interesado en actividades culturales', ''),
+(3, 'user3', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user3@example.com', 'Paco', 'Ramírez Hidalgo', '2025-01-07', 1, '2025-01-14 00:00:00', 1, '2025-01-22 00:00:00', NULL, NULL, ''),
+(4, 'user4', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user4@example.com', 'Carlos', 'Sánchez', '1992-04-10', 1, '2025-01-04 00:00:00', 1, NULL, NULL, 'Activo en el sistema', ''),
+(5, 'user5', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user5@example.com', 'Ana', 'Martínez', '1988-11-23', 1, '2025-01-05 00:00:00', 1, NULL, NULL, 'Interesada en eventos deportivos', ''),
+(6, 'user6', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user6@example.com', 'Luis', 'García', '1995-07-19', 1, '2025-01-06 00:00:00', 1, NULL, NULL, 'Participante activo en actividades culturales', ''),
+(7, 'user7', '$2y$13$zSAbxTCf9smL5YuwUSI6feAB8tvFt/JgWB5sbMCBa7jlg9tW4GhyO', 'user7@example.com', 'Elena', 'Rodríguez', '1993-09-30', 1, '2025-01-07 00:00:00', 1, NULL, NULL, 'Interesada en actividades al aire libre', ''),
+(8, 'admin', '$2y$13$3gDQb8HDsjmmRTiJODekHer6bBrTK0xX1uwhMzEam0Uy9e7p.xnfK', 'admin@gmail.es', 'admin', 'admin', '2002-01-10', 1, '2025-01-13 10:42:39', NULL, NULL, NULL, NULL, 'WVU1pVvGB3xsqtMEF7xD9QfwM7aNInOM_1736761360');
+
 -- --------------------------------------------------------
 
 --
@@ -648,7 +679,8 @@ INSERT INTO `USUARIO_ROLES` (`USUARIOid`, `ROLESid`) VALUES
 (4, 2),
 (5, 1),
 (6, 1),
-(7, 1);
+(7, 1),
+(8, 1);
 
 -- --------------------------------------------------------
 
@@ -817,6 +849,12 @@ ALTER TABLE `RECIBE`
   ADD KEY `FKRECIBE718598` (`NOTIFICACIONid`);
 
 --
+-- Indices de la tabla `registro_acciones`
+--
+ALTER TABLE `registro_acciones`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `ROLES`
 --
 ALTER TABLE `ROLES`
@@ -859,11 +897,9 @@ ALTER TABLE `USUARIO_HISTORIAL`
 -- Indices de la tabla `USUARIO_IMAGEN`
 --
 ALTER TABLE `USUARIO_IMAGEN`
+  ADD PRIMARY KEY (`usuario_id`,`imagen_id`),
   ADD KEY `fk_usuario` (`usuario_id`),
   ADD KEY `fk_imagen` (`imagen_id`);
-
-ALTER TABLE `usuario_imagen`
-ADD PRIMARY KEY (`usuario_id`, `imagen_id`);
 
 --
 -- Indices de la tabla `USUARIO_ROLES`
@@ -929,13 +965,19 @@ ALTER TABLE `HISTORIAL`
 -- AUTO_INCREMENT de la tabla `IMAGEN`
 --
 ALTER TABLE `IMAGEN`
-  MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `NOTIFICACION`
 --
 ALTER TABLE `NOTIFICACION`
-  MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `registro_acciones`
+--
+ALTER TABLE `registro_acciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `ROLES`
@@ -953,7 +995,7 @@ ALTER TABLE `UBICACION`
 -- AUTO_INCREMENT de la tabla `USUARIO`
 --
 ALTER TABLE `USUARIO`
-  MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(19) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

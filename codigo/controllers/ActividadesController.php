@@ -255,7 +255,7 @@ class ActividadesController extends controller
             FROM actividad a 
             LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
             LEFT JOIN imagen i ON ia.IMAGENid = i.id 
-            ORDER BY a.votosOK DESC 
+            ORDER BY a.votosOK-a.votosKO DESC 
         ')->queryAll();
 
         return $this->render('actividades_recomendadas', [
