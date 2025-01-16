@@ -9,6 +9,11 @@ use yii\bootstrap5\Html;
 
 $this->title = 'Contacto';
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCssFile('@web/css/estiloFormularios.css', [
+    'depends' => [\yii\bootstrap5\BootstrapAsset::class],
+]);
+
 ?>
 
 <div class="site-contact">
@@ -34,19 +39,46 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
 
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-lg-12"> 
                 <?php $form = ActiveForm::begin([
                     'id' => 'contact-form',
-                    'action' => ['site/contact'],  // Acción del formulario
+                    'action' => ['site/contact'],  
+                    'options' => ['class' => 'site-login'],  
                 ]); ?>
 
-                    <?= $form->field($model, 'name')->textInput(['autofocus' => true, 'placeholder' => 'Tu nombre']) ?>
-                    <?= $form->field($model, 'email')->input('email', ['placeholder' => 'Tu correo electrónico']) ?>
-                    <?= $form->field($model, 'subject')->textInput(['placeholder' => 'Asunto del mensaje']) ?>
-                    <?= $form->field($model, 'body')->textarea(['rows' => 6, 'placeholder' => 'Escribe tu mensaje aquí']) ?>
+                    <!-- Campos del formulario -->
+                    <div class="form-group1">
+                        <?= $form->field($model, 'name')->textInput([
+                            'autofocus' => true,
+                            'placeholder' => 'Tu nombre',
+                            'class' => 'form-control'  
+                        ]) ?>
+                    </div>
+
+                    <div class="form-group1">
+                        <?= $form->field($model, 'email')->input('email', [
+                            'placeholder' => 'Tu correo electrónico',
+                            'class' => 'form-control'  
+                        ]) ?>
+                    </div>
+
+                    <div class="form-group1">
+                        <?= $form->field($model, 'subject')->textInput([
+                            'placeholder' => 'Asunto del mensaje',
+                            'class' => 'form-control'  
+                        ]) ?>
+                    </div>
+
+                    <div class="form-group1">
+                        <?= $form->field($model, 'body')->textarea([
+                            'rows' => 6,
+                            'placeholder' => 'Escribe tu mensaje aquí',
+                            'class' => 'form-control'  
+                        ]) ?>
+                    </div>
 
                     <div class="form-group">
-                        <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                        <?= Html::submitButton('ENVIAR', ['class' => 'btn btn-primaryy', 'name' => 'contact-button']) ?>
                     </div>
 
                 <?php ActiveForm::end(); ?>

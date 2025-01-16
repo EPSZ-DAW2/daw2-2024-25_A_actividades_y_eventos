@@ -8,7 +8,14 @@ use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 
 $this->title = 'Inicio de sesión';
+
+// Estilos del Formulario
+
+$this->registerCssFile('@web/css/estiloFormularios.css', [
+    'depends' => [\yii\bootstrap5\BootstrapAsset::class],
+]);
 ?>
+
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -18,26 +25,41 @@ $this->title = 'Inicio de sesión';
         'id' => 'login-form',
         'layout' => 'horizontal',
         'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-4\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-3 col-form-label'],
-            'inputOptions' => ['class' => 'form-control'],
+            'template' => "{label}\n<div>{input}</div>\n<div>{error}</div>",
+            'labelOptions' => ['class' => 'col-form-label'],
+            'inputOptions' => ['class' => 'form-control'], 
             'errorOptions' => ['class' => 'invalid-feedback'],
         ],
     ]); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-        <?= $form->field($model, 'password')->passwordInput() ?>
-
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"offset-lg-3 col-lg-4 custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
+    <div class="form-group1">
+        <?= $form->field($model, 'username')->textInput([
+            'autofocus' => true,
+            'placeholder' => 'Nombre de usuario',
         ]) ?>
+    </div>
 
-        <div class="form-group row">
-            <div class="offset-lg-3 col-lg-4">
-                <?= Html::submitButton('Iniciar sesión', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
-        </div>
+    <div class="form-group1">
+        <?= $form->field($model, 'password')->passwordInput([
+            'placeholder' => 'Contraseña',
+        ]) ?>
+    </div>
+
+    <div class="form-group">
+        <?= $form->field($model, 'rememberMe')->checkbox([
+        'value' => 0, 
+        'checked' => false, 
+        'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div>{error}</div>",
+        ]) ?>
+    </div>
+
+    <div class="form-group">
+        <?= Html::submitButton('INICIAR SESION', [
+            'class' => 'btn btn-primaryy',
+            'name' => 'login-button',
+        ]) ?>
+    </div>
 
     <?php ActiveForm::end(); ?>
 </div>
+
