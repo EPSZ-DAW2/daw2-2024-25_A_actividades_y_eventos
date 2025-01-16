@@ -210,14 +210,6 @@ CREATE TABLE `comentario` (
   `ACTIVIDADid` bigint(19) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-ALTER TABLE `comentario` 
-    MODIFY `comentario_relacionado` bigint(19) NULL,
-    MODIFY `ACTIVIDADid` bigint(19) NOT NULL,
-    ADD CONSTRAINT `FK_comentario_relacionado` 
-    FOREIGN KEY (`comentario_relacionado`) 
-    REFERENCES `comentario`(`id`) 
-    ON DELETE SET NULL;
-
 --
 -- Volcado de datos para la tabla `comentario`
 --
@@ -1075,14 +1067,6 @@ ALTER TABLE `CLASIFICACION_ACTIVIDAD`
 ALTER TABLE `comentario`
   ADD CONSTRAINT `ACTIVIDAD_COMENTARIO` FOREIGN KEY (`ACTIVIDADid`) REFERENCES `ACTIVIDAD` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `USUARIO_COMENTARIO` FOREIGN KEY (`USUARIOid`) REFERENCES `USUARIO` (`id`);
-
-ALTER TABLE `comentario` 
-    MODIFY `comentario_relacionado` bigint(19) NULL,
-    MODIFY `ACTIVIDADid` bigint(19) NOT NULL,
-    ADD CONSTRAINT `FK_comentario_relacionado` 
-    FOREIGN KEY (`comentario_relacionado`) 
-    REFERENCES `comentario`(`id`) 
-    ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `COMENTARIO_ACTIVIDAD`
