@@ -21,7 +21,7 @@ use app\models\Etiqueta;
 class ActividadesController extends controller
 {
     
-    // Acción para mostrar todas las actividades
+    // Método para mostrar el listado de todas las actividades disponibles
     public function actionIndex()
     {
         $searchTerm = Yii::$app->request->get('q');
@@ -74,7 +74,7 @@ class ActividadesController extends controller
 
     
 
-    // Encuentra el modelo de la actividad por ID
+    // Busca y devuelve una actividad por su ID, o lanza excepción si no existe
     protected function findModel($id)
     {
         if (($model = Actividad::findOne($id)) !== null) {
@@ -84,7 +84,7 @@ class ActividadesController extends controller
         }
     }
 
-    // Para manejar validación AJAX en el formulario de creación y actualización
+    // Validación AJAX para los formularios de creación y actualización
     public function actionValidate()
     {
         $model = new Actividad();
@@ -95,6 +95,7 @@ class ActividadesController extends controller
         return null;
     }
 
+    // Panel de administración para gestionar actividades
     public function actionAdministrador()
     {
         $sort = new Sort([
@@ -124,6 +125,7 @@ class ActividadesController extends controller
         ]);
     }
 
+    // Muestra los detalles de una actividad específica e incrementa el contador de visitas
     public function actionVer_actividad($id)
     {
         $model = Actividad::findOne($id);
@@ -145,7 +147,7 @@ class ActividadesController extends controller
     }
 
 
-    // Acción para editar una actividad
+    // Permite modificar los datos de una actividad existente
     public function actionEditar($id)
     {
         $model = $this->findModel($id);
@@ -160,7 +162,7 @@ class ActividadesController extends controller
         ]);
     }
 
-    // Crea una nueva actividad
+    // Formulario y lógica para crear una nueva actividad
     public function actionCrear()
     {
         $model = new Actividad();
@@ -209,7 +211,7 @@ class ActividadesController extends controller
         ]);
     }    
     
-    // Elimina una actividad
+    // Elimina una actividad de la base de datos
     public function actionEliminar($id)
     {
         $model = $this->findModel($id);
@@ -218,6 +220,7 @@ class ActividadesController extends controller
         return $this->redirect(['actividades/administrador']);
     }
 
+    // Muestra la lista de participantes de una actividad específica
     public function actionVer_participantes_actividad($id)
     {
         $db = Yii::$app->db;
@@ -231,6 +234,7 @@ class ActividadesController extends controller
          ]);
     }
 
+    // Muestra las etiquetas asociadas a una actividad
     public function actionVer_etiquetas_actividad($id)
     {
         $db = Yii::$app->db;
@@ -245,11 +249,10 @@ class ActividadesController extends controller
         ]);
     }
 
-
-    // Muestra las actividades recomendadas
+    // Muestra las actividades con mejor valoración
     public function actionRecomendadas()
     {
-        // Usar el componente de base de datos de Yii
+        // Usa el componente de base de datos de Yii para obtener las actividades más votadas
         $masVotadas = Yii::$app->db->createCommand('
             SELECT a.*, i.nombre_Archivo, i.extension 
             FROM actividad a 
@@ -263,12 +266,10 @@ class ActividadesController extends controller
         ]);
     }
 
-
-
-    // MOSTRAR ACTIVIDADES MÁS PRÓXIMAS SEGÚN FECHA DE CELEBRACIÓN
+    // Muestra las actividades ordenadas por fecha de celebración
     public function actionMasProximas()
     {
-        // Consultar actividades de este mes
+        // Obtiene actividades del mes actual
         $actividadesEsteMes = Yii::$app->db->createCommand('
             SELECT a.*, i.nombre_Archivo, i.extension 
             FROM actividad a 
@@ -279,7 +280,7 @@ class ActividadesController extends controller
             ORDER BY a.fecha_celebracion ASC
         ')->queryAll();
 
-        // Consultar actividades del siguiente mes
+        // Obtiene actividades del próximo mes
         $actividadesProximoMes = Yii::$app->db->createCommand('
             SELECT a.*, i.nombre_Archivo, i.extension 
             FROM actividad a 
@@ -290,7 +291,7 @@ class ActividadesController extends controller
             ORDER BY a.fecha_celebracion ASC
         ')->queryAll();
 
-        // Consultar las próximas 3 actividades después de las de este mes y del siguiente
+        // Obtiene las próximas 3 actividades después del mes siguiente
         $actividadesSiguientes = Yii::$app->db->createCommand('
             SELECT a.*, i.nombre_Archivo, i.extension 
             FROM actividad a 
@@ -308,10 +309,8 @@ class ActividadesController extends controller
         ]);
     }
 
-
-
     
-    // MOSTRAR ACTIVIDADES MÁS VISITADAS UTILIZANDO EL CONTADOR DE VISITAS
+    // Muestra las actividades ordenadas por número de visitas
     public function actionMasVisitadas()
     {
         $masVisitadas = Yii::$app->db->createCommand('
@@ -328,7 +327,7 @@ class ActividadesController extends controller
         ]);
     }
 
-    // MOSTRAR LAS MÁS BUSCADAS UTILIZANDO EL VOTOS OK
+    // Muestra las actividades más populares según búsquedas y visitas
     public function actionMasBuscadas()
     {
         $actividades = Yii::$app->db->createCommand('
@@ -346,7 +345,7 @@ class ActividadesController extends controller
         ]);
     }
 
-    // Acción para mostrar actividades pasadas en las que ha estado el usuario
+    // Muestra actividades que ya han finalizado
     public function actionPasadas()
     {
         $Pasadas = Yii::$app->db->createCommand('
@@ -364,7 +363,7 @@ class ActividadesController extends controller
         ]);
     }
 
-    // Acción para mostrar actividades pasadas en las que ha estado el usuario
+    // Muestra las actividades más recientes
     public function actionNuevas()
     {
         $Nuevas = Yii::$app->db->createCommand('
@@ -381,8 +380,10 @@ class ActividadesController extends controller
         ]);
     }
 
+    // Implementa la búsqueda de actividades
     public function actionSearch($q = '')
     {
+        // Registra la petición de búsqueda para debugging
         Yii::debug('Recibiendo petición de búsqueda');
         Yii::debug('Parámetro q: ' . $q);
         
@@ -430,39 +431,73 @@ class ActividadesController extends controller
         ]);
     }
 
+    // Muestra los detalles completos de una actividad y sus comentarios
     public function actionActividad($id)
     {
-        $actividad = Yii::$app->db->createCommand('
-            SELECT a.*, i.nombre_Archivo, i.extension 
-            FROM ACTIVIDAD a 
-            LEFT JOIN IMAGEN_ACTIVIDAD ia ON a.id = ia.ACTIVIDADid 
-            LEFT JOIN IMAGEN i ON ia.IMAGENid = i.id 
-            WHERE a.id = :id')
-            ->bindValue(':id', $id)
-            ->queryOne();
-            
-            // Incrementar el contador de visitas de forma atómica
-            Yii::$app->db->createCommand('
-                UPDATE ACTIVIDAD 
-                SET contador_visitas = contador_visitas + 1 
-                WHERE id = :id
-            ')->bindValue(':id', $id)->execute();
+        $actividad = (new \yii\db\Query())
+            ->from('ACTIVIDAD a')
+            ->select(['a.*', 'i.nombre_Archivo', 'i.extension']) // Add explicit select
+            ->leftJoin('IMAGEN_ACTIVIDAD ia', 'a.id = ia.ACTIVIDADid')
+            ->leftJoin('IMAGEN i', 'i.id = ia.IMAGENid')
+            ->where(['a.id' => $id])
+            ->one();
 
+        // Verificar que la actividad existe
         if (!$actividad) {
-            throw new NotFoundHttpException('La actividad solicitada no existe.');
+            throw new NotFoundHttpException('La actividad no existe.');
         }
+
+        // Obtener comentarios para esta actividad
+        $comentarios = (new \yii\db\Query())
+            ->select([
+                'c.id', 
+                'c.texto', 
+                'c.fecha_bloque as fecha', 
+                'c.comentario_relacionado',
+                'u.nick as usuario'
+            ])
+            ->from(['c' => 'comentario'])
+            ->leftJoin(['u' => 'USUARIO'], 'u.id = c.USUARIOid')
+            ->where([
+                'c.ACTIVIDADid' => $id,
+                'c.comentario_relacionado' => null
+            ])
+            ->orderBy(['c.fecha_bloque' => SORT_DESC])
+            ->all();
+
+        // Obtener respuestas para cada comentario
+        foreach ($comentarios as &$comentario) {
+            $comentario['respuestas'] = (new \yii\db\Query())
+                ->select([
+                    'c.id', 
+                    'c.texto', 
+                    'c.fecha_bloque as fecha',
+                    'u.nick as usuario'
+                ])
+                ->from(['c' => 'comentario'])
+                ->leftJoin(['u' => 'USUARIO'], 'u.id = c.USUARIOid')
+                ->where([
+                    'c.ACTIVIDADid' => $id,
+                    'c.comentario_relacionado' => $comentario['id']
+                ])
+                ->orderBy(['c.fecha_bloque' => SORT_ASC])
+                ->all();
+        }
+
+        $actividad['comentarios'] = $comentarios;
 
         return $this->render('actividad', [
             'actividad' => $actividad,
         ]);
     }
 
+    // Procesa la inscripción de un usuario en una actividad
     public function actionRegistrar($id)
     {
         $userId = Yii::$app->user->id;
         $fechaInscripcion = date('Y-m-d H:i:s');
 
-        // Check if the user is already registered
+        // Verificar si el usuario ya está registrado
         $existingRegistration = Yii::$app->db->createCommand('
             SELECT * FROM PARTICIPA 
             WHERE USUARIOid = :userId AND ACTIVIDADid = :actividadId
@@ -473,13 +508,13 @@ class ActividadesController extends controller
 
         if ($existingRegistration) {
             if ($existingRegistration['cancelado'] == 1 && $existingRegistration['fecha_cancelacion'] !== null) {
-                // Delete the previous registration
+                // Eliminar la inscripción anterior
                 Yii::$app->db->createCommand()->delete('PARTICIPA', [
                     'USUARIOid' => $userId,
                     'ACTIVIDADid' => $id,
                 ])->execute();
 
-                // Create a new registration
+                // Crear una nueva inscripción
                 Yii::$app->db->createCommand()->insert('PARTICIPA', [
                     'USUARIOid' => $userId,
                     'ACTIVIDADid' => $id,
@@ -492,7 +527,7 @@ class ActividadesController extends controller
                 Yii::$app->session->setFlash('error', 'Ya estás registrado en esta actividad.');
             }
         } else {
-            // Register the user for the activity
+            // Registrar al usuario para la actividad
             Yii::$app->db->createCommand()->insert('PARTICIPA', [
                 'USUARIOid' => $userId,
                 'ACTIVIDADid' => $id,
@@ -506,6 +541,7 @@ class ActividadesController extends controller
         return $this->redirect(['actividad', 'id' => $id]);
     }
 
+    // Muestra las actividades en las que está inscrito el usuario actual
     public function actionMisActividades()
     {
         $userId = Yii::$app->user->id;
@@ -526,6 +562,7 @@ class ActividadesController extends controller
         ]);
     }
 
+    // Permite a un usuario cancelar su participación en una actividad
     public function actionDesapuntar($id)
     {
         $userId = Yii::$app->user->id;
@@ -544,6 +581,7 @@ class ActividadesController extends controller
         return $this->redirect(['mis-actividades']);
     }
 
+    // Configuración de comportamientos del controlador
     public function behaviors()
     {
         return [
@@ -568,6 +606,7 @@ class ActividadesController extends controller
         ];
     }
 
+    // Muestra actividades agrupadas por etiquetas
     public function actionActividadesEtiquetas()
     {
         $etiquetas = Etiqueta::find()->with('actividades')->all();
@@ -577,6 +616,7 @@ class ActividadesController extends controller
         ]);
     }
 
+    // Permite a un usuario seguir todas las actividades de una etiqueta
     public function actionSeguirEtiqueta($id)
     {
         $userId = Yii::$app->user->id;
@@ -596,6 +636,7 @@ class ActividadesController extends controller
         return $this->redirect(['actividades-etiquetas']);
     }
 
+    // Permite a un usuario dejar de seguir las actividades de una etiqueta
     public function actionDejarSeguirEtiqueta($id)
     {
         $userId = Yii::$app->user->id;
@@ -613,6 +654,7 @@ class ActividadesController extends controller
         return $this->redirect(['actividades-etiquetas']);
     }
 
+    // Registra un voto positivo para una actividad
     public function actionLike($id)
     {
         $actividad = Actividad::findOne($id);
@@ -631,6 +673,7 @@ class ActividadesController extends controller
         return $this->redirect(Yii::$app->request->referrer ?: ['actividad/view', 'id' => $id]);
     }
     
+    // Registra un voto negativo para una actividad
     public function actionDislike($id)
     {
         $actividad = Actividad::findOne($id);

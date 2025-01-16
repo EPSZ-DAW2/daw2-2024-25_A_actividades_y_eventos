@@ -40,12 +40,14 @@ class Comentario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cerrado_comentario', 'numero_de_denuncias', 'USUARIOid', 'ACTIVIDADid'], 'integer'],
+            [['texto', 'USUARIOid', 'ACTIVIDADid'], 'required'],
+            [['USUARIOid', 'ACTIVIDADid', 'cerrado_comentario', 'numero_de_denuncias'], 'integer'],
+            [['comentario_relacionado'], 'integer', 'skipOnEmpty' => true],
             [['fecha_bloque'], 'safe'],
-            [['USUARIOid', 'ACTIVIDADid'], 'required'],
-            [['texto', 'comentario_relacionado', 'motivos_bloqueo'], 'string', 'max' => 255],
-            [['ACTIVIDADid'], 'exist', 'skipOnError' => true, 'targetClass' => Actividad::class, 'targetAttribute' => ['ACTIVIDADid' => 'id']],
+            [['texto', 'motivos_bloqueo'], 'string', 'max' => 255],
             [['USUARIOid'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::class, 'targetAttribute' => ['USUARIOid' => 'id']],
+            [['ACTIVIDADid'], 'exist', 'skipOnError' => true, 'targetClass' => Actividad::class, 'targetAttribute' => ['ACTIVIDADid' => 'id']],
+            [['comentario_relacionado'], 'exist', 'skipOnError' => true, 'targetClass' => self::class, 'targetAttribute' => ['comentario_relacionado' => 'id']],
         ];
     }
 
@@ -55,15 +57,15 @@ class Comentario extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'texto' => Yii::t('app', 'Texto'),
-            'comentario_relacionado' => Yii::t('app', 'Comentario Relacionado'),
-            'cerrado_comentario' => Yii::t('app', 'Cerrado Comentario'),
-            'numero_de_denuncias' => Yii::t('app', 'Numero De Denuncias'),
-            'fecha_bloque' => Yii::t('app', 'Fecha Bloqueo'),
-            'motivos_bloqueo' => Yii::t('app', 'Motivos Bloqueo'),
-            'USUARIOid' => Yii::t('app', 'ID Usuario'),
-            'ACTIVIDADid' => Yii::t('app', 'ID Actividad'),
+            'id' => 'ID',
+            'texto' => 'Texto',
+            'comentario_relacionado' => 'Comentario Relacionado',
+            'cerrado_comentario' => 'Cerrado',
+            'numero_de_denuncias' => 'Número de Denuncias',
+            'fecha_bloque' => 'Fecha de Bloqueo',
+            'motivos_bloqueo' => 'Motivos de Bloqueo',
+            'USUARIOid' => 'Usuario',
+            'ACTIVIDADid' => 'Actividad',
         ];
     }
 

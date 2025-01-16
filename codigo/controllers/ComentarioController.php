@@ -30,11 +30,17 @@ class ComentarioController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        'ajax-create' => ['POST'],
                     ],
                 ],
                 'access' => [
                     'class' => \yii\filters\AccessControl::class,
                     'rules' => [
+                        [
+                            'allow' => true,
+                            'actions' => ['ajax-create'],
+                            'roles' => ['@'],
+                        ],
                         [
                             'allow' => true,
                             'roles' => ['@'],
@@ -169,5 +175,114 @@ class ComentarioController extends Controller
         return $this->render('comentarios-actividades', [
             'comentariosActividades' => $comentarios,
         ]);
+    }
+
+    /**
+     * Maneja la creación de comentarios y respuestas mediante AJAX
+     * 
+     * @return array Respuesta JSON con el resultado de la operación
+     */
+    public function actionAjaxCreate()
+    {
+        // Configuramos el formato de respuesta como JSON
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        
+        try {
+            // Verificamos que la petición sea AJAX
+            if (!Yii::$app->request->isAjax) {
+                return ['success' => false, 'error' => 'Método no permitido'];
+            }
+
+            // Obtenemos los datos enviados por POST
+            $postData = Yii::$app->request->post();
+            
+            // Si es una respuesta a un comentario, obtenemos la actividad del comentario padre
+            if (!empty($postData['comentario_relacionado'])) {
+                $parentComment = Comentario::findOne($postData['comentario_relacionado']);
+                if ($parentComment) {
+                    $postData['ACTIVIDADid'] = $parentComment->ACTIVIDADid;
+                }
+            }
+            
+            // Creamos nuevo modelo de comentario y asignamos valores
+            $model = new Comentario();
+            $model->texto = $postData['texto'];
+            $model->ACTIVIDADid = $postData['ACTIVIDADid'];
+            $model->USUARIOid = Yii::$app->user->id; // ID del usuario actual
+            $model->fecha_bloque = date('Y-m-d H:i:s'); // Fecha actual
+            $model->cerrado_comentario = 0; // Inicialmente no está cerrado
+            $model->numero_de_denuncias = 0; // Inicialmente sin denuncias
+            
+            // Si es una respuesta, guardamos la referencia al comentario padre
+            if (!empty($postData['comentario_relacionado'])) {
+                $model->comentario_relacionado = $postData['comentario_relacionado'];
+            }
+
+            // Registramos los datos para debugging
+            Yii::debug('Guardando comentario con datos: ' . print_r($model->attributes, true));
+            
+            // Intentamos guardar el comentario
+            if ($model->save()) {
+                // Si se guarda exitosamente, devolvemos los datos del comentario
+                return [
+                    'success' => true,
+                    'comentario' => [
+                        'id' => $model->id,
+                        'texto' => $model->texto,
+                        'fecha' => Yii::$app->formatter->asDatetime($model->fecha_bloque),
+                        'usuario' => Yii::$app->user->identity->nick,
+                    ],
+                ];
+            }
+            
+            // Si hay errores al guardar, los registramos y devolvemos
+            Yii::error('Error guardando comentario: ' . print_r($model->errors, true));
+            return [
+                'success' => false,
+                'errors' => $model->errors
+            ];
+            
+        } catch (\Exception $e) {
+            // Capturamos cualquier error inesperado
+            Yii::error('Excepción en actionAjaxCreate: ' . $e->getMessage());
+            return [
+                'success' => false,
+                'error' => YII_DEBUG ? $e->getMessage() : 'Ha ocurrido un error al procesar la solicitud'
+            ];
+        }
+    }
+
+    /**
+     * Acción para reportar un comentario
+     * 
+     * @return array Respuesta JSON con el resultado de la operación
+     */
+    public function actionReport()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        try {
+            if (!Yii::$app->request->isAjax) {
+                return ['success' => false, 'error' => 'Método no permitido'];
+            }
+
+            $postData = Yii::$app->request->post();
+            $commentId = $postData['id'];
+
+            $model = Comentario::findOne($commentId);
+            if ($model) {
+                $model->numero_de_denuncias += 1;
+                if ($model->save()) {
+                    return ['success' => true];
+                } else {
+                    return ['success' => false, 'error' => 'Error al guardar el comentario'];
+                }
+            } else {
+                return ['success' => false, 'error' => 'Comentario no encontrado'];
+            }
+        } catch (\Exception $e) {
+            Yii::error('Excepción en actionReport: ' . $e->getMessage());
+            return ['success' => false, 'error' => 'Ha ocurrido un error al procesar la solicitud'];
+        }
     }
 }
