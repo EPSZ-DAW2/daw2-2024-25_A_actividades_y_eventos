@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 13-01-2025 a las 11:08:57
+-- Tiempo de generación: 16-01-2025 a las 13:48:59
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `actividades_eventos`
 --
+CREATE DATABASE IF NOT EXISTS `actividades_eventos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `actividades_eventos`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `ACTIVIDAD`
 --
 
+DROP TABLE IF EXISTS `ACTIVIDAD`;
 CREATE TABLE `ACTIVIDAD` (
   `id` bigint(19) NOT NULL,
   `titulo` varchar(255) DEFAULT NULL,
@@ -69,6 +72,7 @@ INSERT INTO `ACTIVIDAD` (`id`, `titulo`, `descripcion`, `fecha_celebracion`, `du
 -- Estructura de tabla para la tabla `ACTIVIDAD_UBICACION`
 --
 
+DROP TABLE IF EXISTS `ACTIVIDAD_UBICACION`;
 CREATE TABLE `ACTIVIDAD_UBICACION` (
   `ACTIVIDADid` bigint(19) NOT NULL,
   `UBICACIONid` bigint(19) NOT NULL
@@ -97,6 +101,7 @@ INSERT INTO `ACTIVIDAD_UBICACION` (`ACTIVIDADid`, `UBICACIONid`) VALUES
 -- Estructura de tabla para la tabla `ANUNCIO`
 --
 
+DROP TABLE IF EXISTS `ANUNCIO`;
 CREATE TABLE `ANUNCIO` (
   `id` bigint(19) NOT NULL,
   `titulo` varchar(255) DEFAULT NULL,
@@ -119,6 +124,7 @@ INSERT INTO `ANUNCIO` (`id`, `titulo`, `texto`, `registro_de_usuario`, `notas`) 
 -- Estructura de tabla para la tabla `ANUNCIO_ACTIVIDAD`
 --
 
+DROP TABLE IF EXISTS `ANUNCIO_ACTIVIDAD`;
 CREATE TABLE `ANUNCIO_ACTIVIDAD` (
   `ANUNCIOid` bigint(19) NOT NULL,
   `ACTIVIDADid` bigint(19) NOT NULL
@@ -138,6 +144,7 @@ INSERT INTO `ANUNCIO_ACTIVIDAD` (`ANUNCIOid`, `ACTIVIDADid`) VALUES
 -- Estructura de tabla para la tabla `clasificacion`
 --
 
+DROP TABLE IF EXISTS `clasificacion`;
 CREATE TABLE `clasificacion` (
   `id` bigint(19) NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
@@ -161,6 +168,7 @@ INSERT INTO `clasificacion` (`id`, `nombre`, `descripcion`, `icono`, `clasificac
 -- Estructura de tabla para la tabla `CLASIFICACION_ACTIVIDAD`
 --
 
+DROP TABLE IF EXISTS `CLASIFICACION_ACTIVIDAD`;
 CREATE TABLE `CLASIFICACION_ACTIVIDAD` (
   `CLASIFICACIONid` bigint(19) NOT NULL,
   `ACTIVIDADid` bigint(19) NOT NULL
@@ -189,6 +197,7 @@ INSERT INTO `CLASIFICACION_ACTIVIDAD` (`CLASIFICACIONid`, `ACTIVIDADid`) VALUES
 -- Estructura de tabla para la tabla `comentario`
 --
 
+DROP TABLE IF EXISTS `comentario`;
 CREATE TABLE `comentario` (
   `id` bigint(19) NOT NULL,
   `texto` varchar(255) DEFAULT NULL,
@@ -215,6 +224,7 @@ INSERT INTO `comentario` (`id`, `texto`, `comentario_relacionado`, `cerrado_come
 -- Estructura de tabla para la tabla `COMENTARIO_ACTIVIDAD`
 --
 
+DROP TABLE IF EXISTS `COMENTARIO_ACTIVIDAD`;
 CREATE TABLE `COMENTARIO_ACTIVIDAD` (
   `COMENTARIOid` bigint(19) NOT NULL,
   `ACTIVIDADid` bigint(19) NOT NULL
@@ -234,6 +244,7 @@ INSERT INTO `COMENTARIO_ACTIVIDAD` (`COMENTARIOid`, `ACTIVIDADid`) VALUES
 -- Estructura de tabla para la tabla `COMENTARIO_USUARIO`
 --
 
+DROP TABLE IF EXISTS `COMENTARIO_USUARIO`;
 CREATE TABLE `COMENTARIO_USUARIO` (
   `COMENTARIOid` bigint(19) NOT NULL,
   `USUARIOid` bigint(19) NOT NULL
@@ -245,6 +256,7 @@ CREATE TABLE `COMENTARIO_USUARIO` (
 -- Estructura de tabla para la tabla `CREA`
 --
 
+DROP TABLE IF EXISTS `CREA`;
 CREATE TABLE `CREA` (
   `USUARIOid` bigint(19) NOT NULL,
   `NOTIFICACIONid` bigint(19) NOT NULL
@@ -256,6 +268,7 @@ CREATE TABLE `CREA` (
 -- Estructura de tabla para la tabla `estado`
 --
 
+DROP TABLE IF EXISTS `estado`;
 CREATE TABLE `estado` (
   `id` bigint(19) NOT NULL,
   `terminada` int(10) DEFAULT NULL COMMENT '(0:No, 1:Realizada, 2:Suspendida, 3:Cancelada por inadecuada),  ',
@@ -284,6 +297,7 @@ INSERT INTO `estado` (`id`, `terminada`, `fecha_terminacion`, `motivo_terminacio
 -- Estructura de tabla para la tabla `ESTADO_ACTIVIDAD`
 --
 
+DROP TABLE IF EXISTS `ESTADO_ACTIVIDAD`;
 CREATE TABLE `ESTADO_ACTIVIDAD` (
   `ESTADOid` bigint(19) NOT NULL,
   `ACTIVIDADid` bigint(19) NOT NULL
@@ -303,6 +317,7 @@ INSERT INTO `ESTADO_ACTIVIDAD` (`ESTADOid`, `ACTIVIDADid`) VALUES
 -- Estructura de tabla para la tabla `ETIQUETAS`
 --
 
+DROP TABLE IF EXISTS `ETIQUETAS`;
 CREATE TABLE `ETIQUETAS` (
   `id` bigint(19) NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
@@ -323,6 +338,7 @@ INSERT INTO `ETIQUETAS` (`id`, `nombre`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `ETIQUETAS_ACTIVIDAD`
 --
 
+DROP TABLE IF EXISTS `ETIQUETAS_ACTIVIDAD`;
 CREATE TABLE `ETIQUETAS_ACTIVIDAD` (
   `ETIQUETASid` bigint(19) NOT NULL,
   `ACTIVIDADid` bigint(19) NOT NULL
@@ -346,6 +362,7 @@ INSERT INTO `ETIQUETAS_ACTIVIDAD` (`ETIQUETASid`, `ACTIVIDADid`) VALUES
 -- Estructura de tabla para la tabla `HISTORIAL`
 --
 
+DROP TABLE IF EXISTS `HISTORIAL`;
 CREATE TABLE `HISTORIAL` (
   `id` bigint(19) NOT NULL,
   `fecha` datetime DEFAULT NULL,
@@ -359,6 +376,7 @@ CREATE TABLE `HISTORIAL` (
 -- Estructura de tabla para la tabla `IMAGEN`
 --
 
+DROP TABLE IF EXISTS `IMAGEN`;
 CREATE TABLE `IMAGEN` (
   `id` bigint(19) NOT NULL,
   `titulo` varchar(255) DEFAULT NULL,
@@ -388,6 +406,7 @@ INSERT INTO `IMAGEN` (`id`, `titulo`, `descripcion`, `nombre_Archivo`, `ruta_arc
 -- Estructura de tabla para la tabla `IMAGEN_ACTIVIDAD`
 --
 
+DROP TABLE IF EXISTS `IMAGEN_ACTIVIDAD`;
 CREATE TABLE `IMAGEN_ACTIVIDAD` (
   `IMAGENid` bigint(19) NOT NULL,
   `ACTIVIDADid` bigint(19) NOT NULL,
@@ -413,6 +432,7 @@ INSERT INTO `IMAGEN_ACTIVIDAD` (`IMAGENid`, `ACTIVIDADid`, `orden`) VALUES
 -- Estructura de tabla para la tabla `NOTIFICACION`
 --
 
+DROP TABLE IF EXISTS `NOTIFICACION`;
 CREATE TABLE `NOTIFICACION` (
   `id` bigint(19) NOT NULL,
   `fecha` datetime DEFAULT NULL,
@@ -443,6 +463,7 @@ INSERT INTO `NOTIFICACION` (`id`, `fecha`, `codigo_de_clase`, `fecha_lectura`, `
 -- Estructura de tabla para la tabla `PARTICIPA`
 --
 
+DROP TABLE IF EXISTS `PARTICIPA`;
 CREATE TABLE `PARTICIPA` (
   `USUARIOid` bigint(19) NOT NULL,
   `ACTIVIDADid` bigint(19) NOT NULL,
@@ -468,6 +489,7 @@ INSERT INTO `PARTICIPA` (`USUARIOid`, `ACTIVIDADid`, `fecha_inscripcion`, `cance
 -- Estructura de tabla para la tabla `PATROCINA`
 --
 
+DROP TABLE IF EXISTS `PATROCINA`;
 CREATE TABLE `PATROCINA` (
   `USUARIOid` bigint(19) NOT NULL,
   `ANUNCIOid` bigint(19) NOT NULL
@@ -479,6 +501,7 @@ CREATE TABLE `PATROCINA` (
 -- Estructura de tabla para la tabla `RECIBE`
 --
 
+DROP TABLE IF EXISTS `RECIBE`;
 CREATE TABLE `RECIBE` (
   `USUARIOid` bigint(19) NOT NULL,
   `NOTIFICACIONid` bigint(19) NOT NULL
@@ -490,6 +513,7 @@ CREATE TABLE `RECIBE` (
 -- Estructura de tabla para la tabla `registro_acciones`
 --
 
+DROP TABLE IF EXISTS `registro_acciones`;
 CREATE TABLE `registro_acciones` (
   `id` int(11) NOT NULL,
   `fecha_accion` datetime NOT NULL,
@@ -519,6 +543,7 @@ INSERT INTO `registro_acciones` (`id`, `fecha_accion`, `accion`, `usuario_accion
 -- Estructura de tabla para la tabla `ROLES`
 --
 
+DROP TABLE IF EXISTS `ROLES`;
 CREATE TABLE `ROLES` (
   `id` bigint(19) NOT NULL,
   `nombre_rol` varchar(255) DEFAULT NULL,
@@ -542,6 +567,7 @@ INSERT INTO `ROLES` (`id`, `nombre_rol`, `descripcion`) VALUES
 -- Estructura de tabla para la tabla `SIGUE`
 --
 
+DROP TABLE IF EXISTS `SIGUE`;
 CREATE TABLE `SIGUE` (
   `USUARIOid` bigint(19) NOT NULL,
   `ACTIVIDADid` bigint(19) NOT NULL,
@@ -562,6 +588,7 @@ INSERT INTO `SIGUE` (`USUARIOid`, `ACTIVIDADid`, `fecha_seguimiento`) VALUES
 -- Estructura de tabla para la tabla `UBICACION`
 --
 
+DROP TABLE IF EXISTS `UBICACION`;
 CREATE TABLE `UBICACION` (
   `id` bigint(19) NOT NULL,
   `clase_de_ubicacion` int(10) DEFAULT NULL,
@@ -586,6 +613,7 @@ INSERT INTO `UBICACION` (`id`, `clase_de_ubicacion`, `ubicacion_raiz`, `notas`, 
 -- Estructura de tabla para la tabla `USUARIO`
 --
 
+DROP TABLE IF EXISTS `USUARIO`;
 CREATE TABLE `USUARIO` (
   `id` bigint(19) NOT NULL,
   `nick` varchar(255) DEFAULT NULL,
@@ -623,6 +651,7 @@ INSERT INTO `USUARIO` (`id`, `nick`, `password`, `email`, `nombre`, `apellidos`,
 -- Estructura de tabla para la tabla `USUARIO_COMENTARIO`
 --
 
+DROP TABLE IF EXISTS `USUARIO_COMENTARIO`;
 CREATE TABLE `USUARIO_COMENTARIO` (
   `COMENTARIOid` bigint(19) NOT NULL,
   `USUARIOid` bigint(19) NOT NULL
@@ -634,6 +663,7 @@ CREATE TABLE `USUARIO_COMENTARIO` (
 -- Estructura de tabla para la tabla `USUARIO_HISTORIAL`
 --
 
+DROP TABLE IF EXISTS `USUARIO_HISTORIAL`;
 CREATE TABLE `USUARIO_HISTORIAL` (
   `USUARIOid` bigint(19) NOT NULL,
   `HISTORIALid` bigint(19) NOT NULL
@@ -645,6 +675,7 @@ CREATE TABLE `USUARIO_HISTORIAL` (
 -- Estructura de tabla para la tabla `USUARIO_IMAGEN`
 --
 
+DROP TABLE IF EXISTS `USUARIO_IMAGEN`;
 CREATE TABLE `USUARIO_IMAGEN` (
   `usuario_id` bigint(19) NOT NULL,
   `imagen_id` bigint(19) NOT NULL
@@ -663,6 +694,7 @@ INSERT INTO `USUARIO_IMAGEN` (`usuario_id`, `imagen_id`) VALUES
 -- Estructura de tabla para la tabla `USUARIO_ROLES`
 --
 
+DROP TABLE IF EXISTS `USUARIO_ROLES`;
 CREATE TABLE `USUARIO_ROLES` (
   `USUARIOid` bigint(19) NOT NULL,
   `ROLESid` bigint(19) NOT NULL
@@ -688,6 +720,7 @@ INSERT INTO `USUARIO_ROLES` (`USUARIOid`, `ROLESid`) VALUES
 -- Estructura de tabla para la tabla `USUARIO_UBICACION`
 --
 
+DROP TABLE IF EXISTS `USUARIO_UBICACION`;
 CREATE TABLE `USUARIO_UBICACION` (
   `USUARIOid` bigint(19) NOT NULL,
   `UBICACIONid` bigint(19) NOT NULL
