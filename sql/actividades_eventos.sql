@@ -201,7 +201,7 @@ DROP TABLE IF EXISTS `comentario`;
 CREATE TABLE `comentario` (
   `id` bigint(19) NOT NULL,
   `texto` varchar(255) DEFAULT NULL,
-  `comentario_relacionado` varchar(255) DEFAULT NULL,
+  `comentario_relacionado` bigint(19) DEFAULT NULL,
   `cerrado_comentario` int(10) DEFAULT NULL,
   `numero_de_denuncias` int(10) DEFAULT NULL,
   `fecha_bloque` datetime DEFAULT NULL,
@@ -216,7 +216,10 @@ CREATE TABLE `comentario` (
 
 INSERT INTO `comentario` (`id`, `texto`, `comentario_relacionado`, `cerrado_comentario`, `numero_de_denuncias`, `fecha_bloque`, `motivos_bloqueo`, `USUARIOid`, `ACTIVIDADid`) VALUES
 (1, '¡Qué evento tan increíble!', NULL, 0, 0, '2025-01-05 00:00:00', NULL, 1, 1),
-(2, 'No me gustó el cambio de lugar', NULL, 1, 0, '2025-01-06 00:00:00', 'Comentario bloqueado', 2, 2);
+(2, 'No me gustó el cambio de lugar', NULL, 1, 0, '2025-01-06 00:00:00', 'Comentario bloqueado', 2, 2),
+(3, '¡Me encanta que se celebren estos eventos en nuestra ciudad!', NULL, 0, 0, '2025-01-16 22:30:56', NULL, 1, 14),
+(4, 'A mi también, pero deberían revisar los precios de algunos productos ????', 3, 0, 0, '2025-01-16 22:31:50', NULL, 3, 14),
+(5, 'Sí, además en estas épocas se agradece la calidez de la gente!!!!', 3, 0, 0, '2025-01-16 22:32:54', NULL, 2, 14);
 
 -- --------------------------------------------------------
 
