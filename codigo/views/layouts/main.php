@@ -40,6 +40,21 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         color: white;
         font-size: 12px;
     }
+    .navbar-nav {
+        display: flex;
+        justify-content: center; /* Centra los items de navegación */
+        flex-wrap: wrap; /* Permite que los items se ajusten en varias filas si es necesario */
+    }
+    .navbar-nav .nav-item {
+        margin: 5px; /* Añade un pequeño margen entre los items */
+    }
+    .navbar-nav.ms-auto {
+        display: flex;
+        justify-content: center; /* Centra los botones de usuario */
+    }
+    .navbar-nav.ms-auto .nav-item {
+        margin: 5px; /* Añade un margen entre los botones */
+    }
     </style>
 </head>
 <body class="d-flex flex-column h-100">
@@ -64,9 +79,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 ACTIVIDADES Y EVENTOS 
             </a>
 
+            <!-- Botón de menú hamburguesa para pantallas pequeñas -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
             <!-- Menú de navegación principal -->
-            <div class="navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-md-0"> <!-- Agregado mx-auto para centrar -->
                     <?php if (!Yii::$app->user->isGuest): ?>
                         <li class="nav-item">
                             <?= Html::a('Mis Actividades', ['/actividades/mis-actividades'], ['class' => 'nav-link']) ?>
@@ -81,7 +101,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 </ul>
 
                 <!-- Opciones para usuarios logueados o no -->
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav mx-auto d-flex justify-content-center align-items-center flex-column flex-sm-row"> 
                     <?php if (Yii::$app->user->isGuest): ?>
                         <li class="nav-item">
                             <?= Html::a('Iniciar sesión', ['site/login'], ['class' => 'btn btn-sm btn-light mx-2']) ?>
@@ -109,18 +129,21 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                             $pendingNotifications = Notificacion::find()->where(['USUARIOid' => Yii::$app->user->id, 'fecha_lectura' => null])->count();
                         }
                         ?>
-                        <li class="nav-item">
-                            <?= Html::a('', ['usuario/mi-perfil'], ['class' => 'btn btn-sm btn-secondary mx-1 bi bi-person', 'data-method' => 'post']) ?>
-                        </li>
-                        <li class="nav-item position-relative">
-                            <?= Html::a('<i class="bi bi-bell"></i>' . ($pendingNotifications > 0 ? '<span class="badge-notification">' . $pendingNotifications . '</span>' : ''), ['usuario/mis-notificaciones'], ['class' => 'btn btn-sm btn-info mx-1']) ?>
-                        </li>
-                        <li class="nav-item">
-                            <?= Html::a('', ['site/logout'], ['class' => 'btn btn-sm btn-danger mx-1 bi bi-door-open', 'data-method' => 'post']) ?>
-                        </li>
-                        
+                        <div class="d-flex flex-wrap justify-content-center">
+                            <li class="nav-item">
+                                <?= Html::a('', ['usuario/mi-perfil'], ['class' => 'btn btn-sm btn-secondary mx-1 bi bi-person', 'data-method' => 'post']) ?>
+                            </li>
+                            <li class="nav-item position-relative">
+                                <?= Html::a('<i class="bi bi-bell"></i>' . ($pendingNotifications > 0 ? '<span class="badge-notification">' . $pendingNotifications . '</span>' : ''), ['usuario/mis-notificaciones'], ['class' => 'btn btn-sm btn-info mx-1']) ?>
+                            </li>
+                            <li class="nav-item">
+                                <?= Html::a('', ['site/logout'], ['class' => 'btn btn-sm btn-danger mx-1 bi bi-door-open', 'data-method' => 'post']) ?>
+                            </li>
+                        </div>
                     <?php endif; ?>
                 </ul>
+
+
             </div>
         </div>
     </nav>
