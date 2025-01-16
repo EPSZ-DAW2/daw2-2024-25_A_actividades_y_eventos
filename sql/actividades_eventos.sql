@@ -393,7 +393,7 @@ CREATE TABLE `IMAGEN` (
 
 INSERT INTO `IMAGEN` (`id`, `titulo`, `descripcion`, `nombre_Archivo`, `ruta_archivo`, `extension`, `notas`) VALUES
 (1, '1', 'Vista panorámica del evento', 'concierto_parque', NULL, 'jpg', 'Imagen tomada desde el escenario principal.'),
-(2, '2', 'Equipo de futbol jugando', 'torneo_futbol', NULL, 'jpg', 'Imagen durante la competencia del torneo.'),
+(2, '2', 'Equipo de futbol jugando', 'torneo_futbol', NULL, 'png', 'Imagen durante la competencia del torneo.'),
 (3, NULL, NULL, 'navidad', NULL, 'jpg', NULL),
 (4, NULL, NULL, 'carrera', NULL, 'jpg', NULL),
 (5, NULL, NULL, 'medieval', NULL, 'jpg', NULL),

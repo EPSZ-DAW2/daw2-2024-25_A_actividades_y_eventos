@@ -58,11 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-    <!--<div class="text-center mb-4">
+    <div class="text-center mb-4">
         <a href="<?= Yii::$app->urlManager->createUrl(['actividades/actividades-etiquetas']) ?>" class="btn btn-outline-info btn-lg">
             <i class="bi bi-tags me-2"></i> Actividades por Etiquetas
         </a>
-    </div>-->
+    </div>
 
 
     <!-- Buscador -->
