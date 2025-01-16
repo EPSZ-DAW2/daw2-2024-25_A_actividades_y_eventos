@@ -5,6 +5,9 @@ use Yii;
 use yii\rest\ActiveController;
 use yii\filters\VerbFilter;
 use yii\filters\Cors;
+use app\models\Usuario;
+use yii\web\Response;
+use app\models\Actividad;
 
 class ApiController extends ActiveController
 {
@@ -32,6 +35,13 @@ class ApiController extends ActiveController
         ];
         $behaviors['authenticator'] = [
             'class' => HttpBasicAuth::class,
+            'auth' => function ($username, $password) {
+                $user = Usuario::findByNick($username);
+                if ($user && $user->validatePassword($password)) {
+                    return $user;
+                }
+                return null;
+            },
         ];
 
         return $behaviors;
@@ -89,5 +99,15 @@ class ApiController extends ActiveController
         ];
 
         return $actions;
+    }
+
+    public function actionUpdate($id)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $model = Actividad::findOne($id);
+        if ($model->load(Yii::$app->request->post(), '') && $model->save()) {
+            return $model;
+        }
+        return ['errors' => $model->errors];
     }
 }
