@@ -54,17 +54,17 @@ CREATE TABLE `ACTIVIDAD` (
 --
 
 INSERT INTO `ACTIVIDAD` (`id`, `titulo`, `descripcion`, `fecha_celebracion`, `duracion_estimada`, `lugar_celebracion`, `detalles`, `notas`, `edad_recomendada`, `votosOK`, `votosKO`, `maximo_participantes`, `minimo_participantes`, `reserva`, `participantes`, `contador_visitas`) VALUES
-(1, 'Concierto de Música', 'Un concierto en el parque con diferentes bandas locales.', '2025-02-20 00:00:00', 120, 'Parque Central', 'Trae tu manta y disfruta del evento.', 'Evento gratuito para todas las edades.', 0, 100, 10, 500, 50, 1, 150, 2),
-(2, 'Torneo de Futbol', 'Competencia de futbol entre equipos locales.', '2025-03-15 00:00:00', 180, 'Estadio Municipal', '¡Inscríbete y forma tu equipo!', 'La inscripción está abierta hasta el 1 de marzo.', 12, 200, 5, 10, 2, 1, 8, 0),
-(5, 'Feria del Libro', 'Feria anual con expositores locales y nacionales', '2025-04-15 00:00:00', 480, 'Plaza Mayor', 'Presentaciones de libros y firmas de autores', 'Evento cultural con actividades para niños', 0, 150, 8, 1000, 0, 1, 300, 0),
-(7, 'Festival Gastronómico', 'Muestra de la gastronomía local y regional', '2025-05-20 00:00:00', 360, 'Recinto Ferial', 'Degustaciones y talleres culinarios', 'Participan restaurantes locales', 0, 280, 15, 800, 100, 1, 500, 0),
-(8, 'Carrera Popular', 'Carrera urbana 10Km', '2025-06-10 00:00:00', 180, 'Centro Ciudad', 'Recorrido por el casco histórico', 'Incluye categorías infantiles', 12, 400, 20, 1000, 200, 1, 750, 0),
-(9, 'Teatro en la Calle', 'Festival de artes escénicas', '2025-07-01 00:00:00', 240, 'Casco Antiguo', 'Actuaciones de compañías locales', 'Espectáculos gratuitos', 0, 180, 5, 300, 0, 0, 250, 0),
-(10, 'Exposición de Arte Local', 'Muestra de artistas contemporáneos', '2025-08-05 00:00:00', 720, 'Centro Cultural', 'Pinturas y esculturas locales', 'Visitas guiadas disponibles', 0, 90, 10, 200, 0, 1, 150, 1),
-(11, 'Mercado Medieval', 'Recreación histórica y mercado tradicional', '2025-09-15 00:00:00', 480, 'Plaza del Ayuntamiento', 'Artesanía y espectáculos medievales', 'Ambiente familiar', 0, 320, 25, 2000, 0, 1, 1500, 0),
-(12, 'Torneo de Pádel', 'Competición amateur por categorías', '2025-10-01 00:00:00', 480, 'Club Deportivo Municipal', 'Todas las categorías y niveles', 'Inscripción por parejas', 16, 150, 12, 64, 32, 1, 48, 0),
-(13, 'Festival de Jazz', 'Conciertos de jazz y blues', '2025-11-10 00:00:00', 240, 'Teatro Municipal', 'Artistas nacionales e internacionales', 'Aforo limitado', 0, 200, 8, 400, 100, 1, 350, 0),
-(14, 'Navidad en la Ciudad', 'Actividades navideñas familiares', '2025-12-20 00:00:00', 720, 'Centro Ciudad', 'Mercadillo navideño y actividades infantiles', 'Programación especial', 0, 450, 20, 1000, 0, 1, 800, 3);
+(1, 'Concierto de Música', 'Un concierto en el parque con diferentes bandas locales.', '2025-02-20 00:00:00', 120, 'Parque de la Marina Española', 'Trae tu manta y disfruta del evento.', 'Evento gratuito para todas las edades.', 0, 100, 10, 500, 50, 1, 150, 2),
+(2, 'Torneo de Futbol', 'Competencia de futbol entre equipos locales.', '2025-03-15 00:00:00', 180, 'Estadio Ruta de la Plata', '¡Inscríbete y forma tu equipo!', 'La inscripción está abierta hasta el 1 de marzo.', 12, 200, 5, 10, 2, 1, 8, 0),
+(5, 'Feria del Libro', 'Feria anual con expositores locales y nacionales', '2025-04-15 00:00:00', 480, 'Plaza Mayor de Zamora', 'Presentaciones de libros y firmas de autores', 'Evento cultural con actividades para niños', 0, 150, 8, 1000, 0, 1, 300, 0),
+(7, 'Festival Gastronómico', 'Muestra de la gastronomía local y regional', '2025-05-20 00:00:00', 360, 'Recinto Ferial IFEZA, Zamora', 'Degustaciones y talleres culinarios', 'Participan restaurantes locales', 0, 280, 15, 800, 100, 1, 500, 0),
+(8, 'Carrera Popular', 'Carrera urbana 10Km', '2025-06-10 00:00:00', 180, 'Casco Histórico de Zamora', 'Recorrido por el casco histórico', 'Incluye categorías infantiles', 12, 400, 20, 1000, 200, 1, 750, 0),
+(9, 'Teatro en la Calle', 'Festival de artes escénicas', '2025-07-01 00:00:00', 240, 'Casco antiguo Zamora', 'Actuaciones de compañías locales', 'Espectáculos gratuitos', 0, 180, 5, 300, 0, 0, 250, 0),
+(10, 'Exposición de Arte Local', 'Muestra de artistas contemporáneos', '2025-08-05 00:00:00', 720, 'Centro Cultural La Alhóndiga', 'Pinturas y esculturas locales', 'Visitas guiadas disponibles', 0, 90, 10, 200, 0, 1, 150, 1),
+(11, 'Mercado Medieval', 'Recreación histórica y mercado tradicional', '2025-09-15 00:00:00', 480, 'Plaza Mayor de Zamora', 'Artesanía y espectáculos medievales', 'Ambiente familiar', 0, 320, 25, 2000, 0, 1, 1500, 0),
+(12, 'Torneo de Pádel', 'Competición amateur por categorías', '2025-10-01 00:00:00', 480, 'Ciudad Deportiva de Zamora', 'Todas las categorías y niveles', 'Inscripción por parejas', 16, 150, 12, 64, 32, 1, 48, 0),
+(13, 'Festival de Jazz', 'Conciertos de jazz y blues', '2025-11-10 00:00:00', 240, 'Teatro Ramos Carrión', 'Artistas nacionales e internacionales', 'Aforo limitado', 0, 200, 8, 400, 100, 1, 350, 0),
+(14, 'Navidad en la Ciudad', 'Actividades navideñas familiares', '2025-12-20 00:00:00', 720, 'Casco Histórico de Zamora', 'Mercadillo navideño y actividades infantiles', 'Programación especial', 0, 450, 20, 1000, 0, 1, 800, 3);
 
 -- --------------------------------------------------------
 
