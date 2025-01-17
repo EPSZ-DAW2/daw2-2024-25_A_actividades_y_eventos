@@ -92,9 +92,38 @@ $this->title = $model->titulo;
             <th>Participantes</th>
             <td><?= Html::encode($model->participantes) ?></td>
         </tr>
+        <tr>
+            <?php
+                // API Key de Google Maps
+                $apiKey = 'AIzaSyAwkqhsAcJIftL32sor2fYd5Q7-zaOkc5A';
+                $direccionActividad = Html::encode($model->lugar_celebracion);
+                $direccionEncodedActividad = urlencode($direccionActividad);
+                $urlActividad = "https://maps.googleapis.com/maps/api/geocode/json?address=$direccionEncodedActividad&components=country:ES&key=$apiKey";
+                $responseActividad = file_get_contents($urlActividad);
+                $dataActividad = json_decode($responseActividad, true);
+
+                if ($dataActividad['status'] == 'OK') {
+                    $latActividad = $dataActividad['results'][0]['geometry']['location']['lat'];
+                    $lngActividad = $dataActividad['results'][0]['geometry']['location']['lng'];
+                } else {
+                    $latActividad = null;
+                    $lngActividad = null;
+                }
+
+                $this->params['latActividad'] = $latActividad;
+                $this->params['lngActividad'] = $lngActividad;
+
+
+                // Agregar mapa de actividad
+                if ($latActividad && $lngActividad) {
+                    echo "<div style='display: flex; justify-content: center; align-items: center;'>
+                        <div id='map-actividad' style='width: 100%; height: 200px;'></div>
+                    </div>";
+                }
+            ?>
+        </tr>
+        <br>
     </table>
     <?= Html::a('Participantes de la actividad', ['ver_participantes_actividad', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
     <?= Html::a('Etiquetas de la actividad', ['ver_etiquetas_actividad', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
-
-
 </div>

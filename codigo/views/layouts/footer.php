@@ -26,29 +26,25 @@ $this->registerCssFile(Yii::$app->request->baseUrl . '/css/estiloFooter.css', ['
                 <?php
                     // API Key de Google Maps
                     $apiKey = 'AIzaSyAwkqhsAcJIftL32sor2fYd5Q7-zaOkc5A';
-                    $direccion = "Avenida de Requejo, 33, 49029 Zamora";
-                    $direccionEncoded = urlencode($direccion);
-                    $url = "https://maps.googleapis.com/maps/api/geocode/json?address=$direccionEncoded&components=country:ES&key=$apiKey";
-                    $response = file_get_contents($url);
-                    $data = json_decode($response, true);
+                    $direccionFooter = "Avenida de Requejo, 33, 49029 Zamora";
+                    $direccionEncodedFooter = urlencode($direccionFooter);
+                    $urlFooter = "https://maps.googleapis.com/maps/api/geocode/json?address=$direccionEncodedFooter&components=country:ES&key=$apiKey";
+                    $responseFooter = file_get_contents($urlFooter);
+                    $dataFooter = json_decode($responseFooter, true);
 
-                    if ($data['status'] == 'OK') {
-                        $lat = $data['results'][0]['geometry']['location']['lat'];
-                        $lng = $data['results'][0]['geometry']['location']['lng'];
-                        echo "<div style='display: flex; justify-content: center; align-items: center;'><div id='map' style='width: 100%; height: 200px;'></div></div>";
-                        echo "<script>
-                            function initMap() {
-                                var location = {lat: $lat, lng: $lng};
-                                var map = new google.maps.Map(document.getElementById('map'), {
-                                    zoom: 15,
-                                    center: location
-                                });
-                                new google.maps.Marker({position: location, map: map});
-                            }
-                        </script>";
-                        echo "<script async defer src='https://maps.googleapis.com/maps/api/js?key=$apiKey&callback=initMap'></script>";
+                    if ($dataFooter['status'] == 'OK') {
+                        $latFooter = $dataFooter['results'][0]['geometry']['location']['lat'];
+                        $lngFooter = $dataFooter['results'][0]['geometry']['location']['lng'];
                     } else {
-                        echo "<div class='alert alert-danger'>No se pudo obtener la localización. Verifica la dirección.</div>";
+                        $latFooter = null;
+                        $lngFooter = null;
+                    }
+
+                    // Agregar mapa del footer
+                    if ($latFooter && $lngFooter) {
+                        echo "<div style='display: flex; justify-content: center; align-items: center;'>
+                            <div id='map-footer' style='width: 100%; height: 200px;'></div>
+                        </div>";
                     }
                 ?>
                 <br>
@@ -87,6 +83,38 @@ $this->registerCssFile(Yii::$app->request->baseUrl . '/css/estiloFooter.css', ['
             <p>Diseñado y desarrollado por <?= Html::a('Equipo2425a_eventos', 'https://github.com/EPSZ-DAW2/daw2-2024-25_A_actividades_y_eventos', ['target' => '_blank']) ?></p>
         </div>
     </div>
+
+    <?php
+        $latActividad = $this->params['latActividad'] ?? null;
+        $lngActividad = $this->params['lngActividad'] ?? null;
+
+        // Script único para inicializar ambos mapas
+        if (($latActividad && $lngActividad) || ($latFooter && $lngFooter))
+        {
+            echo "<script>
+                function initMaps() {
+                    // Mapa de Actividad
+                    if (document.getElementById('map-actividad')) {
+                        var actividadLocation = {lat: $latActividad, lng: $lngActividad};
+                        var actividadMap = new google.maps.Map(document.getElementById('map-actividad'), {
+                            zoom: 15,
+                            center: actividadLocation
+                        });
+                        new google.maps.Marker({position: actividadLocation, map: actividadMap});
+                    }
+
+                    // Mapa del Footer
+                    if (document.getElementById('map-footer')) {
+                        var footerLocation = {lat: $latFooter, lng: $lngFooter};
+                        var footerMap = new google.maps.Map(document.getElementById('map-footer'), {
+                            zoom: 15,
+                            center: footerLocation
+                        });
+                        new google.maps.Marker({position: footerLocation, map: footerMap});
+                    }
+                }
+            </script>";
+            echo "<script async defer src='https://maps.googleapis.com/maps/api/js?key=$apiKey&callback=initMaps'></script>";
+        }
+    ?>
 </footer>
-
-
