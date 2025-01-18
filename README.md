@@ -1,5 +1,10 @@
 <meta charset="utf-8">
 # daw2_2021-22_yii2_basic
+
+<h1 align="center">Actividades y eventos EPSZ</h1>
+<p align="center">
+  <img height="100px" src="codigo/web/images/actividades_eventos.png" alt="Pantalla de inicio de la aplicación">
+</p>
 <p align="center">
   <a href="https://poliz.usal.es" target="_blank">
     <img height="100px" src="https://politecnicazamora.usal.es/wp-content/uploads/sites/78/2024/02/escuela-politecnica-superior-zamora.jpg">
@@ -11,11 +16,6 @@
   <h1 align="center">EPSZ-DAW2 - Yii2_basic</h1>
   <br>
   
-</p>
-
-<h1 align="center">Actividades y eventos EPSZ</h1>
-<p align="center">
-  <img height="100px" src="codigo/web/images/actividades_eventos.png" alt="Pantalla de inicio de la aplicación">
 </p>
 
 
