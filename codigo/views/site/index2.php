@@ -13,20 +13,22 @@ $this->title = 'Portada';
 <div class="site-index">
     <div class="container-fluid">
         <div class="row">
-            <!-- Botón de menú (icono de hamburguesa) fijo en la esquina -->
-            <button id="toggleMenu" class="btn btn-outline-primary position-fixed d-md-none" style="top: 20px; left: 20px; z-index: 1050; width: 50px; height: 50px; padding: 0; border-radius: 50%; background-color: #007bff; color: white; border: none;">
-                <i class="bi bi-list" style="font-size: 30px;"></i> <!-- Icono de tres barras -->
+            <!-- Botón de menú fijo con texto "Actividades" y flecha -->
+            <button id="toggleMenu" class="btn btn-outline-primary d-md-none" 
+                style=" padding: 5px 15px; border-radius: 20px; background-color: #007bff; color: white; border: none; font-size: 16px;">
+                Actividades <i class="bi bi-chevron-down" style="font-size: 18px; margin-left: 5px;"></i>
             </button>
 
-            <!-- Sidebar fijo, oculto en pantallas grandes -->
+
+            <!-- Sidebar fijo pantallas grandes -->
             <div id="sidebar" class="col-md-3 col-lg-2 bg-light sidebar position-fixed d-none d-md-block" style="top: 0; left: 0; bottom: 0; overflow-y: auto; height: 100vh; padding-top: 20px; padding-right: 15px; box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1); border-radius: 0 10px 10px 0; background-color: #f9f9f9;">
                 <div class="position-sticky mt-4">
-                    <h5 class="text-center text-primary font-weight-bold mb-4">Actividades</h5>
+                    <h5 class="text-center text-primary font-weight-bold mb-4" style="margin-top: 100px;">Actividades</h5>
                     <ul class="nav flex-column">
                         <?php foreach ($categorias as $categoria => $url): ?>
                             <li class="nav-item">
                                 <a class="nav-link btn btn-outline-primary btn-lg w-100" href="<?= Yii::$app->urlManager->createUrl([$url]) ?>" style="font-size: 18px; padding: 12px; border-radius: 5px; transition: background-color 0.3s ease;">
-                                    <!-- Íconos según categoría -->
+                                    
                                     <?php if ($categoria == 'Más Visitadas'): ?>
                                         <i class="bi bi-eye me-2"></i>
                                     <?php elseif ($categoria == 'Recomendadas'): ?>
@@ -48,12 +50,12 @@ $this->title = 'Portada';
 
             <!-- Sidebar colapsable en pantallas pequeñas -->
             <div id="sidebarMobile" class="col-12 bg-light sidebar d-md-none" style="display: none; position-fixed top-0 left-0 bottom-0 overflow-y-auto height-100vh padding-top: 20px; box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1); border-radius: 0 10px 10px 0; background-color: #f9f9f9; overflow-x: hidden;">
-                <h5 class="text-center text-primary font-weight-bold mb-4">Actividades</h5>
-                <ul class="nav flex-column text-center"> <!-- Añadido "text-center" para centrar -->
+                <!--<h5 class="text-center text-primary font-weight-bold mb-4">Actividades</h5>-->
+                <ul class="nav flex-column text-center"> 
                     <?php foreach ($categorias as $categoria => $url): ?>
                         <li class="nav-item">
                             <a class="nav-link btn btn-outline-primary btn-lg w-100" href="<?= Yii::$app->urlManager->createUrl([$url]) ?>" style="font-size: 18px; padding: 12px; border-radius: 5px; transition: background-color 0.3s ease;">
-                                <!-- Íconos según categoría -->
+                                
                                 <?php if ($categoria == 'Más Visitadas'): ?>
                                     <i class="bi bi-eye me-2"></i>
                                 <?php elseif ($categoria == 'Recomendadas'): ?>
@@ -160,7 +162,7 @@ $this->title = 'Portada';
                 <style>
                     .size-carrusel {
                         width: 100%; 
-                        height: 600px; 
+                        height: 550px; 
                         object-fit: cover; 
                     }
                     /* para que no se vean los numeros en el carrousel */
@@ -346,12 +348,6 @@ $this->title = 'Portada';
 
 <style>
     @media (max-width: 500px) {
-        /* Ajustar el tamaño del botón de hamburguesa */
-        #toggleMenu {
-            width: 45px;
-            height: 45px;
-        }
-
         /* Hacer que el sidebar se ajuste correctamente en pantallas pequeñas */
         #sidebarMobile {
             padding-top: 10px; /* Reducir el padding superior */

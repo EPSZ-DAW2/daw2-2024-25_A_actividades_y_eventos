@@ -3,12 +3,13 @@
 /** @var app\models\Etiqueta[] $etiquetas */
 
 use yii\helpers\Html;
+use app\models\Roles;
 
 $this->title = 'Actividades por Etiquetas';
 $this->params['breadcrumbs'][] = ['label' => 'Actividades', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
-// Get all images for activities
+// Obtener todas las imágenes asociadas a las actividades
 $imgActividades = Yii::$app->db->createCommand('
     SELECT i.*, a.id AS actividad_id 
     FROM imagen i
@@ -19,23 +20,37 @@ $imgActividades = Yii::$app->db->createCommand('
 
 <h1 class="text-center mb-4"><?= Html::encode($this->title) ?></h1>
 
-<div class="etiquetas-list">
+<div class="actividades-list">
     <?php if (!empty($etiquetas)): ?>
         <?php foreach ($etiquetas as $etiqueta): ?>
             <div class="etiqueta-section mb-5">
                 <h2><?= Html::encode($etiqueta->nombre) ?></h2>
                 <p><?= Html::encode($etiqueta->descripcion) ?></p>
-                <div class="mb-3">
-                    <?= Html::a('Seguir Etiqueta', ['seguir-etiqueta', 'id' => $etiqueta->id], ['class' => 'btn btn-success btn-sm']) ?>
-                    <?= Html::a('Dejar de Seguir Etiqueta', ['dejar-seguir-etiqueta', 'id' => $etiqueta->id], ['class' => 'btn btn-danger btn-sm']) ?>
+                <div class="mb-3 d-flex gap-3">
+                    <?= Html::a(
+                        '<i class="bi bi-plus-circle"></i> Seguir Etiqueta', 
+                        ['seguir-etiqueta', 'id' => $etiqueta->id], 
+                        [
+                            'class' => 'btn btn-success fw-bold text-white rounded-pill shadow',
+                            'style' => 'font-size: 1.1rem; padding: 8px 16px;'
+                        ]
+                    ) ?>
+                    <?= Html::a(
+                        '<i class="bi bi-dash-circle"></i> Dejar de Seguir', 
+                        ['dejar-seguir-etiqueta', 'id' => $etiqueta->id], 
+                        [
+                            'class' => 'btn btn-danger fw-bold text-white rounded-pill shadow',
+                            'style' => 'font-size: 1.1rem; padding: 8px 16px;'
+                        ]
+                    ) ?>
                 </div>
                 <?php if (!empty($etiqueta->actividades)): ?>
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                         <?php foreach ($etiqueta->actividades as $actividad): ?>
                             <div class="col">
-                                <div class="card shadow-sm h-100">
+                                <div class="card shadow-sm h-100 actividad-card" style="position: relative;">
                                     <?php 
-                                        // Find if activity has an associated image
+                                        // Verificar si la actividad tiene imagen asociada
                                         $imagen = null;
                                         foreach ($imgActividades as $img) {
                                             if ($img['actividad_id'] == $actividad->id) {
@@ -43,29 +58,39 @@ $imgActividades = Yii::$app->db->createCommand('
                                                 break;
                                             }
                                         }
-
-                                        if ($imagen): ?>
-                                            <img 
-                                                src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($imagen['nombre_Archivo'] . '.' . $imagen['extension'])) ?>"
-                                                alt="<?= Html::encode($actividad->titulo) ?>" 
-                                                class="card-img-top" 
-                                                style="height: 180px; object-fit: cover;"
-                                            >
-                                        <?php else: ?>
-                                            <img 
-                                                src="<?= Yii::getAlias('@web/images/actividades/default.jpg') ?>"
-                                                alt="<?= Html::encode($actividad->titulo) ?>" 
-                                                class="card-img-top" 
-                                                style="height: 180px; object-fit: cover;"
-                                            >
-                                        <?php endif; ?>
+                                    ?>
+                                    <img 
+                                        src="<?= Yii::getAlias('@web/images/actividades/' . ($imagen ? Html::encode($imagen['nombre_Archivo'] . '.' . $imagen['extension']) : 'default.jpg')) ?>"
+                                        alt="<?= Html::encode($actividad->titulo) ?>" 
+                                        class="card-img-top" 
+                                        style="height: 180px; object-fit: cover;"
+                                    >
                                     <div class="card-body">
                                         <h5 class="card-title"><?= Html::encode($actividad->titulo) ?></h5>
                                         <p class="card-text text-muted" style="font-size: 0.9rem;"><?= Html::encode($actividad->descripcion) ?></p>
-                                        <p class="card-text"><strong>Fecha:</strong> <?= Html::encode($actividad->fecha_celebracion) ?></p>
                                     </div>
+
+                                    <!-- Información adicional al pasar el ratón -->
+                                    <div class="actividad-info">
+                                        <p class="card-text"><strong>Fecha:</strong> <?= Html::encode($actividad->fecha_celebracion) ?></p>
+                                        <p class="card-text"><strong>Lugar:</strong> <?= Html::encode($actividad->lugar_celebracion ?? 'No especificado') ?></p>
+                                        <p class="card-text"><strong>Duración:</strong> <?= Html::encode($actividad->duracion_estimada ?? 'No especificado') ?> minutos</p>
+                                    </div>
+
                                     <div class="card-footer d-flex justify-content-between">
-                                        <?= Html::a('Ver', ['ver_actividad', 'id' => $actividad->id], ['class' => 'btn btn-info btn-sm']) ?>
+                                        <?= Html::a('Ver', 
+                                            [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
+                                            ['class' => 'btn btn-primary']) ?>
+                                        <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
+                                            <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-warning ']) ?>
+                                            <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
+                                                'class' => 'btn btn-danger ',
+                                                'data' => [
+                                                    'confirm' => '¿Estás seguro de que deseas eliminar esta actividad?',
+                                                    'method' => 'post',
+                                                ],
+                                            ]) ?>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </div>
@@ -84,3 +109,38 @@ $imgActividades = Yii::$app->db->createCommand('
         </div>
     <?php endif; ?>
 </div>
+
+<?php
+$this->registerCss("
+    .actividad-card {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .actividad-info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        padding: 10px;
+        font-size: 0.9rem;
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .actividad-card:hover .actividad-info {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .card-footer {
+        position: relative;
+        z-index: 20;
+    }
+");
+?>
+
