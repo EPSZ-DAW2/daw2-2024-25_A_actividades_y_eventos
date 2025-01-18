@@ -271,6 +271,18 @@ class UsuarioController extends Controller
         ]);
     }
 
+    public function actionToggleNotifications()
+    {
+        if (isset($_SESSION['hide_notifications'])) {
+            unset($_SESSION['hide_notifications']);
+            Yii::$app->session->setFlash('success', 'Notificaciones activadas.');
+        } else {
+            $_SESSION['hide_notifications'] = true;
+            Yii::$app->session->setFlash('success', 'Notificaciones desactivadas.');
+        }
+        return $this->redirect(['mi-perfil']);
+    }
+
     protected function logAction($action, $details)
     {
         $log = new RegistroAcciones();

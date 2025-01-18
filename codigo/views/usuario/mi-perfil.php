@@ -87,11 +87,29 @@ $this->title = 'Mi Perfil';
 <?= Html::a('Editar Perfil', ['usuario/editar-perfil'], ['class' => 'btn btn-warning']) ?>
 
 </br>
-
 </br>
 
+<h2>Configuración de Avisos</h2>
+</br>
+<div class="form-group">
+    <div class="col-lg-12">
+        <?php 
+        $showNotifications = !isset($_SESSION['hide_notifications']);
+        echo Html::a(
+            $showNotifications ? 'Desactivar indicador de notificaciones' : 'Activar indicador de notificaciones',
+            ['usuario/toggle-notifications'],
+            [
+                'class' => 'btn btn-' . ($showNotifications ? 'secondary' : 'primary'),
+                'data' => ['method' => 'post'],
+            ]
+        );
+        ?>
+    </div>
+</div>
 
 </br>
+</br>
+
 <h2>Solitud de soporte al administrador del sitio</h2>
 </br>
 <!-- Botones para crear notificaciones -->

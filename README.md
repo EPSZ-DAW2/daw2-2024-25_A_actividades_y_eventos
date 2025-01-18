@@ -57,7 +57,7 @@ Cuando tengas importada la base de datos, activa el servidor de Apache y MySQL y
 
 * Nota: Si has clonado el repositorio en un directorio diferente, cambia `daw2-2024-25_A_actividades_y_eventos` por el nombre del directorio en el que hayas clonado el repositorio.
 
-## LLamadas a la API de la aplicacion
+## Llamadas a la API de la aplicacion
 
 Para más detalles sobre las llamadas a la API, consulta el archivo [API.md](API.md).
 

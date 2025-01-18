@@ -125,8 +125,10 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         }
 
                         $pendingNotifications = 0;
-                        if (!Yii::$app->user->isGuest) {
-                            $pendingNotifications = Notificacion::find()->where(['USUARIOid' => Yii::$app->user->id, 'fecha_lectura' => null])->count();
+                        if (!Yii::$app->user->isGuest && !isset($_SESSION['hide_notifications'])) {
+                            $pendingNotifications = Notificacion::find()
+                                ->where(['USUARIOid' => Yii::$app->user->id, 'fecha_lectura' => null])
+                                ->count();
                         }
                         ?>
                         <div class="d-flex flex-wrap justify-content-center">
