@@ -106,6 +106,32 @@ $this->title = $actividad['titulo'];
                         } else {
                             echo '<div class="alert alert-danger" role="alert">Esta actividad ya ha finalizado.</div>';
                         }
+
+                        // API Key de Google Maps
+                        $apiKey = 'AIzaSyAwkqhsAcJIftL32sor2fYd5Q7-zaOkc5A';
+                        $direccionActividad = Html::encode($actividad['lugar_celebracion']);
+                        $direccionEncodedActividad = urlencode($direccionActividad);
+                        $urlActividad = "https://maps.googleapis.com/maps/api/geocode/json?address=$direccionEncodedActividad&components=country:ES&key=$apiKey";
+                        $responseActividad = file_get_contents($urlActividad);
+                        $dataActividad = json_decode($responseActividad, true);
+
+                        if ($dataActividad['status'] == 'OK') {
+                            $latActividad = $dataActividad['results'][0]['geometry']['location']['lat'];
+                            $lngActividad = $dataActividad['results'][0]['geometry']['location']['lng'];
+                            
+                            $this->params['latActividad'] = $latActividad;
+                            $this->params['lngActividad'] = $lngActividad;
+                        } else {
+                            $latActividad = null;
+                            $lngActividad = null;
+                        }
+                        
+                        // Agregar mapa de actividad
+                        if ($latActividad && $lngActividad) {
+                            echo "<div class='mb-4 mt-4' style='display: flex; justify-content: center; align-items: center;'>
+                                <div id='map-actividad' style='width: 100%; height: 300px;'></div>
+                            </div>";
+                        }
                     ?>
                 </div>
 
@@ -363,6 +389,29 @@ $script = <<<JS
             }
         });
     });
+
+    // Inicializa el mapa de Google Maps
+    function initMap() {
+        var lat = <?= json_encode($latActividad) ?>;
+        var lng = <?= json_encode($lngActividad) ?>;
+        if (lat && lng) {
+            var map = new google.maps.Map(document.getElementById('map-actividad'), {
+                center: {lat: lat, lng: lng},
+                zoom: 15
+            });
+            var marker = new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+                map: map
+            });
+        }
+    }
+
+    // Carga el script de Google Maps
+    var script = document.createElement('script');
+    script.src = "https://maps.googleapis.com/maps/api/js?key=<?= $apiKey ?>&callback=initMap";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
 JS;
 $this->registerJs($script);
 ?>
