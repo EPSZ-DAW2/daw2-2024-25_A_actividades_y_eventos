@@ -1,30 +1,30 @@
 ACTIVIDad
 	INDEX
-	curl -X GET "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/actividad-index" -u "nick:password"
+	curl -X GET "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/actividad-index" -u "nick:password"
 
 	VIEW
-	curl -X GET "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/actividad-view&id=1" -u "nick:password"
+	curl -X GET "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/actividad-view&id=1" -u "nick:password"
 
 	DELETE
-	curl -X GET "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/actividad-delete&id=14" -u "nick:password"
+	curl -X GET "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/actividad-delete&id=14" -u "nick:password"
 
 	CREATE
-	curl -X POST "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/actividad-create" -u "nick:password" -d "titulo=Concierto de Musica&descripcion=Un concierto en el parque con diferentes bandas locales.&fecha_celebracion=2025-02-20%2000:00:00&duracion_estimada=120&lugar_celebracion=Parque Central&detalles=Trae tu manta y disfruta del evento.&notas=Evento gratuito para todas las edades.&edad_recomendada=0&votosOK=100&votosKO=10&maximo_participantes=500&minimo_participantes=50&reserva=1&participantes=150&contador_visitas=2"
+	curl -X POST "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/actividad-create" -u "nick:password" -d "titulo=Concierto de Musica&descripcion=Un concierto en el parque con diferentes bandas locales.&fecha_celebracion=2025-02-20%2000:00:00&duracion_estimada=120&lugar_celebracion=Parque Central&detalles=Trae tu manta y disfruta del evento.&notas=Evento gratuito para todas las edades.&edad_recomendada=0&votosOK=100&votosKO=10&maximo_participantes=500&minimo_participantes=50&reserva=1&participantes=150&contador_visitas=2"
 
 	UPDATE
-	curl -X PUT "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/actividad-update&id=1" -u "nick:password" -d "titulo=hola mundo&descripcion=Un concierto en el parque con diferentes bandas locales y algunas sorpresas.&fecha_celebracion=2025-02-20%2000:00:00&duracion_estimada=120&lugar_celebracion=Parque Central&detalles=Trae tu manta y disfruta del evento y participa en la rifa.&notas=Evento gratuito para todas las edades.&edad_recomendada=0&votosOK=120&votosKO=15&maximo_participantes=600&minimo_participantes=50&reserva=1&participantes=200&contador_visitas=5"
+	curl -X PUT "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/actividad-update&id=1" -u "nick:password" -d "titulo=hola mundo&descripcion=Un concierto en el parque con diferentes bandas locales y algunas sorpresas.&fecha_celebracion=2025-02-20%2000:00:00&duracion_estimada=120&lugar_celebracion=Parque Central&detalles=Trae tu manta y disfruta del evento y participa en la rifa.&notas=Evento gratuito para todas las edades.&edad_recomendada=0&votosOK=120&votosKO=15&maximo_participantes=600&minimo_participantes=50&reserva=1&participantes=200&contador_visitas=5"
 
 NOTIFICACION
 	INDEX
-	curl -X GET "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/notificacion-index" -u "nick:password"
+	curl -X GET "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/notificacion-index" -u "nick:password"
 	VIEW
-	curl -X GET "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/notificacion-view&id=1" -u "nick:password"
+	curl -X GET "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/notificacion-view&id=1" -u "nick:password"
 	CREATE
-	curl -X POST "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/notificacion-create" -u "nick:password" -d "fecha=2025-01-09%2012:35:56&codigo_de_clase=SOLICITUD_BAJA&fecha_lectura=NULL&fecha_borrado=NULL&fecha_aceptacion=NULL&ACTIVIDadid=1&USUARIOid=1&USUARIOid2=1&texto=hola mundo"
+	curl -X POST "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/notificacion-create" -u "nick:password" -d "fecha=2025-01-09%2012:35:56&codigo_de_clase=SOLICITUD_BAJA&fecha_lectura=NULL&fecha_borrado=NULL&fecha_aceptacion=NULL&ACTIVIDadid=1&USUARIOid=1&USUARIOid2=1&texto=hola mundo"
 	UPDATE
-	curl -X PUT "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/notificacion-update&id=7" -u "nick:password" -d "fecha=2025-01-09%2012:35:56&codigo_de_clase=SOLICITUD_BAJA&fecha_lectura=NULL&fecha_borrado=NULL&fecha_aceptacion=NULL&ACTIVIDadid=1&USUARIOid=1&USUARIOid2=1&texto=Notificación actualizada"
+	curl -X PUT "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/notificacion-update&id=7" -u "nick:password" -d "fecha=2025-01-09%2012:35:56&codigo_de_clase=SOLICITUD_BAJA&fecha_lectura=NULL&fecha_borrado=NULL&fecha_aceptacion=NULL&ACTIVIDadid=1&USUARIOid=1&USUARIOid2=1&texto=Notificación actualizada"
 	DELETE
-	curl -X GET "http://localhost/daw2-2024-25_A_actividades_y_eventos/codigo/web/index.php?r=api/notificacion-delete&id=1" -u "nick:password"
+	curl -X GET "http://localhost/<DIRECTORIO-DEL-PROYECTO>/codigo/web/index.php?r=api/notificacion-delete&id=1" -u "nick:password"
 
 
 
