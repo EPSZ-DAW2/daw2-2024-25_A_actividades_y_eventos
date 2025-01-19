@@ -89,32 +89,32 @@ $this->registerCssFile(Yii::$app->request->baseUrl . '/css/estiloFooter.css', ['
         $lngActividad = $this->params['lngActividad'] ?? null;
 
         // Script único para inicializar ambos mapas
-        if (($latActividad && $lngActividad) || ($latFooter && $lngFooter))
-        {
-            echo "<script>
-                function initMaps() {
-                    // Mapa de Actividad
-                    if (document.getElementById('map-actividad')) {
-                        var actividadLocation = {lat: $latActividad, lng: $lngActividad};
-                        var actividadMap = new google.maps.Map(document.getElementById('map-actividad'), {
-                            zoom: 15,
-                            center: actividadLocation
-                        });
-                        new google.maps.Marker({position: actividadLocation, map: actividadMap});
-                    }
-
-                    // Mapa del Footer
-                    if (document.getElementById('map-footer')) {
-                        var footerLocation = {lat: $latFooter, lng: $lngFooter};
-                        var footerMap = new google.maps.Map(document.getElementById('map-footer'), {
-                            zoom: 15,
-                            center: footerLocation
-                        });
-                        new google.maps.Marker({position: footerLocation, map: footerMap});
-                    }
+        echo "<script>
+            function initMaps()
+            {
+                // Mapa del Footer
+                if (document.getElementById('map-footer') && $latFooter !== null && $lngFooter !== null)
+                {
+                    var footerLocation = {lat: $latFooter, lng: $lngFooter};
+                    var footerMap = new google.maps.Map(document.getElementById('map-footer'), {
+                        zoom: 15,
+                        center: footerLocation
+                    });
+                    new google.maps.Marker({position: footerLocation, map: footerMap});
                 }
-            </script>";
-            echo "<script async defer src='https://maps.googleapis.com/maps/api/js?key=$apiKey&callback=initMaps'></script>";
-        }
-    ?>
+                
+                // Mapa de Actividad (opcional, cuando se necesite)
+                if (document.getElementById('map-actividad') && $latActividad !== null && $lngActividad !== null)
+                {
+                    var actividadLocation = {lat: $latActividad, lng: $lngActividad};
+                    var actividadMap = new google.maps.Map(document.getElementById('map-actividad'), {
+                        zoom: 15,
+                        center: actividadLocation
+                    });
+                    new google.maps.Marker({position: actividadLocation, map: actividadMap});
+                }
+            }
+        </script>";
+        echo "<script async defer src='https://maps.googleapis.com/maps/api/js?key=$apiKey&callback=initMaps'></script>";
+?>
 </footer>

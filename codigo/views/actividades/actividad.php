@@ -115,16 +115,19 @@ $this->title = $actividad['titulo'];
                         $responseActividad = file_get_contents($urlActividad);
                         $dataActividad = json_decode($responseActividad, true);
 
-                        if ($dataActividad['status'] == 'OK') {
+                        if ($dataActividad['status'] == 'OK')
+                        {
                             $latActividad = $dataActividad['results'][0]['geometry']['location']['lat'];
                             $lngActividad = $dataActividad['results'][0]['geometry']['location']['lng'];
-                            
-                            $this->params['latActividad'] = $latActividad;
-                            $this->params['lngActividad'] = $lngActividad;
-                        } else {
+                        }
+                        else
+                        {
                             $latActividad = null;
                             $lngActividad = null;
                         }
+
+                        $this->params['latActividad'] = $latActividad;
+                        $this->params['lngActividad'] = $lngActividad;
                         
                         // Agregar mapa de actividad
                         if ($latActividad && $lngActividad) {
