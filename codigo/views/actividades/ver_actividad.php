@@ -18,6 +18,7 @@ $this->title = $model->titulo;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?= Html::a('Vista usuario', ['actividad', 'id' => $model->id], ['class' => 'btn btn-outline-primary btn-block']) ?> 
         <?= Html::a('Editar', ['editar', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('Eliminar', ['eliminar', 'id' => $model->id], [
             'class' => 'btn btn-danger',
