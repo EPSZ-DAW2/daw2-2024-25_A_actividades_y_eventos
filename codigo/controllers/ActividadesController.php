@@ -134,17 +134,10 @@ class ActividadesController extends controller
             throw new NotFoundHttpException('La actividad solicitada no existe.');
         }
 
-        // Incrementar el contador de visitas de forma atómica
-        Yii::$app->db->createCommand('
-            UPDATE ACTIVIDAD 
-            SET contador_visitas = contador_visitas + 1 
-            WHERE id = :id
-        ')->bindValue(':id', $id)->execute();
-
         return $this->render('ver_actividad', [
             'model' => $model,
         ]);
-    }
+    } 
 
 
     // Permite modificar los datos de una actividad existente
@@ -434,6 +427,15 @@ class ActividadesController extends controller
     // Muestra los detalles completos de una actividad y sus comentarios
     public function actionActividad($id)
     {
+
+        // Incrementar el contador de visitas de forma atómica
+        Yii::$app->db->createCommand('
+            UPDATE ACTIVIDAD 
+            SET contador_visitas = contador_visitas + 1 
+            WHERE id = :id
+        ')->bindValue(':id', $id)->execute();
+
+        
         $actividad = (new \yii\db\Query())
             ->from('ACTIVIDAD a')
             ->select(['a.*', 'i.nombre_Archivo', 'i.extension']) // Add explicit select

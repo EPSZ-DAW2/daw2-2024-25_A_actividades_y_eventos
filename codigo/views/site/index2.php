@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 use yii\grid\GridView;
 use yii\data\ActiveDataProvider;
 use yii\widgets\ListView;
+use app\models\Roles;
 
 $this->title = 'Portada';
 ?>
@@ -226,8 +227,9 @@ $this->title = 'Portada';
                                             <p class="card-text text-muted"><?= Html::encode($actividad['descripcion']) ?></p>
                                         </div>
                                         <div class="card-footer bg-white">
-                                            <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
-                                                    ['class' => 'btn btn-outline-primary btn-block']) ?>
+                                            <?= Html::a('Ver más', 
+                                                    [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']], 
+                                                    ['class' => 'btn btn-outline-primary btn-block']) ?> 
                                         </div>
                                     </div>
                                 </div>
@@ -271,7 +273,8 @@ $this->title = 'Portada';
                                             </p>
                                         </div>
                                         <div class="card-footer bg-white">
-                                            <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
+                                            <?= Html::a('Ver más', 
+                                                    [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']],
                                                     ['class' => 'btn btn-outline-primary btn-block']) ?>
                                         </div>
                                     </div>
@@ -317,7 +320,8 @@ $this->title = 'Portada';
                                             </p>
                                         </div>
                                         <div class="card-footer bg-white">
-                                            <?= Html::a('Ver más', ['actividades/actividad', 'id' => $actividad['id']], 
+                                            <?= Html::a('Ver más', 
+                                                    [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $actividad['id']],
                                                     ['class' => 'btn btn-outline-primary btn-block']) ?>
                                         </div>
                                     </div>
@@ -379,14 +383,12 @@ $this->title = 'Portada';
 
 <style>
     @media (max-width: 500px) {
-        /* Hacer que el sidebar se ajuste correctamente en pantallas pequeñas */
         #sidebarMobile {
-            padding-top: 10px; /* Reducir el padding superior */
-            width: 100%; /* Asegurarse que ocupa todo el ancho */
-            left: 0; /* Asegurarse que esté alineado a la izquierda */
+            padding-top: 10px; 
+            width: 100%; 
+            left: 0; 
         }
 
-        /* Alinear los íconos y texto en el centro */
         .nav {
             display: flex;
             flex-direction: column;
@@ -395,20 +397,17 @@ $this->title = 'Portada';
             width: 100%;
         }
 
-        /* Ajustar las propiedades de los enlaces */
         .nav-link {
-            font-size: 16px; /* Reducir el tamaño de la fuente en dispositivos pequeños */
-            padding: 10px; /* Reducir el padding */
-            text-align: center; /* Alinear el texto y los íconos al centro */
+            font-size: 16px; 
+            padding: 10px; 
+            text-align: center; 
             width: 100%;
         }
 
-        /* Reducir espacio entre los items */
         .nav-item {
             margin-bottom: 5px;
         }
 
-        /* Asegurarse de que la lista ocupe el 100% del ancho disponible */
         .nav {
             width: 100%;
             display: flex;
@@ -416,18 +415,16 @@ $this->title = 'Portada';
         }
     }
 
-    /* Si la pantalla es aún más pequeña, ajustar más cosas */
     @media (max-width: 400px) {
         .nav-link {
-            font-size: 14px; /* Ajustar aún más el tamaño de la fuente */
-            padding: 8px; /* Reducir más el padding */
+            font-size: 14px; 
+            padding: 8px; 
         }
 
         .nav-item {
-            margin-bottom: 3px; /* Ajuste más fino entre los items */
+            margin-bottom: 3px; 
         }
 
-        /* Asegurar que los íconos no se desborden */
         .nav-link i {
             font-size: 20px;
         }

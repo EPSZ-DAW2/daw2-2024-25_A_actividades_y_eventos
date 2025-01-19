@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
                                 ['class' => 'btn btn-primary']) ?>
                             <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
-                                <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-warning ']) ?>
+                                <?= Html::a('Editar', ['editar', 'id' => $actividad['id']], ['class' => 'btn btn-warning']) ?>
                                 <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
                                     'class' => 'btn btn-danger ',
                                     'data' => [
@@ -201,7 +201,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <div class="card-footer d-flex justify-content-between">
                             <?= Html::a('Ver', 
-                                [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
+                                [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividad' : 'ver_actividad', 'id' => $actividad['id']], 
                                 ['class' => 'btn btn-primary']) ?>
                             <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
                                 <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-warning ']) ?>

@@ -82,7 +82,7 @@ $imgActividades = Yii::$app->db->createCommand('
                                             [Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'ver_actividad' : 'actividad', 'id' => $actividad['id']], 
                                             ['class' => 'btn btn-primary']) ?>
                                         <?php if (Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN])): ?>
-                                            <?= Html::a('Editar', ['update', 'id' => $actividad['id']], ['class' => 'btn btn-warning ']) ?>
+                                            <?= Html::a('Editar', ['editar', 'id' => $actividad['id']], ['class' => 'btn btn-warning ']) ?>
                                             <?= Html::a('Eliminar', ['delete', 'id' => $actividad['id']], [
                                                 'class' => 'btn btn-danger ',
                                                 'data' => [
