@@ -62,3 +62,35 @@ $this->title = 'Aviso Legal';
 <p>
     La prestación de los servicios ofrecidos en este portal tiene carácter gratuito para el usuario y no exige la previa suscripción o registro. A pesar de ello, para la prestación de alguno de estos servicios, Equipo2425a_eventos solicita datos personales al usuario, tales como el nombre y apellidos, la dirección, correo-e, nº de teléfono, etc., esto se hace con el fin de poder atender de la mejor forma posible las consultas y reclamaciones, que se dirigen a este sitio web, así como servicios presentes o futuros, como los boletines electrónicos, ofertas, etc.
 </p>
+
+
+<div class = "d-none">
+        <?php
+            // API Key de Google Maps
+            $apiKey = 'AIzaSyAwkqhsAcJIftL32sor2fYd5Q7-zaOkc5A';
+            $direccionActividad = "plaza marina 1, 49004 Zamora";
+            $direccionEncodedActividad = urlencode($direccionActividad);
+            $urlActividad = "https://maps.googleapis.com/maps/api/geocode/json?address=$direccionEncodedActividad&components=country:ES&key=$apiKey";
+            $responseActividad = file_get_contents($urlActividad);
+            $dataActividad = json_decode($responseActividad, true);
+
+            if ($dataActividad['status'] == 'OK') {
+                $latActividad = $dataActividad['results'][0]['geometry']['location']['lat'];
+                $lngActividad = $dataActividad['results'][0]['geometry']['location']['lng'];
+            } else {
+                $latActividad = null;
+                $lngActividad = null;
+            }
+
+            $this->params['latActividad'] = $latActividad;
+            $this->params['lngActividad'] = $lngActividad;
+
+
+            // Agregar mapa de actividad
+            if ($latActividad && $lngActividad) {
+                echo "<div style='display: flex; justify-content: center; align-items: center;'>
+                    <div id='map-actividad' style='width: 100%; height: 200px;'></div>
+                </div>";
+            }
+        ?>
+    </div>

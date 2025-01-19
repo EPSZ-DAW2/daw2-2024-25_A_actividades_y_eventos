@@ -33,3 +33,34 @@ $this->title = 'Política de Privacidad';
 <p>
     Se reserva el derecho de modificar su política de protección de datos de acuerdo con su criterio, o a causa de un cambio legislativo, jurisprudencial o en la práctica empresarial. Si Equipo2425a_eventos introduce una modificación, el nuevo texto será publicado en esta misma página (Sitio Web), donde el usuario podrá tener conocimiento de la política de protección de datos. En cualquier caso, la relación con los usuarios se regirá por las normas previstas en el momento preciso en el que se accede al sitio Web.
 </p>
+
+<div class = "d-none">
+        <?php
+            // API Key de Google Maps
+            $apiKey = 'AIzaSyAwkqhsAcJIftL32sor2fYd5Q7-zaOkc5A';
+            $direccionActividad = "plaza marina 1, 49004 Zamora";
+            $direccionEncodedActividad = urlencode($direccionActividad);
+            $urlActividad = "https://maps.googleapis.com/maps/api/geocode/json?address=$direccionEncodedActividad&components=country:ES&key=$apiKey";
+            $responseActividad = file_get_contents($urlActividad);
+            $dataActividad = json_decode($responseActividad, true);
+
+            if ($dataActividad['status'] == 'OK') {
+                $latActividad = $dataActividad['results'][0]['geometry']['location']['lat'];
+                $lngActividad = $dataActividad['results'][0]['geometry']['location']['lng'];
+            } else {
+                $latActividad = null;
+                $lngActividad = null;
+            }
+
+            $this->params['latActividad'] = $latActividad;
+            $this->params['lngActividad'] = $lngActividad;
+
+
+            // Agregar mapa de actividad
+            if ($latActividad && $lngActividad) {
+                echo "<div style='display: flex; justify-content: center; align-items: center;'>
+                    <div id='map-actividad' style='width: 100%; height: 200px;'></div>
+                </div>";
+            }
+        ?>
+    </div>
