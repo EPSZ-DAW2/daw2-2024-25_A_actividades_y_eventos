@@ -1,0 +1,268 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Proyecto en Grupo - Análisis Inicial de Funciones y Tareas</title>
+</head>
+<body class="papel" style="background-color:#f8f9fa;">
+<style>
+table.tabla tbody td { text-align:center; }
+table.tabla tbody td:first-child { text-align:justify; }
+</style>
+<div class="bloque" style="font-family:arial, sans-serif; font-size:1.25em; text-align:justify; border:1.5mm solid #dee2e6; margin:0.25em; padding:1em; background-color:#ffffff;">
+
+<div class="titulo titulo0" style="margin:5mm; font-size:2.0em; font-weight:bold; color:#495057;">Difusión de Actividades y Eventos</div>
+<div class="titulo titulo1" style="margin:5mm; font-size:2.0em; font-weight:bold; color:#212529;">Proyecto en Grupo</div>
+<div class="titulo titulo2" style="margin:5mm; font-size:1.5em; font-weight:bold; color:#6c757d;">Análisis Inicial de Funciones y Tareas</div>
+
+<br/>
+&nbsp;&nbsp;&nbsp;De los requisitos iniciales planteados, se extraen una serie de funciones básicas a implementar, además de una serie de tareas adicionales a desarrollar dentro del sistema.
+<br/>
+<br/>
+
+<hr style="border:1px solid #dee2e6;"/>
+
+<div class="titulo titulo3" style="margin:0.5em 0; padding:0.5em; font-size:1.0em; font-weight:bold; background-color:#e9ecef; color:#343a40;">Roles / Perfiles:</div>
+<div style="text-align:justify; margin:0em">
+<ul style="list-style-type:disc; padding-left:2em; color:#495057;">
+  <li><strong>Usuario Invitado (guest):</strong> Cualquier usuario que navega por las partes públicas del portal, sin necesidad de estar registrado o validado en la aplicación.</li>
+  <li><strong>Usuario Registrado (normal):</strong> Pensado para los usuarios que quieren utilizar la web a la hora de buscar, consultar/visualizar las actividades de su interés, tanto públicas como privadas, gestionar su perfil, gestionar sus avisos, notificaciones y mensajes con moderadores o administradores, gestionar sus propias actividades, las actividades en seguimiento, las actividades como participante, y los comentarios asociados a las actividades.</li>
+  <li><strong>Usuario Moderador (moderador):</strong> Pensado para los usuarios que además deseen colaborar con la web a la hora de moderar las actividades y comentarios de una o varias áreas geográficas.</li>
+  <li><strong>Usuario Patrocinador (patrocinador):</strong> Pensado para los usuarios que sean patrocinadores y deseen acceder al portal para poder gestionar sus propios anuncios, y sus propias actividades patrocinadas y sus posibles participantes. Estos usuarios se registran de forma especial o son creados previamente por un administrador, dándoles un acceso diferente a la aplicación.</li>
+  <li><strong>Administrador del Portal (admin):</strong> Pensado para aquellos usuarios que realizan las tareas de mantenimiento de los datos del sistema, pueden gestionar cualquier cosa de la parte privada como usuarios, actividades y datos asociados, categorías, áreas y ubicaciones, patrocinios, configuración, hacer copias de seguridad o restaurarlas.</li>
+  <li><strong>Administrador del Sistema (sysadmin):</strong> Pensado para los programadores de la aplicación y/o administradores generales del sistema donde se instale, tendrá acceso a todas las funciones de la aplicación sin restricciones, y opcionalmente deberá poder activar el rol que desee para trabajar como un usuario de ese tipo.</li>
+</ul>
+</div>
+
+<hr style="border:1px solid #dee2e6;"/>
+
+<div class="titulo titulo3" style="margin:0.5em 0; padding:0.5em; font-size:1.0em; font-weight:bold; background-color:#d1ecf1; color:#0c5460;">Funcionalidades de Gestión Interna:</div>
+<div style="text-align:justify; margin:0em">
+
+<table class="tabla" border="1" style="background-color:#f1f3f5; border:4px solid #ced4da; border-collapse:collapse; font-size:1.0em;">
+<thead style="background-color:#dee2e6; color:#495057;">
+<tr>
+<th style="width:73em; padding-left:2.5em;">Páginas y Partes Privadas</th>
+<th style="width:3em;">G1</th>
+<th style="width:3em;">G2</th>
+<th style="width:3em;">G3</th>
+<th style="width:3em;">G4</th>
+</tr>
+</thead>
+<tbody>
+
+<tr><td style="padding-left:2em;">Páginas: Mantenimiento de Usuarios.</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Definición de la lista fija de clases de Perfiles o Roles disponibles para usuarios.</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Asignación de Roles a los usuarios (sistema RBAC)</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">CRUD para usuarios y Perfiles/Roles</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Revisión del registro de nuevos usuarios, roles y solicitudes de baja.</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Sistema de Login, Logout y recuperación de contraseña.</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Sistema de Notificaciones del portal.</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+
+
+
+<tr><td style="padding-left:2em;">Páginas: Mantenimiento de Actividades y relacionados</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">CRUD para administrador de actividades y eventos (mapas, enlaces,...)</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">CRUD categorías de actividades</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">CRUD etiquetas</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">CRUD ubicaciones (paises, estados,...)</td>
+<td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+
+<tr><td style="padding-left:2em;">Páginas: Mantenimiento de Patrocinios y relacionados</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+
+<tr><td style="padding-left:4em;">CRUD para administrador de patrocinios y promociones</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+
+
+
+</tbody>
+</table>
+</div>
+
+<hr style="border:1px solid #dee2e6;"/>
+
+<div class="titulo titulo3" style="margin:0.5em 0; padding:0.5em; font-size:1.0em; font-weight:bold; background-color:#e2f5e7; color:#155724;">Funcionalidades del Portal Web:</div>
+<div style="text-align:justify; margin:0em">
+
+<table class="tabla" border="1" style="background-color:#ffffff; border:4px solid #ced4da; border-collapse:collapse; font-size:1.0em;">
+<thead style="background-color:#d4edda; color:#155724;">
+<tr>
+<th style="width:73em; padding-left:2.5em;">Páginas y Partes Públicas</th>
+<th style="width:3em;">W1</th>
+<th style="width:3em;">W2</th>
+<th style="width:3em;">W3</th>
+<th style="width:3em;">W4</th>
+</tr>
+</thead>
+<tbody>
+
+<tr><td style="padding-left:2em;">Plantilla Principal:<br/>
+</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Portada uno</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Portada dos</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:8em;">Parte: Zona Login, Registro, Desconectar</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Menú lateral para la búsqueda por categorías y filtrar actividades</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Barra de búsqueda</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Carrousel de imágenes</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Pie de página con mapa web, avisos, copyright y Patrocinadores relevantes</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+
+<tr><td style="padding-left:2em;">Actividades:<br/>
+</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Actividades recomendadas</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Actividades más próximas/nuevas/visitadas</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Vista abreviada actividad</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Vista completa actividad</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+
+<tr><td style="padding-left:2em;">Categorías:<br/>
+</td>
+<td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Vista categorías más vistas</td>
+<td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+
+
+<tr><td style="padding-left:2em;">Opciones para el usuario:<br/>
+</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Gestión del perfil, con sus datos</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Gestión de avisos, verlos, configurar notificaciones</td>
+<td>&check;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">Parte: Vista avisos</td>
+<td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">CRUD categorías y actividades</td>
+<td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">CRUD para actividades creadas por un usuario</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&check;</td><td>&nbsp;</td>
+</tr>
+<tr><td style="padding-left:4em;">CRUD actividades por zona</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+<tr><td style="padding-left:4em;">Vista de actividades a las que se ha apuntado un usuario</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr> 
+<tr><td style="padding-left:4em;">Vista de actividades en las que ha estado el usuario apuntado en el pasado</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+
+
+<tr><td style="padding-left:2em;">Servicios web<br/>
+</td>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+<tr><td style="padding-left:4em;">API REST para CRUD de actividades y consulta de notificaciones</td>
+  <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&check;</td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<hr style="border:1px solid #dee2e6;"/>
+
+
+<div class="titulo titulo3" style="margin:0.5em 0; padding:0.5em; font-size:1.0em; font-weight:bold; background-color:#f5f3e2; color:#575615;">Definicion Base de Datos:</div>
+<div style="text-align:justify; margin:0em">
+
+<table class="tabla" border="1" style="background-color:#ffffff; border:4px solid #ced4da; border-collapse:collapse; font-size:1.0em;">
+<thead style="background-color:#edebd4; color:#575315;">
+<tr>
+<th style="width:73em; padding-left:2.5em;">Base de datos</th>
+<th style="width:3em;">D1</th>
+<th style="width:3em;">D2</th>
+<th style="width:3em;">D3</th>
+<th style="width:3em;">D4</th>
+</tr>
+</thead>
+<tbody>
+
+  <tr><td style="padding-left:2em;">Definición de tablas, creación de dataset de prueba:<br/>
+  </td>
+  <td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+  </tr>
+  <tr><td style="padding-left:4em;">Usuarios, perfiles, roles</td>
+  <td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+  </tr>
+  <tr><td style="padding-left:4em;">Actividades y sus datos</td>
+    <td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+  </tr>
+  <tr><td style="padding-left:8em;">Categorias, etiquetas y su relacion con actividades</td>
+  <td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+  </tr>
+  <tr><td style="padding-left:4em;">Ubicaciones (Y CREACIÓN DEL CRUD)</td>
+    <td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+  </tr>
+  <tr><td style="padding-left:4em;">Patrocinadores y anuncios</td>
+    <td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+  </tr>
+  <tr><td style="padding-left:4em;">RELACIONES ENTRE TABLAS SEGÚN REQUERIMIENTOS</td>
+    <td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+  </tr>
+  <tr><td style="padding-left:4em;">Parte: Pie de página con mapa web, avisos, copyright y Patrocinadores relevantes</td>
+    <td>&nbsp;</td><td>&check;</td><td>&nbsp;</td><td>&nbsp;</td>
+  </tr>
+
+</tbody>
+</table>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,592 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Proyecto en Grupo - Requisitos Iniciales</title>
+</head>
+<body class="papel" style="background-color:#f8f9fa;">
+<div class="bloque" style="font-family:arial;font-size:1.25em;text-align:justify;border:1.5mm solid #dee2e6;margin:0.25em;padding:1em;">
+
+<div class="titulo titulo0" style="margin:5mm;font-size:2.0em;font-weight:bold;color:#495057">Difusión de Actividades y Eventos</div>
+<div class="titulo titulo1" style="margin:5mm;font-size:2.0em;font-weight:bold">Proyecto en Grupo</div>
+<div class="titulo titulo2" style="margin:5mm;font-size:1.5em;font-weight:bold">Requisitos Iniciales.</div>
+
+<br/>
+&nbsp;&nbsp;&nbsp;Se desea diseñar una aplicación web para la <strong>Difusión de Actividades y Eventos</strong>.
+<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;La aplicación será un portal web en el que principalmente se podrán ver, buscar y consultar Actividades y Eventos, con la intención de consultar la información sobre estas.
+<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;Se podrán realizar búsquedas por el catálogo de actividades mediante un sistema de filtros por etiquetas o clasificaciones que mostrará los resultados que coincidan con el filtro de búsqueda seleccionado
+
+<br/>
+&nbsp;&nbsp;&nbsp;Se podrán hacer búsquedas mediante un formulario donde cualquier palabra escrita será el origen de la búsqueda por los diversos datos de la actividad que sean textos donde se pueda buscar una parte. 
+<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;Se podrá elegir una actividad para visualizar su ficha con detalle, con todos los datos posibles, como su título, las fechas de inicio y fin, el lugar, una imagen, la edad recomendada, el aforo máximo de personas, los participantes vinculados, el estado de la actividad, el estado del administrador, información adicional, comentarios de la actividad, URLs relacionadas, los patrocinadores más relevantes de la actividad, etc.
+<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;La aplicación además permitirá a los usuarios registrados mantener su perfil, crear actividades, crear comentarios, revisar los comentarios creados, recibir avisos y notificaciones de las actividades, enviar incidencias a los moderadores/administradores del portal, apuntarse a actividades, etc.
+<br/>
+<br/>
+
+
+<hr/>
+<div class="titulo titulo3" style="margin:5mm;font-size:1.0em;font-weight:bold">Requerimientos para el Público en general:</div>
+<div style="text-align:justify;margin:0em">
+<ul>
+  
+  <li><strong>Portada &quot;1&quot;:</strong> Una página inicial con la presentación del portal en la que se mostrará el logotipo del mismo y una zona de acceso a la misma (Login / Registro / Usuario+Logout)
+  </li>
+  <br/>
+  
+  <li><strong>Portada &quot;2&quot;:</strong> Una página inicial con la presentación del portal en la que se mostrará un resumen de las actividades y eventos más recientes, con la posibilidad de filtrar por categorías o etiquetas, y con la opción de buscar por texto.
+  </br>
+    -> Contará con una zona de entrada/registro/desconexión
+  </br>
+    -> Contará con una zona de acceso al perfil de los usuarios
+  </br>
+    -> Contará con una barra de navegación pública
+  </br>
+    -> Contará con una presentación de la página con un carrousel de imágenes
+  </br>
+    -> Contará con un buscador
+  </br>
+    -> Contará con una vista de actividades recomendadas
+  </br>
+    -> Contará con una vista de actividades más próximas / más nuevas / más visitadas / ...
+  </br>
+    -> Contará con una vista con categorías más buscadas
+  </br>
+    -> Contará con un menú lateral de categorías (para buscar eventos por categoría seleccionada)
+  </br>
+    -> Contará con un pie de página con un mapa web y avisos legales
+  </br>
+    -> Contará con información sobre los patrocinadores más relevantes
+  </li>
+  <br/>
+  
+  <li><strong>Ver Actividad:</strong> Si se selecciona una de las &quot;actividades&quot; se accederá a la ficha detalle de la actividad.
+    <ul>
+    
+      <li>Si el usuario que está visitando una actividad es un usuario registrado, se podrá <strong>activar el seguimiento</strong> del mismo, es decir, que se hará seguidor y cualquier cambio, actualización o actividad relativa a la misma hará que se agregue una notificación para el usuario avisándole de ello. Así mismo, un usuario registrado que tenga activado el seguimiento podrá <strong>desactivarlo</strong> en cualquier momento, bien sea visitando de nuevo la actividad en cuestión, o desde una opción (privada) que tendrá para ver todas las actividades de las que es seguidor.
+      </li>
+
+      <li>La ficha de la actividad tendrá una opción desde la que podrá ser denunciada por otros usuarios en caso de que consideren que su información/contenido no es apropiado o adecuado para el sitio. Para el control de las denuncias de actividades se almacenará al menos un contador de denuncias (inicialmente a cero) y la fecha/hora de la primera denuncia.
+      Se almacenará la denuncia como una incidencia en forma de aviso para los moderadores o administradores del sitio en el que se relacionará la clase de alerta, la actividad, el momento, el usuario que hace la denuncia.
+      </li>
+      <li> Se permitirá incluir comentarios sobre la actividad. En los textos de los comentarios no se deberá permitir crear elementos HTML potencialmente dañinos para la página, es decir, que lo que escriba el usuario no debe afectar a la visualización del comentario ni a su edición en el formulario.
+      </li>
+      <li>Los comentarios estarán moderados, con lo que aunque se publique inmediatamente tras su creación, podrán ser denunciados por otros usuarios, o corregidas y/o anuladas por los administradores si los textos no son adecuados.
+      Para poder denunciar un comentario en cada entrada aparecerá una opción para que otros usuarios registrados lo puedan hacer, en ese caso se almacenará un aviso para los administradores del sitio en el que se relacionará el momento y el usuario que lo denuncia.
+      </li>
+      <br/>
+     
+      <li>En general la vista completa de la actividad tendrá:
+        <ul type="none" style="padding-left:1.25em">
+          <li>- Título, Descripción, Notas</li>
+          <li>- Fechas (inicio, fin), </li>
+          <li>- Lugar (direccion / ubicacion),</li>
+          <li>- Imagen-Foto / Foto asociada a la Categoría</li>
+          <li>- Edad recomendada</li>
+          <li>- Aforo máximo de personas, Margen reserva</li>
+          <li>- Participantes vinculados</li>
+          <li>- Estado de la actividad (visible, activa, terminada, suspendida)</li>
+          <li>- Estado del administrador (bloqueada, motivo)</li>
+          <li>- Información adicional (...) </li>
+          <li>- Apartado de Historico de la actividad, ...</li>
+          <li>- Patrocinadores más relevantes de la actividad</li>
+          <li>- Patrocinadores concretos/específicos de la actividad</li>
+
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <br/>
+  
+  <li><strong>Agrupaciones por Etiquetas/Categorias de actividades:</strong> Se dispondrá de una sección que mostrará las actividades según un posible árbol de clasificación de etiquetas / categorias, para poder centrarse en un tipo concreto, como por ejemplo:
+  <strong>&quot;Aire libre&quot; &rarr; &quot;Aventura&quot; &rarr; &quot;Kayak&quot;</strong>, o <strong>&quot;Interior&quot; &rarr; &quot;Escape Room&quot; </strong>.
+  <br/>*** Es importante tener una clasificación predefinida y jerarquizada para organizar las actividades adecuadamente.
+  </li>
+  <br/>
+  
+  <li><strong>Apartado de etiquetas/categorías:</strong> Apartado donde poder mostrar la nube de etiquetas o categorias que categorizan a las actividades, pudiéndo usar la etiqueta como enlace y filtro de búsqueda específico de las actividades relacionadas.
+  </li>
+  <br/>
+  
+  
+  <li><strong>Anuncios de Patrocinadores:</strong> Para que el portal tenga un sentido algo más <em>&quot;comercial&quot;</em>, se introduce la idea de los patrocinios, los cuales generan anuncios relacionados con las actividades en general. Los anuncios pueden ser bien a nivel global del portal o a nivel más concreto por una actividad concreta. Según cada tipo de patrocinio, se mostrarán más frecuentemente los anuncios relacionados en la parte derecha de las páginas generadas.
+    <ul type="none" style="padding-left:1.25em">
+      <li>* Patrocinadores globales del portal.</li>
+      <li>* Patrocinadores concretos de una actividad.</li>
+    </ul>
+    *** Los patrocinadores podrán ser usuarios del portal para poder hacer sus gestiones como anunciantes.
+  </li>
+  <br/>
+  
+  <li><strong>Registro y Acceso de Usuarios:</strong> Para que un usuario pueda colaborar en la web proporcionando nuevas actividades, valoraciones, comentarios, etc., deberá estar registrado y haber accedido a la aplicación como tal. 
+  Para ello se dispondrá de una gestión de usuarios y de un registro de cara al público para que puedan introducir sus datos de acceso y crearse como usuarios del sistema.
+  <br/>
+  *** En el acceso de usuarios existirá un control de intentos fallidos el cual servirá para bloquear a los usuarios que fallan el acceso un número predeterminado de intentos durante un intervalo de tiempo prefijado. En una primera instáncia se controlará en sesión el número de intentos fallidos (el límite se deberá configurar en la aplicación), y si se puede localizar al usuario en la base de datos, se tendrá el control con la fecha/hora del acceso y un contador de intentos fallidos. Cuando hay un acceso válido se almacenará la fecha/hora del momento y se establece el contador a cero y el de la sesión también. Cuando hay un acceso no válido, el contador de fallos en sesión se incrementa y si se localiza al usuario en la base de datos también se incrementa su contador y si es el primer fallo, se almacenará la fecha/hora del momento, pero si no lo es, se comprueba el número de intentos frente al límite de fallos predetermiado, el cual, si se supera, se bloquerá el acceso del usuario durante un intervalo de tiempo prefijado (configuración del sistema), el cual debe transcurrir antes de volver a permitir el acceso, para ello se calcula la diferencia de tiempo desde el primer acceso fallido hasta el momento del acceso actual y si se supera el intervalo configurado, se reinicia el contador a cero antes de seguir con el proceso de comprobación. De cada situación fallida se guardará un registro en un archivo de &quot;Log&quot; (o tabla en la base de datos) y se informará al usuario debidamente con los intentos pendientes antes de ser bloqueado o del tiempo restante antes de ser desbloqueado automáticamente. 
+  </li>
+  <br/>
+  
+  <li><strong>Perfil de Usuario:</strong> Un usuario registrado pasa a ser automáticamente colaborador del sitio, con lo que aparte de poder consultar todas las actividades disponibles, establecer sus preferencias, podrá agregar actividades, agregar comentarios y gestionarlos (según restricciones de administración), etc.
+    <ul>
+      <li><strong>Mi Perfil:</strong> Podrá mantener su propia ficha de registro de usuario, tanto de los datos básicos de acceso (cambio de contraseña, de cuenta de correo), los datos del perfil del usuario (identificación, localización, contacto, ...).
+      <br/>
+      *** El usuario tendrá la opción de poder solicitar la baja de su perfil enviando una incidencia al moderador o administrador del sitio con la solicitud. Este tipo de notas se gestionarán como cualquier aviso o incidencia del sistema, pero con un indicador de &quot;baja&quot;.
+      <br/>
+      *** El usuario tendrá la opción de poder enviar una nota (como una clase de alerta) al moderador o administrador del sitio para comentarle cualquier cuestión que le surja. Este tipo de notas se gestionarán como cualquier aviso o incidencia del sistema, pero con un indicador de &quot;nota&quot; o &quot;consulta&quot;.
+      </li>
+      
+      <li><strong>Avisos y Notificaciones:</strong> Será una sección donde el usuario podrá visualizar y gestionar (marcar/desmarcar como leídos) todos y cada uno de los avisos/notificaciones que le lleguen en función de las actividades que tenga en seguimiento u otro tipo de avisos del sistema.
+      </li>
+      
+      <li><strong>Actividades Creadas-Recomendadas:</strong> Será una sección donde el usuario podrá navegar/ver y/o gestionar las actividades que haya dado de alta él mismo en el sitio. La lista de actividades se visualizará de la forma más cómoda posible para poder filtrar en función del estado, de la fecha de creación, título, y cualquier otro dato que facilite la visualización.
+      <br/>
+      
+      
+      <li><strong>Actividades en Seguimiento:</strong> Será una sección donde el usuario podrá navegar/ver de una forma rápida las actividades en las que está interesado y ha activado el seguimiento (sobre las que recibirá avisos y notificaciones). Podrá desactivar el seguimiento en cualquier momento que lo desee, aunque de forma automática se desactivará cuando una actividad se marque como eliminada tras haber notificado al usuario adecuadamente.
+      </li>
+      
+      <li><strong>Categorías en Seguimiento:</strong> Sección donde el usuario podrá navegar y ver de una forma rápida las categorías en las que está interesado y ha activado el seguimiento (sobre las que recibirá avisos y notificaciones). Podrá desactivar el seguimiento en cualquier momento que lo desee, aunque de forma automática se desactivará cuando una categoría se marque como eliminada tras haber notificado al usuario adecuadamente.
+      </li>
+      
+      <li><strong>Actividades como Asistente:</strong> Será una sección donde el usuario podrá navegar/ver de una forma rápida las actividades a las que se haya apuntado como asistente (sobre las que recibirá avisos y notificaciones). Podrá cancelar su asistencia en cualquier momento que lo desee, aunque de forma automática se desactivará cuando se elimine el evento, bien manualmente o por un proceso automático de limpieza de datos.
+      </li>
+      
+      <li><strong>Valoraciones/Comentarios de Actividades:</strong> Sección desde donde el usuario podrá navegar/ver de una forma rápida aquellas actividades a las que ha añadido alguna valoración/comentario. Un comentario no podrá ser modificado una vez creado a menos que sea solicitado/activado por un moderador u administrador del sitio, ya que de lo contrario se podrían estar cambiando los comentarios sin control alguno. Además, para su correcta gestión, los comentarios almacenarán como mínimo la relación con la actividad, la fecha/hora de creación, el usuario que lo ha creado, la fecha/hora de la última modificación, el usuario que lo ha modificado (habitualmente el mismo que la crea), la valoración o puntuación, el texto del comentario y el comentario relacionado en caso de ser una respuesta a otro comentario.
+      </li>
+      
+      <li><strong>Alertas y Notas:</strong> Esta opción se mostrará cuando el usuario sea administrador o esté activado como moderador de una o varias categorías.
+      Será una sección donde se podrá navegar/ver y gestionar todos los avisos de denuncias recibidos de actividades, o denuncias de comentarios introducidos, o notas que los usuarios envían directamente a la administración del sitio, pero sólamente de la sección que modera.
+      En caso de que el usuario sea de tipo administrador del sitio, podrá ver todos los avisos.
+      <br/>
+      *** Esta sección quizá se deba separar en dos, una para la gestión de alertas sobre actividades y comentarios, y otra para la gestión de notas de los usuarios, pero quizá se pueda mantener en una única vista si se gestionan adecuadamente las relaciones entre las diferentes alertas y notas.
+      </li>
+    </ul>
+  </li>
+  <br/>
+  
+  <li><strong>Servicios Web:</strong> Las opciones CRUD de actividades y la consulta de notificaciones deberían poderse realizar mediante un API propio, el cual pueda ser usado desde aplicaciones externas o desde una aplicación web tipo SPI (Single Page Interface) compilada para dispositivos móviles. Dicho API debe servir para poder realizar las tareas propias de cualquier tipo de usuario registrado en el portal, a excepción del usuario administrador del sistema.
+  </li>
+  <br/>
+  
+</ul>
+</div>
+
+<hr/>
+<div class="titulo titulo3" style="margin:5mm;font-size:1.0em;font-weight:bold">Requerimientos para las partes privadas (Usuarios Normales, Usuarios Moderadores, Usuarios Patrocinadores, Usuarios Administradores):</div>
+<div style="text-align:justify;margin:0em">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*** En general se tendrán funciones básicas de Alta, Modificación, Baja, Consulta, Búsquedas/Filtrado.
+<ul>
+  <li><strong>Mantenimiento de Usuarios:</strong>
+  Crear usuarios bajo demanda por petición para ser patrocinadores (Anunciantes) o para ser moderadores o administradores. El resto serán usuarios que se registran ellos mismos. Se podrán revisar los nuevos usuarios registrados automáticamente, bloquear usuarios por exceso de actividades o de comentarios denunciados, desbloquear usuarios que han fallado el límite de intentos de acceso al sitio, ver el registro de fallos de acceso, eliminar registros antiguos de fallos de acceso, etc.
+  <br/>
+  *** En la gestión de usuarios colaboradores (Moderadores) se deberá tener en cuenta la opción de moderador de categorías para establecerlos, es decir, la relación de un moderador registrado con las etiquetas que se les permite moderar.
+  Como cada actividad estará relacionado con algún género, se podrá localizar todas las actividades y comentarios relacionados para que puedan ser moderados.
+  <br/>
+  *** En el detalle de la gestión de un usuario concreto, un administrador podrá ver la ficha con todas las opciones vinculadas con ese usuario, más o menos como se indica en el apartado &quot;Perfil de Usuario&quot;.
+  <br/>
+  *** Los roles disponibles estarán predefinidos de entre los indicados anteriormente.
+  </li>
+  <br/>
+  
+  <li><strong>Mantenimiento de Etiquetas/Categorías:</strong>
+  Poder gestionar la lista de etiquetas/categorías que sirven para clasificar las actividades. No se debería eliminar una categoría que esté siendo usado por alguna actividad. Se debería poder unificar categorías que se consideren como duplicadas o sean muy parecidas en su texto, aunque esta decisión correrá a cargo de un administrador siendo el proceso de unificación el que sustituirá todos los registros de datos que usan un género por el bueno.
+  <br/>
+  *** Las etiquetas/categorías pueden tener jerarquía para mejorar la clasificación, es decir, que una etiqueta contiene subetiquetas o a la inversa, que una etiqueta está contenida en una más general hasta llegar a la etiqueta raíz. Como una actividad estará asociada a una etiqueta, el funcionamiento de las búsquedas de actividades por este criterio debería incluir tanto a la categoría seleccionada como a las subactegorias que contenga, para así proporcionar datos más precisos sin perdernos posibles actividades.
+  <br/>
+  *** Un moderador asignado a una categoria podrá gestionar y moderar todas las actividades y comentarios asociados a cualquier subcategoría que contenga.
+  <br/>
+  *** A la hora de crear actividades, un usuario podrá proponer categorías nuevas si de entre las existentes no existe la adecuada para clasificarlo. Con esto se deberá tener un control de revisión de categorías nuevas para que los moderadores o administradores puedan detectarlas, revisarlas y actuar en consecuencia. Lo más oportuno es que al crear una categoria nueva, se genere un aviso de notificación para los moderadores o administradores avisando de lo ocurrido.
+  </li>
+  <br/>
+  
+  <li><strong>Mantenimiento de Actividades por Zona:</strong>
+  Un mantenimiento generalizado de actividades, similar al de actividades y prácticamente con las mismas funcionalidades.
+  </li>
+  <br/>
+
+  
+  <li><strong>Mantenimiento de Actividades:</strong>
+  Un mantenimiento generalizado de las actividades a nivel administrador, en la que se podrán ver y gestionar todas las existentes, incluso dar de alta o baja según se considere oportuno. En cada ficha concreta se podrán ver los datos de la actividad, tal y como se pueden gestionar desde un usuario normal, a excepción de algunas acciones que podrán realizarse de forma exclusiva por un administrador, como por ejemplo el bloqueo/desbloqueo de la actividad, etc.
+  <br/>
+  *** El mantenimiento de una actividad incluirá la posible vinculación con una o varias imágenes, una o varias URLs, uno o varios patrocinadores, la revisión-gestión de los usuarios que están siguiéndola actualmente, la revisión-gestión de las valoraciones y comentarios creados, la revisión-gestión de los usuarios asistentes, los posibles avisos/notificaciones/alertas de esa actividad, etc.
+  <br/>
+  *** <strong>Mantenimiento de Imágenes.</strong> 
+  <br/>
+  *** <strong>Mantenimiento de URLs.</strong> 
+  </li>
+  <br/>
+  
+  <li><strong>Mantenimiento de Comentarios y Valoraciones de Actividades:</strong>
+  Un mantenimiento generalizado de los comentarios hechos a las actividades a nivel administrador, en la que se podrán ver y gestionar todos los existentes, incluso dar de alta o baja según se considere oportuno. En cada ficha de comentario se podrán ver/mantener todos sus detalles y algunas acciones que podrán realizarse de forma exclusiva por un administrador, como por ejemplo el control de denuncias, el bloqueo/desbloqueo del comentario, el cierre del mismo para que no se pueda responder, etc.
+  <br/>
+  *** El mantenimiento de un comentario incluirá la posible vinculación con la actividad al que se refiere el comentario, al comentario &quot;padre&quot; al que se responde (si es una respuesta), a los comentarios &quot;hijo&quot; que tiene como respuesta, las posibles alertas del comentario, denuncias, etc.
+  </li>
+  <br/>
+  
+  <li><strong>Mantenimiento de Patrocinadores-Anunciantes:</strong>
+  Un mantenimiento de los usuarios que se registran o solicitan ser anunciantes / patrocinadores y tienen interés en gestionar los anuncios y/o actividades por su cuenta.
+  <br/>
+  *** Se crearán los patrocinadores a partir de usuarios registrados que hacen la solicitud de ser anunciante rellenando la ficha con sus datos adicionales, como por ejemplo su NIF, Razón Social, Correo, Teléfono, etc. Los administradores realizarán la aceptación del usuario como anunciante asignando el privilegio (Rol) asociado al usuario para que pueda realizar las acciones propias de dicho perfil.
+  <br/>
+  *** Se deberá permitir realizar una gestión más o menos completa de los anuncios y/o actividades que den de alta estos usuarios &quot;anunciantes&quot; y la información relacionada con ellos.
+  </li>
+  <br/>
+  
+  <li><strong>Mantenimiento de Anuncios:</strong>
+  Un mantenimiento de anuncios por parte de los patrocinadores (si son suyos), o por moderadores o administradores.
+  <br/>
+  *** Los anuncios tendrán al menos relación con el patrocinador-anunciante y de forma opcional con una actividad. Con estar posibles se pueden tener anuncios generales, de una actividad organizada con publicidad.
+  </li>
+  <br/>
+  
+  <li><strong>Mantenimiento de Avisos / Incidencias:</strong>
+  El mantenimiento generalizado de los avisos e incidencias a nivel administrador, en el que se podrán ver y gestionar todos los avisos existentes, incluso dar de alta o baja según se considere oportuno. En cada ficha de aviso se podrán ver los datos del mismo y algunas acciones adicionales para permitir revisar y dar respuesta al aviso desde el punto de vista de un moderador/administrador. En el caso de la vista con la versión para otros usuarios registrados, se podrá responder al mismo.
+  <br/>
+  *** El mantenimiento de un aviso incluirá la posible vinculación con el usuario origen y destino del mismo, con el anuncio, o actividad y/o comentario relacionado (si lo hay), la fecha/hora de lectura por el usuario destino, y la fecha/hora de aceptación por un moderador/administrador.
+  </li>
+  <br/>
+  
+  <li><strong>Mantenimiento de Registros (LOG): </strong>
+  Mantenimiento y visualización de los registro de LOG que se generen en el sistema, con posibilidad de poder exportar los registros en archivo de texto o de eliminar los registros que cumplan un filtro establecido. Además se deberá tener un proceso que permita eliminar automáticamente los registros &quot;anticuados&quot;.
+  </li>
+  <br/>
+  
+  <li><strong>Utilidades: </strong>
+    <ul>
+      <li>Procesos de limpieza de datos antiguos de logs.
+      </li>
+      <li>Configuración de parametros del sistema.
+      </li>
+      <li>Copia de seguridad del sistema
+      </li>
+    </ul>
+  </li>
+  <br/>
+  
+</ul>
+</div>
+
+<hr/>
+
+<div class="titulo titulo3" style="margin:5mm;font-size:1.0em;font-weight:bold">Requisitos de Información / Datos:</div>
+  <div style="text-align:justify;margin:0em">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*** Información y Datos que debe almacenar y manejar el sistema para proporcionar las funcionalidades indicadas en los requisitos.
+
+    <ul>
+
+      <li><strong>Actividad: </strong>
+        Elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Título,
+        Descripción,
+        Fecha de celebración,
+        Duración estimada,
+        Lugar de celebración,
+        Detalles (anotaciones relevantes sobre la actividad),
+        Notas. (anotaciones para uso interno),
+        Edad recomendada,
+        Votos OK (me gusta),
+        Votos KO (no me gusta),
+        Número máximo de participantes,
+        Número mínimo de participantes,
+        Número de reservas,
+        Número de participantes confirmados,
+        Contador de visitas a la página de la actividad
+      </li>
+      <br/>
+
+      <li><strong>Actividad_ubicación: </strong>
+        Tabla intermedia para relacionar las actividades con su ubicación.
+        Elemento con &rarr;
+        ActividadID (ID identificativo de la actividad),
+        UbicacionID (ID identificativo de la ubicación)
+      </li>
+      <br/>
+
+      <li><strong>Anuncio: </strong>
+        Elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Título,
+        Texto,
+        Registro de usuarios (contador de usuarios registrados),
+        Notas (anotaciones de uso interno)
+      </li>
+      <br/>
+
+      <li><strong>Anuncio_actividad: </strong>
+        Tabla intermedia para relacionar las actividades con sus anuncios.
+        Elemento con &rarr;
+        AnuncioID (ID identificativo del anuncio),
+        ActividadID (ID identificativo de la actividad)
+      </li>
+      <br/>
+
+      <li><strong>Clasificacion: </strong>
+        Elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Nombre,
+        Descripción,
+        Icono (ruta a la imagen dentro del servidor),
+        Clasificac  raíz,
+        ActividadID (ID de la actividad que a la que pertenece)
+      </li>
+      <br/>
+
+      <li><strong>Clasificación_actividad: </strong>
+        Tabla intermedia para relacionar las actividades con sus clasificación.
+        Elemento con &rarr;
+        ClasificacionID (ID identificativo de la clasificación),
+        ActividadID (ID identificativo de la actividad)
+      </li>
+      <br/>
+
+      <li><strong>Comentario: </strong>
+        Elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Texto,
+        Comentario relacionado (si responde a otro comentario),
+        Cerrado (indica si el comentario esta cerrado para seguir interactuando),
+        Número de denuncias del comentario,
+        Fecha de bloqueo del comentario,
+        Motivo del bloqueo,
+        UsuarioID (ID del usuario al que pertenece el comentario),
+        ActividadID (ID de la actividad a la que pertenece el comentario)
+      </li>
+      <br/>
+
+      <li><strong>Comentario_actividad: </strong>
+        Tabla intermedia para relacionar las actividades con sus comentarios.
+        Elemento con &rarr;
+        ComentarioID (ID identificativo del comentario),
+        ActividadID (ID identificativo de la actividad)
+      </li>
+      <br/>
+
+      <li><strong>Comentario_usuario: </strong>
+        Tabla intermedia para relacionar los usuarios con sus comentarios.
+        Elemento con &rarr;
+        ComentarioID (ID identificativo del comentario),
+        UsuarioID (ID identificativo del usuario)
+      </li>
+      <br/>
+
+      <li><strong>Crea: </strong>
+        Tabla para identificar las notificaciones con los usuarios que las crean.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        notificaciónID (ID identificativo de la notificación)
+      </li>
+      <br/>
+
+      <li><strong>Estado: </strong> 
+        Es un elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Terminada (indica si la actividad esta terminada),
+        Fecha de terminación,
+        Motivo de terminación,
+        Número de denuncias,
+        Fecha de la primera denuncia,
+        Bloqueada (indica si la actividad ha quedado bloqueada),
+        Fecha de bloqueo,
+        Motivo del bloqueo,
+        Notas (anotaciones de uso interno),
+        ActividadID (ID de la actividad a la que pertenece)
+      </li>
+      <br/>
+
+      <li><strong>Estado_actividad: </strong> 
+        Tabla intermedia para relacionar las actividades con su estado.
+        Elemento con &rarr;
+        EstadoID (ID identificativo del estado),
+        ActividadID (ID identificativo de la actividad)
+      </li>
+      <br/>
+
+      <li><strong>Etiquetas: </strong>
+        Es un elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Nombre,
+        Descripción
+      </li>
+      <br/>
+
+      <li><strong>Etiquetas_actividad: </strong>
+        Tabla intermedia para relacionar las actividades con sus etiquetas.
+        Elemento con &rarr;
+        EtiquetaID (ID identificativo de la etiqueta),
+        ActividadID (ID identificativo de la actividad)
+      </li>
+      <br/>
+
+      <li><strong>Historial: </strong>
+        Es un elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Fecha (fecha en que se produce la accion registrada),
+        Acción,
+        Notas (anotaciones de uso interno)
+      </li>
+      <br/>
+
+      <li><strong>Imagen: </strong>
+        Es un elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Titulo,
+        Descripción,
+        Nombre de archivo (ruta a la imagen dentor del servidor),
+        Extensión del fichero,
+        Notas (anotaciones de uso interno)
+      </li>
+      <br/>
+
+      <li><strong>Imagen_actividad: </strong>
+        Tabla intermedia para relacionar las actividades con sus imágenes.
+        Elemento con &rarr;
+        ImagenID (ID identificativo de la imagen),
+        ActividadID (ID identificativo de la actividad),
+        Orden (posición de la imágen en la serie de imágenes de la actividad)
+      </li>
+      <br/>
+
+      <li><strong>Notificación: </strong> 
+        Es un elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Fecha de la notificación,
+        Código de clase (clase a la que pertenece la notificación clasificado numéricamente),
+        Fecha de lectura,
+        Fecha de borrado,
+        Fecha de aceptación,
+        ActividadID (ID de la actividad a la que pertenece),
+        UsuarioID (ID del usuario al que pertenece),
+        UsuarioID2 (ID del usuario al que va dirigida),
+        Texto
+      </li>
+      <br/>
+
+      <li><strong>Participa: </strong>
+        Tabla para relacionar los usuarios que participan en alguna actividad. 
+        Es un elemento con &rarr;
+        UsuarioID (ID del usuario participante),
+        ActividadID (ID de la actividad en la que participa),
+        Fecha de inscripción,
+        Cancelado (indica si se ha cancelado o no la participación),
+        Fecha de cancelación,
+        Motivo de cancelación,
+        Notas (anotaciones de uso interno)
+      </li>
+      <br/>
+
+      <li><strong>Patrocina: </strong>
+        Tabla intermedia para relacionar las actividades con sus patrocinadores.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        AnuncioID (ID identificativo del anuncio)
+      </li>
+      <br/>
+
+      <li><strong>Recibe: </strong>
+        Tabla intermedia para relacionar las notificaciones con su destinatario.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        NotificacionID (ID identificativo de la notificación)
+      </li>
+      <br/>
+
+      <li><strong>Roles: </strong> 
+        Es un elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Nombre del rol,
+        Descripción
+      </li>
+      <br/>
+
+      <li><strong>Sigue: </strong> 
+        Tabla intermedia para relacionar los usuarios con las actividades que siguen.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        ActividadID (ID identificativo de la actividad),
+        Fecha de seguimiento
+      </li>
+      <br/>
+
+      <li><strong>Ubicación: </strong> 
+        Es un elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Clase de ubicación,
+        Ubicación raíz,
+        Notas (anotaciones de uso interno),
+        Dirección,
+        Notas de cómo llegar,
+        Notas de dónde aparcar
+      </li>
+      <br/>
+
+      <li><strong>Usuario: </strong> 
+        Es un elemento con &rarr;
+        ID (campo identificativo de la tupla),
+        Nick,
+        contraseña,
+        Email,
+        Nombre real,
+        Apellidos,
+        Fecha de nacimiento,
+        Activo (indica si está en línea),
+        Fecha de registro,
+        Registro confirmado (indica si se ha realizado la confirmación de cuenta),
+        Fecha de bloqueo,
+        Motivo de bloqueo,
+        Notas (anotaciones de uso interno)
+      </li>
+      <br/>
+
+      <li><strong>Usuario_comentario: </strong> 
+        Tabla intermedia para relacionar los usuarios con sus comentarios.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        ComentarioID (ID identificativo del comentario)
+      </li>
+      <br/>
+
+      <li><strong>Usuario_historial: </strong> 
+        Tabla intermedia para relacionar los usuarios con su historial.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        HistorialID (ID identificativo del historial)
+      </li>
+      <br/>
+
+      <li><strong>Usuario_imagen: </strong> 
+        Tabla intermedia para relacionar los usuarios con sus imágenes.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        ImagenID (ID identificativo de la imagen)
+      </li>
+      <br/>
+
+      <li><strong>Usuario_roles: </strong> 
+        Tabla intermedia para relacionar los usuarios con sus roles.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        RolesID (ID identificativo del rol)
+      </li>
+      <br/>
+
+      <li><strong>Usuario_ubicacion: </strong> 
+        Tabla intermedia para relacionar los usuarios con sus ubicaciones.
+        Elemento con &rarr;
+        UsuarioID (ID identificativo del usuario),
+        UbicacionID (ID identificativo de la ubicación)
+      </li>
+      <br/>
+      
+    </ul>
+  </div>
+  
+</div>
+
+</body>
+</html>
