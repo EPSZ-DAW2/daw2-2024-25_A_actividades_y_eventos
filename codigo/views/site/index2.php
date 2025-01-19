@@ -20,8 +20,8 @@ $this->title = 'Portada';
             </button>
 
 
-            <!-- Sidebar fijo pantallas grandes -->
-            <div id="sidebar" class="col-md-3 col-lg-2 bg-light sidebar position-fixed d-none d-md-block" style="top: 0; left: 0; bottom: 0; overflow-y: auto; height: 100vh; padding-top: 20px; padding-right: 15px; box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1); border-radius: 0 10px 10px 0; background-color: #f9f9f9;">
+            <!-- Slidebar fijo pantallas grandes -->
+            <div id="sidebar" class="col-md-3 col-lg-2 bg-light sidebar position-fixed d-none d-md-block" style="top: 0; left: 0; bottom: 0; overflow-y: auto; height: 520px; padding-top: 20px; padding-right: 15px; width: 278px; box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1); border-radius: 0 10px 10px 0; background-color: #f9f9f9;">
                 <div class="position-sticky mt-4">
                     <h5 class="text-center text-primary font-weight-bold mb-4" style="margin-top: 100px;">Actividades</h5>
                     <ul class="nav flex-column">
