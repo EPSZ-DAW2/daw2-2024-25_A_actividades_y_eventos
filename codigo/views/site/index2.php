@@ -184,7 +184,7 @@ $this->title = 'Portada';
                     <div class="carousel-inner">
                     <?php foreach ($imgActividades as $index => $imagen): ?>
                         <div class="carousel-item <?= $index === 0 ? 'active' : '' ?> size-carrusel">
-                            <a href="<?= isset($imagen['id']) ? Yii::$app->urlManager->createUrl(['actividades/actividad', 'id' => $imagen['actividad_id']]) : '#' ?>">
+                            <a href="<?= isset($imagen['id']) ? Yii::$app->urlManager->createUrl([Yii::$app->user->hasRole([Roles::MODERADOR, Roles::ADMINISTRADOR, Roles::SYSADMIN]) ? 'actividades/ver_actividad' : 'actividades/actividad', 'id' => $imagen['actividad_id']]) : '#' ?>">
                                 <img src="<?= Yii::getAlias('@web/images/actividades/' . Html::encode($imagen['nombre_Archivo'] . '.' . $imagen['extension'])) ?>"
                                     class="d-block w-100 fixed-size" 
                                     alt="Imagen <?= $index + 1 ?>"> 
